@@ -1,0 +1,27 @@
+{
+  "name": "tanstack-start-ssr",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tanstack/react-router": "^1.93.0",
+    "@tanstack/start": "^1.93.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vinxi": "^0.5.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2"
+  }
+}
