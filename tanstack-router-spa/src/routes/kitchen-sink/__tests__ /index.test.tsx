@@ -1,11 +1,11 @@
 import userEvent from '@testing-library/user-event';
+import { KitchenSinkPage } from '..';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
-import { KitchenSinkPage } from '..';
 
 describe('KitchenSinkPage', () => {
   it('Displays an error message if the name is too short', async () => {
