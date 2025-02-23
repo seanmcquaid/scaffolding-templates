@@ -12,7 +12,7 @@ import { getPostsQueryOptions, PostsQueryKeys } from '@/services/queries/posts';
 import { useToast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
 
-const ReactQueryPage = () => {
+export const ReactQueryPage = () => {
   const { t } = useAppTranslation();
   const { data, isLoading, isError } = useSuspenseQuery(getPostsQueryOptions());
   const queryClient = useQueryClient();

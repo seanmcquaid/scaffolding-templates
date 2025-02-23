@@ -3,7 +3,7 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { getPostQueryOptions } from '@/services/queries/posts';
 
-const ReactQueryPostPage = () => {
+export const ReactQueryPostPage = () => {
   const { id } = Route.useParams();
   const { data, isLoading, isError } = useSuspenseQuery(
     getPostQueryOptions(id),
@@ -11,7 +11,7 @@ const ReactQueryPostPage = () => {
 
   return (
     <PageWrapper isLoading={isLoading} isError={isError}>
-      <h1>{data?.title}</h1>
+      <h1 data-testid="postHeader">{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>
   );

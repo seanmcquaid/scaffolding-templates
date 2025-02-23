@@ -11,7 +11,9 @@ const viteConfig = defineViteConfig({
   plugins: [
     tailwindcss(),
     tsconfigPaths(),
-    TanStackRouterVite(),
+    TanStackRouterVite({
+      routeFileIgnorePattern: '.*\\.test\\.tsx',
+    }),
     react(),
     svgr(),
     checker({ typescript: true }),
