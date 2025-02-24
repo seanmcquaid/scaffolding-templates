@@ -27,8 +27,8 @@ importers:
         specifier: ^5.66.8
         version: 5.66.8(react@19.0.0)
       '@tanstack/react-query-next-experimental':
-        specifier: ^5.66.7
-        version: 5.66.7(@tanstack/react-query@5.66.8(react@19.0.0))(next@15.1.7(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        specifier: ^5.66.8
+        version: 5.66.8(@tanstack/react-query@5.66.8(react@19.0.0))(next@15.1.7(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       accept-language:
         specifier: ^3.0.20
         version: 3.0.20
@@ -1803,10 +1803,10 @@ packages:
       '@tanstack/react-query': ^5.66.8
       react: ^18 || ^19
 
-  '@tanstack/react-query-next-experimental@5.66.7':
-    resolution: {integrity: sha512-VZWTBY+jHxmI5GdxlvqCNyQdWxeiCSaw5DW3OgDDSr5QxYqxRFSkT+bYaBdgidU8kNEBaeEofHKKECXOMChY+A==}
+  '@tanstack/react-query-next-experimental@5.66.8':
+    resolution: {integrity: sha512-H+ch2CWoA5zPSFsYzoBvD62q/dwaVWfze9mniOht/ICXogikveXoTcZlMoMEwbs3gKhX5Guqk5liKKj3QtD50A==}
     peerDependencies:
-      '@tanstack/react-query': ^5.66.7
+      '@tanstack/react-query': ^5.66.8
       next: ^13 || ^14 || ^15
       react: ^18 || ^19
 
@@ -1874,6 +1874,9 @@ packages:
 
   '@types/node@22.13.4':
     resolution: {integrity: sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==}
+
+  '@types/node@22.13.5':
+    resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
 
   '@types/react-dom@19.0.4':
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
@@ -6447,7 +6450,7 @@ snapshots:
       '@tanstack/react-query': 5.66.8(react@19.0.0)
       react: 19.0.0
 
-  '@tanstack/react-query-next-experimental@5.66.7(@tanstack/react-query@5.66.8(react@19.0.0))(next@15.1.7(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
+  '@tanstack/react-query-next-experimental@5.66.8(@tanstack/react-query@5.66.8(react@19.0.0))(next@15.1.7(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@tanstack/react-query': 5.66.8(react@19.0.0)
       next: 15.1.7(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -6531,6 +6534,10 @@ snapshots:
   '@types/json5@0.0.29': {}
 
   '@types/node@22.13.4':
+    dependencies:
+      undici-types: 6.20.0
+
+  '@types/node@22.13.5':
     dependencies:
       undici-types: 6.20.0
 
@@ -8293,7 +8300,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.13.4
+      '@types/node': 22.13.5
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
