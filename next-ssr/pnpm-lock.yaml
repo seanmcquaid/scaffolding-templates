@@ -51,8 +51,8 @@ importers:
         specifier: ^1.7.5
         version: 1.7.5
       lucide-react:
-        specifier: ^0.476.0
-        version: 0.476.0(react@19.0.0)
+        specifier: ^0.477.0
+        version: 0.477.0(react@19.0.0)
       next:
         specifier: 15.2.0
         version: 15.2.0(@babel/core@7.26.7)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1874,6 +1874,9 @@ packages:
   '@types/node@22.13.5':
     resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
 
+  '@types/node@22.13.8':
+    resolution: {integrity: sha512-G3EfaZS+iOGYWLLRCEAXdWK9my08oHNZ+FHluRiggIYJPOXzhOiDgpVCUHaUvyIC5/fj7C/p637jdzC666AOKQ==}
+
   '@types/react-dom@19.0.4':
     resolution: {integrity: sha512-4fSQ8vWFkg+TGhePfUzVmat3eC14TXYSsiiDSLI0dVLsrm9gZFABjPy/Qu6TKgl1tq1Bu1yDsuQgY3A3DOjCcg==}
     peerDependencies:
@@ -3547,8 +3550,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@0.476.0:
-    resolution: {integrity: sha512-x6cLTk8gahdUPje0hSgLN1/MgiJH+Xl90Xoxy9bkPAsMPOUiyRSKR4JCDPGVCEpyqnZXH3exFWNItcvra9WzUQ==}
+  lucide-react@0.477.0:
+    resolution: {integrity: sha512-yCf7aYxerFZAbd8jHJxjwe1j7jEMPptjnaOqdYeirFnEy85cNR3/L+o0I875CYFYya+eEVzZSbNuRk8BZPDpVw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -6528,6 +6531,10 @@ snapshots:
     dependencies:
       undici-types: 6.20.0
 
+  '@types/node@22.13.8':
+    dependencies:
+      undici-types: 6.20.0
+
   '@types/react-dom@19.0.4(@types/react@19.0.10)':
     dependencies:
       '@types/react': 19.0.10
@@ -8285,7 +8292,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 22.13.5
+      '@types/node': 22.13.8
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -8491,7 +8498,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@0.476.0(react@19.0.0):
+  lucide-react@0.477.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
