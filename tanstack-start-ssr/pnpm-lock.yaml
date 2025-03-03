@@ -36,8 +36,8 @@ importers:
         specifier: ^1.112.0
         version: 1.112.0(@tanstack/react-query@5.66.11(react@19.0.0))(@tanstack/react-router@1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/start':
-        specifier: ^1.112.0
-        version: 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
+        specifier: ^1.112.3
+        version: 1.112.3(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1568,8 +1568,18 @@ packages:
     cpu: [arm]
     os: [android]
 
+  '@rollup/rollup-android-arm-eabi@4.34.9':
+    resolution: {integrity: sha512-qZdlImWXur0CFakn2BJ2znJOdqYZKiedEPEVNTBrpfPjc/YuTGcaYZcdmNFTkUj3DU0ZM/AElcM8Ybww3xVLzA==}
+    cpu: [arm]
+    os: [android]
+
   '@rollup/rollup-android-arm64@4.34.8':
     resolution: {integrity: sha512-Gigjz7mNWaOL9wCggvoK3jEIUUbGul656opstjaUSGC3eT0BM7PofdAJaBfPFWWkXNVAXbaQtC99OCg4sJv70Q==}
+    cpu: [arm64]
+    os: [android]
+
+  '@rollup/rollup-android-arm64@4.34.9':
+    resolution: {integrity: sha512-4KW7P53h6HtJf5Y608T1ISKvNIYLWRKMvfnG0c44M6In4DQVU58HZFEVhWINDZKp7FZps98G3gxwC1sb0wXUUg==}
     cpu: [arm64]
     os: [android]
 
@@ -1578,8 +1588,18 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@rollup/rollup-darwin-arm64@4.34.9':
+    resolution: {integrity: sha512-0CY3/K54slrzLDjOA7TOjN1NuLKERBgk9nY5V34mhmuu673YNb+7ghaDUs6N0ujXR7fz5XaS5Aa6d2TNxZd0OQ==}
+    cpu: [arm64]
+    os: [darwin]
+
   '@rollup/rollup-darwin-x64@4.34.8':
     resolution: {integrity: sha512-qIP/elwR/tq/dYRx3lgwK31jkZvMiD6qUtOycLhTzCvrjbZ3LjQnEM9rNhSGpbLXVJYQ3rq39A6Re0h9tU2ynw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@rollup/rollup-darwin-x64@4.34.9':
+    resolution: {integrity: sha512-eOojSEAi/acnsJVYRxnMkPFqcxSMFfrw7r2iD9Q32SGkb/Q9FpUY1UlAu1DH9T7j++gZ0lHjnm4OyH2vCI7l7Q==}
     cpu: [x64]
     os: [darwin]
 
@@ -1588,8 +1608,18 @@ packages:
     cpu: [arm64]
     os: [freebsd]
 
+  '@rollup/rollup-freebsd-arm64@4.34.9':
+    resolution: {integrity: sha512-2lzjQPJbN5UnHm7bHIUKFMulGTQwdvOkouJDpPysJS+QFBGDJqcfh+CxxtG23Ik/9tEvnebQiylYoazFMAgrYw==}
+    cpu: [arm64]
+    os: [freebsd]
+
   '@rollup/rollup-freebsd-x64@4.34.8':
     resolution: {integrity: sha512-TYXcHghgnCqYFiE3FT5QwXtOZqDj5GmaFNTNt3jNC+vh22dc/ukG2cG+pi75QO4kACohZzidsq7yKTKwq/Jq7Q==}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@rollup/rollup-freebsd-x64@4.34.9':
+    resolution: {integrity: sha512-SLl0hi2Ah2H7xQYd6Qaiu01kFPzQ+hqvdYSoOtHYg/zCIFs6t8sV95kaoqjzjFwuYQLtOI0RZre/Ke0nPaQV+g==}
     cpu: [x64]
     os: [freebsd]
 
@@ -1598,8 +1628,18 @@ packages:
     cpu: [arm]
     os: [linux]
 
+  '@rollup/rollup-linux-arm-gnueabihf@4.34.9':
+    resolution: {integrity: sha512-88I+D3TeKItrw+Y/2ud4Tw0+3CxQ2kLgu3QvrogZ0OfkmX/DEppehus7L3TS2Q4lpB+hYyxhkQiYPJ6Mf5/dPg==}
+    cpu: [arm]
+    os: [linux]
+
   '@rollup/rollup-linux-arm-musleabihf@4.34.8':
     resolution: {integrity: sha512-S0lqKLfTm5u+QTxlFiAnb2J/2dgQqRy/XvziPtDd1rKZFXHTyYLoVL58M/XFwDI01AQCDIevGLbQrMAtdyanpA==}
+    cpu: [arm]
+    os: [linux]
+
+  '@rollup/rollup-linux-arm-musleabihf@4.34.9':
+    resolution: {integrity: sha512-3qyfWljSFHi9zH0KgtEPG4cBXHDFhwD8kwg6xLfHQ0IWuH9crp005GfoUUh/6w9/FWGBwEHg3lxK1iHRN1MFlA==}
     cpu: [arm]
     os: [linux]
 
@@ -1608,8 +1648,18 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@rollup/rollup-linux-arm64-gnu@4.34.9':
+    resolution: {integrity: sha512-6TZjPHjKZUQKmVKMUowF3ewHxctrRR09eYyvT5eFv8w/fXarEra83A2mHTVJLA5xU91aCNOUnM+DWFMSbQ0Nxw==}
+    cpu: [arm64]
+    os: [linux]
+
   '@rollup/rollup-linux-arm64-musl@4.34.8':
     resolution: {integrity: sha512-KdSfaROOUJXgTVxJNAZ3KwkRc5nggDk+06P6lgi1HLv1hskgvxHUKZ4xtwHkVYJ1Rep4GNo+uEfycCRRxht7+Q==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@rollup/rollup-linux-arm64-musl@4.34.9':
+    resolution: {integrity: sha512-LD2fytxZJZ6xzOKnMbIpgzFOuIKlxVOpiMAXawsAZ2mHBPEYOnLRK5TTEsID6z4eM23DuO88X0Tq1mErHMVq0A==}
     cpu: [arm64]
     os: [linux]
 
@@ -1618,8 +1668,18 @@ packages:
     cpu: [loong64]
     os: [linux]
 
+  '@rollup/rollup-linux-loongarch64-gnu@4.34.9':
+    resolution: {integrity: sha512-dRAgTfDsn0TE0HI6cmo13hemKpVHOEyeciGtvlBTkpx/F65kTvShtY/EVyZEIfxFkV5JJTuQ9tP5HGBS0hfxIg==}
+    cpu: [loong64]
+    os: [linux]
+
   '@rollup/rollup-linux-powerpc64le-gnu@4.34.8':
     resolution: {integrity: sha512-LMJc999GkhGvktHU85zNTDImZVUCJ1z/MbAJTnviiWmmjyckP5aQsHtcujMjpNdMZPT2rQEDBlJfubhs3jsMfw==}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@rollup/rollup-linux-powerpc64le-gnu@4.34.9':
+    resolution: {integrity: sha512-PHcNOAEhkoMSQtMf+rJofwisZqaU8iQ8EaSps58f5HYll9EAY5BSErCZ8qBDMVbq88h4UxaNPlbrKqfWP8RfJA==}
     cpu: [ppc64]
     os: [linux]
 
@@ -1628,8 +1688,18 @@ packages:
     cpu: [riscv64]
     os: [linux]
 
+  '@rollup/rollup-linux-riscv64-gnu@4.34.9':
+    resolution: {integrity: sha512-Z2i0Uy5G96KBYKjeQFKbbsB54xFOL5/y1P5wNBsbXB8yE+At3oh0DVMjQVzCJRJSfReiB2tX8T6HUFZ2k8iaKg==}
+    cpu: [riscv64]
+    os: [linux]
+
   '@rollup/rollup-linux-s390x-gnu@4.34.8':
     resolution: {integrity: sha512-DdePVk1NDEuc3fOe3dPPTb+rjMtuFw89gw6gVWxQFAuEqqSdDKnrwzZHrUYdac7A7dXl9Q2Vflxpme15gUWQFA==}
+    cpu: [s390x]
+    os: [linux]
+
+  '@rollup/rollup-linux-s390x-gnu@4.34.9':
+    resolution: {integrity: sha512-U+5SwTMoeYXoDzJX5dhDTxRltSrIax8KWwfaaYcynuJw8mT33W7oOgz0a+AaXtGuvhzTr2tVKh5UO8GVANTxyQ==}
     cpu: [s390x]
     os: [linux]
 
@@ -1638,8 +1708,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@rollup/rollup-linux-x64-gnu@4.34.9':
+    resolution: {integrity: sha512-FwBHNSOjUTQLP4MG7y6rR6qbGw4MFeQnIBrMe161QGaQoBQLqSUEKlHIiVgF3g/mb3lxlxzJOpIBhaP+C+KP2A==}
+    cpu: [x64]
+    os: [linux]
+
   '@rollup/rollup-linux-x64-musl@4.34.8':
     resolution: {integrity: sha512-SCXcP0ZpGFIe7Ge+McxY5zKxiEI5ra+GT3QRxL0pMMtxPfpyLAKleZODi1zdRHkz5/BhueUrYtYVgubqe9JBNQ==}
+    cpu: [x64]
+    os: [linux]
+
+  '@rollup/rollup-linux-x64-musl@4.34.9':
+    resolution: {integrity: sha512-cYRpV4650z2I3/s6+5/LONkjIz8MBeqrk+vPXV10ORBnshpn8S32bPqQ2Utv39jCiDcO2eJTuSlPXpnvmaIgRA==}
     cpu: [x64]
     os: [linux]
 
@@ -1648,13 +1728,28 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  '@rollup/rollup-win32-arm64-msvc@4.34.9':
+    resolution: {integrity: sha512-z4mQK9dAN6byRA/vsSgQiPeuO63wdiDxZ9yg9iyX2QTzKuQM7T4xlBoeUP/J8uiFkqxkcWndWi+W7bXdPbt27Q==}
+    cpu: [arm64]
+    os: [win32]
+
   '@rollup/rollup-win32-ia32-msvc@4.34.8':
     resolution: {integrity: sha512-r3NRQrXkHr4uWy5TOjTpTYojR9XmF0j/RYgKCef+Ag46FWUTltm5ziticv8LdNsDMehjJ543x/+TJAek/xBA2w==}
     cpu: [ia32]
     os: [win32]
 
+  '@rollup/rollup-win32-ia32-msvc@4.34.9':
+    resolution: {integrity: sha512-KB48mPtaoHy1AwDNkAJfHXvHp24H0ryZog28spEs0V48l3H1fr4i37tiyHsgKZJnCmvxsbATdZGBpbmxTE3a9w==}
+    cpu: [ia32]
+    os: [win32]
+
   '@rollup/rollup-win32-x64-msvc@4.34.8':
     resolution: {integrity: sha512-U0FaE5O1BCpZSeE6gBl3c5ObhePQSfk9vDRToMmTkbhCOgW4jqvtS5LGyQ76L1fH8sM0keRp4uDTsbjiUyjk0g==}
+    cpu: [x64]
+    os: [win32]
+
+  '@rollup/rollup-win32-x64-msvc@4.34.9':
+    resolution: {integrity: sha512-AyleYRPU7+rgkMWbEh71fQlrzRfeP6SyMnRf9XX4fCdDPAJumdSBqYEcWPMzVQ4ScAl7E4oFfK0GUVn77xSwbw==}
     cpu: [x64]
     os: [win32]
 
@@ -1887,12 +1982,12 @@ packages:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
 
-  '@tanstack/react-start-api-routes@1.112.0':
-    resolution: {integrity: sha512-RbJhnnoSc7eyQtcibppf3N069aRWRsViknPeZt/OEypOSKPPPhZzkdTRxfTuJIQHFbYhErDVS/KOXPysdBH3rg==}
+  '@tanstack/react-start-api-routes@1.112.1':
+    resolution: {integrity: sha512-eUKWPjAvgZgWsCtZBaHP/f9Vy4HeWoW+9t/sSwFZRqxEAYUgVSs5yZit779SNdFeioUy/PWHNs/JzhVjP1dMdA==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-start-client@1.112.0':
-    resolution: {integrity: sha512-19CAB1NBizqerC9azmOP75KCqUaiQGN+5hn/imCIQi5qVjGQ/tQTSZ5hy2HD4Bdb19jNQgXZ1EhPZ+bCQXf1zQ==}
+  '@tanstack/react-start-client@1.112.1':
+    resolution: {integrity: sha512-tGe7GOqPgFLYGrL6VxBZgFIevIWz/z8GHaWASF395kVBFrcMdy2+XOeQmVBW5/9rtYN0+Ep8tQoCmLZlsOdFsQ==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
@@ -1906,30 +2001,30 @@ packages:
     resolution: {integrity: sha512-xmKIM2qxZQsAz40Q894hVBD3rBds6fOGCrRi5sWdljeA8oPVtNJ/Nub5GJMug6a4D9AWlggP3bWVRjAmpS87Rw==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-start-server-functions-client@1.112.0':
-    resolution: {integrity: sha512-jpPydf7TiW14LQ8XDi19Wy+VcngqTCDVoMKvVayrGUwG1d9cNSTykdwVJhL3yDB8KyyPeIjyI0R1FIH1n8vmOQ==}
+  '@tanstack/react-start-server-functions-client@1.112.1':
+    resolution: {integrity: sha512-yXeW7+s51ITO818I6DWlmShGTEwxZEdBY8inpmX9eNqiy8FB/nfZCXgEW4cg9lcNrQmGaKBAt44OlhJ7FywVAg==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-start-server-functions-fetcher@1.112.0':
-    resolution: {integrity: sha512-l6SjLNOYpouKeRcOU3dUc2M8smYB9XemuPTSBK2mBE4EXzzJdY3kv5rTZj3//uVuJsoO69gGa/+mzlBW1Av/Vg==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      react: '>=18.0.0 || >=19.0.0'
-      react-dom: '>=18.0.0 || >=19.0.0'
-
-  '@tanstack/react-start-server-functions-handler@1.112.0':
-    resolution: {integrity: sha512-m5JS7qEfBz6qSLjLPnuR8gKh4xGzpvp6VOwrEw27yyYezRSS9Ytj6fPHbwV3Xdp910q//LgJRqm+ptbwbjEoLQ==}
+  '@tanstack/react-start-server-functions-fetcher@1.112.1':
+    resolution: {integrity: sha512-eJeU9kYNXgkkMGRmBBoQjaF1Bm2UAfmQmaPULYuJF3vYU4+Xd1rvpbab7mRpaSzunLGl7Z33LOvJ/2hpeAk2+Q==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
 
-  '@tanstack/react-start-server-functions-ssr@1.112.0':
-    resolution: {integrity: sha512-aF/qrTYDbKXb6jaJcNh8Lpu0GDwa7TZS6oG21P7ViejdusU/1Hno1udkCj++CaB3hfE0fQAfnt0wV+KYIKE5tA==}
+  '@tanstack/react-start-server-functions-handler@1.112.1':
+    resolution: {integrity: sha512-8OpBkw2KDFpHItxqNFMWdJgSNeM8UUhBYfN1eac4J/ejlXB4sVKAWGDGsOLmpXARwEg1JQqWKtNYw1clPpEkqQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=18.0.0 || >=19.0.0'
+      react-dom: '>=18.0.0 || >=19.0.0'
+
+  '@tanstack/react-start-server-functions-ssr@1.112.1':
+    resolution: {integrity: sha512-f1nT7IlKR0p9QyVXPd2MSadTVyjtTVMbKQcJIICOS3GA3BSOiZosNADUFN1Pqawd8OeEuz6FOxfX4xnUQffzlA==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-start-server@1.112.0':
-    resolution: {integrity: sha512-qgSoJPee0w5jSkg+BO5LBuKqDihMohILt6cw0LOXrIUMfy3PvlVtqG0LaJaJb539L92Lq6xkk7vnxtzvrfUKrA==}
+  '@tanstack/react-start-server@1.112.1':
+    resolution: {integrity: sha512-yWZEoF5UBJtfhHB1/04m/bssD2neoSAKVITZr16QBAeQNXeDNJDodN4WjtBS4xssiFJQsdKxmYRnvgb0GEalGw==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
@@ -1995,8 +2090,8 @@ packages:
     resolution: {integrity: sha512-V1UzMXNGO7igH/Dk6cDRw6V3VM8TbJca+UEUrdV/J7M3jLMfMr5BoASmoKdWmTvrRsML8F1CFKsv6XdrG5c8LA==}
     engines: {node: '>=12'}
 
-  '@tanstack/start-config@1.112.0':
-    resolution: {integrity: sha512-9pZ3Y+92aWk3dXdBMi4gVrx0xWCUO9fdzMEkyg19U4HKCw7Bp4GedwhfOEFMHMW16YiVLmbK0AMfaY846Xvf4w==}
+  '@tanstack/start-config@1.112.3':
+    resolution: {integrity: sha512-HA/aiKWOJvfo2jYEA4Wth8YByELTQf8jGT6IrOrC4w9I4rD36upNt52TpH9IhgQfYMriOUFTnYowk/UOHofcjA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=18.0.0 || >=19.0.0'
@@ -2007,8 +2102,8 @@ packages:
     resolution: {integrity: sha512-XZSaJlj5zmxSDDoV0qP89aTHXiH28vYpNMsPSzk4L/Q4dd7rSSExG8heRks0XlsWzhNVM0WSKB3H5zDJ6in0KQ==}
     engines: {node: '>=12'}
 
-  '@tanstack/start@1.112.0':
-    resolution: {integrity: sha512-Rht84IFMxsWcIj6dcfSxcgaDP/pLi5FBpYYlwNES/79maFNwGtILN7d3MvwPsiLVTAMpyvcsrlI+WF4Ow6cNBQ==}
+  '@tanstack/start@1.112.3':
+    resolution: {integrity: sha512-W+KI7nWB+sFz2QuDv9sbbxcwr+i0bBvA3nwT7KxcgFLXYOKWVjcF9JznAJxqdWtqAQT4VMYW2tn4pSd7UxK15g==}
     engines: {node: '>=12'}
 
   '@tanstack/store@0.7.0':
@@ -5128,6 +5223,11 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
+  rollup@4.34.9:
+    resolution: {integrity: sha512-nF5XYqWWp9hx/LrpC8sZvvvmq0TeTjQgaZHYmAgwysT9nh8sWnZhBnM8ZyVbbJFIQBLwHDNoMqsBZBbUo4U8sQ==}
+    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
+    hasBin: true
+
   rrweb-cssom@0.8.0:
     resolution: {integrity: sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==}
 
@@ -7380,58 +7480,115 @@ snapshots:
   '@rollup/rollup-android-arm-eabi@4.34.8':
     optional: true
 
+  '@rollup/rollup-android-arm-eabi@4.34.9':
+    optional: true
+
   '@rollup/rollup-android-arm64@4.34.8':
+    optional: true
+
+  '@rollup/rollup-android-arm64@4.34.9':
     optional: true
 
   '@rollup/rollup-darwin-arm64@4.34.8':
     optional: true
 
+  '@rollup/rollup-darwin-arm64@4.34.9':
+    optional: true
+
   '@rollup/rollup-darwin-x64@4.34.8':
+    optional: true
+
+  '@rollup/rollup-darwin-x64@4.34.9':
     optional: true
 
   '@rollup/rollup-freebsd-arm64@4.34.8':
     optional: true
 
+  '@rollup/rollup-freebsd-arm64@4.34.9':
+    optional: true
+
   '@rollup/rollup-freebsd-x64@4.34.8':
+    optional: true
+
+  '@rollup/rollup-freebsd-x64@4.34.9':
     optional: true
 
   '@rollup/rollup-linux-arm-gnueabihf@4.34.8':
     optional: true
 
+  '@rollup/rollup-linux-arm-gnueabihf@4.34.9':
+    optional: true
+
   '@rollup/rollup-linux-arm-musleabihf@4.34.8':
+    optional: true
+
+  '@rollup/rollup-linux-arm-musleabihf@4.34.9':
     optional: true
 
   '@rollup/rollup-linux-arm64-gnu@4.34.8':
     optional: true
 
+  '@rollup/rollup-linux-arm64-gnu@4.34.9':
+    optional: true
+
   '@rollup/rollup-linux-arm64-musl@4.34.8':
+    optional: true
+
+  '@rollup/rollup-linux-arm64-musl@4.34.9':
     optional: true
 
   '@rollup/rollup-linux-loongarch64-gnu@4.34.8':
     optional: true
 
+  '@rollup/rollup-linux-loongarch64-gnu@4.34.9':
+    optional: true
+
   '@rollup/rollup-linux-powerpc64le-gnu@4.34.8':
+    optional: true
+
+  '@rollup/rollup-linux-powerpc64le-gnu@4.34.9':
     optional: true
 
   '@rollup/rollup-linux-riscv64-gnu@4.34.8':
     optional: true
 
+  '@rollup/rollup-linux-riscv64-gnu@4.34.9':
+    optional: true
+
   '@rollup/rollup-linux-s390x-gnu@4.34.8':
+    optional: true
+
+  '@rollup/rollup-linux-s390x-gnu@4.34.9':
     optional: true
 
   '@rollup/rollup-linux-x64-gnu@4.34.8':
     optional: true
 
+  '@rollup/rollup-linux-x64-gnu@4.34.9':
+    optional: true
+
   '@rollup/rollup-linux-x64-musl@4.34.8':
+    optional: true
+
+  '@rollup/rollup-linux-x64-musl@4.34.9':
     optional: true
 
   '@rollup/rollup-win32-arm64-msvc@4.34.8':
     optional: true
 
+  '@rollup/rollup-win32-arm64-msvc@4.34.9':
+    optional: true
+
   '@rollup/rollup-win32-ia32-msvc@4.34.8':
     optional: true
 
+  '@rollup/rollup-win32-ia32-msvc@4.34.9':
+    optional: true
+
   '@rollup/rollup-win32-x64-msvc@4.34.8':
+    optional: true
+
+  '@rollup/rollup-win32-x64-msvc@4.34.9':
     optional: true
 
   '@rtsao/scc@1.1.0': {}
@@ -7684,9 +7841,9 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  '@tanstack/react-start-api-routes@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-api-routes@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
-      '@tanstack/react-start-server': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/router-core': 1.112.0
       vinxi: 0.5.3(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
     transitivePeerDependencies:
@@ -7734,7 +7891,7 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-client@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-client@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@tanstack/react-router': 1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/router-core': 1.112.0
@@ -7863,9 +8020,9 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-server-functions-client@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-server-functions-client@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
-      '@tanstack/react-start-server-functions-fetcher': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-fetcher': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/server-functions-plugin': 1.111.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -7913,10 +8070,10 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-server-functions-fetcher@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-server-functions-fetcher@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@tanstack/react-router': 1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-start-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/router-core': 1.112.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -7963,11 +8120,11 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-server-functions-handler@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-server-functions-handler@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@tanstack/react-router': 1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-start-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       tiny-invariant: 1.3.3
@@ -8014,11 +8171,11 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-server-functions-ssr@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-server-functions-ssr@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
-      '@tanstack/react-start-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server-functions-fetcher': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-fetcher': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/server-functions-plugin': 1.111.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0)
       tiny-invariant: 1.3.3
     transitivePeerDependencies:
@@ -8067,11 +8224,11 @@ snapshots:
       - xml2js
       - yaml
 
-  '@tanstack/react-start-server@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
+  '@tanstack/react-start-server@1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)':
     dependencies:
       '@tanstack/history': 1.99.13
       '@tanstack/react-router': 1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@tanstack/react-start-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/router-core': 1.112.0
       h3: 1.13.0
       isbot: 5.1.23
@@ -8214,11 +8371,11 @@ snapshots:
       - tsx
       - yaml
 
-  '@tanstack/start-config@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)':
+  '@tanstack/start-config@1.112.3(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)':
     dependencies:
       '@tanstack/react-router': 1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/react-start-plugin': 1.111.10(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0)
-      '@tanstack/react-start-server-functions-handler': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-handler': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/router-generator': 1.112.3(@tanstack/react-router@1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@tanstack/router-plugin': 1.112.3(@tanstack/react-router@1.112.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))
       '@tanstack/server-functions-plugin': 1.111.2(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0)
@@ -8297,16 +8454,16 @@ snapshots:
       - tsx
       - yaml
 
-  '@tanstack/start@1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)':
+  '@tanstack/start@1.112.3(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)':
     dependencies:
-      '@tanstack/react-start-api-routes': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-api-routes': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
       '@tanstack/react-start-router-manifest': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server-functions-client': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server-functions-handler': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/react-start-server-functions-ssr': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
-      '@tanstack/start-config': 1.112.0(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
+      '@tanstack/react-start-server': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-client': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-handler': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/react-start-server-functions-ssr': 1.112.1(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(yaml@2.7.0)
+      '@tanstack/start-config': 1.112.3(@types/node@22.13.8)(db0@0.2.3)(ioredis@5.5.0)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.38.1)(tsx@4.19.3)(typescript@5.7.3)(vite@6.2.0(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0))(yaml@2.7.0)
       '@tanstack/start-server-functions-server': 1.111.10(@types/node@22.13.8)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.1)(tsx@4.19.3)(yaml@2.7.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -11877,6 +12034,31 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.34.8
       fsevents: 2.3.3
 
+  rollup@4.34.9:
+    dependencies:
+      '@types/estree': 1.0.6
+    optionalDependencies:
+      '@rollup/rollup-android-arm-eabi': 4.34.9
+      '@rollup/rollup-android-arm64': 4.34.9
+      '@rollup/rollup-darwin-arm64': 4.34.9
+      '@rollup/rollup-darwin-x64': 4.34.9
+      '@rollup/rollup-freebsd-arm64': 4.34.9
+      '@rollup/rollup-freebsd-x64': 4.34.9
+      '@rollup/rollup-linux-arm-gnueabihf': 4.34.9
+      '@rollup/rollup-linux-arm-musleabihf': 4.34.9
+      '@rollup/rollup-linux-arm64-gnu': 4.34.9
+      '@rollup/rollup-linux-arm64-musl': 4.34.9
+      '@rollup/rollup-linux-loongarch64-gnu': 4.34.9
+      '@rollup/rollup-linux-powerpc64le-gnu': 4.34.9
+      '@rollup/rollup-linux-riscv64-gnu': 4.34.9
+      '@rollup/rollup-linux-s390x-gnu': 4.34.9
+      '@rollup/rollup-linux-x64-gnu': 4.34.9
+      '@rollup/rollup-linux-x64-musl': 4.34.9
+      '@rollup/rollup-win32-arm64-msvc': 4.34.9
+      '@rollup/rollup-win32-ia32-msvc': 4.34.9
+      '@rollup/rollup-win32-x64-msvc': 4.34.9
+      fsevents: 2.3.3
+
   rrweb-cssom@0.8.0: {}
 
   run-parallel@1.2.0:
@@ -12761,7 +12943,7 @@ snapshots:
     dependencies:
       esbuild: 0.24.2
       postcss: 8.5.3
-      rollup: 4.34.8
+      rollup: 4.34.9
     optionalDependencies:
       '@types/node': 22.13.8
       fsevents: 2.3.3
