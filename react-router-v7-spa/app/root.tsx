@@ -18,10 +18,30 @@ import queryClient from './services/queries/queryClient';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
 import type { Route } from './+types/root';
+import env from './env';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
+
+const clientLogger: Route.unstable_ClientMiddlewareFunction = async (
+  { request },
+  next,
+) => {
+  const start = performance.now();
+
+  // Run the remaining middlewares and all route loaders
+  await next();
+
+  if (env.VITE_APP_ENVIRONMENT !== 'dev') {
+    return;
+  }
+
+  const duration = performance.now() - start;
+  console.log(`Navigated to ${request.url} (${duration}ms)`);
+};
+
+export const unstable_clientMiddleware = [clientLogger];
 
 export function Layout({ children }: PropsWithChildren) {
   const navigation = useNavigation();
