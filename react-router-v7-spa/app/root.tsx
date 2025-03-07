@@ -7,6 +7,7 @@ import {
   useRouteError,
   useNavigation,
   ScrollRestoration,
+  unstable_createContext,
 } from 'react-router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -23,6 +24,9 @@ import env from './env';
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
+
+// Set example context
+const userContext = unstable_createContext<{}>();
 
 const clientLogger: Route.unstable_ClientMiddlewareFunction = async (
   { request },
