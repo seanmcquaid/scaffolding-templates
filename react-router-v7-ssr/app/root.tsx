@@ -22,10 +22,53 @@ import LoadingOverlay from './components/ui/LoadingOverlay';
 import i18next from './i18n/i18next.server';
 import setAcceptLanguageHeaders from './i18n/setAcceptLanguageHeaders.server';
 import type { Route } from './+types/root';
+import clientEnv from './env.client';
+import serverEnv from './env.server';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
+
+const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
+  { request },
+  next,
+) => {
+  const start = performance.now();
+
+  // Run the remaining middlewares and all route loaders
+  await next();
+
+  if (clientEnv.VITE_APP_ENVIRONMENT !== 'dev') {
+    return;
+  }
+
+  const duration = performance.now() - start;
+  console.log(`Navigated to ${request.url} (${duration}ms)`);
+};
+
+export const unstable_clientMiddleware = [clientLoggerMiddleware];
+
+const serverLoggerMiddleware: Route.unstable_MiddlewareFunction = async (
+  { request },
+  next,
+) => {
+  const start = performance.now();
+
+  // 👇 Grab the response here
+  const res = await next();
+
+  if (serverEnv.VITE_APP_ENVIRONMENT !== 'dev') {
+    return res;
+  }
+
+  const duration = performance.now() - start;
+  console.log(`Navigated to ${request.url} (${duration}ms)`);
+
+  // 👇 And return it here (optional if you don't modify the response)
+  return res;
+};
+
+export const unstable_middleware = [serverLoggerMiddleware];
 
 export async function loader({ request }: Route.LoaderArgs) {
   setAcceptLanguageHeaders(request);
