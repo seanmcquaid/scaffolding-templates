@@ -14,14 +14,17 @@ const viteConfig = defineViteConfig({
     tsconfigPaths(),
     reactRouterDevTools(),
     !process.env.VITEST && reactRouter(),
-    babel({
-      filter: /\.[jt]sx?$/,
-      babelConfig: {
-        presets: ['@babel/preset-typescript'],
-        plugins: ['babel-plugin-react-compiler'],
-      },
-      apply: 'build',
-    }),
+    // Run the react-compiler on .tsx files only when bundling
+    {
+      ...babel({
+        filter: /\.[jt]sx?$/,
+        babelConfig: {
+          presets: ['@babel/preset-typescript'],
+          plugins: ['babel-plugin-react-compiler'],
+        },
+        apply: 'build',
+      }),
+    },
     svgr(),
     checker({ typescript: true }),
   ],
