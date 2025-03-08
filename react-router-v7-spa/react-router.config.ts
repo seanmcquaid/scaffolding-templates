@@ -11,5 +11,6 @@ export default {
   future: {
     unstable_middleware: true,
     unstable_splitRouteModules: true,
+    unstable_optimizeDeps: true,
   },
 } satisfies Config;
