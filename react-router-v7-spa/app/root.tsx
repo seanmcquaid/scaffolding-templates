@@ -18,7 +18,6 @@ import queryClient from './services/queries/queryClient';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
 import type { Route } from './+types/root';
-import env from './env';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -33,7 +32,7 @@ const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
   // Run the remaining middlewares and all route loaders
   await next();
 
-  if (env.VITE_APP_ENVIRONMENT !== 'dev') {
+  if (import.meta.env.VITE_APP_ENVIRONMENT !== 'dev') {
     return;
   }
 
