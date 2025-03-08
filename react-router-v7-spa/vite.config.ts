@@ -20,6 +20,7 @@ const viteConfig = defineViteConfig({
         presets: ['@babel/preset-typescript'],
         plugins: ['babel-plugin-react-compiler'],
       },
+      apply: 'build',
     }),
     svgr(),
     checker({ typescript: true }),
