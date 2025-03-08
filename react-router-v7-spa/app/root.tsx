@@ -7,7 +7,6 @@ import {
   useRouteError,
   useNavigation,
   ScrollRestoration,
-  unstable_createContext,
 } from 'react-router';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -25,10 +24,7 @@ export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
 ];
 
-// Set example context
-const userContext = unstable_createContext<{}>();
-
-const clientLogger: Route.unstable_ClientMiddlewareFunction = async (
+const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
   { request },
   next,
 ) => {
@@ -45,7 +41,7 @@ const clientLogger: Route.unstable_ClientMiddlewareFunction = async (
   console.log(`Navigated to ${request.url} (${duration}ms)`);
 };
 
-export const unstable_clientMiddleware = [clientLogger];
+export const unstable_clientMiddleware = [clientLoggerMiddleware];
 
 export function Layout({ children }: PropsWithChildren) {
   const navigation = useNavigation();
