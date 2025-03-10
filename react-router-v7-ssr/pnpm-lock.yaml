@@ -75,8 +75,8 @@ importers:
         specifier: ^7.3.0
         version: 7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       remix-i18next:
-        specifier: ^7.0.2
-        version: 7.0.2(i18next@24.2.2(typescript@5.7.3))(react-i18next@15.4.1(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        specifier: ^7.1.0
+        version: 7.1.0(i18next@24.2.2(typescript@5.7.3))(react-i18next@15.4.1(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.0.2
@@ -745,6 +745,7 @@ packages:
   '@faker-js/faker@9.5.1':
     resolution: {integrity: sha512-0fzMEDxkExR2cn731kpDaCCnBGBUOIXEi2S1N5l8Hltp6aPf4soTMJ+g4k8r2sI5oB+rpwIW8Uy/6jkwGpnWPg==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+    deprecated: Please update to a newer version
 
   '@floating-ui/core@1.6.9':
     resolution: {integrity: sha512-uMXCuQ3BItDUbAMhIXw7UPXRfAlOAvZzdK9BWpE60MCn+Svt3aLn9jsPTi/WNGlRUu2uI0v5S7JiIUsbsvh3fw==}
@@ -4469,8 +4470,8 @@ packages:
     engines: {node: '>=16.6.0'}
     hasBin: true
 
-  remix-i18next@7.0.2:
-    resolution: {integrity: sha512-mfqbEdB76KgJo3f1+2FJBtoI5VMrq6zLKt+aYpCBeycsj7njafkDYRQ6SVzUYAES8EyT6gNd45agmhr8H10VmQ==}
+  remix-i18next@7.1.0:
+    resolution: {integrity: sha512-4v6z+uvG7FrfWTyZZA3geckRI9YlGIp7JE3TK9cGDwu1P9Kksp45azEoAKPlsCA2FkOWykQPzSY8ZZO+QI1wZw==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       i18next: ^24.0.0
@@ -9988,7 +9989,7 @@ snapshots:
       fs-extra: 11.3.0
       minimatch: 10.0.1
 
-  remix-i18next@7.0.2(i18next@24.2.2(typescript@5.7.3))(react-i18next@15.4.1(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
+  remix-i18next@7.1.0(i18next@24.2.2(typescript@5.7.3))(react-i18next@15.4.1(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-router@7.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
     dependencies:
       i18next: 24.2.2(typescript@5.7.3)
       react: 19.0.0
