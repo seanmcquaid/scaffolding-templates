@@ -36,6 +36,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@anatine/zod-mock": "^3.13.5",
     "@eslint/compat": "^1.2.7",
     "@eslint/js": "^9.22.0",
     "@next/eslint-plugin-next": "^15.2.2",
@@ -44,6 +45,7 @@
     "@tanstack/react-query-devtools": "^5.68.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.13.10",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
@@ -68,12 +70,15 @@
     "is-ci": "^4.1.0",
     "jsdom": "^26.0.0",
     "lint-staged": "^15.5.0",
+    "msw": "^2.7.3",
+    "next-router-mock": "^0.9.13",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.14",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.26.1",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.8"
   },
   "engines": {

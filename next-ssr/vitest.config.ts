@@ -1,10 +1,10 @@
-import * as path from 'path';
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsconfigPaths()],
   test: {
     mockReset: true,
     environment: 'jsdom',
@@ -35,11 +35,6 @@ export default defineConfig({
         'src/app/layout.tsx',
         'src/constants',
       ],
-    },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
     },
   },
 });
