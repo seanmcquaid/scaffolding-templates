@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import {
   useMutation,
   useQueryClient,
@@ -12,7 +12,7 @@ import { getPostsQueryOptions, PostsQueryKeys } from '@/services/queries/posts';
 import { useToast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
 
-const ReactQueryPage = () => {
+export const ReactQueryPage = () => {
   const { t } = useAppTranslation();
   const { data, isLoading, isError } = useSuspenseQuery(getPostsQueryOptions());
   const queryClient = useQueryClient();
@@ -57,6 +57,6 @@ const ReactQueryPage = () => {
   );
 };
 
-export const Route = createFileRoute('/react-query/')({
+export const Route = createLazyFileRoute('/react-query/')({
   component: ReactQueryPage,
 });

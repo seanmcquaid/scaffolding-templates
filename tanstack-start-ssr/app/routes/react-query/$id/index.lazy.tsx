@@ -1,9 +1,9 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { getPostQueryOptions } from '@/services/queries/posts';
 
-const ReactQueryPostPage = () => {
+export const ReactQueryPostPage = () => {
   const { id } = Route.useParams();
   const { data, isLoading, isError } = useSuspenseQuery(
     getPostQueryOptions(id),
@@ -17,6 +17,6 @@ const ReactQueryPostPage = () => {
   );
 };
 
-export const Route = createFileRoute('/react-query/$id/')({
+export const Route = createLazyFileRoute('/react-query/$id/')({
   component: ReactQueryPostPage,
 });

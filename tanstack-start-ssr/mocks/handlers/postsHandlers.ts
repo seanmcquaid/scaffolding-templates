@@ -12,3 +12,8 @@ export const getPostByIdHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts/:id',
   () => HttpResponse.json(generateMock(postSchema)),
 );
+
+export const deletePostByIdHandler = http.delete(
+  'https://jsonplaceholder.typicode.com/posts/:id',
+  () => HttpResponse.json([]),
+);

@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createLazyFileRoute } from '@tanstack/react-router';
 import { Input } from '@/components/ui/Input';
 import PageWrapper from '@/components/app/PageWrapper';
 
@@ -22,18 +22,15 @@ const formDataSchema = z
     path: ['confirmPassword'],
   });
 
-type FormData = z.infer<typeof formDataSchema>;
-
-const resolver = zodResolver(formDataSchema);
-
-const ReactHookFormZod = () => {
+export const ReactHookFormZodPage = () => {
   const {
     register,
     formState: { errors },
-  } = useForm<FormData>({
-    mode: 'onBlur',
-    resolver,
+  } = useForm<z.infer<typeof formDataSchema>>({
+    mode: 'all',
+    resolver: zodResolver(formDataSchema),
   });
+
   return (
     <PageWrapper>
       <form>
@@ -65,6 +62,6 @@ const ReactHookFormZod = () => {
   );
 };
 
-export const Route = createFileRoute('/react-hook-form-zod/')({
-  component: ReactHookFormZod,
+export const Route = createLazyFileRoute('/react-hook-form-zod/')({
+  component: ReactHookFormZodPage,
 });

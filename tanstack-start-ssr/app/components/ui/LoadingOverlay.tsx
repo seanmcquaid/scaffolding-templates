@@ -13,7 +13,7 @@ const LoadingOverlay = ({ isLoading, ...props }: LoadingOverlayProps) => (
         : 'hidden'
     }
     {...props}
-    data-testid="loading-overlay"
+    data-testid="loadingOverlay"
   >
     <LoadingSpinner />
   </div>
