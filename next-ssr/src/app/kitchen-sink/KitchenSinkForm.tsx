@@ -14,6 +14,7 @@ const KitchenSinkForm = () => {
     formState: { errors },
   } = useForm<z.infer<typeof formDataSchema>>({
     resolver: zodResolver(formDataSchema),
+    mode: 'onChange',
   });
   const [formState, formAction] = useActionState(submitName, {
     name: '',
