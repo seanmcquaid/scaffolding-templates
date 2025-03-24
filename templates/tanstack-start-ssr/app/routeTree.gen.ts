@@ -14,10 +14,6 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as KitchenSinkIndexImport } from './routes/kitchen-sink/index'
-import { Route as ReactQuerytestsIndexTestImport } from './routes/react-query/__tests__/index.test'
-import { Route as ReactHookFormZodtestsIndexTestImport } from './routes/react-hook-form-zod/__tests__/index.test'
-import { Route as KitchenSinktestsIndexTestImport } from './routes/kitchen-sink/__tests__ /index.test'
-import { Route as ReactQueryIdtestsIndexTestImport } from './routes/react-query/$id/__tests__/index.test'
 
 // Create Virtual Routes
 
@@ -66,33 +62,6 @@ const ReactQueryIdIndexLazyRoute = ReactQueryIdIndexLazyImport.update({
   import('./routes/react-query/$id/index.lazy').then((d) => d.Route),
 )
 
-const ReactQuerytestsIndexTestRoute = ReactQuerytestsIndexTestImport.update({
-  id: '/react-query/__tests__/index/test',
-  path: '/react-query/index/test',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ReactHookFormZodtestsIndexTestRoute =
-  ReactHookFormZodtestsIndexTestImport.update({
-    id: '/react-hook-form-zod/__tests__/index/test',
-    path: '/react-hook-form-zod/index/test',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const KitchenSinktestsIndexTestRoute = KitchenSinktestsIndexTestImport.update({
-  id: '/kitchen-sink/__tests__ /index/test',
-  path: '/kitchen-sink/index/test',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ReactQueryIdtestsIndexTestRoute = ReactQueryIdtestsIndexTestImport.update(
-  {
-    id: '/react-query/$id/__tests__/index/test',
-    path: '/react-query/$id/index/test',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -132,34 +101,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactQueryIdIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/kitchen-sink/__tests__ /index/test': {
-      id: '/kitchen-sink/__tests__ /index/test'
-      path: '/kitchen-sink/index/test'
-      fullPath: '/kitchen-sink/index/test'
-      preLoaderRoute: typeof KitchenSinktestsIndexTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/react-hook-form-zod/__tests__/index/test': {
-      id: '/react-hook-form-zod/__tests__/index/test'
-      path: '/react-hook-form-zod/index/test'
-      fullPath: '/react-hook-form-zod/index/test'
-      preLoaderRoute: typeof ReactHookFormZodtestsIndexTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/react-query/__tests__/index/test': {
-      id: '/react-query/__tests__/index/test'
-      path: '/react-query/index/test'
-      fullPath: '/react-query/index/test'
-      preLoaderRoute: typeof ReactQuerytestsIndexTestImport
-      parentRoute: typeof rootRoute
-    }
-    '/react-query/$id/__tests__/index/test': {
-      id: '/react-query/$id/__tests__/index/test'
-      path: '/react-query/$id/index/test'
-      fullPath: '/react-query/$id/index/test'
-      preLoaderRoute: typeof ReactQueryIdtestsIndexTestImport
-      parentRoute: typeof rootRoute
-    }
   }
 }
 
@@ -171,10 +112,6 @@ export interface FileRoutesByFullPath {
   '/react-hook-form-zod': typeof ReactHookFormZodIndexLazyRoute
   '/react-query': typeof ReactQueryIndexLazyRoute
   '/react-query/$id': typeof ReactQueryIdIndexLazyRoute
-  '/kitchen-sink/index/test': typeof KitchenSinktestsIndexTestRoute
-  '/react-hook-form-zod/index/test': typeof ReactHookFormZodtestsIndexTestRoute
-  '/react-query/index/test': typeof ReactQuerytestsIndexTestRoute
-  '/react-query/$id/index/test': typeof ReactQueryIdtestsIndexTestRoute
 }
 
 export interface FileRoutesByTo {
@@ -183,10 +120,6 @@ export interface FileRoutesByTo {
   '/react-hook-form-zod': typeof ReactHookFormZodIndexLazyRoute
   '/react-query': typeof ReactQueryIndexLazyRoute
   '/react-query/$id': typeof ReactQueryIdIndexLazyRoute
-  '/kitchen-sink/index/test': typeof KitchenSinktestsIndexTestRoute
-  '/react-hook-form-zod/index/test': typeof ReactHookFormZodtestsIndexTestRoute
-  '/react-query/index/test': typeof ReactQuerytestsIndexTestRoute
-  '/react-query/$id/index/test': typeof ReactQueryIdtestsIndexTestRoute
 }
 
 export interface FileRoutesById {
@@ -196,10 +129,6 @@ export interface FileRoutesById {
   '/react-hook-form-zod/': typeof ReactHookFormZodIndexLazyRoute
   '/react-query/': typeof ReactQueryIndexLazyRoute
   '/react-query/$id/': typeof ReactQueryIdIndexLazyRoute
-  '/kitchen-sink/__tests__ /index/test': typeof KitchenSinktestsIndexTestRoute
-  '/react-hook-form-zod/__tests__/index/test': typeof ReactHookFormZodtestsIndexTestRoute
-  '/react-query/__tests__/index/test': typeof ReactQuerytestsIndexTestRoute
-  '/react-query/$id/__tests__/index/test': typeof ReactQueryIdtestsIndexTestRoute
 }
 
 export interface FileRouteTypes {
@@ -210,10 +139,6 @@ export interface FileRouteTypes {
     | '/react-hook-form-zod'
     | '/react-query'
     | '/react-query/$id'
-    | '/kitchen-sink/index/test'
-    | '/react-hook-form-zod/index/test'
-    | '/react-query/index/test'
-    | '/react-query/$id/index/test'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -221,10 +146,6 @@ export interface FileRouteTypes {
     | '/react-hook-form-zod'
     | '/react-query'
     | '/react-query/$id'
-    | '/kitchen-sink/index/test'
-    | '/react-hook-form-zod/index/test'
-    | '/react-query/index/test'
-    | '/react-query/$id/index/test'
   id:
     | '__root__'
     | '/'
@@ -232,10 +153,6 @@ export interface FileRouteTypes {
     | '/react-hook-form-zod/'
     | '/react-query/'
     | '/react-query/$id/'
-    | '/kitchen-sink/__tests__ /index/test'
-    | '/react-hook-form-zod/__tests__/index/test'
-    | '/react-query/__tests__/index/test'
-    | '/react-query/$id/__tests__/index/test'
   fileRoutesById: FileRoutesById
 }
 
@@ -245,10 +162,6 @@ export interface RootRouteChildren {
   ReactHookFormZodIndexLazyRoute: typeof ReactHookFormZodIndexLazyRoute
   ReactQueryIndexLazyRoute: typeof ReactQueryIndexLazyRoute
   ReactQueryIdIndexLazyRoute: typeof ReactQueryIdIndexLazyRoute
-  KitchenSinktestsIndexTestRoute: typeof KitchenSinktestsIndexTestRoute
-  ReactHookFormZodtestsIndexTestRoute: typeof ReactHookFormZodtestsIndexTestRoute
-  ReactQuerytestsIndexTestRoute: typeof ReactQuerytestsIndexTestRoute
-  ReactQueryIdtestsIndexTestRoute: typeof ReactQueryIdtestsIndexTestRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -257,10 +170,6 @@ const rootRouteChildren: RootRouteChildren = {
   ReactHookFormZodIndexLazyRoute: ReactHookFormZodIndexLazyRoute,
   ReactQueryIndexLazyRoute: ReactQueryIndexLazyRoute,
   ReactQueryIdIndexLazyRoute: ReactQueryIdIndexLazyRoute,
-  KitchenSinktestsIndexTestRoute: KitchenSinktestsIndexTestRoute,
-  ReactHookFormZodtestsIndexTestRoute: ReactHookFormZodtestsIndexTestRoute,
-  ReactQuerytestsIndexTestRoute: ReactQuerytestsIndexTestRoute,
-  ReactQueryIdtestsIndexTestRoute: ReactQueryIdtestsIndexTestRoute,
 }
 
 export const routeTree = rootRoute
@@ -277,11 +186,7 @@ export const routeTree = rootRoute
         "/kitchen-sink/",
         "/react-hook-form-zod/",
         "/react-query/",
-        "/react-query/$id/",
-        "/kitchen-sink/__tests__ /index/test",
-        "/react-hook-form-zod/__tests__/index/test",
-        "/react-query/__tests__/index/test",
-        "/react-query/$id/__tests__/index/test"
+        "/react-query/$id/"
       ]
     },
     "/": {
@@ -298,18 +203,6 @@ export const routeTree = rootRoute
     },
     "/react-query/$id/": {
       "filePath": "react-query/$id/index.lazy.tsx"
-    },
-    "/kitchen-sink/__tests__ /index/test": {
-      "filePath": "kitchen-sink/__tests__ /index.test.tsx"
-    },
-    "/react-hook-form-zod/__tests__/index/test": {
-      "filePath": "react-hook-form-zod/__tests__/index.test.tsx"
-    },
-    "/react-query/__tests__/index/test": {
-      "filePath": "react-query/__tests__/index.test.tsx"
-    },
-    "/react-query/$id/__tests__/index/test": {
-      "filePath": "react-query/$id/__tests__/index.test.tsx"
     }
   }
 }

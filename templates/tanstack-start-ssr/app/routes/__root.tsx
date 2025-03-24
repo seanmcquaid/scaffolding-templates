@@ -6,7 +6,7 @@ import {
   createRootRouteWithContext,
   useNavigate,
 } from '@tanstack/react-router';
-import { createServerFn, Meta, Scripts } from '@tanstack/start';
+import { createServerFn, Meta, Scripts } from '@tanstack/react-start';
 import { lazy, type ReactNode } from 'react';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
