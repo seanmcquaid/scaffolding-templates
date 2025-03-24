@@ -12,34 +12,63 @@ updates:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/next-ssr"
+    directory: "/templates/next-ssr/.github/workflows"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/react-router-v7-spa"
+    directory: "/templates/next-ssr/.github/actions/setup-pull-request-job"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/react-router-v7-ssr"
+    directory: "/templates/react-router-v7-spa/.github/workflows"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/tanstack-router-spa"
+    directory: "/templates/react-router-v7-spa/.github/actions/setup-pull-request-job"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/tanstack-start-ssr"
+    directory: "/templates/react-router-v7-ssr/.github/workflows"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
   - package-ecosystem: github-actions
-    directory: "/templates/typescript-library"
+    directory: "/templates/react-router-v7-ssr/.github/actions/setup-pull-request-job"
     schedule:
       interval: daily
     open-pull-requests-limit: 20
-    
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-router-spa/.github/workflows"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-router-spa/.github/actions/setup-pull-request-job"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-start-ssr/.github/workflows"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-start-ssr/.github/actions/setup-pull-request-job"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: "/templates/typescript-library/.github/workflows"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
+  - package-ecosystem: github-actions
+    directory: "/templates/typescript-library/.github/actions/setup-pull-request-job"
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 20
     
