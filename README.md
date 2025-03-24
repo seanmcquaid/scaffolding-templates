@@ -7,7 +7,7 @@ These templates are meant to be a starting point for new projects and are not me
 ## Scaffolding a new project
 
 ```bash
-npx degit https://github.com/seanmcquaid/scaffolding-templates/<template-name> <project-name>
+npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/<template-name> <project-name>
 ```
 
 ## Templates
