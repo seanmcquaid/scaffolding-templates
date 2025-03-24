@@ -24,46 +24,46 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Lint
         run: pnpm lint
-  # playwright-integration-tests:
-  #   runs-on: ubuntu-latest
-  #   name: Playwright Integration Tests
-  #   steps:
-  #     - name: Checkout latest
-  #       uses: actions/checkout@v4
-  #     - name: Setup PNPM
-  #       uses: pnpm/action-setup@v4
-  #       with:
-  #         version: 9.14.4
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 22.12.0
-  #     - name: Install Dependencies
-  #       run: pnpm install --frozen-lockfile
-  #     - name: Install Playwright Browsers
-  #       run: pnpm playwright install --with-deps
-  #     - name: Run Playwright tests
-  #       run: pnpm playwright:run-integration
-  # playwright-e2e-tests:
-  #   runs-on: ubuntu-latest
-  #   name: Playwright E2E Tests
-  #   steps:
-  #     - name: Checkout latest
-  #       uses: actions/checkout@v4
-  #     - name: Setup PNPM
-  #       uses: pnpm/action-setup@v4
-  #       with:
-  #         version: 9.14.4
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 22.12.0
-  #     - name: Install Dependencies
-  #       run: pnpm install --frozen-lockfile
-  #     - name: Install Playwright Browsers
-  #       run: pnpm playwright install --with-deps
-  #     - name: Run Playwright tests
-  #       run: pnpm playwright:run-e2e
+  playwright-integration-tests:
+    runs-on: ubuntu-latest
+    name: Playwright Integration Tests
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v4
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: pnpm playwright:run-integration
+  playwright-e2e-tests:
+    runs-on: ubuntu-latest
+    name: Playwright E2E Tests
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v4
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.14.4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: pnpm playwright:run-e2e
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
