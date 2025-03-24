@@ -1,0 +1,18 @@
+{
+  "name": "scaffolding-templates",
+  "license": "ISC",
+  "author": "Sean McQuaid",
+  "scripts": {
+    "build": "nx run-many -t build",
+    "bundlesize": "nx run-many -t bundlesize",
+    "dev": "nx run-many -t dev",
+    "lint": "nx run-many -t lint",
+    "start": "nx run-many -t start",
+    "test": "nx run-many -t test",
+    "test:coverage": "nx run-many -t test:coverage",
+    "test:watch": "nx run-many -t test:watch"
+  },
+  "devDependencies": {
+    "nx": "20.6.2"
+  }
+}
