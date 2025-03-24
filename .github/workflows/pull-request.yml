@@ -66,7 +66,7 @@ jobs:
         run: pnpm playwright:run-e2e
   unit-tests-coverage:
     runs-on: ubuntu-latest
-    name: Unit Tests - React Router V7 SSR
+    name: Unit Tests
     steps:
       - name: Checkout latest
         uses: actions/checkout@v4
@@ -84,7 +84,7 @@ jobs:
         run: pnpm test:coverage
   bundle-size:
     runs-on: ubuntu-latest
-    name: Bundle Size - React Router V7 SSR
+    name: Bundle Size
     steps:
       - name: Checkout latest
         uses: actions/checkout@v4
