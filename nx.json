@@ -1,7 +1,22 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "build": {
+      "cache": true
+    },
+    "bundlesize": {
+      "cache": true
+    },
     "test": {
+      "cache": true
+    },
+    "lint": {
+      "cache": true
+    },
+    "playwright:run-integration": {
+      "cache": true
+    },
+    "playwright:run-e2e": {
       "cache": true
     }
   },
