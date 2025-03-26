@@ -193,8 +193,8 @@ importers:
         specifier: ^0.6.11
         version: 0.6.11(prettier@3.5.3)
       tailwindcss:
-        specifier: ^4.0.16
-        version: 4.0.16
+        specifier: ^4.0.17
+        version: 4.0.17
       typescript:
         specifier: ^5.7.3
         version: 5.8.2
@@ -419,8 +419,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5
       tailwindcss:
-        specifier: ^4.0.16
-        version: 4.0.16
+        specifier: ^4.0.17
+        version: 4.0.17
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -666,8 +666,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5
       tailwindcss:
-        specifier: ^4.0.16
-        version: 4.0.16
+        specifier: ^4.0.17
+        version: 4.0.17
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -883,8 +883,8 @@ importers:
         specifier: ^0.6.11
         version: 0.6.11(prettier@3.5.3)
       tailwindcss:
-        specifier: ^4.0.16
-        version: 4.0.16
+        specifier: ^4.0.17
+        version: 4.0.17
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -1088,8 +1088,8 @@ importers:
         specifier: ^0.6.11
         version: 0.6.11(prettier@3.5.3)
       tailwindcss:
-        specifier: ^4.0.16
-        version: 4.0.16
+        specifier: ^4.0.17
+        version: 4.0.17
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
@@ -8601,6 +8601,9 @@ packages:
 
   tailwindcss@4.0.16:
     resolution: {integrity: sha512-i/SbG7ThTIcLshcFJL+je7hCv9dPis4Xl4XNeel6iZNX42pp/BZ+la+SbZIPoYE+PN8zhKbnHblpQ/lhOWwIeQ==}
+
+  tailwindcss@4.0.17:
+    resolution: {integrity: sha512-OErSiGzRa6rLiOvaipsDZvLMSpsBZ4ysB4f0VKGXUrjw2jfkJRd6kjRKV2+ZmTCNvwtvgdDam5D7w6WXsdLJZw==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -18144,6 +18147,8 @@ snapshots:
   tailwind-merge@3.0.2: {}
 
   tailwindcss@4.0.16: {}
+
+  tailwindcss@4.0.17: {}
 
   tapable@2.2.1: {}
 
