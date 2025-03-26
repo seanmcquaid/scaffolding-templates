@@ -63,7 +63,7 @@ jobs:
       - name: Install Playwright Globally
         run: npm install -g playwright
       - name: Install Playwright Browsers
-        run: npx playwright install
+        run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: pnpm playwright:run-e2e
   unit-tests-coverage:
