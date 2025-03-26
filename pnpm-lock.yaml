@@ -392,8 +392,8 @@ importers:
         specifier: ^26.0.0
         version: 26.0.0
       lighthouse:
-        specifier: ^12.4.0
-        version: 12.4.0
+        specifier: ^12.5.0
+        version: 12.5.0
       lint-staged:
         specifier: ^15.5.0
         version: 15.5.0
@@ -402,7 +402,7 @@ importers:
         version: 2.7.3(@types/node@22.13.13)(typescript@5.8.2)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@12.4.0)(playwright-core@1.51.1)
+        version: 4.0.0(lighthouse@12.5.0)(playwright-core@1.51.1)
       playwright-msw:
         specifier: ^3.0.1
         version: 3.0.1(@playwright/test@1.51.1)(msw@2.7.3(@types/node@22.13.13)(typescript@5.8.2))
@@ -639,8 +639,8 @@ importers:
         specifier: ^26.0.0
         version: 26.0.0
       lighthouse:
-        specifier: ^12.4.0
-        version: 12.4.0
+        specifier: ^12.5.0
+        version: 12.5.0
       lint-staged:
         specifier: ^15.5.0
         version: 15.5.0
@@ -649,7 +649,7 @@ importers:
         version: 2.7.3(@types/node@22.13.13)(typescript@5.8.2)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@12.4.0)(playwright-core@1.51.1)
+        version: 4.0.0(lighthouse@12.5.0)(playwright-core@1.51.1)
       playwright-msw:
         specifier: ^3.0.1
         version: 3.0.1(@playwright/test@1.51.1)(msw@2.7.3(@types/node@22.13.13)(typescript@5.8.2))
@@ -862,8 +862,8 @@ importers:
         specifier: ^26.0.0
         version: 26.0.0
       lighthouse:
-        specifier: ^12.4.0
-        version: 12.4.0
+        specifier: ^12.5.0
+        version: 12.5.0
       lint-staged:
         specifier: ^15.5.0
         version: 15.5.0
@@ -872,7 +872,7 @@ importers:
         version: 2.7.3(@types/node@22.13.13)(typescript@5.8.2)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@12.4.0)(playwright-core@1.51.1)
+        version: 4.0.0(lighthouse@12.5.0)(playwright-core@1.51.1)
       playwright-msw:
         specifier: ^3.0.1
         version: 3.0.1(@playwright/test@1.51.1)(msw@2.7.3(@types/node@22.13.13)(typescript@5.8.2))
@@ -2999,8 +2999,8 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
-  '@paulirish/trace_engine@0.0.44':
-    resolution: {integrity: sha512-QjDv5qVaUXd5WZzE2ktKvqtGA17v4HFtj6MROCGkK57AZr9n0ZKgcx7dEFho+5EHZ6V6h1upW2eqheo8C4Y4dA==}
+  '@paulirish/trace_engine@0.0.50':
+    resolution: {integrity: sha512-ktkbISnr0T9dkOxtnEadjYsbArMcvX2Wp8zwgyIP6KW0eOk2Oe2s49BY4v0qdE3uQdVv/GDdQ6MnoIFuYNJ9pg==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -4587,12 +4587,17 @@ packages:
   bare-events@2.5.4:
     resolution: {integrity: sha512-+gFfDkR8pj4/TrWCGUGWmJIkBwuxPS5F+a5yWjOHQt2hHvNZd5YLzadjmDUtFmMM4y429bnKLa8bYBMHcYdnQA==}
 
-  bare-fs@4.0.1:
-    resolution: {integrity: sha512-ilQs4fm/l9eMfWY2dY0WCIUplSUp7U0CT1vrqMg1MUdeZl4fypu5UP0XcDBK5WBQPJAKP1b7XEodISmekH/CEg==}
-    engines: {bare: '>=1.7.0'}
+  bare-fs@4.0.2:
+    resolution: {integrity: sha512-S5mmkMesiduMqnz51Bfh0Et9EX0aTCJxhsI4bvzFFLs8Z1AV8RDHadfY5CyLwdoLHgXbNBEN1gQcbEtGwuvixw==}
+    engines: {bare: '>=1.16.0'}
+    peerDependencies:
+      bare-buffer: '*'
+    peerDependenciesMeta:
+      bare-buffer:
+        optional: true
 
-  bare-os@3.6.0:
-    resolution: {integrity: sha512-BUrFS5TqSBdA0LwHop4OjPJwisqxGy6JsWVqV6qaFoe965qqtaKfDzHY5T2YA1gUL0ZeeQeA+4BBc1FJTcHiPw==}
+  bare-os@3.6.1:
+    resolution: {integrity: sha512-uaIjxokhFidJP+bmmvKSgiMzj2sV5GPHaZVAIktcxcpCyBFFWO+YlikVAdhmUo2vYFvFhOXIAlldqV29L8126g==}
     engines: {bare: '>=1.14.0'}
 
   bare-path@3.0.0:
@@ -5369,8 +5374,8 @@ packages:
   devtools-protocol@0.0.1413902:
     resolution: {integrity: sha512-yRtvFD8Oyk7C9Os3GmnFZLu53yAfsnyw1s+mLmHHUK0GQEc9zthHWvS1r67Zqzm5t7v56PILHIVZ7kmFMaL2yQ==}
 
-  devtools-protocol@0.0.1423531:
-    resolution: {integrity: sha512-z6cOcajZWxk80zvFnkTGa7tj3oqF+C5SnOF1KSMeAr5/WW/nLNHlEpKr7voSzMz8IaUoq5rjdI0Mqv5k/BUkhg==}
+  devtools-protocol@0.0.1436416:
+    resolution: {integrity: sha512-iGLhz2WOrlBLcTcoVsFy5dPPUqILG6cc8MITYd5lV6i38gWG14bMXRH/d8G5KITrWHBnbsOnWHfc9Qs4/jej9Q==}
 
   diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
@@ -6760,8 +6765,8 @@ packages:
   lighthouse-stack-packs@1.12.2:
     resolution: {integrity: sha512-Ug8feS/A+92TMTCK6yHYLwaFMuelK/hAKRMdldYkMNwv+d9PtWxjXEg6rwKtsUXTADajhdrhXyuNCJ5/sfmPFw==}
 
-  lighthouse@12.4.0:
-    resolution: {integrity: sha512-1p/YKQpMqfYVSKVOB43RG3xbnxkSUOG0zqVm/bxJHAaAHKrEACgFi8HZxD9CCTFrt+d/Q/x9gjDyeUDarm1SIg==}
+  lighthouse@12.5.0:
+    resolution: {integrity: sha512-3jzhTZyHaD3HKOx7a+hFy8qc2akVyDkb0+okWbx2n30M1KfhCDlyZBPUyjHOMOsfhtTbSUMVk2KSw3qCE9lkTQ==}
     engines: {node: '>=18.16'}
     hasBin: true
 
@@ -11414,7 +11419,7 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.1
       '@parcel/watcher-win32-x64': 2.5.1
 
-  '@paulirish/trace_engine@0.0.44':
+  '@paulirish/trace_engine@0.0.50':
     dependencies:
       third-party-web: 0.26.5
 
@@ -13567,21 +13572,19 @@ snapshots:
   bare-events@2.5.4:
     optional: true
 
-  bare-fs@4.0.1:
+  bare-fs@4.0.2:
     dependencies:
       bare-events: 2.5.4
       bare-path: 3.0.0
       bare-stream: 2.6.5(bare-events@2.5.4)
-    transitivePeerDependencies:
-      - bare-buffer
     optional: true
 
-  bare-os@3.6.0:
+  bare-os@3.6.1:
     optional: true
 
   bare-path@3.0.0:
     dependencies:
-      bare-os: 3.6.0
+      bare-os: 3.6.1
     optional: true
 
   bare-stream@2.6.5(bare-events@2.5.4):
@@ -14329,7 +14332,7 @@ snapshots:
 
   devtools-protocol@0.0.1413902: {}
 
-  devtools-protocol@0.0.1423531: {}
+  devtools-protocol@0.0.1436416: {}
 
   diff-sequences@29.6.3: {}
 
@@ -15968,15 +15971,15 @@ snapshots:
 
   lighthouse-stack-packs@1.12.2: {}
 
-  lighthouse@12.4.0:
+  lighthouse@12.5.0:
     dependencies:
-      '@paulirish/trace_engine': 0.0.44
+      '@paulirish/trace_engine': 0.0.50
       '@sentry/node': 7.120.3
       axe-core: 4.10.3
       chrome-launcher: 1.1.2
       configstore: 5.0.1
       csp_evaluator: 1.1.5
-      devtools-protocol: 0.0.1423531
+      devtools-protocol: 0.0.1436416
       enquirer: 2.4.1
       http-link-header: 1.1.3
       intl-messageformat: 10.7.16
@@ -16971,10 +16974,10 @@ snapshots:
 
   playwright-core@1.51.1: {}
 
-  playwright-lighthouse@4.0.0(lighthouse@12.4.0)(playwright-core@1.51.1):
+  playwright-lighthouse@4.0.0(lighthouse@12.5.0)(playwright-core@1.51.1):
     dependencies:
       chalk: 4.1.2
-      lighthouse: 12.4.0
+      lighthouse: 12.5.0
       ua-parser-js: 1.0.40
     optionalDependencies:
       playwright-core: 1.51.1
@@ -18046,7 +18049,7 @@ snapshots:
       pump: 3.0.2
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 4.0.1
+      bare-fs: 4.0.2
       bare-path: 3.0.0
     transitivePeerDependencies:
       - bare-buffer
