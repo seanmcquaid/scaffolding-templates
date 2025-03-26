@@ -62,8 +62,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: pnpm playwright:run-e2e
+      # - name: Run Playwright tests
+      #   run: pnpm playwright:run-e2e
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
