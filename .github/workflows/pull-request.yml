@@ -63,8 +63,9 @@ jobs:
         run: |
           for project in $(ls -d templates/*); do
             echo "Setting up .env for $project"
-            cp $project/.env.example $project/.env
-            ls -la $project
+            if [ -f "$project/.env.example" ]; then
+              cp $project/.env.example $project/.env
+            fi
           done
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
