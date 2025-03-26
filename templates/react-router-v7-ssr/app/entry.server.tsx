@@ -15,7 +15,9 @@ import 'dotenv/config';
 import serverEnv from './env.server';
 
 if (serverEnv.VITE_APP_MSW_ENABLED && serverEnv.NODE_ENV === 'development') {
-  server.listen();
+  server.listen({
+    onUnhandledRequest: 'bypass',
+  });
 }
 export const streamTimeout = 5_000;
 
