@@ -38,7 +38,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
-          cache: 'pnpm'
       - name: Setup .env for each project
         run: |
           for project in $(ls -d templates/*); do
@@ -69,7 +68,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.12.0
-          cache: 'pnpm'
       - name: Setup .env for each project
         run: |
           for project in $(ls -d templates/*); do
