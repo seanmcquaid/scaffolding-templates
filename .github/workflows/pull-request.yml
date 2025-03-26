@@ -62,6 +62,7 @@ jobs:
         run: |
           for project in $(ls -d templates/*); do
             echo "Setting up .env for $project"
+            ls -la $project
           done
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
