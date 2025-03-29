@@ -27,8 +27,8 @@ importers:
         specifier: ^5.69.2
         version: 5.69.2(react@19.0.0)
       '@tanstack/react-query-next-experimental':
-        specifier: ^5.69.3
-        version: 5.69.3(@tanstack/react-query@5.69.2(react@19.0.0))(next@15.2.4(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        specifier: ^5.70.0
+        version: 5.70.0(@tanstack/react-query@5.69.2(react@19.0.0))(next@15.2.4(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -3824,10 +3824,10 @@ packages:
       '@tanstack/react-query': ^5.70.0
       react: ^18 || ^19
 
-  '@tanstack/react-query-next-experimental@5.69.3':
-    resolution: {integrity: sha512-GYld9Vvu63IALf1bEcRTJlTO2wEIzhl8D7nPH1MT2OrhZai3khh21had3/c42IP6G4mZRr7G8d0YxdrEexiEnA==}
+  '@tanstack/react-query-next-experimental@5.70.0':
+    resolution: {integrity: sha512-rEboDq15sS2PckvwzPVyptrTvQjT+YVP/knchrnq4mJvaS+NIqmFyVC24JONGnm9esiHQkAUpeEsvkd+rjPlJA==}
     peerDependencies:
-      '@tanstack/react-query': ^5.69.3
+      '@tanstack/react-query': ^5.70.0
       next: ^13 || ^14 || ^15
       react: ^18 || ^19
 
@@ -12228,7 +12228,7 @@ snapshots:
       '@tanstack/react-query': 5.69.2(react@19.0.0)
       react: 19.0.0
 
-  '@tanstack/react-query-next-experimental@5.69.3(@tanstack/react-query@5.69.2(react@19.0.0))(next@15.2.4(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
+  '@tanstack/react-query-next-experimental@5.70.0(@tanstack/react-query@5.69.2(react@19.0.0))(next@15.2.4(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@tanstack/react-query': 5.69.2(react@19.0.0)
       next: 15.2.4(@babel/core@7.26.10)(@playwright/test@1.51.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
