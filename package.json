@@ -3,18 +3,15 @@
   "license": "ISC",
   "author": "Sean McQuaid",
   "scripts": {
-    "build": "nx run-many -t build",
-    "bundlesize": "nx run-many -t bundlesize",
-    "dev": "nx run-many -t dev",
-    "lint": "nx run-many -t lint",
-    "start": "nx run-many -t start",
-    "test": "nx run-many -t test",
-    "test:coverage": "nx run-many -t test:coverage",
-    "test:watch": "nx run-many -t test:watch",
-    "playwright:run-integration": "nx run-many -t playwright:run-integration",
-    "playwright:run-e2e": "nx run-many -t playwright:run-e2e"
-  },
-  "devDependencies": {
-    "nx": "20.7.2"
+    "build": "pnpm -r build",
+    "bundlesize": "pnpm -r bundlesize",
+    "dev": "pnpm -r dev",
+    "lint": "pnpm -r lint",
+    "start": "pnpm -r start",
+    "test": "pnpm -r test",
+    "test:coverage": "pnpm -r test:coverage",
+    "test:watch": "pnpm -r test:watch",
+    "playwright:run-integration": "pnpm -r playwright:run-integration",
+    "playwright:run-e2e": "pnpm -r playwright:run-e2e"
   }
 }
