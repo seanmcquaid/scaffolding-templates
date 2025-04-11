@@ -82,8 +82,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8(eslint@9.23.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@next/eslint-plugin-next':
         specifier: ^15.2.4
         version: 15.2.4
@@ -293,8 +293,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8(eslint@9.23.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -540,8 +540,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8(eslint@9.23.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -766,8 +766,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8(eslint@9.23.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -989,8 +989,8 @@ importers:
         specifier: ^1.2.8
         version: 1.2.8(eslint@9.23.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.22.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@faker-js/faker':
         specifier: ^9.6.0
         version: 9.6.0
@@ -1124,8 +1124,8 @@ importers:
         specifier: ^2.27.11
         version: 2.28.1
       '@eslint/js':
-        specifier: ^9.18.0
-        version: 9.23.0
+        specifier: ^9.24.0
+        version: 9.24.0
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.1.1(vitest@3.1.1(@types/node@22.14.0)(jiti@2.4.2)(jsdom@26.0.0)(lightningcss@1.29.2)(msw@2.7.3(@types/node@22.14.0)(typescript@5.8.2))(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))
@@ -2630,6 +2630,10 @@ packages:
 
   '@eslint/js@9.23.0':
     resolution: {integrity: sha512-35MJ8vCPU0ZMxo7zfev2pypqTwWTofFZO6m4KAtdoFhRpLJUpHTZZ+KB3C7Hb1d7bULYwO4lJXGCi5Se+8OMbw==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.24.0':
+    resolution: {integrity: sha512-uIY/y3z0uvOGX8cp1C2fiC4+ZmBhp6yZWkojtHL1YEMnRt1Y63HB9TM17proGEmeG7HeUY+UP36F0aknKYTpYA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.6':
@@ -8926,6 +8930,9 @@ packages:
   third-party-web@0.26.5:
     resolution: {integrity: sha512-tDuKQJUTfjvi9Fcrs1s6YAQAB9mzhTSbBZMfNgtWNmJlHuoFeXO6dzBFdGeCWRvYL50jQGK0jPsBZYxqZQJ2SA==}
 
+  third-party-web@0.26.6:
+    resolution: {integrity: sha512-GsjP92xycMK8qLTcQCacgzvffYzEqe29wyz3zdKVXlfRD5Kz1NatCTOZEeDaSd6uCZXvGd2CNVtQ89RNIhJWvA==}
+
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
@@ -11285,6 +11292,8 @@ snapshots:
 
   '@eslint/js@9.23.0': {}
 
+  '@eslint/js@9.24.0': {}
+
   '@eslint/object-schema@2.1.6': {}
 
   '@eslint/plugin-kit@0.2.7':
@@ -11741,7 +11750,7 @@ snapshots:
 
   '@paulirish/trace_engine@0.0.50':
     dependencies:
-      third-party-web: 0.26.5
+      third-party-web: 0.26.6
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -18615,6 +18624,8 @@ snapshots:
       any-promise: 1.3.0
 
   third-party-web@0.26.5: {}
+
+  third-party-web@0.26.6: {}
 
   tiny-invariant@1.3.3: {}
 
