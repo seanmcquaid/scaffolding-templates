@@ -21,9 +21,9 @@ jobs:
         with:
           node-version: 22.12.0
       - name: Install Dependencies
-        run: pnpm -r install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Lint
-        run: pnpm -r lint
+        run: pnpm lint
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
@@ -39,9 +39,9 @@ jobs:
         with:
           node-version: 22.12.0
       - name: Install Dependencies
-        run: pnpm -r install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Run Unit Tests
-        run: pnpm -r test:coverage
+        run: pnpm test:coverage
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
@@ -57,8 +57,8 @@ jobs:
         with:
           node-version: 22.12.0
       - name: Install Dependencies
-        run: pnpm -r install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Build the app
-        run: pnpm -r build
+        run: pnpm build
       - name: Bundlesize Check
-        run: pnpm -r bundlesize
+        run: pnpm bundlesize
