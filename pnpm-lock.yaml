@@ -927,8 +927,8 @@ importers:
         specifier: ^1.115.3
         version: 1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-router-with-query':
-        specifier: ^1.115.2
-        version: 1.115.3(@tanstack/react-query@5.72.2(react@19.1.0))(@tanstack/react-router@1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.115.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^1.116.0
+        version: 1.116.0(@tanstack/react-query@5.72.2(react@19.1.0))(@tanstack/react-router@1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.115.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-start':
         specifier: ^1.115.3
         version: 1.115.3(@tanstack/react-router@1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.14.0)(babel-plugin-macros@3.1.0)(db0@0.3.1)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.2.6(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(webpack@5.98.0)(yaml@2.7.1)
@@ -4003,8 +4003,8 @@ packages:
       react: '>=18.0.0 || >=19.0.0'
       react-dom: '>=18.0.0 || >=19.0.0'
 
-  '@tanstack/react-router-with-query@1.115.3':
-    resolution: {integrity: sha512-ad8c+2v/Iu2gVurePDIqicD8qNQHQKVKamXC/0RDuPcYv/YOLdQrBcHusALcMtXx58TMZPYgCtPraWfiR8wcGw==}
+  '@tanstack/react-router-with-query@1.116.0':
+    resolution: {integrity: sha512-StJE2Ir0uy/GY274TcBJQp2yWx071mDVJIBjFMv/tL9HciBASf15jvCID0mx2kYPudgiVq1IbDvdSl1FrtgY2A==}
     engines: {node: '>=12'}
     peerDependencies:
       '@tanstack/react-query': '>=5.49.2'
@@ -12387,7 +12387,7 @@ snapshots:
       - csstype
       - tiny-invariant
 
-  '@tanstack/react-router-with-query@1.115.3(@tanstack/react-query@5.72.2(react@19.1.0))(@tanstack/react-router@1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.115.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@tanstack/react-router-with-query@1.116.0(@tanstack/react-query@5.72.2(react@19.1.0))(@tanstack/react-router@1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@tanstack/router-core@1.115.3)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@tanstack/react-query': 5.72.2(react@19.1.0)
       '@tanstack/react-router': 1.115.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
