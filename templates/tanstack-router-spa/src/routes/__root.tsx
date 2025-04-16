@@ -1,16 +1,16 @@
-import { lazy, Suspense } from 'react';
+import { Toaster } from '@/components/ui/Toaster';
+import type { QueryClient } from '@tanstack/react-query';
 import {
   Outlet,
   createRootRouteWithContext,
   useNavigate,
 } from '@tanstack/react-router';
-import type { QueryClient } from '@tanstack/react-query';
-import { Toaster } from '@/components/ui/Toaster';
+import { Suspense, lazy } from 'react';
 import '@/i18n/i18next';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
-import useAppTranslation from '@/hooks/useAppTranslation';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 const NotFoundPage = () => {
   const { t } = useAppTranslation();

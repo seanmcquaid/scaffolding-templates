@@ -1,9 +1,9 @@
 import {
+  RouterProvider,
   createBrowserHistory,
   createRootRoute,
   createRoute,
   createRouter,
-  RouterProvider,
 } from '@tanstack/react-router';
 import type { JSX } from 'react';
 

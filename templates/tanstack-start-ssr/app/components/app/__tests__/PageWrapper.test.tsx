@@ -1,5 +1,5 @@
-import createRoutesStub from '@/utils/testing/createRoutesStub';
 import PageWrapper from '@/components/app/PageWrapper';
+import createRoutesStub from '@/utils/testing/createRoutesStub';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageWrapper', () => {

@@ -1,11 +1,11 @@
-import userEvent from '@testing-library/user-event';
+import { ReactHookFormZodPage } from '@/routes/react-hook-form-zod/index.lazy';
+import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import createRoutesStub from '@/utils/testing/createRoutesStub';
-import { ReactHookFormZodPage } from '@/routes/react-hook-form-zod/index.lazy';
+import userEvent from '@testing-library/user-event';
 
 describe('ReactHookFormZodPage', () => {
   it('Displays an error message if the passwords do not match', async () => {

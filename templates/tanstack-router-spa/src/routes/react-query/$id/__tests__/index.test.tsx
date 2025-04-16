@@ -1,10 +1,10 @@
+import { ReactQueryPostPage } from '@/routes/react-query/$id/index.lazy';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import { ReactQueryPostPage } from '@/routes/react-query/$id/index.lazy';
 
 describe('ReactQueryPostPage', () => {
   it('should render successfully', async () => {
