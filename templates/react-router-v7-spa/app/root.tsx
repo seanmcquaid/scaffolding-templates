@@ -1,54 +1,54 @@
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import type { PropsWithChildren } from 'react'
+import { useEffect, useState } from 'react'
 /* eslint-disable i18next/no-literal-string */
 import {
-  Outlet,
   Links,
   Meta,
+  Outlet,
   Scripts,
-  useRouteError,
-  useNavigation,
   ScrollRestoration,
-} from 'react-router';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { QueryClientProvider } from '@tanstack/react-query';
-import type { PropsWithChildren } from 'react';
-import { useEffect, useState } from 'react';
-import stylesheet from './styles/index.css?url';
-import { Toaster } from './components/ui/Toaster';
-import queryClient from './services/queries/queryClient';
-import PageError from './components/app/PageError';
-import LoadingOverlay from './components/ui/LoadingOverlay';
-import type { Route } from './+types/root';
-import env from './env.client';
+  useNavigation,
+  useRouteError,
+} from 'react-router'
+import type { Route } from './+types/root'
+import PageError from './components/app/PageError'
+import LoadingOverlay from './components/ui/LoadingOverlay'
+import { Toaster } from './components/ui/Toaster'
+import env from './env.client'
+import queryClient from './services/queries/queryClient'
+import stylesheet from './styles/index.css?url'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
-];
+]
 
 const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
   { request },
   next,
 ) => {
-  const start = performance.now();
+  const start = performance.now()
 
   // Run the remaining middlewares and all route loaders
-  await next();
+  await next()
 
   if (env.VITE_APP_ENVIRONMENT !== 'dev') {
-    return;
+    return
   }
 
-  const duration = performance.now() - start;
-  console.log(`Navigated to ${request.url} (${duration}ms)`);
-};
+  const duration = performance.now() - start
+  console.log(`Navigated to ${request.url} (${duration}ms)`)
+}
 
-export const unstable_clientMiddleware = [clientLoggerMiddleware];
+export const unstable_clientMiddleware = [clientLoggerMiddleware]
 
 export function Layout({ children }: PropsWithChildren) {
-  const navigation = useNavigation();
-  const isLoadingPage = navigation.state === 'loading';
+  const navigation = useNavigation()
+  const isLoadingPage = navigation.state === 'loading'
 
   return (
-    // eslint-disable-next-line jsx-a11y/html-has-lang
+    // biome-ignore lint/a11y/useHtmlLang: "This field is not used on the app since we handle the language via react-i18next"
     <html className="h-screen min-h-screen w-full overflow-auto">
       <head>
         <meta charSet="UTF-8" />
@@ -85,32 +85,32 @@ export function Layout({ children }: PropsWithChildren) {
         </noscript>
       </body>
     </html>
-  );
+  )
 }
 
 export function ErrorBoundary() {
-  const error = useRouteError();
+  const error = useRouteError()
 
   useEffect(() => {
     // Log to service of some sort
-    console.error(error);
-  }, [error]);
+    console.error(error)
+  }, [error])
 
-  return <PageError errorText="There was an app crash!" />;
+  return <PageError errorText="There was an app crash!" />
 }
 
 export function HydrateFallback() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true);
-  }, []);
+    setIsLoading(true)
+  }, [])
 
-  return <LoadingOverlay isLoading={isLoading} />;
+  return <LoadingOverlay isLoading={isLoading} />
 }
 
 const Root = () => {
-  return <Outlet />;
-};
+  return <Outlet />
+}
 
-export default Root;
+export default Root

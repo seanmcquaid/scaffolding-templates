@@ -1,3 +1,3 @@
-import PlaceholderIcon from './placeholder.svg?react';
+import PlaceholderIcon from './placeholder.svg?react'
 
-export { PlaceholderIcon };
+export { PlaceholderIcon }

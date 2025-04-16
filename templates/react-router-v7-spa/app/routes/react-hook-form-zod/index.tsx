@@ -1,8 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/Input';
-import PageWrapper from '@/components/app/PageWrapper';
+import PageWrapper from '@/components/app/PageWrapper'
+import { Input } from '@/components/ui/Input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const formDataSchema = z
   .object({
@@ -19,7 +19,7 @@ const formDataSchema = z
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
-  });
+  })
 
 const ReactHookFormZodPage = () => {
   const {
@@ -28,7 +28,7 @@ const ReactHookFormZodPage = () => {
   } = useForm<z.infer<typeof formDataSchema>>({
     mode: 'all',
     resolver: zodResolver(formDataSchema),
-  });
+  })
 
   return (
     <PageWrapper>
@@ -58,7 +58,7 @@ const ReactHookFormZodPage = () => {
         />
       </form>
     </PageWrapper>
-  );
-};
+  )
+}
 
-export default ReactHookFormZodPage;
+export default ReactHookFormZodPage

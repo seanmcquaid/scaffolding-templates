@@ -1,19 +1,19 @@
-import { useNavigate } from 'react-router';
-import { Button } from '@/components/ui/Button';
-import useAppTranslation from '@/hooks/useAppTranslation';
+import { Button } from '@/components/ui/Button'
+import useAppTranslation from '@/hooks/useAppTranslation'
+import { useNavigate } from 'react-router'
 
 interface PageErrorProps {
-  titleText?: string;
-  errorText?: string;
+  titleText?: string
+  errorText?: string
 }
 
 const PageError = ({ errorText, titleText }: PageErrorProps) => {
-  const { t } = useAppTranslation();
-  const navigate = useNavigate();
+  const { t } = useAppTranslation()
+  const navigate = useNavigate()
 
   const handleGoBack = () => {
-    navigate(-1);
-  };
+    navigate(-1)
+  }
 
   return (
     <div className="flex h-full w-full flex-col p-8">
@@ -21,7 +21,7 @@ const PageError = ({ errorText, titleText }: PageErrorProps) => {
       {!!errorText && <p>{errorText}</p>}
       <Button onClick={handleGoBack}>{t('PageError.goBack')}</Button>
     </div>
-  );
-};
+  )
+}
 
-export default PageError;
+export default PageError

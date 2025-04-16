@@ -1,12 +1,12 @@
-import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
-import { reactRouter } from '@react-router/dev/vite';
-import svgr from 'vite-plugin-svgr';
-import checker from 'vite-plugin-checker';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { reactRouterDevTools } from 'react-router-devtools';
-import { defineConfig as defineVitestConfig } from 'vitest/config';
-import babel from 'vite-plugin-babel';
-import tailwindcss from '@tailwindcss/vite';
+import { reactRouter } from '@react-router/dev/vite'
+import tailwindcss from '@tailwindcss/vite'
+import { reactRouterDevTools } from 'react-router-devtools'
+import { defineConfig as defineViteConfig, mergeConfig } from 'vite'
+import babel from 'vite-plugin-babel'
+import checker from 'vite-plugin-checker'
+import svgr from 'vite-plugin-svgr'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig as defineVitestConfig } from 'vitest/config'
 
 const viteConfig = defineViteConfig({
   plugins: [
@@ -32,7 +32,7 @@ const viteConfig = defineViteConfig({
     port: 3000,
     open: true,
   },
-});
+})
 
 const vitestConfig = defineVitestConfig({
   test: {
@@ -58,6 +58,6 @@ const vitestConfig = defineVitestConfig({
       ],
     },
   },
-});
+})
 
-export default mergeConfig(viteConfig, vitestConfig);
+export default mergeConfig(viteConfig, vitestConfig)

@@ -1,7 +1,7 @@
-import enUSLocale from './en-US';
+import enUSLocale from './en-US'
 
 const locales = {
   'en-US': { translation: enUSLocale },
-} as const;
+} as const
 
-export default locales;
+export default locales

@@ -1,15 +1,15 @@
-import type { VariantProps } from 'class-variance-authority';
-import type { ReactNode } from 'react';
-import type { LinkProps } from 'react-router';
-import { Link } from 'react-router';
-import { buttonVariants } from './Button';
-import { cn } from '@/utils/styles';
+import { cn } from '@/utils/styles'
+import type { VariantProps } from 'class-variance-authority'
+import type { ReactNode } from 'react'
+import type { LinkProps } from 'react-router'
+import { Link } from 'react-router'
+import { buttonVariants } from './Button'
 
 type LinkButtonProps = LinkProps &
   VariantProps<typeof buttonVariants> & {
-    children: ReactNode;
-    className?: string;
-  };
+    children: ReactNode
+    className?: string
+  }
 
 const LinkButton = (props: LinkButtonProps) => (
   <Link
@@ -24,6 +24,6 @@ const LinkButton = (props: LinkButtonProps) => (
   >
     {props.children}
   </Link>
-);
+)
 
-export default LinkButton;
+export default LinkButton

@@ -1,28 +1,28 @@
-import userEvent from '@testing-library/user-event';
-import { createRoutesStub } from 'react-router';
-import ReactQueryPage from '..';
 import {
   render,
   screen,
   waitFor,
-} from '@/utils/testing/reactTestingLibraryUtils';
+} from '@/utils/testing/reactTestingLibraryUtils'
+import userEvent from '@testing-library/user-event'
+import { createRoutesStub } from 'react-router'
+import ReactQueryPage from '..'
 
 describe('ReactQueryPage', () => {
   it('Displays a toast when a post is deleted succesfully', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup()
     const RoutesStub = createRoutesStub([
       {
         path: '/',
         Component: ReactQueryPage,
       },
-    ]);
-    render(<RoutesStub />);
-    const deleteButtons = await screen.findAllByText('ReactQueryPage.delete');
-    const firstDeleteButton = deleteButtons[0];
+    ])
+    render(<RoutesStub />)
+    const deleteButtons = await screen.findAllByText('ReactQueryPage.delete')
+    const firstDeleteButton = deleteButtons[0]
 
-    await user.click(firstDeleteButton);
+    await user.click(firstDeleteButton)
     await waitFor(() =>
       expect(screen.getByText('I got deleted')).toBeInTheDocument(),
-    );
-  });
-});
+    )
+  })
+})

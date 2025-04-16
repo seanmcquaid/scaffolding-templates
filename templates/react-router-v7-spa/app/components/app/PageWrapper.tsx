@@ -1,12 +1,12 @@
-import type { PropsWithChildren } from 'react';
-import PageError from './PageError';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner'
+import type { PropsWithChildren } from 'react'
+import PageError from './PageError'
 
 interface PageWrapperProps extends PropsWithChildren {
-  isLoading?: boolean;
-  isError?: boolean;
-  errorText?: string;
-  errorTitleText?: string;
+  isLoading?: boolean
+  isError?: boolean
+  errorText?: string
+  errorTitleText?: string
 }
 
 const PageWrapper = ({
@@ -21,14 +21,14 @@ const PageWrapper = ({
       <div className="flex h-full w-full items-center justify-center">
         <LoadingSpinner />
       </div>
-    );
+    )
   }
 
   if (isError) {
-    return <PageError errorText={errorText} titleText={errorTitleText} />;
+    return <PageError errorText={errorText} titleText={errorTitleText} />
   }
 
-  return <div className="flex h-full w-full flex-col p-8">{children}</div>;
-};
+  return <div className="flex h-full w-full flex-col p-8">{children}</div>
+}
 
-export default PageWrapper;
+export default PageWrapper

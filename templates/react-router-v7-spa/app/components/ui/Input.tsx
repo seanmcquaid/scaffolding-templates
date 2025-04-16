@@ -1,11 +1,11 @@
-import type * as React from 'react';
+import type * as React from 'react'
 
-import { cn } from '@/utils/styles';
+import { cn } from '@/utils/styles'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  errorMessage?: string;
+  label?: string
+  errorMessage?: string
 }
 
 const Input = ({
@@ -29,8 +29,8 @@ const Input = ({
       </label>
       {!!errorMessage && <p>{errorMessage}</p>}
     </div>
-  );
-};
-Input.displayName = 'Input';
+  )
+}
+Input.displayName = 'Input'
 
-export { Input };
+export { Input }

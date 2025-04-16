@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import AxeBuilder from '@axe-core/playwright'
+import { expect, test } from '@playwright/test'
 
 // eslint-disable-next-line playwright/no-skipped-test
 test.describe.skip('homepage', () => {
@@ -7,10 +7,10 @@ test.describe.skip('homepage', () => {
   test('should not have any automatically detectable accessibility issues', async ({
     page,
   }) => {
-    await page.goto('https://playwright.dev/');
+    await page.goto('https://playwright.dev/')
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
 
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
-});
+    expect(accessibilityScanResults.violations).toEqual([])
+  })
+})

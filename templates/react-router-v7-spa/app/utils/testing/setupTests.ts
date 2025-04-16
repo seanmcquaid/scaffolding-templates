@@ -1,18 +1,18 @@
-import '@testing-library/jest-dom/vitest';
-import 'cross-fetch/polyfill';
-import server from '@/mocks/server';
+import '@testing-library/jest-dom/vitest'
+import 'cross-fetch/polyfill'
+import server from '@/mocks/server'
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: (i18nKey: string) => i18nKey,
       i18n: {
-        changeLanguage: () => new Promise(() => {}),
+        changeLanguage: () => Promise.resolve(),
       },
-    };
+    }
   },
-}));
+}))
 
-beforeEach(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeEach(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())

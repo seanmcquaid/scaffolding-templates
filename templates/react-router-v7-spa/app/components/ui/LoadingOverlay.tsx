@@ -1,8 +1,8 @@
-import type { ComponentPropsWithoutRef } from 'react';
-import LoadingSpinner from './LoadingSpinner';
+import type { ComponentPropsWithoutRef } from 'react'
+import LoadingSpinner from './LoadingSpinner'
 
 interface LoadingOverlayProps extends ComponentPropsWithoutRef<'div'> {
-  isLoading: boolean;
+  isLoading: boolean
 }
 
 const LoadingOverlay = ({ isLoading, ...props }: LoadingOverlayProps) => (
@@ -17,6 +17,6 @@ const LoadingOverlay = ({ isLoading, ...props }: LoadingOverlayProps) => (
   >
     <LoadingSpinner />
   </div>
-);
+)
 
-export default LoadingOverlay;
+export default LoadingOverlay

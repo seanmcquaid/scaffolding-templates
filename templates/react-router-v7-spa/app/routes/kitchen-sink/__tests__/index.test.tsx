@@ -1,50 +1,50 @@
-import { createRoutesStub } from 'react-router';
-import userEvent from '@testing-library/user-event';
-import KitchenSinkPage, { clientAction } from '..';
-import type { Route } from '../+types';
 import {
   render,
   screen,
   waitFor,
-} from '@/utils/testing/reactTestingLibraryUtils';
+} from '@/utils/testing/reactTestingLibraryUtils'
+import userEvent from '@testing-library/user-event'
+import { createRoutesStub } from 'react-router'
+import KitchenSinkPage, { clientAction } from '..'
+import type { Route } from '../+types'
 
 describe('KitchenSinkPage', () => {
   describe('clientAction', () => {
     it('Returns errors if there is a validation error with the form data', async () => {
-      const formData = new FormData();
-      formData.append('name', 'a');
-      const headers = new Headers();
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
+      const formData = new FormData()
+      formData.append('name', 'a')
+      const headers = new Headers()
+      headers.set('Content-Type', 'application/x-www-form-urlencoded')
       const request = new Request(new URL('http://localhost:3000'), {
         body: formData,
         headers: new Headers(),
         method: 'POST',
-      });
+      })
       const result = await clientAction({
         request,
-      } as Route.ClientActionArgs);
-      expect(result.errors).not.toBeUndefined();
-      expect(result.defaultValues).toEqual({ name: 'a' });
-      expect(result.data).toBeUndefined();
-    });
+      } as Route.ClientActionArgs)
+      expect(result.errors).not.toBeUndefined()
+      expect(result.defaultValues).toEqual({ name: 'a' })
+      expect(result.data).toBeUndefined()
+    })
     it('Returns data and calls the toast if there are no validation errors', async () => {
-      const formData = new FormData();
-      formData.append('name', 'test');
-      const headers = new Headers();
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
+      const formData = new FormData()
+      formData.append('name', 'test')
+      const headers = new Headers()
+      headers.set('Content-Type', 'application/x-www-form-urlencoded')
       const request = new Request(new URL('http://localhost:3000'), {
         body: formData,
         headers: new Headers(),
         method: 'POST',
-      });
+      })
       const result = await clientAction({
         request,
-      } as Route.ClientActionArgs);
-      expect(result.errors).toBeUndefined();
-      expect(result.defaultValues).toBeUndefined();
-      expect(result.data).toEqual({ name: 'test' });
-    });
-  });
+      } as Route.ClientActionArgs)
+      expect(result.errors).toBeUndefined()
+      expect(result.defaultValues).toBeUndefined()
+      expect(result.data).toEqual({ name: 'test' })
+    })
+  })
   it('Renders loader data', async () => {
     const RoutesStub = createRoutesStub([
       {
@@ -60,14 +60,14 @@ describe('KitchenSinkPage', () => {
           />
         ),
       },
-    ]);
+    ])
 
-    render(<RoutesStub />);
+    render(<RoutesStub />)
 
-    expect(screen.queryByText('Pos1')).toBeInTheDocument();
-  });
+    expect(screen.queryByText('Pos1')).toBeInTheDocument()
+  })
   it('Displays an error message if the name is too short', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup()
     const RoutesStub = createRoutesStub([
       {
         path: '/',
@@ -82,13 +82,13 @@ describe('KitchenSinkPage', () => {
           />
         ),
       },
-    ]);
-    render(<RoutesStub />);
-    await user.type(screen.getByLabelText('Name'), 'a');
+    ])
+    render(<RoutesStub />)
+    await user.type(screen.getByLabelText('Name'), 'a')
     await waitFor(() =>
       expect(
         screen.getByText('Name must be between 3 and 10 characters'),
       ).toBeInTheDocument(),
-    );
-  });
-});
+    )
+  })
+})
