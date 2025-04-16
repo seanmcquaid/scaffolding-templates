@@ -1,5 +1,5 @@
-import { defineConfig } from 'tsup';
 import { esbuildPluginFilePathExtensions } from 'esbuild-plugin-file-path-extensions';
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/**/*', '!src/**/*.test.ts', '!src/**/*.test.tsx'],
