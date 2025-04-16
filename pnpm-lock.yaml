@@ -484,12 +484,9 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.27.0
         version: 7.27.0(@babel/core@7.26.10)
-      '@eslint/compat':
-        specifier: ^1.2.8
-        version: 1.2.8(eslint@9.24.0(jiti@2.4.2))
-      '@eslint/js':
-        specifier: ^9.24.0
-        version: 9.24.0
+      '@biomejs/biome':
+        specifier: 1.9.4
+        version: 1.9.4
       '@faker-js/faker':
         specifier: ^9.7.0
         version: 9.7.0
@@ -547,36 +544,6 @@ importers:
       dpdm:
         specifier: ^3.14.0
         version: 3.14.0
-      eslint:
-        specifier: ^9.24.0
-        version: 9.24.0(jiti@2.4.2)
-      eslint-config-prettier:
-        specifier: ^10.1.2
-        version: 10.1.2(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-i18next:
-        specifier: ^6.1.1
-        version: 6.1.1
-      eslint-plugin-import:
-        specifier: ^2.31.0
-        version: 2.31.0(@typescript-eslint/parser@8.29.1(eslint@9.24.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-jsx-a11y:
-        specifier: ^6.10.2
-        version: 6.10.2(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-playwright:
-        specifier: ^2.2.0
-        version: 2.2.0(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-prettier:
-        specifier: ^5.2.6
-        version: 5.2.6(@types/eslint@9.6.1)(eslint-config-prettier@10.1.2(eslint@9.24.0(jiti@2.4.2)))(eslint@9.24.0(jiti@2.4.2))(prettier@3.5.3)
-      eslint-plugin-react:
-        specifier: ^7.37.5
-        version: 7.37.5(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-react-compiler:
-        specifier: 19.0.0-beta-714736e-20250131
-        version: 19.0.0-beta-714736e-20250131(eslint@9.24.0(jiti@2.4.2))
-      eslint-plugin-react-hooks:
-        specifier: ^5.2.0
-        version: 5.2.0(eslint@9.24.0(jiti@2.4.2))
       globals:
         specifier: ^16.0.0
         version: 16.0.0
@@ -604,12 +571,6 @@ importers:
       playwright-msw:
         specifier: ^3.0.1
         version: 3.0.1(@playwright/test@1.51.1)(msw@2.7.4(@types/node@22.14.1)(typescript@5.8.3))
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
-      prettier-plugin-tailwindcss:
-        specifier: ^0.6.11
-        version: 0.6.11(prettier@3.5.3)
       react-router-devtools:
         specifier: ^1.1.10
         version: 1.1.10(@types/react-dom@19.1.2(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.0(react@19.1.0))(react-router@7.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(vite@6.2.6(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))
