@@ -1,6 +1,6 @@
+import type LocaleKeys from '@/types/LocaleKeys';
 import type { TOptions } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import type LocaleKeys from '@/types/LocaleKeys';
 
 const useAppTranslation = () => {
   const { t, i18n } = useTranslation();

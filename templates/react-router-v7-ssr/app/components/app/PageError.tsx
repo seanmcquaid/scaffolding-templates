@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
+import { useNavigate } from 'react-router';
 
 interface PageErrorProps {
   titleText?: string;
@@ -16,7 +16,7 @@ const PageError = ({ errorText, titleText }: PageErrorProps) => {
   };
 
   return (
-    <div className="flex h-full w-full p-8 flex-col">
+    <div className="flex h-full w-full flex-col p-8">
       <h1>{titleText ? titleText : t('PageError.title')}</h1>
       {!!errorText && <p>{errorText}</p>}
       <Button onClick={handleGoBack}>{t('PageError.goBack')}</Button>

@@ -1,12 +1,12 @@
-import { createRoutesStub } from 'react-router';
-import userEvent from '@testing-library/user-event';
-import KitchenSinkPage, { clientAction, action } from '..';
-import type { Route } from '../+types';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
+import userEvent from '@testing-library/user-event';
+import { createRoutesStub } from 'react-router';
+import KitchenSinkPage, { clientAction, action } from '..';
+import type { Route } from '../+types';
 
 describe('KitchenSinkPage', () => {
   describe('action', () => {

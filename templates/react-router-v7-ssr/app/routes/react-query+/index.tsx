@@ -1,11 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { useToast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
-import { getPostsQueryOptions, PostsQueryKeys } from '@/services/queries/posts';
+import { PostsQueryKeys, getPostsQueryOptions } from '@/services/queries/posts';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ReactQueryPage = () => {
   const { t } = useAppTranslation();
@@ -28,7 +28,7 @@ const ReactQueryPage = () => {
       <h1>{t('ReactQueryPage.title')}</h1>
       <ul className="grid grid-cols-2">
         {data?.map(post => (
-          <li key={post.id} className="flex mt-4 items-center">
+          <li key={post.id} className="mt-4 flex items-center">
             {post.title.substring(0, 5)}
             <Button
               onClick={() => deletePost(post.id.toString())}
