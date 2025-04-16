@@ -1,10 +1,10 @@
-import userEvent from '@testing-library/user-event';
-import ReactQueryPage from '../page';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
+import userEvent from '@testing-library/user-event';
+import ReactQueryPage from '../page';
 
 describe('ReactQueryPage', () => {
   it('Displays a toast when a post is deleted succesfully', async () => {

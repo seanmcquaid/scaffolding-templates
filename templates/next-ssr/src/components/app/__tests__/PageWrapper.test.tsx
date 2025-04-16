@@ -1,5 +1,5 @@
-import PageWrapper from '../PageWrapper';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
+import PageWrapper from '../PageWrapper';
 
 describe('PageWrapper', () => {
   it('Displays loading spinner when isLoading is true', () => {

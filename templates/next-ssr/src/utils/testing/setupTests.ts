@@ -9,7 +9,7 @@ vi.mock('react-i18next', () => ({
     return {
       t: (i18nKey: string) => i18nKey,
       i18n: {
-        changeLanguage: () => new Promise(() => {}),
+        changeLanguage: () => Promise.resolve(),
       },
     };
   },
