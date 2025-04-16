@@ -1,7 +1,7 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
+import { useRouter } from 'next/navigation';
 
 interface PageErrorProps {
   titleText?: string;
