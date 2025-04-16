@@ -1,6 +1,6 @@
-import { useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
+import { useNavigate } from '@tanstack/react-router';
 
 interface PageErrorProps {
   titleText?: string;

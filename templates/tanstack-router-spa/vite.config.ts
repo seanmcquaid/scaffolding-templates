@@ -1,11 +1,11 @@
-import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
-import svgr from 'vite-plugin-svgr';
+import react from '@vitejs/plugin-react';
+import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import checker from 'vite-plugin-checker';
+import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
-import tailwindcss from '@tailwindcss/vite';
 
 const viteConfig = defineViteConfig({
   plugins: [

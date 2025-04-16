@@ -1,7 +1,7 @@
-import { createLazyFileRoute } from '@tanstack/react-router';
-import { useSuspenseQuery } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { getPostQueryOptions } from '@/services/queries/posts';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const ReactQueryPostPage = () => {
   const { id } = Route.useParams();

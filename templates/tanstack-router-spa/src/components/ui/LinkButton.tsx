@@ -1,9 +1,9 @@
-import type { VariantProps } from 'class-variance-authority';
-import type { ReactNode } from 'react';
+import { cn } from '@/utils/styles';
 import type { LinkProps } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
+import type { VariantProps } from 'class-variance-authority';
+import type { ReactNode } from 'react';
 import { buttonVariants } from './Button';
-import { cn } from '@/utils/styles';
 
 type LinkButtonProps = LinkProps &
   VariantProps<typeof buttonVariants> & {
