@@ -40,6 +40,6 @@ const enUSLocale = {
     reactHookFormZod: '/react-hook-form-zod',
     reactQuery: '/react-query',
   },
-} as const
+} as const;
 
-export default enUSLocale
+export default enUSLocale;

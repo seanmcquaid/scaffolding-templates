@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
 const envSchema = z.object({
   VITE_APP_ENVIRONMENT: z.enum(['dev', 'qa', 'staging', 'prod']),
@@ -6,8 +6,8 @@ const envSchema = z.object({
     .enum(['true', 'false'])
     .transform(value => value === 'true'),
   MODE: z.enum(['development', 'test', 'production']),
-})
+});
 
-const env = envSchema.parse(import.meta.env)
+const env = envSchema.parse(import.meta.env);
 
-export default env
+export default env;

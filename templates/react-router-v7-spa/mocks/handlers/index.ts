@@ -1,5 +1,5 @@
-import * as postsHandlers from './postsHandlers.js'
+import * as postsHandlers from './postsHandlers.js';
 
-const handlers = [...Object.values(postsHandlers)]
+const handlers = [...Object.values(postsHandlers)];
 
-export default handlers
+export default handlers;

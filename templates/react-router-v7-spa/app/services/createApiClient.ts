@@ -1,4 +1,4 @@
-import ky from 'ky'
+import ky from 'ky';
 
 const createApiClient = (baseUrl: string) => {
   return ky.create({
@@ -21,12 +21,12 @@ const createApiClient = (baseUrl: string) => {
       afterResponse: [
         async (_, options, response) => {
           if (!response.ok || !options.validationSchema) {
-            return response
+            return response;
           }
 
-          const data = await response.json()
+          const data = await response.json();
 
-          const validatedData = options.validationSchema.safeParse(data)
+          const validatedData = options.validationSchema.safeParse(data);
 
           if (!validatedData.success) {
             return new Response(
@@ -37,25 +37,25 @@ const createApiClient = (baseUrl: string) => {
                 status: 422,
                 statusText: 'API Validation Error',
               },
-            )
+            );
           }
 
-          return new Response(JSON.stringify(validatedData.data))
+          return new Response(JSON.stringify(validatedData.data));
         },
       ],
       beforeError: [
         async error => {
           try {
-            const response = await error.response.json()
-            error.responseData = response
-            return error
+            const response = await error.response.json();
+            error.responseData = response;
+            return error;
           } catch {
-            return error
+            return error;
           }
         },
       ],
     },
-  })
-}
+  });
+};
 
-export default createApiClient
+export default createApiClient;

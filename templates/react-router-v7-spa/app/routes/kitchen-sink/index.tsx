@@ -1,15 +1,15 @@
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import LinkButton from '@/components/ui/LinkButton'
-import { toast } from '@/hooks/useToast'
-import { getPostsQueryOptions } from '@/services/queries/posts'
-import queryClient from '@/services/queries/queryClient'
-import getValidatedFormData from '@/utils/getValidatedFormData'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { Form } from 'react-router'
-import { z } from 'zod'
-import type { Route } from './+types'
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import LinkButton from '@/components/ui/LinkButton';
+import { toast } from '@/hooks/useToast';
+import { getPostsQueryOptions } from '@/services/queries/posts';
+import queryClient from '@/services/queries/queryClient';
+import getValidatedFormData from '@/utils/getValidatedFormData';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Form } from 'react-router';
+import { z } from 'zod';
+import type { Route } from './+types';
 
 const formDataSchema = z.object({
   name: z
@@ -20,32 +20,32 @@ const formDataSchema = z.object({
     .max(10, {
       message: 'Name must be between 3 and 10 characters',
     }),
-})
+});
 
 export const clientLoader = async () => {
-  const posts = await queryClient.ensureQueryData(getPostsQueryOptions())
+  const posts = await queryClient.ensureQueryData(getPostsQueryOptions());
 
-  return posts
-}
+  return posts;
+};
 
-clientLoader.hydrate = true
+clientLoader.hydrate = true;
 
 export const clientAction = async ({ request }: Route.ClientActionArgs) => {
-  const formData = await request.formData()
+  const formData = await request.formData();
   const { errors, data, defaultValues } = getValidatedFormData({
     formData,
     schema: formDataSchema,
-  })
+  });
   if (errors) {
-    return { errors, defaultValues }
+    return { errors, defaultValues };
   }
 
   toast({
     title: `Hello ${data.name}!`,
-  })
+  });
 
-  return { data }
-}
+  return { data };
+};
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   const {
@@ -54,7 +54,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   } = useForm<z.infer<typeof formDataSchema>>({
     resolver: zodResolver(formDataSchema),
     mode: 'onChange',
-  })
+  });
 
   return (
     <div>
@@ -78,7 +78,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default KitchenSinkPage
+export default KitchenSinkPage;

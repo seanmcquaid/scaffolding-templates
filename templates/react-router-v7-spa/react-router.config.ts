@@ -1,8 +1,8 @@
-import type { Config } from '@react-router/dev/config'
+import type { Config } from '@react-router/dev/config';
 
 declare module 'react-router' {
   interface Future {
-    unstable_middleware: true // 👈 Enable middleware types
+    unstable_middleware: true; // 👈 Enable middleware types
   }
 }
 
@@ -14,4 +14,4 @@ export default {
     unstable_optimizeDeps: true,
     unstable_viteEnvironmentApi: true,
   },
-} satisfies Config
+} satisfies Config;

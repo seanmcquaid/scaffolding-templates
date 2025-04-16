@@ -1,27 +1,27 @@
-import PageWrapper from '@/components/app/PageWrapper'
-import { Button } from '@/components/ui/Button'
-import LinkButton from '@/components/ui/LinkButton'
-import useAppTranslation from '@/hooks/useAppTranslation'
-import { useToast } from '@/hooks/useToast'
-import postsService from '@/services/postsService'
-import { PostsQueryKeys, getPostsQueryOptions } from '@/services/queries/posts'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import PageWrapper from '@/components/app/PageWrapper';
+import { Button } from '@/components/ui/Button';
+import LinkButton from '@/components/ui/LinkButton';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import { useToast } from '@/hooks/useToast';
+import postsService from '@/services/postsService';
+import { PostsQueryKeys, getPostsQueryOptions } from '@/services/queries/posts';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const ReactQueryPage = () => {
-  const { t } = useAppTranslation()
-  const { data, isLoading, isError } = useQuery(getPostsQueryOptions())
-  const queryClient = useQueryClient()
-  const { toast } = useToast()
+  const { t } = useAppTranslation();
+  const { data, isLoading, isError } = useQuery(getPostsQueryOptions());
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { mutate: deletePost, isPending: deletePostLoading } = useMutation({
     mutationFn: async (id: string) => postsService.deletePost(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [PostsQueryKeys.GET_POSTS],
-      })
-      toast({ title: 'I got deleted' })
+      });
+      toast({ title: 'I got deleted' });
     },
-  })
+  });
 
   return (
     <PageWrapper isLoading={isLoading} isError={isError}>
@@ -47,7 +47,7 @@ const ReactQueryPage = () => {
         ))}
       </ul>
     </PageWrapper>
-  )
-}
+  );
+};
 
-export default ReactQueryPage
+export default ReactQueryPage;
