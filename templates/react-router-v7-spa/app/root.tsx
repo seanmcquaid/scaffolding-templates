@@ -2,7 +2,6 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
-/* eslint-disable i18next/no-literal-string */
 import {
   Links,
   Meta,

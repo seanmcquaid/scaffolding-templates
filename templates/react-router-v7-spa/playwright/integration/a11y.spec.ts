@@ -1,7 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-// eslint-disable-next-line playwright/no-skipped-test
 test.describe.skip('homepage', () => {
   // 2
   test('should not have any automatically detectable accessibility issues', async ({

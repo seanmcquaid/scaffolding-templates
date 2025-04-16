@@ -50,7 +50,6 @@ describe('KitchenSinkPage', () => {
       {
         path: '/',
         Component: () => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[
@@ -72,7 +71,6 @@ describe('KitchenSinkPage', () => {
       {
         path: '/',
         Component: () => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[

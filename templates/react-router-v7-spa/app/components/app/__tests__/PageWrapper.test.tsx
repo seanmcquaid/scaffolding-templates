@@ -30,7 +30,6 @@ describe('PageWrapper', () => {
     const RoutesStub = createRoutesStub([
       {
         path: '/',
-        // eslint-disable-next-line i18next/no-literal-string
         Component: () => <PageWrapper>Children</PageWrapper>,
       },
     ]);
