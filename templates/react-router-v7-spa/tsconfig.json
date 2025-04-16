@@ -1,4 +1,35 @@
 {
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    // Vite takes care of building everything, not tsc.
+    "noEmit": true,
+    "paths": {
+      "@/*": ["./app/*"],
+      "@/mocks/*": ["./mocks/*"]
+    },
+    "resolveJsonModule": true,
+    "rootDirs": [".", "./.react-router/types"],
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "types": [
+      "@react-router/node",
+      "vite/client",
+      "vitest/globals",
+      "vite-plugin-svgr/client",
+      "vitest/config"
+    ]
+  },
   "include": [
     "**/*.ts",
     "**/*.tsx",
@@ -7,36 +38,5 @@
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx",
     ".react-router/types/**/*"
-  ],
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": [
-      "@react-router/node",
-      "vite/client",
-      "vitest/globals",
-      "vite-plugin-svgr/client",
-      "vitest/config"
-    ],
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "resolveJsonModule": true,
-    "target": "ES2022",
-    "strict": true,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./app/*"],
-      "@/mocks/*": ["./mocks/*"]
-    },
-    "rootDirs": [".", "./.react-router/types"],
-    "allowImportingTsExtensions": true,
-
-    // Vite takes care of building everything, not tsc.
-    "noEmit": true
-  }
+  ]
 }

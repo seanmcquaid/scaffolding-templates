@@ -28,25 +28,25 @@ export const ReactQueryPage = () => {
   });
 
   return (
-    <PageWrapper isLoading={isLoading} isError={isError}>
+    <PageWrapper isError={isError} isLoading={isLoading}>
       <h1>{t('ReactQueryPage.title')}</h1>
       <ul className="grid grid-cols-2">
         {data?.map(post => (
-          <li key={post.id} className="mt-4 flex items-center">
+          <li className="mt-4 flex items-center" key={post.id}>
             {post.title.substring(0, 5)}
             <Button
-              onClick={() => deletePost(post.id.toString())}
-              disabled={deletePostLoading}
               className="ml-4"
+              disabled={deletePostLoading}
+              onClick={() => deletePost(post.id.toString())}
             >
               {t('ReactQueryPage.delete')}
             </Button>
             <LinkButton
-              to="/react-query/$id"
               className="ml-4"
               params={{
                 id: post.id.toString(),
               }}
+              to="/react-query/$id"
             >
               {t('ReactQueryPage.view')}
             </LinkButton>

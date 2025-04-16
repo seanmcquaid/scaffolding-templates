@@ -10,7 +10,7 @@ export const ReactQueryPostPage = () => {
   );
 
   return (
-    <PageWrapper isLoading={isLoading} isError={isError}>
+    <PageWrapper isError={isError} isLoading={isLoading}>
       <h1 data-testid="postHeader">{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>

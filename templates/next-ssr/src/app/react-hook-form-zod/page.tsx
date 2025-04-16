@@ -35,26 +35,26 @@ const ReactHookFormZodPage = () => {
     <PageWrapper>
       <form>
         <Input
-          className="m-4"
           autoComplete="username"
-          label="Username"
+          className="m-4"
           errorMessage={errors?.username?.message}
+          label="Username"
           {...register('username')}
         />
         <Input
-          type="password"
-          className="m-4"
           autoComplete="new-password"
-          label="Password"
+          className="m-4"
           errorMessage={errors?.password?.message}
+          label="Password"
+          type="password"
           {...register('password')}
         />
         <Input
-          type="password"
-          className="m-4"
           autoComplete="new-password"
-          label="Confirm Password"
+          className="m-4"
           errorMessage={errors?.confirmPassword?.message}
+          label="Confirm Password"
+          type="password"
           {...register('confirmPassword')}
         />
       </form>

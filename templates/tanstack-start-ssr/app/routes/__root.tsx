@@ -103,7 +103,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <body>
         {children}
         <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-right" />
+        <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -43,18 +43,18 @@ export const KitchenSinkPage = () => {
       <form onSubmit={handleOnSubmit}>
         <Input
           className="m-4"
-          label="Name"
           errorMessage={errors?.name?.message}
+          label="Name"
           {...register('name')}
         />
         <Button type="submit">{'Submit'}</Button>
       </form>
       <ul className="grid grid-cols-2">
         {posts?.map(post => (
-          <li key={post.id} className="mt-4 flex items-center">
+          <li className="mt-4 flex items-center" key={post.id}>
             <LinkButton
-              to="/react-query/$id"
               params={{ id: post.id.toString() }}
+              to="/react-query/$id"
             >
               {post.title.substring(0, 4)}
             </LinkButton>

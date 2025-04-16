@@ -1,26 +1,4 @@
 {
-  "name": "tanstack-router-spa",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "vite build",
-    "bundlesize": "bundlesize",
-    "dev": "vite",
-    "lint": "biome check",
-    "playwright:codegen": "playwright codegen",
-    "playwright:debug": "playwright test --debug",
-    "playwright:run-e2e": "playwright test playwright/e2e",
-    "playwright:run-integration": "playwright test playwright/integration",
-    "playwright:ui": "playwright test --ui",
-    "prepare": "is-ci || husky",
-    "serve": "vite preview",
-    "start": "vite",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
-  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
@@ -79,11 +57,33 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.1"
   },
-  "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": ">=22.12.0"
   },
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "name": "tanstack-router-spa",
+  "packageManager": "pnpm@9.14.4",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "bundlesize": "bundlesize",
+    "dev": "vite",
+    "lint": "biome check",
+    "playwright:codegen": "playwright codegen",
+    "playwright:debug": "playwright test --debug",
+    "playwright:run-e2e": "playwright test playwright/e2e",
+    "playwright:run-integration": "playwright test playwright/integration",
+    "playwright:ui": "playwright test --ui",
+    "prepare": "is-ci || husky",
+    "serve": "vite preview",
+    "start": "vite",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "type": "module",
+  "version": "0.0.0"
 }

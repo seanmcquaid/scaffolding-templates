@@ -19,7 +19,7 @@ const Providers = ({ children, lang }: ProvidersProps) => {
     <QueryClientProvider client={queryClient}>
       <ReactQueryStreamedHydration>
         {children}
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-right" />
+        <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
         <Toaster />
       </ReactQueryStreamedHydration>
     </QueryClientProvider>

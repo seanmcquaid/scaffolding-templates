@@ -24,8 +24,8 @@ const KitchenSinkForm = () => {
     <form action={formAction}>
       <Input
         className="m-4"
-        label="Name"
         errorMessage={errors?.name?.message || formState?.name}
+        label="Name"
         {...register('name')}
       />
       <Button type="submit">{'Submit'}</Button>

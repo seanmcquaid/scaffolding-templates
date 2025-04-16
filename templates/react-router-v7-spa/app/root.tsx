@@ -52,16 +52,16 @@ export function Layout({ children }: PropsWithChildren) {
     <html className="h-screen min-h-screen w-full overflow-auto">
       <head>
         <meta charSet="UTF-8" />
-        <meta name="description" content="Vite App" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta content="Vite App" name="description" />
+        <meta content="width=device-width,initial-scale=1" name="viewport" />
+        <link href="/favicon.ico" rel="icon" />
+        <meta content="#ffffff" name="theme-color" />
         <meta
-          httpEquiv="Cache-Control"
           content="no-cache, no-store, must-revalidate"
+          httpEquiv="Cache-Control"
         />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
+        <meta content="no-cache" httpEquiv="Pragma" />
+        <meta content="0" httpEquiv="Expires" />
         <Meta />
         <Links />
       </head>
@@ -71,8 +71,8 @@ export function Layout({ children }: PropsWithChildren) {
             <LoadingOverlay isLoading={isLoadingPage} />
             {children}
             <ReactQueryDevtools
-              initialIsOpen={false}
               buttonPosition="top-right"
+              initialIsOpen={false}
             />
             <Toaster />
           </QueryClientProvider>

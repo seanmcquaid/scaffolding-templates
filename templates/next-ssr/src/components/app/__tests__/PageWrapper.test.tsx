@@ -8,7 +8,7 @@ describe('PageWrapper', () => {
   });
   it('Displays error message when isError is true', () => {
     render(
-      <PageWrapper isError errorText="Error" errorTitleText="Error title" />,
+      <PageWrapper errorText="Error" errorTitleText="Error title" isError />,
     );
     expect(screen.getByText('Error')).toBeInTheDocument();
     expect(screen.getByText('Error title')).toBeInTheDocument();

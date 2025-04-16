@@ -1,18 +1,4 @@
 {
-  "name": "next-ssr",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack --turbo",
-    "build": "next build",
-    "start": "next start",
-    "lint": "biome check",
-    "prepare": "is-ci || husky",
-    "bundlesize": "bundlesize",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
-  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
@@ -68,5 +54,19 @@
   "engines": {
     "node": ">=22.12.0"
   },
-  "packageManager": "pnpm@9.14.4"
+  "name": "next-ssr",
+  "packageManager": "pnpm@9.14.4",
+  "private": true,
+  "scripts": {
+    "build": "next build",
+    "bundlesize": "bundlesize",
+    "dev": "next dev --turbopack --turbo",
+    "lint": "biome check",
+    "prepare": "is-ci || husky",
+    "start": "next start",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "version": "0.0.0"
 }

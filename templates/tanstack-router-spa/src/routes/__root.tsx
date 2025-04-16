@@ -56,7 +56,7 @@ const Root = () => {
     <Suspense fallback={<LoadingSpinner />}>
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-right" />
+      <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
       <Toaster />
     </Suspense>
   );

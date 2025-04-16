@@ -18,7 +18,7 @@ describe('PageWrapper', () => {
       {
         path: '/',
         Component: () => (
-          <PageWrapper isError errorText="Error" errorTitleText="Error title" />
+          <PageWrapper errorText="Error" errorTitleText="Error title" isError />
         ),
       },
     ]);

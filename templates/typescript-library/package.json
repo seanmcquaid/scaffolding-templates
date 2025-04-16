@@ -1,37 +1,6 @@
 {
-  "name": "typescript-library",
-  "version": "0.0.0",
-  "description": "",
-  "license": "ISC",
   "author": "",
-  "sideEffects": false,
-  "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "files": ["/dist"],
-  "scripts": {
-    "build": "tsup",
-    "bundlesize": "bundlesize",
-    "changeset": "changeset",
-    "check-treeshaking": "agadoo dist/index.mjs",
-    "check-types": "npm pack && attw --pack",
-    "lint": "biome check",
-    "prepare": "is-ci || husky",
-    "release": "pnpm build && changeset publish",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
-  },
+  "description": "",
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.17.3",
     "@biomejs/biome": "1.9.4",
@@ -51,8 +20,39 @@
     "vite": "^6.2.6",
     "vitest": "^3.1.1"
   },
-  "packageManager": "pnpm@9.14.4",
   "engines": {
     "node": ">=22.12.0"
-  }
+  },
+  "exports": {
+    "import": {
+      "default": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    },
+    "require": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["/dist"],
+  "license": "ISC",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "name": "typescript-library",
+  "packageManager": "pnpm@9.14.4",
+  "scripts": {
+    "build": "tsup",
+    "bundlesize": "bundlesize",
+    "changeset": "changeset",
+    "check-treeshaking": "agadoo dist/index.mjs",
+    "check-types": "npm pack && attw --pack",
+    "lint": "biome check",
+    "prepare": "is-ci || husky",
+    "release": "pnpm build && changeset publish",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
+  "sideEffects": false,
+  "types": "dist/index.d.ts",
+  "version": "0.0.0"
 }

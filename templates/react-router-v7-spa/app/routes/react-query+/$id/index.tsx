@@ -7,7 +7,7 @@ const ReactQueryPostPage = ({ params }: Route.ComponentProps) => {
   const { data, isLoading, isError } = useQuery(getPostQueryOptions(params.id));
 
   return (
-    <PageWrapper isLoading={isLoading} isError={isError}>
+    <PageWrapper isError={isError} isLoading={isLoading}>
       <h1>{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>

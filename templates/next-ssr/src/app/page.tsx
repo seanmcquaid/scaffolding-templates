@@ -9,13 +9,13 @@ const HomePage = async () => {
     <PageWrapper>
       <h1>{t('HomePage.title')}</h1>
       <p>{t('HomePage.subTitle')}</p>
-      <LinkButton href={t('Routes.reactQuery')} className="m-4">
+      <LinkButton className="m-4" href={t('Routes.reactQuery')}>
         {t('HomePage.reactQuery')}
       </LinkButton>
-      <LinkButton href={t('Routes.reactHookFormZod')} className="m-4">
+      <LinkButton className="m-4" href={t('Routes.reactHookFormZod')}>
         {t('HomePage.reactHookFormZod')}
       </LinkButton>
-      <LinkButton href={t('Routes.kitchenSink')} className="m-4">
+      <LinkButton className="m-4" href={t('Routes.kitchenSink')}>
         {t('HomePage.kitchenSink')}
       </LinkButton>
     </PageWrapper>

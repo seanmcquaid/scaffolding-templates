@@ -9,13 +9,13 @@ const HomePage = () => {
     <PageWrapper>
       <h1>{t('HomePage.title')}</h1>
       <p>{t('HomePage.subTitle')}</p>
-      <LinkButton to={t('Routes.reactQuery')} className="m-4">
+      <LinkButton className="m-4" to={t('Routes.reactQuery')}>
         {t('HomePage.reactQuery')}
       </LinkButton>
-      <LinkButton to={t('Routes.reactHookFormZod')} className="m-4">
+      <LinkButton className="m-4" to={t('Routes.reactHookFormZod')}>
         {t('HomePage.reactHookFormZod')}
       </LinkButton>
-      <LinkButton to={t('Routes.kitchenSink')} className="m-4">
+      <LinkButton className="m-4" to={t('Routes.kitchenSink')}>
         {t('HomePage.kitchenSink')}
       </LinkButton>
     </PageWrapper>
