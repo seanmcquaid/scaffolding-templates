@@ -1,15 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Form } from 'react-router';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import type { Route } from './+types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import queryClient from '@/services/queries/queryClient';
-import { toast } from '@/hooks/useToast';
 import LinkButton from '@/components/ui/LinkButton';
-import getValidatedFormData from '@/utils/getValidatedFormData';
+import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
+import queryClient from '@/services/queries/queryClient';
+import getValidatedFormData from '@/utils/getValidatedFormData';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Form } from 'react-router';
+import { z } from 'zod';
+import type { Route } from './+types';
 
 const formDataSchema = z.object({
   name: z

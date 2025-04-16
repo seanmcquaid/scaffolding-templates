@@ -1,5 +1,5 @@
-import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { expect, test } from '@playwright/test';
 
 // eslint-disable-next-line playwright/no-skipped-test
 test.describe.skip('homepage', () => {

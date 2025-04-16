@@ -1,4 +1,4 @@
-import { parseDependencyTree, parseCircular } from 'dpdm';
+import { parseCircular, parseDependencyTree } from 'dpdm';
 
 describe('dependencies', () => {
   it('has no circular dependencies', async () => {

@@ -1,5 +1,5 @@
-import { Input } from '../Input';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
+import { Input } from '../Input';
 
 describe('Input', () => {
   it('Displays error message if provided', () => {

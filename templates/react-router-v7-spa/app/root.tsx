@@ -1,24 +1,24 @@
-/* eslint-disable i18next/no-literal-string */
-import {
-  Outlet,
-  Links,
-  Meta,
-  Scripts,
-  useRouteError,
-  useNavigation,
-  ScrollRestoration,
-} from 'react-router';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
-import stylesheet from './styles/index.css?url';
-import { Toaster } from './components/ui/Toaster';
-import queryClient from './services/queries/queryClient';
+/* eslint-disable i18next/no-literal-string */
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useNavigation,
+  useRouteError,
+} from 'react-router';
+import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
-import type { Route } from './+types/root';
+import { Toaster } from './components/ui/Toaster';
 import env from './env.client';
+import queryClient from './services/queries/queryClient';
+import stylesheet from './styles/index.css?url';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -48,7 +48,7 @@ export function Layout({ children }: PropsWithChildren) {
   const isLoadingPage = navigation.state === 'loading';
 
   return (
-    // eslint-disable-next-line jsx-a11y/html-has-lang
+    // biome-ignore lint/a11y/useHtmlLang: "This field is not used on the app since we handle the language via react-i18next"
     <html className="h-screen min-h-screen w-full overflow-auto">
       <head>
         <meta charSet="UTF-8" />
