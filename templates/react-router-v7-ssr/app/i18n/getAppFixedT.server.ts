@@ -1,7 +1,7 @@
-import type { TOptions } from 'i18next';
-import setAcceptLanguageHeaders from './setAcceptLanguageHeaders.server';
-import i18next from './i18next.server';
 import type LocaleKeys from '@/types/LocaleKeys';
+import type { TOptions } from 'i18next';
+import i18next from './i18next.server';
+import setAcceptLanguageHeaders from './setAcceptLanguageHeaders.server';
 
 const getAppFixedT = async (request: Request) => {
   setAcceptLanguageHeaders(request);

@@ -1,29 +1,29 @@
-import {
-  Outlet,
-  Links,
-  Meta,
-  Scripts,
-  useRouteError,
-  useNavigation,
-  useLoaderData,
-  ScrollRestoration,
-} from 'react-router';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { PropsWithChildren } from 'react';
 import { useEffect } from 'react';
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useLoaderData,
+  useNavigation,
+  useRouteError,
+} from 'react-router';
 import { useChangeLanguage } from 'remix-i18next/react';
-import stylesheet from './styles/index.css?url';
-import { Toaster } from './components/ui/Toaster';
-import queryClient from './services/queries/queryClient';
-import PageError from './components/app/PageError';
-import useAppTranslation from './hooks/useAppTranslation';
-import LoadingOverlay from './components/ui/LoadingOverlay';
-import i18next from './i18n/i18next.server';
-import setAcceptLanguageHeaders from './i18n/setAcceptLanguageHeaders.server';
 import type { Route } from './+types/root';
+import PageError from './components/app/PageError';
+import LoadingOverlay from './components/ui/LoadingOverlay';
+import { Toaster } from './components/ui/Toaster';
 import clientEnv from './env.client';
 import serverEnv from './env.server';
+import useAppTranslation from './hooks/useAppTranslation';
+import i18next from './i18n/i18next.server';
+import setAcceptLanguageHeaders from './i18n/setAcceptLanguageHeaders.server';
+import queryClient from './services/queries/queryClient';
+import stylesheet from './styles/index.css?url';
 
 export const links: Route.LinksFunction = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -88,7 +88,7 @@ export function Layout({ children }: PropsWithChildren) {
     <html
       lang={locale}
       dir={i18n.dir()}
-      className="h-screen min-h-screen overflow-auto w-full"
+      className="h-screen min-h-screen w-full overflow-auto"
     >
       <head>
         <meta charSet="UTF-8" />
@@ -105,7 +105,7 @@ export function Layout({ children }: PropsWithChildren) {
         <Meta />
         <Links />
       </head>
-      <body className="h-screen min-h-screen flex flex-col overflow-auto w-full">
+      <body className="flex h-screen min-h-screen w-full flex-col overflow-auto">
         <main className="flex-1">
           <QueryClientProvider client={queryClient}>
             <LoadingOverlay isLoading={isLoadingPage} />
