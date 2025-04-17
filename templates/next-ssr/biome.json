@@ -10,7 +10,10 @@
     },
     "enabled": true
   },
-  "files": { "ignoreUnknown": false, "includes": ["**"] },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  },
   "formatter": {
     "attributePosition": "auto",
     "bracketSpacing": true,

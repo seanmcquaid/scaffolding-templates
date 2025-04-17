@@ -1,4 +1,19 @@
 {
+  "name": "tanstack-start-ssr",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vinxi build",
+    "bundlesize": "bundlesize",
+    "dev": "vinxi dev",
+    "lint": "biome check",
+    "prepare": "is-ci || husky",
+    "start": "vinxi start",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
@@ -58,20 +73,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "name": "tanstack-start-ssr",
-  "scripts": {
-    "build": "vinxi build",
-    "bundlesize": "bundlesize",
-    "dev": "vinxi dev",
-    "lint": "biome check",
-    "prepare": "is-ci || husky",
-    "start": "vinxi start",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
-  },
-  "type": "module",
-  "version": "1.0.0"
+  }
 }

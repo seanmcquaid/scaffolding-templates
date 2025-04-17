@@ -12,7 +12,13 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/routeTree.gen.ts"]
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "!**/routeTree.gen.ts"
+    ]
   },
   "formatter": {
     "attributePosition": "auto",
