@@ -2,14 +2,14 @@ import { esbuildPluginFilePathExtensions } from 'esbuild-plugin-file-path-extens
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/**/*', '!src/**/*.test.ts', '!src/**/*.test.tsx'],
-  format: ['esm', 'cjs'],
-  dts: true,
   clean: true,
+  dts: true,
+  entry: ['src/**/*', '!src/**/*.test.ts', '!src/**/*.test.tsx'],
   esbuildPlugins: [
     esbuildPluginFilePathExtensions({
-      esmExtension: 'mjs',
       cjsExtension: 'js',
+      esmExtension: 'mjs',
     }),
   ],
+  format: ['esm', 'cjs'],
 });

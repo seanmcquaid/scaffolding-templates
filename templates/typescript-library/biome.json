@@ -1,15 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "assists": {
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
+  "assist": {
     "actions": {
       "source": {
-        "sortJsxProps": "on",
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
         "useSortedKeys": "on"
       }
     },
     "enabled": true
   },
-  "files": { "ignore": [], "ignoreUnknown": false },
+  "files": { "ignoreUnknown": false },
   "formatter": {
     "attributePosition": "auto",
     "bracketSpacing": true,
@@ -182,7 +183,6 @@
     "rules": {
       "complexity": {
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessTypeConstraint": "error",
         "noWith": "error"
@@ -252,10 +252,9 @@
       }
     }
   },
-  "organizeImports": { "enabled": true },
   "overrides": [
     {
-      "include": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "linter": {
         "rules": {
           "complexity": { "noWith": "off" },
@@ -272,7 +271,6 @@
           },
           "style": {
             "noArguments": "error",
-            "noVar": "error",
             "useConst": "error"
           },
           "suspicious": {
@@ -284,6 +282,7 @@
             "noImportAssign": "off",
             "noRedeclare": "off",
             "noUnsafeNegation": "off",
+            "noVar": "error",
             "useGetterReturn": "off"
           }
         }
