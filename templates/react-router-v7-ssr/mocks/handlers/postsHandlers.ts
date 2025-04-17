@@ -1,7 +1,7 @@
-import { postSchema } from '@/types/Post';
 import { generateMock } from '@anatine/zod-mock';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { z } from 'zod';
+import { postSchema } from '@/types/Post';
 
 export const getPostsHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts',

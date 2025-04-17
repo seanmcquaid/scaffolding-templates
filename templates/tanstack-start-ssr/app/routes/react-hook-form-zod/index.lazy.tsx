@@ -1,20 +1,20 @@
-import PageWrapper from '@/components/app/PageWrapper';
-import { Input } from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import PageWrapper from '@/components/app/PageWrapper';
+import { Input } from '@/components/ui/Input';
 
 const formDataSchema = z
   .object({
-    username: z.string().email({
-      message: 'Please enter a valid email',
+    confirmPassword: z.string().min(3).max(10, {
+      message: 'Password must be between 3 and 10 characters',
     }),
     password: z.string().min(3).max(10, {
       message: 'Password must be between 3 and 10 characters',
     }),
-    confirmPassword: z.string().min(3).max(10, {
-      message: 'Password must be between 3 and 10 characters',
+    username: z.string().email({
+      message: 'Please enter a valid email',
     }),
   })
   .refine(data => data.password === data.confirmPassword, {

@@ -48,11 +48,11 @@ self.addEventListener('message', async function (event) {
 
     case 'INTEGRITY_CHECK_REQUEST': {
       sendToClient(client, {
-        type: 'INTEGRITY_CHECK_RESPONSE',
         payload: {
-          packageVersion: PACKAGE_VERSION,
           checksum: INTEGRITY_CHECKSUM,
+          packageVersion: PACKAGE_VERSION,
         },
+        type: 'INTEGRITY_CHECK_RESPONSE',
       });
       break;
     }
@@ -61,13 +61,13 @@ self.addEventListener('message', async function (event) {
       activeClientIds.add(clientId);
 
       sendToClient(client, {
-        type: 'MOCKING_ENABLED',
         payload: {
           client: {
-            id: client.id,
             frameType: client.frameType,
+            id: client.id,
           },
         },
+        type: 'MOCKING_ENABLED',
       });
       break;
     }
@@ -134,16 +134,16 @@ async function handleRequest(event, requestId) {
       sendToClient(
         client,
         {
-          type: 'RESPONSE',
           payload: {
-            requestId,
-            isMockedResponse: IS_MOCKED_RESPONSE in response,
-            type: responseClone.type,
-            status: responseClone.status,
-            statusText: responseClone.statusText,
             body: responseClone.body,
             headers: Object.fromEntries(responseClone.headers.entries()),
+            isMockedResponse: IS_MOCKED_RESPONSE in response,
+            requestId,
+            status: responseClone.status,
+            statusText: responseClone.statusText,
+            type: responseClone.type,
           },
+          type: 'RESPONSE',
         },
         [responseClone.body],
       );
@@ -234,23 +234,23 @@ async function getResponse(event, client, requestId) {
   const clientMessage = await sendToClient(
     client,
     {
-      type: 'REQUEST',
       payload: {
-        id: requestId,
-        url: request.url,
-        mode: request.mode,
-        method: request.method,
-        headers: Object.fromEntries(request.headers.entries()),
+        body: requestBuffer,
         cache: request.cache,
         credentials: request.credentials,
         destination: request.destination,
+        headers: Object.fromEntries(request.headers.entries()),
+        id: requestId,
         integrity: request.integrity,
+        keepalive: request.keepalive,
+        method: request.method,
+        mode: request.mode,
         redirect: request.redirect,
         referrer: request.referrer,
         referrerPolicy: request.referrerPolicy,
-        body: requestBuffer,
-        keepalive: request.keepalive,
+        url: request.url,
       },
+      type: 'REQUEST',
     },
     [requestBuffer],
   );
@@ -299,8 +299,8 @@ async function respondWithMock(response) {
   const mockedResponse = new Response(response.body, response);
 
   Reflect.defineProperty(mockedResponse, IS_MOCKED_RESPONSE, {
-    value: true,
     enumerable: true,
+    value: true,
   });
 
   return mockedResponse;

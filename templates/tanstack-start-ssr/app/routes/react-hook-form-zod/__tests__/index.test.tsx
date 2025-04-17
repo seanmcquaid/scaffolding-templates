@@ -1,10 +1,10 @@
+import userEvent from '@testing-library/user-event';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 import { ReactHookFormZodPage } from '../index.lazy';
 
 describe('ReactHookFormZodPage', () => {
@@ -12,8 +12,8 @@ describe('ReactHookFormZodPage', () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: ReactHookFormZodPage,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

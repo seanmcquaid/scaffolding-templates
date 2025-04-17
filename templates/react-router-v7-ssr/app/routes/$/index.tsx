@@ -1,7 +1,7 @@
+import { useNavigate } from 'react-router';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
-import { useNavigate } from 'react-router';
 
 const NotFoundPage = () => {
   const { t } = useAppTranslation();

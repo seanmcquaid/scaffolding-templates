@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { getPostQueryOptions } from '@/services/queries/posts';
-import { useQuery } from '@tanstack/react-query';
 import type { Route } from './+types';
 
 const ReactQueryPostPage = ({ params }: Route.ComponentProps) => {

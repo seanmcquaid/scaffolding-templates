@@ -7,11 +7,11 @@ declare module 'react-router' {
 }
 
 export default {
-  ssr: true,
   future: {
     unstable_middleware: true,
-    unstable_splitRouteModules: true,
     unstable_optimizeDeps: true,
+    unstable_splitRouteModules: true,
     unstable_viteEnvironmentApi: true,
   },
+  ssr: true,
 } satisfies Config;

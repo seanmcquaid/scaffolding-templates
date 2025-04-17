@@ -2,21 +2,6 @@ import ky from 'ky';
 
 const createApiClient = (baseUrl: string) => {
   return ky.create({
-    prefixUrl: baseUrl,
-    retry: {
-      limit: 2,
-      statusCodes: [401, 403, 500, 504],
-      methods: [
-        'get',
-        'put',
-        'head',
-        'delete',
-        'options',
-        'trace',
-        'post',
-        'patch',
-      ],
-    },
     hooks: {
       afterResponse: [
         async (_, options, response) => {
@@ -54,6 +39,21 @@ const createApiClient = (baseUrl: string) => {
           }
         },
       ],
+    },
+    prefixUrl: baseUrl,
+    retry: {
+      limit: 2,
+      methods: [
+        'get',
+        'put',
+        'head',
+        'delete',
+        'options',
+        'trace',
+        'post',
+        'patch',
+      ],
+      statusCodes: [401, 403, 500, 504],
     },
   });
 };

@@ -1,7 +1,7 @@
-import server from '@/mocks/server';
 import type { HTTPError } from 'ky';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { z } from 'zod';
+import server from '@/mocks/server';
 import createApiClient from '../createApiClient';
 
 describe('createApiClient', () => {

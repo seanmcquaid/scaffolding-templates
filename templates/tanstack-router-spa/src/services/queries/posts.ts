@@ -1,5 +1,5 @@
-import postsService from '@/services/postsService';
 import { queryOptions } from '@tanstack/react-query';
+import postsService from '@/services/postsService';
 
 export const PostsQueryKeys = {
   GET_POST: 'GET_POST',
@@ -8,12 +8,12 @@ export const PostsQueryKeys = {
 
 export const getPostQueryOptions = (id: string) =>
   queryOptions({
-    queryKey: [PostsQueryKeys.GET_POST, id],
     queryFn: async () => postsService.getPost(id),
+    queryKey: [PostsQueryKeys.GET_POST, id],
   });
 
 export const getPostsQueryOptions = () =>
   queryOptions({
-    queryKey: [PostsQueryKeys.GET_POSTS],
     queryFn: () => postsService.getPosts(),
+    queryKey: [PostsQueryKeys.GET_POSTS],
   });

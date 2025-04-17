@@ -1,19 +1,19 @@
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import { createRoutesStub } from 'react-router';
+import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import PageError from '../PageError';
 
 describe('PageError', () => {
   describe('Title text', () => {
     it('Displays custom title if provided', () => {
       const RouteStub = createRoutesStub([
-        { path: '/', Component: () => <PageError titleText="Custom title" /> },
+        { Component: () => <PageError titleText="Custom title" />, path: '/' },
       ]);
       render(<RouteStub />);
       expect(screen.getByText('Custom title')).toBeInTheDocument();
     });
     it('Displays default title if custom title is not provided', () => {
       const RouteStub = createRoutesStub([
-        { path: '/', Component: () => <PageError /> },
+        { Component: () => <PageError />, path: '/' },
       ]);
       render(<RouteStub />);
       expect(screen.getByText('PageError.title')).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('PageError', () => {
   });
   it('Displays error text if provided', () => {
     const RouteStub = createRoutesStub([
-      { path: '/', Component: () => <PageError errorText="Error message" /> },
+      { Component: () => <PageError errorText="Error message" />, path: '/' },
     ]);
     render(<RouteStub />);
     expect(screen.getByText('Error message')).toBeInTheDocument();

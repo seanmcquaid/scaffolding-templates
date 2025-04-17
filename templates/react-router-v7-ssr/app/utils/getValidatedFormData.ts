@@ -47,7 +47,7 @@ const getValidatedFormData = <T extends SchemaType>({
         [Key in keyof z.infer<T>]: string;
       },
     );
-    return { errors, defaultValues: formDataFromSchema };
+    return { defaultValues: formDataFromSchema, errors };
   } else {
     return {
       data: validatedFormData.data as z.infer<T>,

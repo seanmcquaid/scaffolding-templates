@@ -1,9 +1,9 @@
 import {
-  RouterProvider,
   createBrowserHistory,
   createRootRoute,
   createRoute,
   createRouter,
+  RouterProvider,
 } from '@tanstack/react-router';
 import type { JSX } from 'react';
 
@@ -26,20 +26,20 @@ const createRoutesStub = (
 
   const routes = routeStubs.map(({ path, component, loader }) =>
     createRoute({
-      getParentRoute: () => rootRoute,
-      path,
       component,
+      getParentRoute: () => rootRoute,
       loader,
       params: {
         parse: params => params,
         stringify: params => params,
       },
+      path,
     }),
   );
   const routeTree = rootRoute.addChildren(routes);
   const router = createRouter({
-    routeTree,
     history,
+    routeTree,
   });
 
   return () => <RouterProvider router={router as never} />;

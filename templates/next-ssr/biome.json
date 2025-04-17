@@ -1,15 +1,16 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "assists": {
+  "$schema": "https://biomejs.dev/schemas/2.0.0-beta.1/schema.json",
+  "assist": {
     "actions": {
       "source": {
-        "sortJsxProps": "on",
+        "organizeImports": "on",
+        "useSortedAttributes": "on",
         "useSortedKeys": "on"
       }
     },
     "enabled": true
   },
-  "files": { "ignore": [], "ignoreUnknown": false },
+  "files": { "ignoreUnknown": false, "includes": ["**"] },
   "formatter": {
     "attributePosition": "auto",
     "bracketSpacing": true,
@@ -180,38 +181,8 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "a11y": {
-        "noAccessKey": "error",
-        "noAriaUnsupportedElements": "error",
-        "noAutofocus": "error",
-        "noDistractingElements": "error",
-        "noHeaderScope": "error",
-        "noInteractiveElementToNoninteractiveRole": "error",
-        "noLabelWithoutControl": "error",
-        "noNoninteractiveElementToInteractiveRole": "error",
-        "noNoninteractiveTabindex": "error",
-        "noPositiveTabindex": "error",
-        "noRedundantAlt": "error",
-        "noRedundantRoles": "error",
-        "useAltText": "error",
-        "useAnchorContent": "error",
-        "useAriaActivedescendantWithTabindex": "error",
-        "useAriaPropsForRole": "error",
-        "useFocusableInteractive": "error",
-        "useHeadingContent": "error",
-        "useHtmlLang": "error",
-        "useIframeTitle": "error",
-        "useKeyWithClickEvents": "error",
-        "useKeyWithMouseEvents": "error",
-        "useMediaCaption": "error",
-        "useValidAnchor": "error",
-        "useValidAriaProps": "error",
-        "useValidAriaRole": "error",
-        "useValidAriaValues": "error"
-      },
       "complexity": {
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessTypeConstraint": "error",
         "noWith": "error"
@@ -238,15 +209,9 @@
         "noUnusedPrivateClassMembers": "error",
         "noUnusedVariables": "error",
         "useArrayLiterals": "off",
-        "useExhaustiveDependencies": "warn",
-        "useHookAtTopLevel": "error",
         "useIsNan": "error",
-        "useJsxKeyInIterable": "warn",
         "useValidForDirection": "error",
         "useYield": "error"
-      },
-      "nursery": {
-        "useSortedClasses": "error"
       },
       "recommended": false,
       "style": {
@@ -287,10 +252,9 @@
       }
     }
   },
-  "organizeImports": { "enabled": true },
   "overrides": [
     {
-      "include": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
+      "includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "linter": {
         "rules": {
           "complexity": { "noWith": "off" },
@@ -307,7 +271,6 @@
           },
           "style": {
             "noArguments": "error",
-            "noVar": "error",
             "useConst": "error"
           },
           "suspicious": {
@@ -319,15 +282,11 @@
             "noImportAssign": "off",
             "noRedeclare": "off",
             "noUnsafeNegation": "off",
+            "noVar": "error",
             "useGetterReturn": "off"
           }
         }
       }
-    },
-    {
-      "include": ["playwright/**"],
-      "javascript": { "globals": [] },
-      "linter": { "rules": { "correctness": { "noEmptyPattern": "off" } } }
     }
   ],
   "vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true }

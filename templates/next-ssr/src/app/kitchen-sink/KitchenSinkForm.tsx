@@ -1,10 +1,10 @@
 'use client';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useActionState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import { submitName } from './actions';
 import formDataSchema from './formDataSchema';
 
@@ -13,8 +13,8 @@ const KitchenSinkForm = () => {
     register,
     formState: { errors },
   } = useForm<z.infer<typeof formDataSchema>>({
-    resolver: zodResolver(formDataSchema),
     mode: 'onChange',
+    resolver: zodResolver(formDataSchema),
   });
   const [formState, formAction] = useActionState(submitName, {
     name: '',

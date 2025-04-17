@@ -1,11 +1,11 @@
-import { Toaster } from '@/components/ui/Toaster';
 import type { QueryClient } from '@tanstack/react-query';
 import {
-  Outlet,
   createRootRouteWithContext,
+  Outlet,
   useNavigate,
 } from '@tanstack/react-router';
-import { Suspense, lazy } from 'react';
+import { lazy, Suspense } from 'react';
+import { Toaster } from '@/components/ui/Toaster';
 import '@/i18n/i18next';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';

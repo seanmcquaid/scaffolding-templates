@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import LinkButton from '@/components/ui/LinkButton';
-import { useToast } from '@/hooks/useToast';
-import { getPostsQueryOptions } from '@/services/queries/posts';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import LinkButton from '@/components/ui/LinkButton';
+import { useToast } from '@/hooks/useToast';
+import { getPostsQueryOptions } from '@/services/queries/posts';
 
 const formDataSchema = z.object({
   name: z
@@ -27,8 +27,8 @@ export const KitchenSinkPage = () => {
     formState: { errors },
     handleSubmit,
   } = useForm<z.infer<typeof formDataSchema>>({
-    resolver: zodResolver(formDataSchema),
     mode: 'onChange',
+    resolver: zodResolver(formDataSchema),
   });
   const { toast } = useToast();
 

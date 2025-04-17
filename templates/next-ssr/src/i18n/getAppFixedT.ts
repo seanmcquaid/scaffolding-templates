@@ -1,7 +1,7 @@
-import type LocaleKeys from '@/types/LocaleKeys';
-import { createInstance } from 'i18next';
 import type { TOptions } from 'i18next';
+import { createInstance } from 'i18next';
 import I18NextHttpBackend from 'i18next-http-backend';
+import type LocaleKeys from '@/types/LocaleKeys';
 import getLanguageFromReferer from './getLanguageFromReferer';
 import i18nConfig from './i18nConfig';
 
@@ -20,8 +20,8 @@ const getAppFixedT = async () => {
   const t = i18n.getFixedT(lang);
 
   return {
-    t: (key: LocaleKeys, options?: TOptions) => t(key, options ?? {}),
     i18n,
+    t: (key: LocaleKeys, options?: TOptions) => t(key, options ?? {}),
   };
 };
 

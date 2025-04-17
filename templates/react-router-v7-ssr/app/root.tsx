@@ -26,7 +26,7 @@ import queryClient from './services/queries/queryClient';
 import stylesheet from './styles/index.css?url';
 
 export const links: Route.LinksFunction = () => [
-  { rel: 'stylesheet', href: stylesheet },
+  { href: stylesheet, rel: 'stylesheet' },
 ];
 
 const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (

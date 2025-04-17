@@ -5,10 +5,10 @@ import server from '@/mocks/server';
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
-      t: (i18nKey: string) => i18nKey,
       i18n: {
         changeLanguage: () => Promise.resolve(),
       },
+      t: (i18nKey: string) => i18nKey,
     };
   },
 }));

@@ -1,6 +1,6 @@
 import '@/styles/index.css';
-import getLanguageFromReferer from '@/i18n/getLanguageFromReferer';
 import type { PropsWithChildren } from 'react';
+import getLanguageFromReferer from '@/i18n/getLanguageFromReferer';
 import Providers from './Providers';
 
 export default async function RootLayout({ children }: PropsWithChildren) {

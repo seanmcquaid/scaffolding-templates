@@ -8,6 +8,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const viteConfig = defineViteConfig({
+  build: {
+    rollupOptions: {
+      // This is to remove the MSW from ever being included in the production build
+      external: id => id.includes('worker'),
+    },
+  },
   plugins: [
     tailwindcss(),
     tsconfigPaths(),
@@ -18,33 +24,20 @@ const viteConfig = defineViteConfig({
     svgr(),
     checker({ typescript: true }),
   ],
-  build: {
-    rollupOptions: {
-      // This is to remove the MSW from ever being included in the production build
-      external: id => id.includes('worker'),
-    },
-  },
   preview: {
-    port: 3000,
     open: true,
+    port: 3000,
   },
   server: {
-    port: 3000,
     open: true,
+    port: 3000,
   },
 });
 
 const vitestConfig = defineVitestConfig({
   test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./src/utils/testing/setupTests.ts'],
-    exclude: ['playwright', 'node_modules'],
     coverage: {
-      provider: 'istanbul',
-      reporter: ['lcov'],
       all: true,
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: [
         'src/utils/testing',
         'src/i18n',
@@ -53,7 +46,14 @@ const vitestConfig = defineVitestConfig({
         'src/assets',
         'src/styles',
       ],
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      provider: 'istanbul',
+      reporter: ['lcov'],
     },
+    environment: 'jsdom',
+    exclude: ['playwright', 'node_modules'],
+    globals: true,
+    setupFiles: ['./src/utils/testing/setupTests.ts'],
   },
 });
 

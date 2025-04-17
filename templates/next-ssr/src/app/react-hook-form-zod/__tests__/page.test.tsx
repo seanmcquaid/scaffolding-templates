@@ -1,9 +1,9 @@
+import userEvent from '@testing-library/user-event';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 import ReactHookFormZodPage from '../page';
 
 describe('ReactHookFormZodPage', () => {

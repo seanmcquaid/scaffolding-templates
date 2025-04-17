@@ -1,10 +1,10 @@
+import userEvent from '@testing-library/user-event';
+import { createRoutesStub } from 'react-router';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
-import { createRoutesStub } from 'react-router';
 import ReactQueryPage from '..';
 
 describe('ReactQueryPage', () => {
@@ -12,8 +12,8 @@ describe('ReactQueryPage', () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: ReactQueryPage,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

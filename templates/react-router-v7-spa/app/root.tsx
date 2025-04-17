@@ -20,7 +20,7 @@ import queryClient from './services/queries/queryClient';
 import stylesheet from './styles/index.css?url';
 
 export const links: Route.LinksFunction = () => [
-  { rel: 'stylesheet', href: stylesheet },
+  { href: stylesheet, rel: 'stylesheet' },
 ];
 
 const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
@@ -47,7 +47,6 @@ export function Layout({ children }: PropsWithChildren) {
   const isLoadingPage = navigation.state === 'loading';
 
   return (
-    // biome-ignore lint/a11y/useHtmlLang: "This field is not used on the app since we handle the language via react-i18next"
     <html className="h-screen min-h-screen w-full overflow-auto">
       <head>
         <meta charSet="UTF-8" />
