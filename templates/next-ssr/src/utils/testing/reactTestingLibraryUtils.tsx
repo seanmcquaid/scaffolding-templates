@@ -1,5 +1,3 @@
-import { Toaster } from '@/components/ui/Toaster';
-import queryClient from '@/services/queries/queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { RenderResult } from '@testing-library/react';
 import {
@@ -7,6 +5,8 @@ import {
   renderHook as rtlRenderHook,
 } from '@testing-library/react';
 import type { PropsWithChildren, ReactElement } from 'react';
+import { Toaster } from '@/components/ui/Toaster';
+import queryClient from '@/services/queries/queryClient';
 
 const Wrapper = ({ children }: PropsWithChildren) => (
   <QueryClientProvider client={queryClient}>

@@ -7,10 +7,10 @@ vi.mock('next/navigation', () => import('next-router-mock'));
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
-      t: (i18nKey: string) => i18nKey,
       i18n: {
         changeLanguage: () => Promise.resolve(),
       },
+      t: (i18nKey: string) => i18nKey,
     };
   },
 }));

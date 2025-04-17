@@ -1,10 +1,10 @@
+import { useParams } from 'next/navigation';
+import type { MockedFunction } from 'vitest';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import { useParams } from 'next/navigation';
-import type { MockedFunction } from 'vitest';
 import ReactQueryPostPage from '../page';
 
 vi.mock('next/navigation', async () => {

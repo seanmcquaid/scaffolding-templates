@@ -1,9 +1,9 @@
+import userEvent from '@testing-library/user-event';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 import KitchenSinkPage from '../page';
 
 describe('KitchenSinkPage', () => {

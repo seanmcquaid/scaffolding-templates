@@ -6,21 +6,8 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
-    mockReset: true,
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./src/utils/testing/setupTests.ts'],
-    include: [
-      'src/**/*.test.tsx',
-      'src/**/*.test.ts',
-      'src/**/*.test.js',
-      'src/**/*.test.jsx',
-    ],
     coverage: {
-      provider: 'istanbul',
-      reporter: ['lcov'],
       all: true,
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
       exclude: [
         'src/setupTests.ts',
         'src/utils/testing',
@@ -35,6 +22,19 @@ export default defineConfig({
         'src/app/layout.tsx',
         'src/constants',
       ],
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      provider: 'istanbul',
+      reporter: ['lcov'],
     },
+    environment: 'jsdom',
+    globals: true,
+    include: [
+      'src/**/*.test.tsx',
+      'src/**/*.test.ts',
+      'src/**/*.test.js',
+      'src/**/*.test.jsx',
+    ],
+    mockReset: true,
+    setupFiles: ['./src/utils/testing/setupTests.ts'],
   },
 });
