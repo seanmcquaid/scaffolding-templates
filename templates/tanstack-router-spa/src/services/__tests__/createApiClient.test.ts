@@ -1,8 +1,8 @@
+import type { HTTPError } from 'ky';
+import { HttpResponse, http } from 'msw';
+import { z } from 'zod';
 import server from '@/mocks/server';
 import createApiClient from '@/services/createApiClient';
-import type { HTTPError } from 'ky';
-import { http, HttpResponse } from 'msw';
-import { z } from 'zod';
 
 describe('createApiClient', () => {
   it('Returns the unvalidated data if no validation schema is provided', async () => {

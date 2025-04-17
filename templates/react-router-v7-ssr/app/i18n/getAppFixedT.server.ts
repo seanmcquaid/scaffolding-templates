@@ -1,5 +1,5 @@
-import type LocaleKeys from '@/types/LocaleKeys';
 import type { TOptions } from 'i18next';
+import type LocaleKeys from '@/types/LocaleKeys';
 import i18next from './i18next.server';
 import setAcceptLanguageHeaders from './setAcceptLanguageHeaders.server';
 

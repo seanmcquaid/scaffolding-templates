@@ -4,8 +4,8 @@ import config from './i18nConfig';
 
 const i18next = new RemixI18Next({
   detection: {
-    supportedLanguages: config.supportedLngs,
     fallbackLanguage: config.fallbackLng,
+    supportedLanguages: config.supportedLngs,
   },
   i18next: {
     ...config,

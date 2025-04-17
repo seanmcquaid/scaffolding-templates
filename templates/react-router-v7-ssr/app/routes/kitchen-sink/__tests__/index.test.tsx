@@ -1,11 +1,11 @@
+import userEvent from '@testing-library/user-event';
+import { createRoutesStub } from 'react-router';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
-import { createRoutesStub } from 'react-router';
-import KitchenSinkPage, { clientAction, action } from '..';
+import KitchenSinkPage, { action, clientAction } from '..';
 import type { Route } from '../+types';
 
 describe('KitchenSinkPage', () => {
@@ -49,8 +49,8 @@ describe('KitchenSinkPage', () => {
     it('Returns errors if there is a validation error with the form data', async () => {
       const result = await clientAction({
         serverAction: async () => ({
-          errors: { name: 'Name must be between 3 and 10 characters' },
           defaultValues: { name: 'a' },
+          errors: { name: 'Name must be between 3 and 10 characters' },
         }),
       } as Route.ClientActionArgs);
       expect(result.errors).not.toBeUndefined();
@@ -60,9 +60,9 @@ describe('KitchenSinkPage', () => {
     it('Returns data and calls the toast if there are no validation errors', async () => {
       const result = await clientAction({
         serverAction: async () => ({
-          errors: undefined,
-          defaultValues: undefined,
           data: { name: 'test' },
+          defaultValues: undefined,
+          errors: undefined,
         }),
       } as Route.ClientActionArgs);
       expect(result.errors).toBeUndefined();
@@ -73,16 +73,16 @@ describe('KitchenSinkPage', () => {
   it('Renders loader data', async () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => (
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[
-              { id: 1, title: 'Pos1', userId: 1, body: 'Body 1' },
-              { id: 2, title: 'Post 2', userId: 2, body: 'Body 2' },
+              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
+              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
             ]}
           />
         ),
+        path: '/',
       },
     ]);
 
@@ -94,16 +94,16 @@ describe('KitchenSinkPage', () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => (
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[
-              { id: 1, title: 'Pos1', userId: 1, body: 'Body 1' },
-              { id: 2, title: 'Post 2', userId: 2, body: 'Body 2' },
+              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
+              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
             ]}
           />
         ),
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

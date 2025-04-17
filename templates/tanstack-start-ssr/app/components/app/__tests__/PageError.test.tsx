@@ -6,14 +6,14 @@ describe('PageError', () => {
   describe('Title text', () => {
     it('Displays custom title if provided', () => {
       const RouteStub = createRoutesStub([
-        { path: '/', component: () => <PageError titleText="Custom title" /> },
+        { component: () => <PageError titleText="Custom title" />, path: '/' },
       ]);
       render(<RouteStub />);
       expect(screen.getByText('Custom title')).toBeInTheDocument();
     });
     it('Displays default title if custom title is not provided', () => {
       const RouteStub = createRoutesStub([
-        { path: '/', component: () => <PageError /> },
+        { component: () => <PageError />, path: '/' },
       ]);
       render(<RouteStub />);
       expect(screen.getByText('PageError.title')).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('PageError', () => {
   });
   it('Displays error text if provided', () => {
     const RouteStub = createRoutesStub([
-      { path: '/', component: () => <PageError errorText="Error message" /> },
+      { component: () => <PageError errorText="Error message" />, path: '/' },
     ]);
     render(<RouteStub />);
     expect(screen.getByText('Error message')).toBeInTheDocument();

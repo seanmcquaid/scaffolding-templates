@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { ReactHookFormZodPage } from '@/routes/react-hook-form-zod/index.lazy';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
@@ -5,15 +6,14 @@ import {
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 
 describe('ReactHookFormZodPage', () => {
   it('Displays an error message if the passwords do not match', async () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: ReactHookFormZodPage,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

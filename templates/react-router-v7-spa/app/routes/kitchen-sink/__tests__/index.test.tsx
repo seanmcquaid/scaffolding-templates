@@ -1,10 +1,10 @@
+import userEvent from '@testing-library/user-event';
+import { createRoutesStub } from 'react-router';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
-import { createRoutesStub } from 'react-router';
 import KitchenSinkPage, { clientAction } from '..';
 import type { Route } from '../+types';
 
@@ -48,16 +48,16 @@ describe('KitchenSinkPage', () => {
   it('Renders loader data', async () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => (
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[
-              { id: 1, title: 'Pos1', userId: 1, body: 'Body 1' },
-              { id: 2, title: 'Post 2', userId: 2, body: 'Body 2' },
+              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
+              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
             ]}
           />
         ),
+        path: '/',
       },
     ]);
 
@@ -69,16 +69,16 @@ describe('KitchenSinkPage', () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => (
           // @ts-expect-error
           <KitchenSinkPage
             loaderData={[
-              { id: 1, title: 'Pos1', userId: 1, body: 'Body 1' },
-              { id: 2, title: 'Post 2', userId: 2, body: 'Body 2' },
+              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
+              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
             ]}
           />
         ),
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

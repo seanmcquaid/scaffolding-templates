@@ -1,13 +1,13 @@
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import { createRoutesStub } from 'react-router';
+import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import PageWrapper from '../PageWrapper';
 
 describe('PageWrapper', () => {
   it('Displays loading spinner when isLoading is true', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => <PageWrapper isLoading />,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);
@@ -16,10 +16,10 @@ describe('PageWrapper', () => {
   it('Displays error message when isError is true', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => (
           <PageWrapper errorText="Error" errorTitleText="Error title" isError />
         ),
+        path: '/',
       },
     ]);
     render(<RoutesStub />);
@@ -29,8 +29,8 @@ describe('PageWrapper', () => {
   it('Displays children when isLoading and isError are false', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         Component: () => <PageWrapper>Children</PageWrapper>,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

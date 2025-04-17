@@ -1,8 +1,8 @@
-import { cn } from '@/utils/styles';
 import type { VariantProps } from 'class-variance-authority';
 import type { ReactNode } from 'react';
 import type { LinkProps } from 'react-router';
 import { Link } from 'react-router';
+import { cn } from '@/utils/styles';
 import { buttonVariants } from './Button';
 
 type LinkButtonProps = LinkProps &
@@ -16,9 +16,9 @@ const LinkButton = (props: LinkButtonProps) => (
     {...props}
     className={cn(
       buttonVariants({
-        variant: props.variant,
-        size: props.size,
         className: props.className,
+        size: props.size,
+        variant: props.variant,
       }),
     )}
   >

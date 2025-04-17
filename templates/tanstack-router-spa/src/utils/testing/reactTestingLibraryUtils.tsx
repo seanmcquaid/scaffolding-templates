@@ -1,4 +1,3 @@
-import { Toaster } from '@/components/ui/Toaster';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { RenderResult } from '@testing-library/react';
 import {
@@ -6,6 +5,7 @@ import {
   renderHook as rtlRenderHook,
 } from '@testing-library/react';
 import type { PropsWithChildren, ReactElement } from 'react';
+import { Toaster } from '@/components/ui/Toaster';
 
 const queryClient = new QueryClient();
 

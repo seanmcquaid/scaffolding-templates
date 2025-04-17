@@ -1,17 +1,17 @@
+// app/routes/__root.tsx
+import type { QueryClient } from '@tanstack/react-query';
+import {
+  createRootRouteWithContext,
+  Outlet,
+  ScrollRestoration,
+  useNavigate,
+} from '@tanstack/react-router';
+import { createServerFn, Meta, Scripts } from '@tanstack/react-start';
+import { lazy, type ReactNode } from 'react';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import getLanguageFromReferer from '@/i18n/getLanguageFromReferer';
-// app/routes/__root.tsx
-import type { QueryClient } from '@tanstack/react-query';
-import {
-  Outlet,
-  ScrollRestoration,
-  createRootRouteWithContext,
-  useNavigate,
-} from '@tanstack/react-router';
-import { Meta, Scripts, createServerFn } from '@tanstack/react-start';
-import { type ReactNode, lazy } from 'react';
 import '@/i18n/i18next';
 import appCss from '@/styles/index.css?url';
 
@@ -65,24 +65,24 @@ const getHeadersFromVinxi = createServerFn({ method: 'GET' }).handler(
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
 }>()({
+  component: RootComponent,
   head: () => ({
+    links: [{ href: appCss, rel: 'stylesheet' }],
     meta: [
       {
         charSet: 'utf-8',
       },
       {
-        name: 'viewport',
         content: 'width=device-width, initial-scale=1',
+        name: 'viewport',
       },
       {
         title: 'TanStack Start Starter',
       },
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
   }),
-  component: RootComponent,
-  notFoundComponent: NotFoundPage,
   loader: () => getHeadersFromVinxi(),
+  notFoundComponent: NotFoundPage,
 });
 
 function RootComponent() {

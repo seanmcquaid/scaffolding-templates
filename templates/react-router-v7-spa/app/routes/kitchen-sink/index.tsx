@@ -1,3 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { Form } from 'react-router';
+import { z } from 'zod';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
@@ -5,10 +9,6 @@ import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form } from 'react-router';
-import { z } from 'zod';
 import type { Route } from './+types';
 
 const formDataSchema = z.object({
@@ -37,7 +37,7 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
     schema: formDataSchema,
   });
   if (errors) {
-    return { errors, defaultValues };
+    return { defaultValues, errors };
   }
 
   toast({
@@ -52,8 +52,8 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
     register,
     formState: { errors },
   } = useForm<z.infer<typeof formDataSchema>>({
-    resolver: zodResolver(formDataSchema),
     mode: 'onChange',
+    resolver: zodResolver(formDataSchema),
   });
 
   return (

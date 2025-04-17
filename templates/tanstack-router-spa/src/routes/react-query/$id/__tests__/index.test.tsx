@@ -11,9 +11,9 @@ describe('ReactQueryPostPage', () => {
     const RoutesStub = createRoutesStub(
       [
         {
-          path: '/react-query/$id/',
           component: () => <ReactQueryPostPage />,
           params: '1',
+          path: '/react-query/$id/',
         },
       ],
       {

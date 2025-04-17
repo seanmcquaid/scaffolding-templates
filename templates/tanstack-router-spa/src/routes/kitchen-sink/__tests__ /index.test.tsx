@@ -1,10 +1,10 @@
+import userEvent from '@testing-library/user-event';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 import { KitchenSinkPage } from '..';
 
 describe('KitchenSinkPage', () => {
@@ -12,8 +12,8 @@ describe('KitchenSinkPage', () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: KitchenSinkPage,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

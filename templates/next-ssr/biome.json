@@ -10,7 +10,7 @@
     },
     "enabled": true
   },
-  "files": { "ignoreUnknown": false },
+  "files": { "ignoreUnknown": false, "includes": ["**"] },
   "formatter": {
     "attributePosition": "auto",
     "bracketSpacing": true,

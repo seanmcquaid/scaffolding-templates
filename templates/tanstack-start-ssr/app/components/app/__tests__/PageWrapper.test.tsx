@@ -6,8 +6,8 @@ describe('PageWrapper', () => {
   it('Displays loading spinner when isLoading is true', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: () => <PageWrapper isLoading />,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);
@@ -16,10 +16,10 @@ describe('PageWrapper', () => {
   it('Displays error message when isError is true', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: () => (
           <PageWrapper errorText="Error" errorTitleText="Error title" isError />
         ),
+        path: '/',
       },
     ]);
     render(<RoutesStub />);
@@ -29,8 +29,8 @@ describe('PageWrapper', () => {
   it('Displays children when isLoading and isError are false', () => {
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: () => <PageWrapper>Children</PageWrapper>,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);

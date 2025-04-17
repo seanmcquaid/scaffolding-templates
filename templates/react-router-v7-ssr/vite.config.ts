@@ -9,48 +9,41 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const viteConfig = defineViteConfig({
-  plugins: [
-    tailwindcss(),
-    tsconfigPaths(),
-    reactRouterDevTools(),
-    !process.env.VITEST && reactRouter(),
-    babel({
-      filter: /\.[jt]sx?$/,
-      babelConfig: {
-        presets: ['@babel/preset-typescript'],
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
-    svgr(),
-    checker({ typescript: true }),
-  ],
   build: {
     rollupOptions: {
       // This is to remove the MSW from ever being included in the production build
       external: id => id.includes('worker'),
     },
   },
+  plugins: [
+    tailwindcss(),
+    tsconfigPaths(),
+    reactRouterDevTools(),
+    !process.env.VITEST && reactRouter(),
+    babel({
+      babelConfig: {
+        plugins: ['babel-plugin-react-compiler'],
+        presets: ['@babel/preset-typescript'],
+      },
+      filter: /\.[jt]sx?$/,
+    }),
+    svgr(),
+    checker({ typescript: true }),
+  ],
   preview: {
-    port: 3000,
     open: true,
+    port: 3000,
   },
   server: {
-    port: 3000,
     open: true,
+    port: 3000,
   },
 });
 
 const vitestConfig = defineVitestConfig({
   test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./app/utils/testing/setupTests.ts'],
-    exclude: ['playwright', 'node_modules'],
     coverage: {
-      provider: 'istanbul',
-      reporter: ['lcov'],
       all: true,
-      include: ['app/**/*.ts', 'app/**/*.tsx'],
       exclude: [
         'app/utils/testing',
         'app/entry.client.tsx',
@@ -64,7 +57,14 @@ const vitestConfig = defineVitestConfig({
         'app/icons',
         'app/styles',
       ],
+      include: ['app/**/*.ts', 'app/**/*.tsx'],
+      provider: 'istanbul',
+      reporter: ['lcov'],
     },
+    environment: 'jsdom',
+    exclude: ['playwright', 'node_modules'],
+    globals: true,
+    setupFiles: ['./app/utils/testing/setupTests.ts'],
   },
 });
 

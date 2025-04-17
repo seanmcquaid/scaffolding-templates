@@ -1,16 +1,16 @@
-import PageWrapper from '@/components/app/PageWrapper';
-import { Button } from '@/components/ui/Button';
-import LinkButton from '@/components/ui/LinkButton';
-import useAppTranslation from '@/hooks/useAppTranslation';
-import { useToast } from '@/hooks/useToast';
-import postsService from '@/services/postsService';
-import { PostsQueryKeys, getPostsQueryOptions } from '@/services/queries/posts';
 import {
   useMutation,
   useQueryClient,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 import { createLazyFileRoute } from '@tanstack/react-router';
+import PageWrapper from '@/components/app/PageWrapper';
+import { Button } from '@/components/ui/Button';
+import LinkButton from '@/components/ui/LinkButton';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import { useToast } from '@/hooks/useToast';
+import postsService from '@/services/postsService';
+import { getPostsQueryOptions, PostsQueryKeys } from '@/services/queries/posts';
 
 export const ReactQueryPage = () => {
   const { t } = useAppTranslation();

@@ -11,12 +11,12 @@ i18next
   .use(Backend)
   .init({
     ...config,
-    ns: getInitialNamespaces(),
     backend: { loadPath: './locales/{{lng}}.ts' },
     detection: {
-      order: ['htmlTag'],
       caches: [],
+      order: ['htmlTag'],
     },
+    ns: getInitialNamespaces(),
   });
 
 export default i18next;

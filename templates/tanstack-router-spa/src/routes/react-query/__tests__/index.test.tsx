@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import { ReactQueryPage } from '@/routes/react-query/index.lazy';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
@@ -5,15 +6,14 @@ import {
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import userEvent from '@testing-library/user-event';
 
 describe('ReactQueryPage', () => {
   it('Displays a toast when a post is deleted succesfully', async () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        path: '/',
         component: () => <ReactQueryPage />,
+        path: '/',
       },
     ]);
     render(<RoutesStub />);
