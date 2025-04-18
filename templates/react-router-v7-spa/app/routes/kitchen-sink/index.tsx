@@ -52,7 +52,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
       name: '',
     },
     validators: {
-      onBlur: formDataSchema,
+      onChange: formDataSchema,
     },
   });
 
@@ -64,6 +64,13 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
             <Input
               className="m-4"
               defaultValue={actionData?.defaultValues?.name}
+              errorMessage={
+                field.state.meta.isTouched
+                  ? field.state.meta.errors
+                      .map(error => error?.message)
+                      .join(', ')
+                  : ''
+              }
               id={field.name}
               label="Name"
               name={field.name}

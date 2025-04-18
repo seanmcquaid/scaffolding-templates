@@ -5,14 +5,14 @@ import {
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import ReactHookFormZodPage from '..';
+import TanstackFormZodPage from '..';
 
-describe('ReactHookFormZodPage', () => {
+describe('TanstackFormZodPage', () => {
   it('Displays an error message if the passwords do not match', async () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
       {
-        Component: ReactHookFormZodPage,
+        Component: TanstackFormZodPage,
         path: '/',
       },
     ]);

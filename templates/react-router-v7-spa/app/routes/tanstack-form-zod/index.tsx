@@ -21,7 +21,7 @@ const formDataSchema = z
     path: ['confirmPassword'],
   });
 
-const ReactHookFormZodPage = () => {
+const TanstackFormZodPage = () => {
   const form = useForm({
     defaultValues: {
       confirmPassword: '',
@@ -29,7 +29,7 @@ const ReactHookFormZodPage = () => {
       username: '',
     },
     validators: {
-      onBlur: formDataSchema,
+      onChange: formDataSchema,
     },
   });
 
@@ -112,4 +112,4 @@ const ReactHookFormZodPage = () => {
   );
 };
 
-export default ReactHookFormZodPage;
+export default TanstackFormZodPage;
