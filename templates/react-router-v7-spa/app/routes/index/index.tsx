@@ -1,3 +1,4 @@
+import { href } from 'react-router';
 import PageWrapper from '@/components/app/PageWrapper';
 import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
@@ -9,13 +10,13 @@ const HomePage = () => {
     <PageWrapper>
       <h1>{t('HomePage.title')}</h1>
       <p>{t('HomePage.subTitle')}</p>
-      <LinkButton className="m-4" to={t('Routes.reactQuery')}>
+      <LinkButton className="m-4" to={href('/react-query')}>
         {t('HomePage.reactQuery')}
       </LinkButton>
-      <LinkButton className="m-4" to={t('Routes.reactHookFormZod')}>
-        {t('HomePage.reactHookFormZod')}
+      <LinkButton className="m-4" to={href('/tanstack-form-zod')}>
+        {t('HomePage.tanstackFormZod')}
       </LinkButton>
-      <LinkButton className="m-4" to={t('Routes.kitchenSink')}>
+      <LinkButton className="m-4" to={href('/kitchen-sink')}>
         {t('HomePage.kitchenSink')}
       </LinkButton>
     </PageWrapper>
