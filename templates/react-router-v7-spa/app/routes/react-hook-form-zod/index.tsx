@@ -1,5 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm } from '@tanstack/react-form';
+import { FormEvent } from 'react';
 import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Input } from '@/components/ui/Input';
@@ -22,39 +22,72 @@ const formDataSchema = z
   });
 
 const ReactHookFormZodPage = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<z.infer<typeof formDataSchema>>({
-    mode: 'all',
-    resolver: zodResolver(formDataSchema),
+  const form = useForm({
+    defaultValues: {
+      confirmPassword: '',
+      password: '',
+      username: '',
+    },
+    validators: {
+      onBlur: formDataSchema,
+    },
   });
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    event.stopPropagation()
+    form.handleSubmit();
+  };
 
   return (
     <PageWrapper>
-      <form>
-        <Input
-          autoComplete="username"
-          className="m-4"
-          errorMessage={errors?.username?.message}
-          label="Username"
-          {...register('username')}
+      <form className="w-full" onSubmit={handleSubmit}>
+        <form.Field
+          children={field => (
+            <Input
+              autoComplete="username"
+              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              id={field.name}
+              label="Username"
+              name={field.name}
+              onBlur={field.handleBlur}
+              onChange={event => field.handleChange(event.target.value)}
+              value={field.state.value}
+            />
+          )}
+          name="username"
         />
-        <Input
-          autoComplete="new-password"
-          className="m-4"
-          errorMessage={errors?.password?.message}
-          label="Password"
-          type="password"
-          {...register('password')}
+        <form.Field
+          children={field => (
+            <Input
+              autoComplete="new-password"
+              className="mt-4"
+              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              id={field.name}
+              label="Password"
+              onBlur={field.handleBlur}
+              onChange={event => field.handleChange(event.target.value)}
+              type="password"
+              value={field.state.value}
+            />
+          )}
+          name="password"
         />
-        <Input
-          autoComplete="new-password"
-          className="m-4"
-          errorMessage={errors?.confirmPassword?.message}
-          label="Confirm Password"
-          type="password"
-          {...register('confirmPassword')}
+        <form.Field
+          children={field => (
+            <Input
+              autoComplete="new-password"
+              className="mt-4"
+              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              id={field.name}
+              label="Confirm Password"
+              onBlur={field.handleBlur}
+              onChange={event => field.handleChange(event.target.value)}
+              type="password"
+              value={field.state.value}
+            />
+          )}
+          name="confirmPassword"
         />
       </form>
     </PageWrapper>

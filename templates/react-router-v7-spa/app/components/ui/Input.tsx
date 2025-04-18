@@ -14,7 +14,7 @@ const Input = ({
   errorMessage,
   label,
   ...props
-}: React.HTMLProps<HTMLInputElement> & InputProps) => {
+}: InputProps) => {
   return (
     <div className={className}>
       <label htmlFor={props.id}>
@@ -27,7 +27,7 @@ const Input = ({
           {...props}
         />
       </label>
-      {!!errorMessage && <p>{errorMessage}</p>}
+      {!!errorMessage && <em className="text-red-500">{errorMessage}</em>}
     </div>
   );
 };
