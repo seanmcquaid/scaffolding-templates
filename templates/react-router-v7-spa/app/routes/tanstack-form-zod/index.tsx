@@ -35,7 +35,7 @@ const ReactHookFormZodPage = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    event.stopPropagation()
+    event.stopPropagation();
     form.handleSubmit();
   };
 
@@ -46,7 +46,13 @@ const ReactHookFormZodPage = () => {
           children={field => (
             <Input
               autoComplete="username"
-              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              errorMessage={
+                field.state.meta.isTouched
+                  ? field.state.meta.errors
+                      .map(error => error?.message)
+                      .join(', ')
+                  : ''
+              }
               id={field.name}
               label="Username"
               name={field.name}
@@ -62,7 +68,13 @@ const ReactHookFormZodPage = () => {
             <Input
               autoComplete="new-password"
               className="mt-4"
-              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              errorMessage={
+                field.state.meta.isTouched
+                  ? field.state.meta.errors
+                      .map(error => error?.message)
+                      .join(', ')
+                  : ''
+              }
               id={field.name}
               label="Password"
               onBlur={field.handleBlur}
@@ -78,7 +90,13 @@ const ReactHookFormZodPage = () => {
             <Input
               autoComplete="new-password"
               className="mt-4"
-              errorMessage={field.state.meta.isTouched ? field.state.meta.errors.map(error => error?.message).join(', ') : ''}
+              errorMessage={
+                field.state.meta.isTouched
+                  ? field.state.meta.errors
+                      .map(error => error?.message)
+                      .join(', ')
+                  : ''
+              }
               id={field.name}
               label="Confirm Password"
               onBlur={field.handleBlur}

@@ -1,6 +1,5 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form } from 'react-router';
+import { useForm } from '@tanstack/react-form';
+import { Form, href } from 'react-router';
 import { z } from 'zod';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -48,30 +47,54 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<z.infer<typeof formDataSchema>>({
-    mode: 'onChange',
-    resolver: zodResolver(formDataSchema),
+  const form = useForm({
+    defaultValues: {
+      name: '',
+    },
+    validators: {
+      onBlur: formDataSchema,
+    },
   });
 
   return (
     <div>
       <Form method="POST">
-        <Input
-          className="m-4"
-          defaultValue={actionData?.defaultValues?.name}
-          errorMessage={errors?.name?.message || actionData?.errors?.name}
-          label="Name"
-          {...register('name')}
+        <form.Field
+          children={field => (
+            <Input
+              className="m-4"
+              defaultValue={actionData?.defaultValues?.name}
+              id={field.name}
+              label="Name"
+              name={field.name}
+              onBlur={field.handleBlur}
+              onChange={event => field.handleChange(event.target.value)}
+              value={field.state.value}
+            />
+          )}
+          name="name"
         />
-        <Button type="submit">{'Submit'}</Button>
+        <form.Subscribe
+          selector={state => ({
+            isDirty: state.isDirty,
+            isValid: state.isValid,
+          })}
+        >
+          {state => (
+            <Button disabled={!state.isValid || !state.isDirty} type="submit">
+              {'Submit'}
+            </Button>
+          )}
+        </form.Subscribe>
       </Form>
       <ul className="grid grid-cols-2">
         {loaderData?.map(post => (
           <li className="mt-4 flex items-center" key={post.id}>
-            <LinkButton to={`/react-query/${post.id}`}>
+            <LinkButton
+              to={href('/react-query/:id', {
+                id: post.id.toString(),
+              })}
+            >
               {post.title.substring(0, 4)}
             </LinkButton>
           </li>

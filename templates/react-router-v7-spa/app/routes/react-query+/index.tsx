@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { href } from 'react-router';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import LinkButton from '@/components/ui/LinkButton';
@@ -39,7 +40,9 @@ const ReactQueryPage = () => {
             </Button>
             <LinkButton
               className="ml-4"
-              to={`${t('Routes.reactQuery')}/${post.id}`}
+              to={href('/react-query/:id', {
+                id: post.id.toString(),
+              })}
             >
               {t('ReactQueryPage.view')}
             </LinkButton>
