@@ -65,7 +65,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
               className="m-4"
               defaultValue={actionData?.defaultValues?.name}
               errorMessage={
-                field.state.meta.isTouched
+                actionData?.errors?.name || field.state.meta.isTouched
                   ? field.state.meta.errors
                       .map(error => error?.message)
                       .join(', ')
