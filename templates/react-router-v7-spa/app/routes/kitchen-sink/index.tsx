@@ -9,6 +9,7 @@ import { getPostsQueryOptions } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 import type { Route } from './+types';
+import { useAppForm } from '@/hooks/form';
 
 const formDataSchema = z.object({
   name: z
@@ -47,7 +48,7 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       name: '',
     },
@@ -59,40 +60,17 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
   return (
     <div>
       <Form method="POST">
-        <form.Field
+        <form.AppField
           children={field => (
-            <Input
+            <field.TextField
               className="m-4"
               defaultValue={actionData?.defaultValues?.name}
-              errorMessage={
-                actionData?.errors?.name || field.state.meta.isTouched
-                  ? field.state.meta.errors
-                      .map(error => error?.message)
-                      .join(', ')
-                  : ''
-              }
-              id={field.name}
               label="Name"
-              name={field.name}
-              onBlur={field.handleBlur}
-              onChange={event => field.handleChange(event.target.value)}
-              value={field.state.value}
             />
           )}
           name="name"
         />
-        <form.Subscribe
-          selector={state => ({
-            isDirty: state.isDirty,
-            isValid: state.isValid,
-          })}
-        >
-          {state => (
-            <Button disabled={!state.isValid || !state.isDirty} type="submit">
-              {'Submit'}
-            </Button>
-          )}
-        </form.Subscribe>
+        <form.SubmitButton>Submit</form.SubmitButton>
       </Form>
       <ul className="grid grid-cols-2">
         {loaderData?.map(post => (
