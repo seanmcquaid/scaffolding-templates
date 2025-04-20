@@ -1,8 +1,8 @@
-import { useForm } from '@tanstack/react-form';
 import { FormEvent } from 'react';
 import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Input } from '@/components/ui/Input';
+import { useAppForm } from '@/hooks/form';
 
 const formDataSchema = z
   .object({
@@ -22,7 +22,7 @@ const formDataSchema = z
   });
 
 const TanstackFormZodPage = () => {
-  const form = useForm({
+  const form = useAppForm({
     defaultValues: {
       confirmPassword: '',
       password: '',
@@ -42,67 +42,28 @@ const TanstackFormZodPage = () => {
   return (
     <PageWrapper>
       <form className="w-full" onSubmit={handleSubmit}>
-        <form.Field
+        <form.AppField
           children={field => (
-            <Input
-              autoComplete="username"
-              errorMessage={
-                field.state.meta.isTouched
-                  ? field.state.meta.errors
-                      .map(error => error?.message)
-                      .join(', ')
-                  : ''
-              }
-              id={field.name}
-              label="Username"
-              name={field.name}
-              onBlur={field.handleBlur}
-              onChange={event => field.handleChange(event.target.value)}
-              value={field.state.value}
-            />
+            <field.TextField autoComplete="username" label="Username" />
           )}
           name="username"
         />
-        <form.Field
+        <form.AppField
           children={field => (
-            <Input
+            <field.TextField
               autoComplete="new-password"
               className="mt-4"
-              errorMessage={
-                field.state.meta.isTouched
-                  ? field.state.meta.errors
-                      .map(error => error?.message)
-                      .join(', ')
-                  : ''
-              }
-              id={field.name}
               label="Password"
-              onBlur={field.handleBlur}
-              onChange={event => field.handleChange(event.target.value)}
-              type="password"
-              value={field.state.value}
             />
           )}
           name="password"
         />
-        <form.Field
+        <form.AppField
           children={field => (
-            <Input
+            <field.TextField
               autoComplete="new-password"
               className="mt-4"
-              errorMessage={
-                field.state.meta.isTouched
-                  ? field.state.meta.errors
-                      .map(error => error?.message)
-                      .join(', ')
-                  : ''
-              }
-              id={field.name}
               label="Confirm Password"
-              onBlur={field.handleBlur}
-              onChange={event => field.handleChange(event.target.value)}
-              type="password"
-              value={field.state.value}
             />
           )}
           name="confirmPassword"

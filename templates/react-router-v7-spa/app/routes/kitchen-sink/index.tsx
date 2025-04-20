@@ -4,12 +4,12 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
+import { useAppForm } from '@/hooks/form';
 import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 import type { Route } from './+types';
-import { useAppForm } from '@/hooks/form';
 
 const formDataSchema = z.object({
   name: z

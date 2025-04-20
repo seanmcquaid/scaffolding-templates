@@ -1,7 +1,7 @@
 import { createFormHook, createFormHookContexts } from '@tanstack/react-form';
 import type { PropsWithChildren } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { Input, InputProps } from '@/components/ui/Input';
 
 const { fieldContext, useFieldContext, formContext, useFormContext } =
   createFormHookContexts();
@@ -26,29 +26,27 @@ const SubmitButton = ({ children }: PropsWithChildren) => {
   );
 };
 
-interface TextFieldProps {
-  label?: string;
-  defaultValue?: string;
-  className?: string;
-}
-
 const TextField = ({
   label,
   defaultValue,
   className,
-}: TextFieldProps) => {
+  ...props
+}: InputProps) => {
   const field = useFieldContext<string>();
 
   return (
     <Input
+      {...props}
       className={className}
       defaultValue={defaultValue}
-      label={label}
-      errorMessage={field.state.meta.errors.map(error => error?.message).join(', ')}
+      errorMessage={field.state.meta.errors
+        .map(error => error?.message)
+        .join(', ')}
       id={field.name}
-      value={field.state.value}
-      onChange={event => field.handleChange(event.target.value)}
+      label={label}
       onBlur={field.handleBlur}
+      onChange={event => field.handleChange(event.target.value)}
+      value={field.state.value}
     />
   );
 };
