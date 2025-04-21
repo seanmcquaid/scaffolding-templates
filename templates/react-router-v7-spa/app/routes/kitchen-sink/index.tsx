@@ -59,7 +59,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
 
   return (
     <div>
-      <Form method="POST">
+      <Form method="post">
         <form.AppField
           children={field => (
             <field.TextField
@@ -70,7 +70,9 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
           )}
           name="name"
         />
-        <form.SubmitButton>Submit</form.SubmitButton>
+        <form.AppForm>
+          <form.SubmitButton>Submit</form.SubmitButton>
+        </form.AppForm>
       </Form>
       <ul className="grid grid-cols-2">
         {loaderData?.map(post => (

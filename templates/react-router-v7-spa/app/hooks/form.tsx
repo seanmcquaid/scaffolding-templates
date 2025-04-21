@@ -39,11 +39,14 @@ const TextField = ({
       {...props}
       className={className}
       defaultValue={defaultValue}
-      errorMessage={field.state.meta.errors
-        .map(error => error?.message)
-        .join(', ')}
+      errorMessage={
+        field.state.meta.isTouched
+          ? field.state.meta.errors.map(error => error?.message).join(', ')
+          : ''
+      }
       id={field.name}
       label={label}
+      name={field.name}
       onBlur={field.handleBlur}
       onChange={event => field.handleChange(event.target.value)}
       value={field.state.value}
