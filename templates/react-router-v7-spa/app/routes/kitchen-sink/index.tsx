@@ -1,14 +1,16 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Form } from 'react-router';
+import { mergeForm, useTransform } from '@tanstack/react-form';
+import {
+  createServerValidate,
+  formOptions,
+  ServerValidateError,
+} from '@tanstack/react-form/remix';
+import { Form, href } from 'react-router';
 import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
+import { useAppForm } from '@/hooks/form';
 import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
-import getValidatedFormData from '@/utils/getValidatedFormData';
 import type { Route } from './+types';
 
 const formDataSchema = z.object({
@@ -22,6 +24,20 @@ const formDataSchema = z.object({
     }),
 });
 
+const formOpts = formOptions({
+  defaultValues: {
+    name: '',
+  },
+  validators: {
+    onChange: formDataSchema,
+  },
+});
+
+const serverValidate = createServerValidate({
+  ...formOpts,
+  onServerValidate: formDataSchema,
+});
+
 export const clientLoader = async () => {
   const posts = await queryClient.ensureQueryData(getPostsQueryOptions());
 
@@ -32,46 +48,52 @@ clientLoader.hydrate = true;
 
 export const clientAction = async ({ request }: Route.ClientActionArgs) => {
   const formData = await request.formData();
-  const { errors, data, defaultValues } = getValidatedFormData({
-    formData,
-    schema: formDataSchema,
-  });
-  if (errors) {
-    return { defaultValues, errors };
+
+  try {
+    const data = await serverValidate(formData);
+
+    toast({
+      title: `Hello ${data.name}!`,
+    });
+  } catch (err) {
+    if (err instanceof ServerValidateError) {
+      return err.formState;
+    }
+
+    throw err;
   }
 
-  toast({
-    title: `Hello ${data.name}!`,
-  });
-
-  return { data };
+  return null;
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<z.infer<typeof formDataSchema>>({
-    mode: 'onChange',
-    resolver: zodResolver(formDataSchema),
+  const form = useAppForm({
+    ...formOpts,
+    transform: useTransform(
+      baseForm => mergeForm(baseForm, actionData ?? {}),
+      [actionData],
+    ),
   });
 
   return (
     <div>
-      <Form method="POST">
-        <Input
-          className="m-4"
-          defaultValue={actionData?.defaultValues?.name}
-          errorMessage={errors?.name?.message || actionData?.errors?.name}
-          label="Name"
-          {...register('name')}
+      <Form method="post">
+        <form.AppField
+          children={field => <field.TextField className="m-4" label="Name" />}
+          name="name"
         />
-        <Button type="submit">{'Submit'}</Button>
+        <form.AppForm>
+          <form.SubmitButton>Submit</form.SubmitButton>
+        </form.AppForm>
       </Form>
       <ul className="grid grid-cols-2">
         {loaderData?.map(post => (
           <li className="mt-4 flex items-center" key={post.id}>
-            <LinkButton to={`/react-query/${post.id}`}>
+            <LinkButton
+              to={href('/react-query/:id', {
+                id: post.id.toString(),
+              })}
+            >
               {post.title.substring(0, 4)}
             </LinkButton>
           </li>
