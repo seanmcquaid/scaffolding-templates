@@ -5,46 +5,9 @@ import {
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import KitchenSinkPage, { clientAction } from '..';
-import type { Route } from '../+types';
+import KitchenSinkPage from '..';
 
 describe('KitchenSinkPage', () => {
-  describe('clientAction', () => {
-    it('Returns errors if there is a validation error with the form data', async () => {
-      const formData = new FormData();
-      formData.append('name', 'a');
-      const headers = new Headers();
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
-      const request = new Request(new URL('http://localhost:3000'), {
-        body: formData,
-        headers: new Headers(),
-        method: 'POST',
-      });
-      const result = await clientAction({
-        request,
-      } as Route.ClientActionArgs);
-      expect(result.errors).not.toBeUndefined();
-      expect(result.defaultValues).toEqual({ name: 'a' });
-      expect(result.data).toBeUndefined();
-    });
-    it('Returns data and calls the toast if there are no validation errors', async () => {
-      const formData = new FormData();
-      formData.append('name', 'test');
-      const headers = new Headers();
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
-      const request = new Request(new URL('http://localhost:3000'), {
-        body: formData,
-        headers: new Headers(),
-        method: 'POST',
-      });
-      const result = await clientAction({
-        request,
-      } as Route.ClientActionArgs);
-      expect(result.errors).toBeUndefined();
-      expect(result.defaultValues).toBeUndefined();
-      expect(result.data).toEqual({ name: 'test' });
-    });
-  });
   it('Renders loader data', async () => {
     const RoutesStub = createRoutesStub([
       {
