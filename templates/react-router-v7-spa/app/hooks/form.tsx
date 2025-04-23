@@ -26,12 +26,17 @@ const SubmitButton = ({ children }: PropsWithChildren) => {
   );
 };
 
+type TextFieldProps = Omit<
+  InputProps,
+  'value' | 'onChange' | 'onBlur' | 'errorMessage' | 'id' | 'name'
+>;
+
 const TextField = ({
   label,
   defaultValue,
   className,
   ...props
-}: InputProps) => {
+}: TextFieldProps) => {
   const field = useFieldContext<string>();
 
   return (
