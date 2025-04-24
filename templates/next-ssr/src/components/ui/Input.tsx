@@ -2,8 +2,7 @@ import type * as React from 'react';
 
 import { cn } from '@/utils/styles';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.ComponentProps<'input'> {
   label?: string;
   errorMessage?: string;
 }
@@ -27,7 +26,7 @@ const Input = ({
           {...props}
         />
       </label>
-      {!!errorMessage && <p>{errorMessage}</p>}
+      {!!errorMessage && <em className="text-red-500">{errorMessage}</em>}
     </div>
   );
 };
