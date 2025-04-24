@@ -35,7 +35,7 @@ const enUSLocale = {
     home: '/',
     kitchenSink: '/kitchen-sink',
     reactQuery: '/react-query',
-    tanstackForm: '/tanstack-form',
+    tanstackFormZod: '/tanstack-form-zod',
   },
 } as const;
 

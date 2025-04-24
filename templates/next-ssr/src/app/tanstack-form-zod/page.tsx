@@ -55,6 +55,7 @@ const TanStackFormZodPage = () => {
               autoComplete="new-password"
               className="mt-4"
               label="Password"
+              type="password"
             />
           )}
           name="password"
@@ -65,6 +66,7 @@ const TanStackFormZodPage = () => {
               autoComplete="new-password"
               className="mt-4"
               label="Confirm Password"
+              type="password"
             />
           )}
           name="confirmPassword"

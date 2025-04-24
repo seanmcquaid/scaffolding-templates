@@ -12,7 +12,7 @@ const HomePage = async () => {
       <LinkButton className="m-4" href={t('Routes.reactQuery')}>
         {t('HomePage.reactQuery')}
       </LinkButton>
-      <LinkButton className="m-4" href={t('Routes.tanstackForm')}>
+      <LinkButton className="m-4" href={t('Routes.tanstackFormZod')}>
         {t('HomePage.tanstackForm')}
       </LinkButton>
       <LinkButton className="m-4" href={t('Routes.kitchenSink')}>
