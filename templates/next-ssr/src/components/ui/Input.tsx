@@ -13,7 +13,7 @@ const Input = ({
   errorMessage,
   label,
   ...props
-}: React.HTMLProps<HTMLInputElement> & InputProps) => {
+}: InputProps) => {
   return (
     <div className={className}>
       <label htmlFor={props.id}>
