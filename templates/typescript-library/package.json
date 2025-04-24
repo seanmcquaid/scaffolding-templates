@@ -7,12 +7,12 @@
   "sideEffects": false,
   "exports": {
     "import": {
-      "default": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     },
     "require": {
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "main": "dist/index.js",
