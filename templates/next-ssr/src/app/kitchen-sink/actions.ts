@@ -1,11 +1,25 @@
 'use server';
-import getValidatedFormData from '@/utils/getValidatedFormData';
+import {
+  createServerValidate,
+  ServerValidateError,
+} from '@tanstack/react-form/nextjs';
 import formDataSchema from './formDataSchema';
+import formOpts from './formOpts';
+
+const serverValidate = createServerValidate({
+  ...formOpts,
+  onServerValidate: formDataSchema,
+});
 
 export const submitName = async (_state: unknown, formData: FormData) => {
-  const { errors } = getValidatedFormData({
-    formData,
-    schema: formDataSchema,
-  });
-  return errors;
+  try {
+    await serverValidate(formData);
+  } catch (e) {
+    if (e instanceof ServerValidateError) {
+      return e.formState;
+    }
+
+    // Some other error occurred while validating your form
+    throw e;
+  }
 };

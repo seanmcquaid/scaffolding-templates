@@ -7,6 +7,7 @@
     "bundlesize": "bundlesize",
     "dev": "next dev --turbopack --turbo",
     "lint": "biome check",
+    "lint:fix": "biome check --fix --unsafe",
     "prepare": "is-ci || husky",
     "start": "next start",
     "test": "vitest run",
@@ -14,9 +15,9 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-toast": "^1.2.10",
+    "@tanstack/react-form": "^1.6.3",
     "@tanstack/react-query": "^5.74.4",
     "@tanstack/react-query-next-experimental": "^5.74.4",
     "class-variance-authority": "^0.7.1",
@@ -30,7 +31,6 @@
     "next-plugin-svgr": "^1.1.12",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "react-hook-form": "^7.56.0",
     "react-i18next": "^15.4.1",
     "tailwind-merge": "^3.2.0",
     "zod": "^3.24.3"

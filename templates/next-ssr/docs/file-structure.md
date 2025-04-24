@@ -4,6 +4,10 @@ This is the file structure that I have landed on from my years of experience wor
 
 I have notably left out any sort of feature flagging, analytics or monitoring which I highly recommend for any production application. This is because these are usually associated with paid services which I did not want to formally endorse in this template.
 
+## /assets/icons
+
+This is where all of your icons will live. I like to use svgs for my icons and I use [svgr](https://react-svgr.com/) to convert them to React components.
+
 ## /components
 
 This is where all of your components will live. I like to organize my components in two segments, ui or app components. UI components are components that are used throughout the application and are mostly presentational in nature with minimal state management internally. App components are components that are specific to a page or feature and are more complex in nature.
@@ -19,10 +23,6 @@ This is where all of your custom hooks will live. I have a `services` directory 
 ## /i18n
 
 This is where all of your i18n related files will live. I have a locales directory to store all of my translations for each language setting. I also have a typesafe instance of i18n that I use to access the translations so I can get type safety when accessing translations outside of the custom `useAppTranslation` hook I have included.
-
-## /icons
-
-This is where all of your icons will live. I like to use svgs for my icons and I use [svgr](https://react-svgr.com/) to convert them to React components.
 
 ## /routes
 
