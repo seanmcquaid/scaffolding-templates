@@ -1,9 +1,9 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { FormEvent } from 'react';
 import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
-import { Input } from '@/components/ui/Input';
+import { useAppForm } from '@/hooks/form';
+import type { Field } from '@tanstack/react-form';
 
 const formDataSchema = z
   .object({
@@ -23,40 +23,57 @@ const formDataSchema = z
   });
 
 export const ReactHookFormZodPage = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<z.infer<typeof formDataSchema>>({
-    mode: 'all',
-    resolver: zodResolver(formDataSchema),
+  const form = useAppForm({
+    defaultValues: {
+      confirmPassword: '',
+      password: '',
+      username: '',
+    },
+    validators: {
+      onChange: formDataSchema,
+    },
   });
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    form.handleSubmit();
+  };
 
   return (
     <PageWrapper>
-      <form>
-        <Input
-          autoComplete="username"
-          className="m-4"
-          errorMessage={errors?.username?.message}
-          label="Username"
-          {...register('username')}
+      <form className="w-full" onSubmit={handleSubmit}>
+        <form.AppField
+          children={(field: Field<string>) => (
+            <field.TextField autoComplete="username" label="Username" />
+          )}
+          name="username"
         />
-        <Input
-          autoComplete="new-password"
-          className="m-4"
-          errorMessage={errors?.password?.message}
-          label="Password"
-          type="password"
-          {...register('password')}
+        <form.AppField
+          children={(field: Field<string>) => (
+            <field.TextField
+              autoComplete="new-password"
+              className="mt-4"
+              label="Password"
+              type="password"
+            />
+          )}
+          name="password"
         />
-        <Input
-          autoComplete="new-password"
-          className="m-4"
-          errorMessage={errors?.confirmPassword?.message}
-          label="Confirm Password"
-          type="password"
-          {...register('confirmPassword')}
+        <form.AppField
+          children={(field: Field<string>) => (
+            <field.TextField
+              autoComplete="new-password"
+              className="mt-4"
+              label="Confirm Password"
+              type="password"
+            />
+          )}
+          name="confirmPassword"
         />
+        <form.AppForm>
+          <form.SubmitButton>Submit</form.SubmitButton>
+        </form.AppForm>
       </form>
     </PageWrapper>
   );
