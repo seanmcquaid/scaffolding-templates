@@ -29,9 +29,9 @@ const formOpts = formOptions({
   defaultValues: {
     name: '',
   },
-  // validators: {
-  //   onChange: formDataSchema,
-  // },
+  validators: {
+    onChange: formDataSchema,
+  },
 });
 
 const serverValidate = createServerValidate({
@@ -58,24 +58,21 @@ export const clientLoader = async ({
 
 clientLoader.hydrate = true;
 
-
-export const clientAction = async ({
-  request,
-}: Route.ClientActionArgs) => {
- try{
-  const formData = await request.formData();
-  const data = await serverValidate(formData);
-  toast({
-    title: `Hello ${data.name}!`,
-  });
- }catch(err){
-  if (err instanceof ServerValidateError) {
-    return err.formState;
+export const clientAction = async ({ request }: Route.ClientActionArgs) => {
+  try {
+    const formData = await request.formData();
+    const data = await serverValidate(formData);
+    toast({
+      title: `Hello ${data.name}!`,
+    });
+  } catch (err) {
+    if (err instanceof ServerValidateError) {
+      return err.formState;
+    }
+    throw err;
   }
-  throw err;
- }
 
- return null;
+  return null;
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {

@@ -39,8 +39,6 @@ const TextField = ({
 }: TextFieldProps) => {
   const field = useFieldContext<string>();
 
-  console.log(field.state.meta)
-
   return (
     <Input
       {...props}

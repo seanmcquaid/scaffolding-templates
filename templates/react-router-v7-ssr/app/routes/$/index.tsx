@@ -1,7 +1,7 @@
-import PageWrapper from '@/components/app/PageWrapper';
-import useAppTranslation from '@/hooks/useAppTranslation';
-import LinkButton from '@/components/ui/LinkButton';
 import { href } from 'react-router';
+import PageWrapper from '@/components/app/PageWrapper';
+import LinkButton from '@/components/ui/LinkButton';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 const NotFoundPage = () => {
   const { t } = useAppTranslation();
