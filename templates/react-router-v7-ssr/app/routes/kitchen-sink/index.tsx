@@ -4,7 +4,7 @@ import {
   formOptions,
   ServerValidateError,
 } from '@tanstack/react-form/remix';
-import { Form } from 'react-router';
+import { Form, href } from 'react-router';
 import { z } from 'zod';
 import LinkButton from '@/components/ui/LinkButton';
 import { useAppForm } from '@/hooks/form';
@@ -29,9 +29,9 @@ const formOpts = formOptions({
   defaultValues: {
     name: '',
   },
-  validators: {
-    onChange: formDataSchema,
-  },
+  // validators: {
+  //   onChange: formDataSchema,
+  // },
 });
 
 const serverValidate = createServerValidate({
@@ -58,27 +58,24 @@ export const clientLoader = async ({
 
 clientLoader.hydrate = true;
 
-export const action = async ({ request }: Route.ActionArgs) => {
-  const formData = await request.formData();
-  const data = await serverValidate(formData);
-
-  return data;
-};
 
 export const clientAction = async ({
-  serverAction,
+  request,
 }: Route.ClientActionArgs) => {
-  const { data, errors, defaultValues } = await serverAction();
-
-  if (errors) {
-    return { defaultValues, errors };
-  }
-
  try{
-  const result = await serverAction();
- }catch{}
+  const formData = await request.formData();
+  const data = await serverValidate(formData);
+  toast({
+    title: `Hello ${data.name}!`,
+  });
+ }catch(err){
+  if (err instanceof ServerValidateError) {
+    return err.formState;
+  }
+  throw err;
+ }
 
-  return { data };
+ return null;
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {

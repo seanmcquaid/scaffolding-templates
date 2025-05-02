@@ -32,13 +32,14 @@ type TextFieldProps = Omit<
 >;
 
 const TextField = ({
-className defaultValue marked,
-  seanmcquaid,
-  this conversation as resolved.
   label,
+  defaultValue,
+  className,
   ...props
 }: TextFieldProps) => {
   const field = useFieldContext<string>();
+
+  console.log(field.state.meta)
 
   return (
     <Input

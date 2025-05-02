@@ -6,6 +6,7 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 import { useToast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
 import { getPostsQueryOptions, PostsQueryKeys } from '@/services/queries/posts';
+import { href } from 'react-router';
 
 const ReactQueryPage = () => {
   const { t } = useAppTranslation();
@@ -39,7 +40,9 @@ const ReactQueryPage = () => {
             </Button>
             <LinkButton
               className="ml-4"
-              to={`${t('Routes.reactQuery')}/${post.id}`}
+              to={href('/react-query/:id', {
+                id: post.id.toString(),
+              })}
             >
               {t('ReactQueryPage.view')}
             </LinkButton>
