@@ -17,6 +17,7 @@ describe('ReactHookFormZodPage', () => {
       },
     ]);
     render(<RoutesStub />);
+    await waitFor(() => expect(screen.getByLabelText('Password')).toBeInTheDocument());
     await user.type(screen.getByLabelText('Password'), 'password');
     await user.type(screen.getByLabelText('Confirm Password'), 'password1');
     await waitFor(() =>
