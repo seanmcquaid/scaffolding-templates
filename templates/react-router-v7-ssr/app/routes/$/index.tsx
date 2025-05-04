@@ -1,16 +1,21 @@
-import { href } from 'react-router';
+import { useNavigate } from 'react-router';
 import PageWrapper from '@/components/app/PageWrapper';
-import LinkButton from '@/components/ui/LinkButton';
+import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 const NotFoundPage = () => {
   const { t } = useAppTranslation();
+  const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate(t('Routes.home'));
+  };
 
   return (
     <PageWrapper>
       <h1>{t('NotFoundPage.notFound')}</h1>
       <p>{t('NotFoundPage.pleaseTryADifferentRoute')}</p>
-      <LinkButton to={href('/')}>{t('NotFoundPage.home')}</LinkButton>
+      <Button onClick={handleOnClick}>{t('NotFoundPage.home')}</Button>
     </PageWrapper>
   );
 };
