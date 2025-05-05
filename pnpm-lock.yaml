@@ -138,8 +138,8 @@ importers:
         specifier: ^8.5.3
         version: 8.5.3
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -316,8 +316,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -515,8 +515,8 @@ importers:
         specifier: ^0.8.5
         version: 0.8.5
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -684,8 +684,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1(@playwright/test@1.52.0)(msw@2.7.5(@types/node@22.15.3)(typescript@5.8.3))
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -844,8 +844,8 @@ importers:
         specifier: ^2.7.5
         version: 2.7.5(@types/node@22.15.3)(typescript@5.8.3)
       tailwindcss:
-        specifier: ^4.1.4
-        version: 4.1.4
+        specifier: ^4.1.5
+        version: 4.1.5
       vite:
         specifier: ^6.3.4
         version: 6.3.4(@types/node@22.15.3)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1)
@@ -2429,8 +2429,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@eslint-community/eslint-utils@4.6.1':
-    resolution: {integrity: sha512-KTsJMmobmbrFLe3LDh0PC2FXpcSYJt/MLjlkh/9LEnmKYLSYmT/0EW9JWANjeoemiuZrmogti0tW5Ch+qNUYDw==}
+  '@eslint-community/eslint-utils@4.7.0':
+    resolution: {integrity: sha512-dyybb3AcajC7uha6CvhdVRJqaKyn7w2YKqKyAN37NKYgZT36w+iRb0Dymmc5qEJ549c/S31cMMSFd75bteCpCw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || >=8.0.0
@@ -2443,8 +2443,8 @@ packages:
     resolution: {integrity: sha512-fxlS1kkIjx8+vy2SjuCB94q3htSNrufYTXubwiBFeaQHbH6Ipi43gFJq2zCMt6PHhImH3Xmr0NksKDvchWlpQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/config-helpers@0.2.1':
-    resolution: {integrity: sha512-RI17tsD2frtDu/3dmI7QRrD4bedNKPM08ziRYaC5AhkGrzIAJelm9kJU1TznK+apx6V+cqRz8tfpEeG3oIyjxw==}
+  '@eslint/config-helpers@0.2.2':
+    resolution: {integrity: sha512-+GPzk8PlG0sPpzdU5ZvIRMPidzAnZDl/s9L+y13iodqvb8leL53bTannOrQ/Im7UkpsmFU5Ily5U60LWixnmLg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/core@0.12.0':
@@ -8055,6 +8055,9 @@ packages:
   tailwindcss@4.1.4:
     resolution: {integrity: sha512-1ZIUqtPITFbv/DxRmDr5/agPqJwF69d24m9qmM1939TJehgY539CtzeZRjbLt5G6fSy/7YqqYsfvoTEw9xUI2A==}
 
+  tailwindcss@4.1.5:
+    resolution: {integrity: sha512-nYtSPfWGDiWgCkwQG/m+aX83XCwf62sBgg3bIlNiiOcggnS1x3uVRDAuyelBFL+vJdOPPCGElxv9DjHJjRHiVA==}
+
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
@@ -10548,7 +10551,7 @@ snapshots:
   '@esbuild/win32-x64@0.25.3':
     optional: true
 
-  '@eslint-community/eslint-utils@4.6.1(eslint@9.24.0(jiti@2.4.2))':
+  '@eslint-community/eslint-utils@4.7.0(eslint@9.24.0(jiti@2.4.2))':
     dependencies:
       eslint: 9.24.0(jiti@2.4.2)
       eslint-visitor-keys: 3.4.3
@@ -10566,7 +10569,7 @@ snapshots:
       - supports-color
     optional: true
 
-  '@eslint/config-helpers@0.2.1':
+  '@eslint/config-helpers@0.2.2':
     optional: true
 
   '@eslint/core@0.12.0':
@@ -14090,10 +14093,10 @@ snapshots:
 
   eslint@9.24.0(jiti@2.4.2):
     dependencies:
-      '@eslint-community/eslint-utils': 4.6.1(eslint@9.24.0(jiti@2.4.2))
+      '@eslint-community/eslint-utils': 4.7.0(eslint@9.24.0(jiti@2.4.2))
       '@eslint-community/regexpp': 4.12.1
       '@eslint/config-array': 0.20.0
-      '@eslint/config-helpers': 0.2.1
+      '@eslint/config-helpers': 0.2.2
       '@eslint/core': 0.12.0
       '@eslint/eslintrc': 3.3.1
       '@eslint/js': 9.24.0
@@ -16892,6 +16895,8 @@ snapshots:
   tailwind-merge@3.2.0: {}
 
   tailwindcss@4.1.4: {}
+
+  tailwindcss@4.1.5: {}
 
   tapable@2.2.1: {}
 
