@@ -4,11 +4,11 @@ const enUSLocale = {
   },
   HomePage: {
     kitchenSink: 'Kitchen Sink',
+    reactHookFormZod: 'React Hook Form with Zod',
     reactQuery: 'Querying and Mutating Data with React Query',
     reactRouter: 'React Router',
     subTitle:
       'Below you will find a list of example routes with commonly used patterns for React projects',
-    tanstackFormZod: 'Tanstack Form with Zod',
     title: 'Welcome to a project scaffolded out with the McQuaid Stack!',
   },
   KitchenSinkPage: {
@@ -31,6 +31,12 @@ const enUSLocale = {
     delete: 'Delete',
     title: 'Querying and Mutating Data with React Query',
     view: 'View',
+  },
+  Routes: {
+    home: '/',
+    kitchenSink: '/kitchen-sink',
+    reactHookFormZod: '/react-hook-form-zod',
+    reactQuery: '/react-query',
   },
 } as const;
 

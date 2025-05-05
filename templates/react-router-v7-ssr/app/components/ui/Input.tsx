@@ -2,7 +2,8 @@ import type * as React from 'react';
 
 import { cn } from '@/utils/styles';
 
-export interface InputProps extends React.ComponentProps<'input'> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
 }
@@ -13,7 +14,7 @@ const Input = ({
   errorMessage,
   label,
   ...props
-}: InputProps) => {
+}: React.HTMLProps<HTMLInputElement> & InputProps) => {
   return (
     <div className={className}>
       <label htmlFor={props.id}>
@@ -26,7 +27,7 @@ const Input = ({
           {...props}
         />
       </label>
-      {!!errorMessage && <em className="text-red-500">{errorMessage}</em>}
+      {!!errorMessage && <p>{errorMessage}</p>}
     </div>
   );
 };
