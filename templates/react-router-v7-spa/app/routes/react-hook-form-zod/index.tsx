@@ -30,7 +30,7 @@ const ReactHookFormZod = () => {
     register,
     formState: { errors },
   } = useForm<FormData>({
-    mode: 'onBlur',
+    mode: 'onChange',
     resolver,
   });
   return (
