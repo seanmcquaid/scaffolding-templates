@@ -1,9 +1,13 @@
 import PageWrapper from '@/components/app/PageWrapper';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
+import {
+  render,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageWrapper', () => {
-  it('Displays loading spinner when isLoading is true', () => {
+  it('Displays loading spinner when isLoading is true', async () => {
     const RoutesStub = createRoutesStub([
       {
         component: () => <PageWrapper isLoading />,
@@ -11,9 +15,11 @@ describe('PageWrapper', () => {
       },
     ]);
     render(<RoutesStub />);
-    expect(screen.getByTestId('loadingSpinner')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByTestId('loadingSpinner')).toBeInTheDocument(),
+    );
   });
-  it('Displays error message when isError is true', () => {
+  it('Displays error message when isError is true', async () => {
     const RoutesStub = createRoutesStub([
       {
         component: () => (
@@ -23,10 +29,12 @@ describe('PageWrapper', () => {
       },
     ]);
     render(<RoutesStub />);
-    expect(screen.getByText('Error')).toBeInTheDocument();
-    expect(screen.getByText('Error title')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Error')).toBeInTheDocument();
+      expect(screen.getByText('Error title')).toBeInTheDocument();
+    });
   });
-  it('Displays children when isLoading and isError are false', () => {
+  it('Displays children when isLoading and isError are false', async () => {
     const RoutesStub = createRoutesStub([
       {
         component: () => <PageWrapper>Children</PageWrapper>,
@@ -34,6 +42,8 @@ describe('PageWrapper', () => {
       },
     ]);
     render(<RoutesStub />);
-    expect(screen.getByText('Children')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText('Children')).toBeInTheDocument(),
+    );
   });
 });
