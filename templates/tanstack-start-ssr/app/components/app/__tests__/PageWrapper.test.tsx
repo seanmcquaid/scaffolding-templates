@@ -1,6 +1,10 @@
 import PageWrapper from '@/components/app/PageWrapper';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
-import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
+import {
+  render,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageWrapper', () => {
   it('Displays loading spinner when isLoading is true', async () => {

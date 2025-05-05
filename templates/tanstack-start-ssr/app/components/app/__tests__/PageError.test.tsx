@@ -1,6 +1,10 @@
 import PageError from '@/components/app/PageError';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
-import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
+import {
+  render,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageError', () => {
   describe('Title text', () => {
