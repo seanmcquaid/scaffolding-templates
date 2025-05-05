@@ -10,6 +10,9 @@ importers:
 
   templates/next-ssr:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^5.0.1
+        version: 5.0.1(react-hook-form@7.56.2(react@19.1.0))
       '@radix-ui/react-slot':
         specifier: ^1.2.0
         version: 1.2.0(@types/react@19.1.2)(react@19.1.0)
@@ -58,6 +61,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      react-hook-form:
+        specifier: ^7.56.2
+        version: 7.56.2(react@19.1.0)
       react-i18next:
         specifier: ^15.5.1
         version: 15.5.1(i18next@25.0.2(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
@@ -155,6 +161,9 @@ importers:
 
   templates/react-router-v7-spa:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^5.0.1
+        version: 5.0.1(react-hook-form@7.56.1(react@19.1.0))
       '@radix-ui/react-slot':
         specifier: ^1.2.0
         version: 1.2.0(@types/react@19.1.2)(react@19.1.0)
@@ -206,6 +215,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      react-hook-form:
+        specifier: ^7.56.1
+        version: 7.56.1(react@19.1.0)
       react-i18next:
         specifier: ^15.5.1
         version: 15.5.1(i18next@25.0.2(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
@@ -216,12 +228,12 @@ importers:
         specifier: ^3.2.0
         version: 3.2.0
       zod:
-        specifier: ^3.24.3
-        version: 3.24.3
+        specifier: link:@hookform/resolvers/zod
+        version: link:@hookform/resolvers/zod
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.7.0)(zod@3.24.3)
+        version: 3.14.0(@faker-js/faker@9.7.0)(zod@templates+react-router-v7-spa+@hookform+resolvers+zod)
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.52.0)
@@ -7417,6 +7429,12 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
+  react-hook-form@7.56.2:
+    resolution: {integrity: sha512-vpfuHuQMF/L6GpuQ4c3ZDo+pRYxIi40gQqsCmmfUBwm+oqvBhKhwghCuj2o00YCgSfU6bR9KC/xnQGWm3Gr08A==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-hotkeys-hook@4.6.2:
     resolution: {integrity: sha512-FmP+ZriY3EG59Ug/lxNfrObCnW9xQShgk7Nb83+CkpfkcCpfS95ydv+E9JuXA5cp8KtskU7LGlIARpkc92X22Q==}
     peerDependencies:
@@ -8937,6 +8955,12 @@ snapshots:
       '@faker-js/faker': 9.7.0
       randexp: 0.5.3
       zod: 3.24.3
+
+  '@anatine/zod-mock@3.14.0(@faker-js/faker@9.7.0)(zod@templates+react-router-v7-spa+@hookform+resolvers+zod)':
+    dependencies:
+      '@faker-js/faker': 9.7.0
+      randexp: 0.5.3
+      zod: link:templates/react-router-v7-spa/@hookform/resolvers/zod
 
   '@andrewbranch/untar.js@1.0.3': {}
 
@@ -10655,6 +10679,11 @@ snapshots:
     dependencies:
       '@standard-schema/utils': 0.3.0
       react-hook-form: 7.56.1(react@19.1.0)
+
+  '@hookform/resolvers@5.0.1(react-hook-form@7.56.2(react@19.1.0))':
+    dependencies:
+      '@standard-schema/utils': 0.3.0
+      react-hook-form: 7.56.2(react@19.1.0)
 
   '@humanfs/core@0.19.1':
     optional: true
@@ -16160,6 +16189,10 @@ snapshots:
       scheduler: 0.26.0
 
   react-hook-form@7.56.1(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+
+  react-hook-form@7.56.2(react@19.1.0):
     dependencies:
       react: 19.1.0
 

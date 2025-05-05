@@ -1,31 +1,33 @@
 'use client';
-import { mergeForm, useTransform } from '@tanstack/react-form';
-import { initialFormState } from '@tanstack/react-form/nextjs';
 import { useActionState } from 'react';
-import { useAppForm } from '@/hooks/form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { z } from 'zod';
+import formDataSchema from './formDataSchema';
 import { submitName } from './actions';
-import formOpts from './formOpts';
+import { Input } from '@/components/ui/Input';
+import { Button } from '@/components/ui/Button';
 
 const KitchenSinkForm = () => {
-  const [formState, formAction] = useActionState(submitName, initialFormState);
-
-  const form = useAppForm({
-    ...formOpts,
-    transform: useTransform(
-      baseForm => mergeForm(baseForm, formState ?? {}),
-      [formState],
-    ),
+  const {
+    register,
+    formState: { errors },
+  } = useForm<z.infer<typeof formDataSchema>>({
+    resolver: zodResolver(formDataSchema),
+  });
+  const [formState, formAction] = useActionState(submitName, {
+    name: '',
   });
 
   return (
-    <form action={formAction} onSubmit={() => form.handleSubmit()}>
-      <form.AppField
-        children={field => <field.TextField className="m-4" label="Name" />}
-        name="name"
+    <form action={formAction}>
+      <Input
+        className="m-4"
+        label="Name"
+        errorMessage={errors?.name?.message || formState?.name}
+        {...register('name')}
       />
-      <form.AppForm>
-        <form.SubmitButton>Submit</form.SubmitButton>
-      </form.AppForm>
+      <Button type="submit">{'Submit'}</Button>
     </form>
   );
 };
