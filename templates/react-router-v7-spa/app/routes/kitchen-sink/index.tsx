@@ -1,15 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import { Form } from 'react-router';
 import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import type { Route } from './+types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import queryClient from '@/services/queries/queryClient';
-import { toast } from '@/hooks/useToast';
 import LinkButton from '@/components/ui/LinkButton';
-import getValidatedFormData from '@/utils/getValidatedFormData';
+import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
+import queryClient from '@/services/queries/queryClient';
+import getValidatedFormData from '@/utils/getValidatedFormData';
+import type { Route } from './+types';
 
 const formDataSchema = z.object({
   name: z.string().min(3).max(10, {
@@ -35,7 +35,7 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
     schema: formDataSchema,
   });
   if (errors) {
-    return { errors, defaultValues };
+    return { defaultValues, errors };
   }
 
   toast({
@@ -50,8 +50,8 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
     register,
     formState: { errors },
   } = useForm<FormData>({
-    resolver,
     mode: 'onChange',
+    resolver,
   });
 
   return (
@@ -59,16 +59,16 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
       <Form method="POST">
         <Input
           className="m-4"
-          label="Name"
-          errorMessage={errors?.name?.message || actionData?.errors?.name}
           defaultValue={actionData?.defaultValues?.name}
+          errorMessage={errors?.name?.message || actionData?.errors?.name}
+          label="Name"
           {...register('name')}
         />
         <Button type="submit">{'Submit'}</Button>
       </Form>
       <ul className="grid grid-cols-2">
         {loaderData?.map(post => (
-          <li key={post.id} className="mt-4 flex items-center">
+          <li className="mt-4 flex items-center" key={post.id}>
             <LinkButton to={`/react-query/${post.id}`}>
               {post.title.substring(0, 4)}
             </LinkButton>

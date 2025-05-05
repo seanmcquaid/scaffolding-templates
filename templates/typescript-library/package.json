@@ -28,6 +28,7 @@
     "check-treeshaking": "agadoo dist/index.mjs",
     "check-types": "npm pack && attw --pack",
     "lint": "biome check",
+    "lint:fix": "biome check --write",
     "prepare": "is-ci || husky",
     "release": "pnpm build && changeset publish",
     "test": "vitest run",

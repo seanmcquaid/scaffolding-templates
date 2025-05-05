@@ -1,23 +1,12 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/Input';
+import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
+import { Input } from '@/components/ui/Input';
 
 const formDataSchema = z
   .object({
-    username: z.string().email({
-      message: 'Please enter a valid email',
-    }),
-    password: z
-      .string()
-      .min(3, {
-        message: 'Password must be between 3 and 10 characters',
-      })
-      .max(10, {
-        message: 'Password must be between 3 and 10 characters',
-      }),
     confirmPassword: z
       .string()
       .min(3, {
@@ -26,6 +15,17 @@ const formDataSchema = z
       .max(10, {
         message: 'Password must be between 3 and 10 characters',
       }),
+    password: z
+      .string()
+      .min(3, {
+        message: 'Password must be between 3 and 10 characters',
+      })
+      .max(10, {
+        message: 'Password must be between 3 and 10 characters',
+      }),
+    username: z.string().email({
+      message: 'Please enter a valid email',
+    }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -48,26 +48,26 @@ const ReactHookFormZod = () => {
     <PageWrapper>
       <form>
         <Input
-          className="m-4"
           autoComplete="username"
-          label="Username"
+          className="m-4"
           errorMessage={errors?.username?.message}
+          label="Username"
           {...register('username')}
         />
         <Input
-          type="password"
-          className="m-4"
           autoComplete="new-password"
-          label="Password"
+          className="m-4"
           errorMessage={errors?.password?.message}
+          label="Password"
+          type="password"
           {...register('password')}
         />
         <Input
-          type="password"
-          className="m-4"
           autoComplete="new-password"
-          label="Confirm Password"
+          className="m-4"
           errorMessage={errors?.confirmPassword?.message}
+          label="Confirm Password"
+          type="password"
           {...register('confirmPassword')}
         />
       </form>

@@ -1,12 +1,12 @@
 'use client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useActionState } from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import type { z } from 'zod';
-import formDataSchema from './formDataSchema';
-import { submitName } from './actions';
-import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { submitName } from './actions';
+import formDataSchema from './formDataSchema';
 
 const KitchenSinkForm = () => {
   const {
@@ -23,8 +23,8 @@ const KitchenSinkForm = () => {
     <form action={formAction}>
       <Input
         className="m-4"
-        label="Name"
         errorMessage={errors?.name?.message || formState?.name}
+        label="Name"
         {...register('name')}
       />
       <Button type="submit">{'Submit'}</Button>
