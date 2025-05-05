@@ -7,6 +7,7 @@
     "bundlesize": "bundlesize",
     "dev": "react-router dev",
     "lint": "biome check",
+    "lint:fix": "biome check --write",
     "playwright:codegen": "playwright codegen",
     "playwright:debug": "playwright test --debug",
     "playwright:run-e2e": "playwright test playwright/e2e",
