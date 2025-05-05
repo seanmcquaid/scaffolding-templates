@@ -7,7 +7,7 @@
     "bundlesize": "bundlesize",
     "dev": "next dev --turbopack --turbo",
     "lint": "biome check",
-    "lint:fix": "biome check --fix --unsafe",
+    "lint:fix": "biome check --write",
     "prepare": "is-ci || husky",
     "start": "next start",
     "test": "vitest run",
