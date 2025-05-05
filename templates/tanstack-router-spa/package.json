@@ -8,6 +8,7 @@
     "bundlesize": "bundlesize",
     "dev": "vite",
     "lint": "biome check",
+    "lint:fix": "biome check --fix --unsafe",
     "playwright:codegen": "playwright codegen",
     "playwright:debug": "playwright test --debug",
     "playwright:run-e2e": "playwright test playwright/e2e",
