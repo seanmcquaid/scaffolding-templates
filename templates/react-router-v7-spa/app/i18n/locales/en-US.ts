@@ -8,7 +8,7 @@ const enUSLocale = {
     reactRouter: 'React Router',
     subTitle:
       'Below you will find a list of example routes with commonly used patterns for React projects',
-    tanstackFormZod: 'Tanstack Form with Zod',
+    reactHookFormZod: 'React Hook Form with Zod',
     title: 'Welcome to a project scaffolded out with the McQuaid Stack!',
   },
   KitchenSinkPage: {

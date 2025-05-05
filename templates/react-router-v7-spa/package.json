@@ -20,6 +20,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-toast": "^1.2.10",
     "@react-router/node": "^7.5.3",
@@ -37,10 +38,11 @@
     "lucide-react": "^0.503.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.0",
     "react-i18next": "^15.5.1",
     "react-router": "^7.5.3",
     "tailwind-merge": "^3.2.0",
-    "zod": "^3.24.3"
+    "zod": "link:@hookform/resolvers/zod"
   },
   "devDependencies": {
     "@anatine/zod-mock": "^3.14.0",

@@ -13,8 +13,8 @@ const HomePage = () => {
       <LinkButton className="m-4" to={href('/react-query')}>
         {t('HomePage.reactQuery')}
       </LinkButton>
-      <LinkButton className="m-4" to={href('/tanstack-form-zod')}>
-        {t('HomePage.tanstackFormZod')}
+      <LinkButton className="m-4" to={href('/react-hook-form-zod')}>
+        {t('HomePage.reactHookFormZod')}
       </LinkButton>
       <LinkButton className="m-4" to={href('/kitchen-sink')}>
         {t('HomePage.kitchenSink')}
