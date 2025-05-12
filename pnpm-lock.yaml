@@ -135,8 +135,8 @@ importers:
         specifier: ^2.7.6
         version: 2.7.6(@types/node@22.15.14)(typescript@5.8.3)
       next-router-mock:
-        specifier: ^0.9.13
-        version: 0.9.13(next@15.3.2(@babel/core@7.26.10)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
+        specifier: ^1.0.1
+        version: 1.0.1(next@15.3.2(@babel/core@7.26.10)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)
       postcss:
         specifier: ^8.5.3
         version: 8.5.3
@@ -7626,8 +7626,8 @@ packages:
   next-plugin-svgr@1.1.12:
     resolution: {integrity: sha512-U453Da9zXWgRfReIEgTXQpcPcOj8oXB7j+LkYl5uRIr2aMZ2O68qTYdQpOJ18iZ4odpG+Z0vLmZ3Rje5TmI4NA==}
 
-  next-router-mock@0.9.13:
-    resolution: {integrity: sha512-906n2RRaE6Y28PfYJbaz5XZeJ6Tw8Xz1S6E31GGwZ0sXB6/XjldD1/2azn1ZmBmRk5PQRkzjg+n+RHZe5xQzWA==}
+  next-router-mock@1.0.1:
+    resolution: {integrity: sha512-aiGitJ8ixFpMcVeDEJgpyw8CflZdZFaiabvUilDLyfXmyl7qzegkKbGlRhYgpoE+SF+bgNMxO06YS4RIjT3uyw==}
     peerDependencies:
       next: '>=10.0.0'
       react: '>=17.0.0'
@@ -17298,7 +17298,7 @@ snapshots:
       - typescript
       - webpack
 
-  next-router-mock@0.9.13(next@15.3.2(@babel/core@7.26.10)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
+  next-router-mock@1.0.1(next@15.3.2(@babel/core@7.26.10)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0):
     dependencies:
       next: 15.3.2(@babel/core@7.26.10)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react: 19.1.0
