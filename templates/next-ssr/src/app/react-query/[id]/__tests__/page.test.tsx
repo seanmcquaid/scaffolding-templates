@@ -20,12 +20,8 @@ describe('ReactQueryPostPage', () => {
   it('should render successfully', async () => {
     mockUseParams.mockReturnValue({ id: '1' });
     render(<ReactQueryPostPage />);
-    await waitFor(async () =>
-      expect(
-        await screen.findByRole('heading', {
-          level: 1,
-        }),
-      ).toBeInTheDocument(),
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
+    });
   });
 });

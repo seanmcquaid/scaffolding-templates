@@ -11,7 +11,7 @@ const ReactQueryPostPage = ({ params }: Route.ComponentProps) => {
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
       <button onClick={() => navigate(-1)}>BACK</button>
-      <h1>{data?.title}</h1>
+      <h1 data-testid="postHeader">{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>
   );

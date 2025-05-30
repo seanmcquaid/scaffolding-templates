@@ -8,7 +8,7 @@ const ReactQueryPostPage = ({ params }: Route.ComponentProps) => {
 
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
-      <h1>{data?.title}</h1>
+      <h1 data-testid="postHeader">{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>
   );

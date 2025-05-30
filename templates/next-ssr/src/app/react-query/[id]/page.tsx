@@ -16,7 +16,7 @@ const ReactQueryPostPage = () => {
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
       <button onClick={() => router.back()}>BACK</button>
-      <h1>{data?.title}</h1>
+      <h1 data-testid="postHeader">{data?.title}</h1>
       <p>{data?.body}</p>
     </PageWrapper>
   );

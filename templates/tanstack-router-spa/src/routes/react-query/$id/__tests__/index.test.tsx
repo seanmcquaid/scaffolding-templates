@@ -21,12 +21,8 @@ describe('ReactQueryPostPage', () => {
       },
     );
     render(<RoutesStub />);
-    await waitFor(async () =>
-      expect(
-        await screen.findByRole('heading', {
-          level: 1,
-        }),
-      ).toBeInTheDocument(),
-    );
+    await waitFor(() => {
+      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
+    });
   });
 });
