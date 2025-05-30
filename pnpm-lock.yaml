@@ -68,12 +68,12 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       zod:
-        specifier: ^3.25.28
-        version: 3.25.40
+        specifier: ^3.25.41
+        version: 3.25.41
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)
       '@biomejs/biome':
         specifier: 2.0.0-beta.5
         version: 2.0.0-beta.5
@@ -222,12 +222,12 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       zod:
-        specifier: ^3.25.28
-        version: 3.25.40
+        specifier: ^3.25.41
+        version: 3.25.41
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.52.0)
@@ -421,12 +421,12 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       zod:
-        specifier: ^3.25.28
-        version: 3.25.40
+        specifier: ^3.25.41
+        version: 3.25.41
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.52.0)
@@ -599,12 +599,12 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
       zod:
-        specifier: ^3.25.28
-        version: 3.25.40
+        specifier: ^3.25.41
+        version: 3.25.41
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)
       '@axe-core/playwright':
         specifier: ^4.10.1
         version: 4.10.1(playwright-core@1.52.0)
@@ -777,12 +777,12 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6(@types/node@22.15.26)(db0@0.3.2)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
       zod:
-        specifier: ^3.25.28
-        version: 3.25.40
+        specifier: ^3.25.41
+        version: 3.25.41
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)
       '@babel/preset-typescript':
         specifier: ^7.27.1
         version: 7.27.1(@babel/core@7.27.3)
@@ -8921,8 +8921,8 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@3.25.40:
-    resolution: {integrity: sha512-AiNHzYhEjwg7HcjCSskJVBzdsioZkqXjlxfI6ygzM52P8LcQnXRvMzzFxQWdPP9c1bHYQqOcAqepHPGfF2hvJQ==}
+  zod@3.25.41:
+    resolution: {integrity: sha512-8+sDJTGtCYIDBhdqDygp0ffj8kzziRKqAJPhpYObbElJ+3TRe/mnlnwH+/OMa3kKhueS4Drm5UMW00/u1p07zA==}
 
 snapshots:
 
@@ -8935,11 +8935,11 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@anatine/zod-mock@3.14.0(@faker-js/faker@9.8.0)(zod@3.25.40)':
+  '@anatine/zod-mock@3.14.0(@faker-js/faker@9.8.0)(zod@3.25.41)':
     dependencies:
       '@faker-js/faker': 9.8.0
       randexp: 0.5.3
-      zod: 3.25.40
+      zod: 3.25.41
 
   '@andrewbranch/untar.js@1.0.3': {}
 
@@ -10671,7 +10671,7 @@ snapshots:
       unixify: 1.0.0
       urlpattern-polyfill: 8.0.2
       yargs: 17.7.2
-      zod: 3.25.40
+      zod: 3.25.41
     transitivePeerDependencies:
       - encoding
       - rollup
@@ -11733,7 +11733,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       vinxi: 0.5.3(@types/node@22.15.26)(db0@0.3.2)(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
       vite: 6.3.5(@types/node@22.15.26)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.40
+      zod: 3.25.41
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -11973,7 +11973,7 @@ snapshots:
       '@tanstack/virtual-file-routes': 1.115.0
       prettier: 3.5.3
       tsx: 4.19.4
-      zod: 3.25.40
+      zod: 3.25.41
     optionalDependencies:
       '@tanstack/react-router': 1.120.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
@@ -11995,7 +11995,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       chokidar: 3.6.0
       unplugin: 2.3.5
-      zod: 3.25.40
+      zod: 3.25.41
     optionalDependencies:
       '@tanstack/react-router': 1.120.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite: 6.3.5(@types/node@22.15.26)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
@@ -13126,7 +13126,7 @@ snapshots:
     dependencies:
       devtools-protocol: 0.0.1439962
       mitt: 3.0.1
-      zod: 3.25.40
+      zod: 3.25.41
 
   ci-env@1.17.0: {}
 
@@ -17283,7 +17283,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2)(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.26)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.40
+      zod: 3.25.41
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -17361,7 +17361,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2)(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.26)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.40
+      zod: 3.25.41
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -17811,4 +17811,4 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod@3.25.40: {}
+  zod@3.25.41: {}
