@@ -233,13 +233,16 @@ importers:
         version: 4.10.2(playwright-core@1.52.0)
       '@babel/preset-typescript':
         specifier: ^7.27.1
-        version: 7.27.1(@babel/core@7.27.4)
+        version: 7.27.1(@babel/core@7.27.3)
       '@biomejs/biome':
         specifier: 2.0.0-beta.5
         version: 2.0.0-beta.5
       '@faker-js/faker':
         specifier: ^9.8.0
         version: 9.8.0
+      '@msw/playwright':
+        specifier: ^0.3.0
+        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -312,9 +315,6 @@ importers:
       playwright-lighthouse:
         specifier: ^4.0.0
         version: 4.0.0(lighthouse@12.6.1)(playwright-core@1.52.0)
-      playwright-msw:
-        specifier: ^3.0.1
-        version: 3.0.1(@playwright/test@1.52.0)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       react-router-devtools:
         specifier: ^5.0.6
         version: 5.0.6(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react-router@7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0))
@@ -332,7 +332,7 @@ importers:
         version: 6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0)
       vite-plugin-babel:
         specifier: ^1.3.1
-        version: 1.3.1(@babel/core@7.27.4)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0))
+        version: 1.3.1(@babel/core@7.27.3)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0))
       vite-plugin-checker:
         specifier: ^0.9.3
         version: 0.9.3(@biomejs/biome@2.0.0-beta.5)(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0))
@@ -439,6 +439,9 @@ importers:
       '@faker-js/faker':
         specifier: ^9.8.0
         version: 9.8.0
+      '@msw/playwright':
+        specifier: ^0.3.0
+        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -511,9 +514,6 @@ importers:
       playwright-lighthouse:
         specifier: ^4.0.0
         version: 4.0.0(lighthouse@12.6.1)(playwright-core@1.52.0)
-      playwright-msw:
-        specifier: ^3.0.1
-        version: 3.0.1(@playwright/test@1.52.0)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       react-router-devtools:
         specifier: ^5.0.6
         version: 5.0.6(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react-router@7.6.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react@19.1.0)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0))
@@ -617,6 +617,9 @@ importers:
       '@faker-js/faker':
         specifier: ^9.8.0
         version: 9.8.0
+      '@msw/playwright':
+        specifier: ^0.3.0
+        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -686,9 +689,6 @@ importers:
       playwright-lighthouse:
         specifier: ^4.0.0
         version: 4.0.0(lighthouse@12.6.1)(playwright-core@1.52.0)
-      playwright-msw:
-        specifier: ^3.0.1
-        version: 3.0.1(@playwright/test@1.52.0)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       tailwindcss:
         specifier: ^4.1.8
         version: 4.1.8
@@ -2627,9 +2627,11 @@ packages:
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
 
-  '@mswjs/cookies@1.1.1':
-    resolution: {integrity: sha512-W68qOHEjx1iD+4VjQudlx26CPIoxmIAtK4ZCexU0/UJBG6jYhcuyzKJx+Iw8uhBIGd9eba64XgWVgo20it1qwA==}
-    engines: {node: '>=18'}
+  '@msw/playwright@0.3.0':
+    resolution: {integrity: sha512-KKpMe3nvDzZeprvaFY1zz6+p2K38TLZF7v7pG5A4ffgAtQPM7cxhOLtoorppNHIiQ8C7ZHkdGAUx1UwjIU1nsA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      msw: ^2.10.1
 
   '@mswjs/interceptors@0.39.2':
     resolution: {integrity: sha512-RuzCup9Ct91Y7V79xwCb146RaBRHZ7NBbrIUySumd1rpKqHL5OonaqrGIbug5hNwP/fRyxFMA6ISgw4FTtYFYg==}
@@ -7300,13 +7302,6 @@ packages:
       playwright-core:
         optional: true
 
-  playwright-msw@3.0.1:
-    resolution: {integrity: sha512-w2bVjt7kPIThOQF9OS/1vDDs0HsQfV9inxMVSUv74x/zhCcrgzVN47xpPk84okf3OcCRHHBJKq8sNeBfCDyhMg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@playwright/test': '>=1.20.0'
-      msw: ^2.0.0
-
   playwright@1.52.0:
     resolution: {integrity: sha512-JAwMNMBlxJ2oD1kce4KPtMkDeKGHQstdpFPcPH3maElAXon/QZeTvtsfXmTMRyO9TslfoYOXkSsvao2nE1ilTw==}
     engines: {node: '>=18'}
@@ -10859,7 +10854,11 @@ snapshots:
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
-  '@mswjs/cookies@1.1.1': {}
+  '@msw/playwright@0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))':
+    dependencies:
+      '@mswjs/interceptors': 0.39.2
+      msw: 2.10.2(@types/node@22.15.30)(typescript@5.8.3)
+      outvariant: 1.4.3
 
   '@mswjs/interceptors@0.39.2':
     dependencies:
@@ -16336,13 +16335,6 @@ snapshots:
     optionalDependencies:
       playwright-core: 1.52.0
 
-  playwright-msw@3.0.1(@playwright/test@1.52.0)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3)):
-    dependencies:
-      '@mswjs/cookies': 1.1.1
-      '@playwright/test': 1.52.0
-      msw: 2.10.2(@types/node@22.15.30)(typescript@5.8.3)
-      strict-event-emitter: 0.5.1
-
   playwright@1.52.0:
     dependencies:
       playwright-core: 1.52.0
@@ -17966,6 +17958,11 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  vite-plugin-babel@1.3.1(@babel/core@7.27.3)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0)):
+    dependencies:
+      '@babel/core': 7.27.3
+      vite: 6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0)
 
   vite-plugin-babel@1.3.1(@babel/core@7.27.4)(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.41.0)(tsx@4.19.4)(yaml@2.8.0)):
     dependencies:
