@@ -105,8 +105,8 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -274,8 +274,8 @@ importers:
         specifier: ^19.1.6
         version: 19.1.6(@types/react@19.1.8)
       '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -473,8 +473,8 @@ importers:
         specifier: ^19.1.6
         version: 19.1.6(@types/react@19.1.8)
       '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -654,8 +654,8 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       bundlesize:
         specifier: ^0.18.2
         version: 0.18.2
@@ -820,8 +820,8 @@ importers:
         specifier: ^4.5.2
         version: 4.5.2(vite@6.3.5(@types/node@22.15.30)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       '@vitest/coverage-istanbul':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       bundlesize:
         specifier: ^0.18.2
         version: 0.18.2
@@ -4117,10 +4117,10 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0-beta.0
 
-  '@vitest/coverage-istanbul@3.2.2':
-    resolution: {integrity: sha512-bWT9Ur9SsM6wvXJKGb7ZPQWLwQU11ZKPDU/TfK0avwiWB9DHBjErk4ThP54+5akoA7V5aky6grv/LDMqF9VhrQ==}
+  '@vitest/coverage-istanbul@3.2.3':
+    resolution: {integrity: sha512-kW1n4neEJbMYcAjzk+fS1nKReP+gURgaQ1/KzjAZsDyaUklnUjuWn38tLNbSwoobUBquuvdE6EzljSRxOuDXOQ==}
     peerDependencies:
-      vitest: 3.2.2
+      vitest: 3.2.3
 
   '@vitest/coverage-v8@3.2.3':
     resolution: {integrity: sha512-D1QKzngg8PcDoCE8FHSZhREDuEy+zcKmMiMafYse41RZpBE5EDJyKOTdqK3RQfsV2S2nyKor5KCs8PyPRFqKPg==}
@@ -4557,6 +4557,9 @@ packages:
 
   brace-expansion@2.0.1:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
+
+  brace-expansion@2.0.2:
+    resolution: {integrity: sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -12791,7 +12794,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-istanbul@3.2.2(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))':
+  '@vitest/coverage-istanbul@3.2.3(vitest@3.2.3(@types/node@22.15.30)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.4.1
@@ -13360,6 +13363,10 @@ snapshots:
       concat-map: 0.0.1
 
   brace-expansion@2.0.1:
+    dependencies:
+      balanced-match: 1.0.2
+
+  brace-expansion@2.0.2:
     dependencies:
       balanced-match: 1.0.2
 
@@ -15629,15 +15636,15 @@ snapshots:
 
   minimatch@5.1.6:
     dependencies:
-      brace-expansion: 2.0.1
+      brace-expansion: 2.0.2
 
   minimatch@9.0.1:
     dependencies:
-      brace-expansion: 2.0.1
+      brace-expansion: 2.0.2
 
   minimatch@9.0.5:
     dependencies:
-      brace-expansion: 2.0.1
+      brace-expansion: 2.0.2
 
   minimist@1.2.8: {}
 
