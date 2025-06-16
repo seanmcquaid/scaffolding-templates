@@ -241,8 +241,8 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       '@msw/playwright':
-        specifier: ^0.3.0
-        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
+        specifier: ^0.3.1
+        version: 0.3.1(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -440,8 +440,8 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       '@msw/playwright':
-        specifier: ^0.3.0
-        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
+        specifier: ^0.3.1
+        version: 0.3.1(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -618,8 +618,8 @@ importers:
         specifier: ^9.8.0
         version: 9.8.0
       '@msw/playwright':
-        specifier: ^0.3.0
-        version: 0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
+        specifier: ^0.3.1
+        version: 0.3.1(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))
       '@playwright/test':
         specifier: ^1.52.0
         version: 1.52.0
@@ -2627,8 +2627,8 @@ packages:
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
 
-  '@msw/playwright@0.3.0':
-    resolution: {integrity: sha512-KKpMe3nvDzZeprvaFY1zz6+p2K38TLZF7v7pG5A4ffgAtQPM7cxhOLtoorppNHIiQ8C7ZHkdGAUx1UwjIU1nsA==}
+  '@msw/playwright@0.3.1':
+    resolution: {integrity: sha512-S4pf65FFBabegRdRb+K/IUZl+hlRK8NXiP5mAbr+DazipFvH1lX6c/6oem5IRsmgdYgmVAyBJrXgFQBlCXx30A==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       msw: ^2.10.1
@@ -10884,7 +10884,7 @@ snapshots:
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
-  '@msw/playwright@0.3.0(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))':
+  '@msw/playwright@0.3.1(msw@2.10.2(@types/node@22.15.30)(typescript@5.8.3))':
     dependencies:
       '@mswjs/interceptors': 0.39.2
       msw: 2.10.2(@types/node@22.15.30)(typescript@5.8.3)
