@@ -880,8 +880,8 @@ importers:
         specifier: ^2.29.4
         version: 2.29.4
       '@vitest/coverage-v8':
-        specifier: ^3.2.2
-        version: 3.2.2(vitest@3.2.3(@types/node@22.15.32)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.32)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
+        specifier: ^3.2.3
+        version: 3.2.3(vitest@3.2.3(@types/node@22.15.32)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.32)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))
       agadoo:
         specifier: ^3.0.0
         version: 3.0.0
@@ -4122,11 +4122,11 @@ packages:
     peerDependencies:
       vitest: 3.2.2
 
-  '@vitest/coverage-v8@3.2.2':
-    resolution: {integrity: sha512-RVAi5xnqedSKvaoQyCTWvncMk8eYZcTTOsLK7XmnfOEvdGP/O/upA0/MA8Ss+Qs++mj0GcSRi/whR0S5iBPpTQ==}
+  '@vitest/coverage-v8@3.2.3':
+    resolution: {integrity: sha512-D1QKzngg8PcDoCE8FHSZhREDuEy+zcKmMiMafYse41RZpBE5EDJyKOTdqK3RQfsV2S2nyKor5KCs8PyPRFqKPg==}
     peerDependencies:
-      '@vitest/browser': 3.2.2
-      vitest: 3.2.2
+      '@vitest/browser': 3.2.3
+      vitest: 3.2.3
     peerDependenciesMeta:
       '@vitest/browser':
         optional: true
@@ -12807,7 +12807,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@3.2.2(vitest@3.2.3(@types/node@22.15.32)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.32)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))':
+  '@vitest/coverage-v8@3.2.3(vitest@3.2.3(@types/node@22.15.32)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.2(@types/node@22.15.32)(typescript@5.8.3))(terser@5.42.0)(tsx@4.19.4)(yaml@2.8.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 1.0.2
