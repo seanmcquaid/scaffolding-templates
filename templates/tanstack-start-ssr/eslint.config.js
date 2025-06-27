@@ -124,7 +124,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/utils/testing/**/*.{ts,tsx}', 'src/components/ui/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', 'app/utils/testing/**/*.{ts,tsx}', 'app/components/ui/**/*.{ts,tsx}', 'app/hooks/**/*.{ts,tsx}', 'app/root.tsx', '**/routes/**/*.{ts,tsx}'],
+    files: ['src/utils/testing/**/*.{ts,tsx}', 'src/components/ui/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', 'app/utils/testing/**/*.{ts,tsx}', 'app/components/ui/**/*.{ts,tsx}', 'app/hooks/**/*.{ts,tsx}', 'app/root.tsx', '**/routes/**/*.{ts,tsx}', 'app/ssr.tsx'],
     rules: {
       'react-refresh/only-export-components': 'off',
     },
