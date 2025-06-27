@@ -1,6 +1,9 @@
-import js from '@eslint/js';
-import tseslint from 'typescript-eslint';
 import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import vitest from '@vitest/eslint-plugin';
 
 export default tseslint.config(
   {
@@ -11,8 +14,10 @@ export default tseslint.config(
       'node_modules/**',
     ],
   },
-  js.configs.recommended,
+  pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  eslintConfigPrettier,
+  eslintPluginPrettierRecommended,
   {
     files: ['**/*.{js,ts}'],
     languageOptions: {
@@ -29,6 +34,24 @@ export default tseslint.config(
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+      'no-shadow': 'off',
+      '@typescript-eslint/no-var-requires': 0,
+      '@typescript-eslint/no-shadow': 'error',
+      curly: ['warn', 'all'],
+      'prefer-const': 'warn',
+      'prettier/prettier': 'warn',
+      '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/consistent-type-definitions': ['error'],
+      '@typescript-eslint/consistent-type-imports': 'error',
+    },
+  },
+  {
+    files: ['src/**/*.{test,spec}.{ts,tsx}'],
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
     },
   },
 );

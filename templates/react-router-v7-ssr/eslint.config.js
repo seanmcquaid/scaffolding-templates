@@ -1,7 +1,17 @@
+import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
+import tanstackQuery from '@tanstack/eslint-plugin-query';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import react from 'eslint-plugin-react';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import importPlugin from 'eslint-plugin-import';
+import i18next from 'eslint-plugin-i18next';
+import playwright from 'eslint-plugin-playwright';
+import reactCompiler from 'eslint-plugin-react-compiler';
+import vitest from '@vitest/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import tseslint from 'typescript-eslint';
 import globals from 'globals';
 
@@ -17,6 +27,14 @@ export default tseslint.config(
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  ...fixupConfigRules(reactHooks.configs.recommended),
+  jsxA11y.flatConfigs.recommended,
+  ...fixupConfigRules(importPlugin.configs.recommended),
+  i18next.configs['flat/recommended'],
+  eslintConfigPrettier,
+  eslintPluginPrettierRecommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
@@ -36,33 +54,88 @@ export default tseslint.config(
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'jsx-a11y': jsxA11y,
+      import: importPlugin,
+      i18next,
+      'react-compiler': reactCompiler,
+      '@tanstack/query': tanstackQuery,
     },
     settings: {
       react: {
         version: 'detect',
       },
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
     },
     rules: {
       // React rules
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-      ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true, allowExportNames: ['loader', 'action', 'meta'] },
       ],
+      'react-compiler/react-compiler': 'error',
 
       // TypeScript overrides
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
       ],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-var-requires': 0,
+
+      // Import rules
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+          ],
+          'newlines-between': 'never',
+          alphabetize: { order: 'asc' },
+        },
+      ],
+
+      // General rules
+      'no-shadow': 'off',
+      '@typescript-eslint/no-shadow': 'error',
+      curly: ['warn', 'all'],
+      'prefer-const': 'warn',
+      'prettier/prettier': 'warn',
+
+      // TanStack Query rules
+      '@tanstack/query/exhaustive-deps': 'error',
+      '@tanstack/query/stable-query-client': 'error',
     },
   },
   {
     files: ['src/utils/testing/**/*.{ts,tsx}', 'src/components/ui/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', 'app/utils/**/*.{ts,tsx}', 'app/components/ui/**/*.{ts,tsx}', 'app/hooks/**/*.{ts,tsx}', 'app/root.tsx', '**/routes/**/*.{ts,tsx}'],
     rules: {
       'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
+  },
+  {
+    files: ['playwright/**/*.{ts,tsx}', '**/*.playwright.{ts,tsx}'],
+    plugins: {
+      playwright,
+    },
+    rules: {
+      ...playwright.configs.recommended.rules,
     },
   },
 );
