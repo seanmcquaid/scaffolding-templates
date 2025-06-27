@@ -42,7 +42,10 @@ const createRoutesStub = (
     routeTree,
   });
 
-  return () => <RouterProvider router={router as never} />;
+  const RoutesStub = () => <RouterProvider router={router as never} />;
+  RoutesStub.displayName = 'RoutesStub';
+
+  return RoutesStub;
 };
 
 export default createRoutesStub;

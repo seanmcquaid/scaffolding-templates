@@ -74,7 +74,7 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
-          // @ts-expect-error
+          // @ts-expect-error - mock props for testing
           <KitchenSinkPage
             loaderData={[
               { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
@@ -95,7 +95,7 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
-          // @ts-expect-error
+          // @ts-expect-error - mock props for testing
           <KitchenSinkPage
             loaderData={[
               { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
