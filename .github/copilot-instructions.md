@@ -76,25 +76,66 @@ Follow consistent directory structure across project templates:
 - `/constants`: Application constants and enums
 - `/docs`: Project-specific documentation
 
+##### File Organization Best Practices
+- **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
+- **Use barrel exports**: Create `index.ts` files to provide clean public interfaces for directories
+- **Separate concerns clearly**: Don't mix UI components with business logic components
+- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
+- **Feature-based organization**: Group files by feature rather than by file type when features grow large
+
 #### Component Patterns
 - Separate UI components (presentational) from app components (feature-specific)
 - Use TypeScript interfaces for component props
 - Implement proper error boundaries and loading states
+
+##### Component Development Best Practices
+- **Single Responsibility Principle**: Each component should have one clear purpose
+- **Composition over inheritance**: Use component composition patterns rather than complex inheritance
+- **Props interface design**: Keep props interfaces simple and focused; avoid "god objects"
+- **Error boundaries**: Implement error boundaries at appropriate levels (page, feature, or critical component level)
+- **Loading states**: Always handle loading, error, and empty states explicitly
+- **Accessibility first**: Use semantic HTML and ARIA attributes; test with screen readers
+- **Performance optimization**: Use React.memo for expensive components, useMemo for expensive calculations
 
 #### State Management
 - **TanStack Query**: For server state management
 - **React Hook Form**: For form state management
 - Local component state with useState/useReducer for UI state
 
+##### State Management Best Practices
+- **Keep state local**: Only lift state up when multiple components need it
+- **Prefer URL state**: Use URL parameters for shareable application state
+- **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
+- **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
+- **Derived state**: Calculate derived values in render rather than storing them in state
+- **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+
 #### Styling
 - **Tailwind CSS**: Utility-first CSS framework
 - **shadcn/ui**: Component library built on Radix UI
 - **CSS Modules**: When component-scoped styles are needed
 
+##### Styling Best Practices
+- **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
+- **Mobile-first responsive design**: Start with mobile layouts and enhance for larger screens
+- **Semantic CSS classes**: When using custom CSS, prefer semantic class names over presentational ones
+- **Performance optimization**: Purge unused CSS in production; use CSS-in-JS judiciously
+- **Accessibility considerations**: Ensure sufficient color contrast; provide focus indicators
+- **Component variants**: Use tools like `class-variance-authority` for systematic component variations
+
 #### Internationalization (i18n)
 - **i18next**: Primary i18n solution
 - **react-i18next**: React bindings for i18next
 - Type-safe translation keys
+
+##### Internationalization Best Practices
+- **Type-safe translations**: Generate TypeScript types from translation files to catch missing keys at compile time
+- **Namespace organization**: Organize translations by feature or page to avoid conflicts and improve maintainability
+- **Pluralization support**: Use i18next's pluralization features for proper plural forms across languages
+- **Context-aware translations**: Provide context to translators through key naming and comments
+- **Lazy loading**: Load translation bundles on-demand for better performance
+- **RTL support**: Consider right-to-left languages in CSS and layout design
 
 ## Development Guidelines
 
@@ -106,11 +147,27 @@ Follow consistent directory structure across project templates:
 5. Include example environment files
 6. Add bundlesize configuration for performance monitoring
 
+#### Template Creation Best Practices
+- **Start with existing patterns**: Use an existing template as a starting point to maintain consistency
+- **Document decisions**: Include architectural decision records (ADRs) for major design choices
+- **Provide examples**: Include sample components, services, and tests that demonstrate best practices
+- **Environment setup**: Provide comprehensive setup instructions and troubleshooting guides
+- **Performance baselines**: Establish bundle size limits and performance budgets from the start
+- **Accessibility audit**: Ensure templates meet WCAG 2.1 AA standards out of the box
+
 ### When Modifying Existing Project Templates
 - Maintain backward compatibility when possible
 - Update documentation to reflect changes
 - Test across all supported Node.js versions
 - Ensure all project templates continue to follow the same patterns
+
+#### Template Maintenance Best Practices
+- **Version consistency**: Keep dependencies aligned across templates when possible
+- **Breaking change communication**: Clearly document breaking changes and provide migration guides
+- **Cross-template testing**: Test changes across multiple templates to ensure consistency
+- **Documentation currency**: Keep documentation in sync with code changes
+- **Dependency management**: Regularly audit and update dependencies for security and performance
+- **Community feedback**: Incorporate feedback from template users to improve usability
 
 ### API Clients
 - Use **ky** for HTTP requests with proper error handling
@@ -118,11 +175,27 @@ Follow consistent directory structure across project templates:
 - Create typed API clients with automatic response validation
 - Include retry logic and proper error boundaries
 
+#### API Client Best Practices
+- **Error handling strategy**: Implement consistent error handling across all API calls
+- **Request/response logging**: Provide development-friendly logging for debugging
+- **Authentication integration**: Design flexible authentication patterns that work across different auth providers
+- **Caching strategy**: Integrate with TanStack Query for intelligent caching and background updates
+- **Type safety**: Use Zod schemas for both request validation and response parsing
+- **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
+
 ### Performance Considerations
 - Monitor bundle sizes with bundlesize configuration
 - Implement code splitting where appropriate
 - Use lazy loading for routes and heavy components
 - Include performance budgets in CI/CD
+
+#### Performance Best Practices
+- **Measurement first**: Establish performance baselines and monitor Core Web Vitals
+- **Code splitting strategy**: Split code by routes and features, not just by vendor libraries
+- **Asset optimization**: Optimize images, fonts, and other static assets
+- **Runtime performance**: Use React DevTools Profiler to identify performance bottlenecks
+- **Bundle analysis**: Regularly analyze bundle composition and eliminate unused code
+- **Loading strategies**: Implement progressive loading for improved perceived performance
 
 ## Contributing Guidelines
 - Each project template should be self-contained and fully functional
@@ -130,3 +203,27 @@ Follow consistent directory structure across project templates:
 - Follow the established coding patterns and tool choices
 - Test project templates thoroughly before submitting changes
 - Maintain consistency across all project templates while respecting framework-specific patterns
+
+### Code Quality Best Practices
+- **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
+- **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
+- **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
+- **Code review process**: Implement thorough code review practices with automated checks
+- **Git hygiene**: Use conventional commits and meaningful commit messages
+- **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
+
+### Security Best Practices
+- **Dependency management**: Regularly audit dependencies for security vulnerabilities
+- **Environment variables**: Never commit secrets; use proper environment variable management
+- **Input validation**: Validate all user inputs and API responses
+- **Authentication**: Implement secure authentication patterns with proper session management
+- **HTTPS everywhere**: Ensure all network communications use HTTPS
+- **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+### Accessibility Best Practices
+- **Semantic HTML**: Use proper HTML elements for their intended purpose
+- **ARIA attributes**: Implement ARIA labels and descriptions where necessary
+- **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
+- **Screen reader compatibility**: Test with screen readers and provide meaningful alt text
+- **Color contrast**: Maintain WCAG 2.1 AA color contrast ratios
+- **Focus management**: Implement visible focus indicators and logical focus order

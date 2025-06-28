@@ -72,6 +72,14 @@ src/
 - Leverage server components by default, use 'use client' selectively
 - Follow Next.js file-based routing conventions
 
+#### App Router Best Practices
+- **Server components by default**: Start with server components and only add 'use client' when you need interactivity
+- **Streaming with Suspense**: Use Suspense boundaries to stream content and improve perceived performance
+- **Error boundaries**: Implement error.tsx files at appropriate levels (global, layout, page)
+- **Loading states**: Create meaningful loading.tsx files that match your design system
+- **Metadata optimization**: Use Next.js metadata API for proper SEO and social sharing
+- **Route group organization**: Use route groups to organize related routes without affecting URL structure
+
 ### Server vs Client Components
 ```typescript
 // Server Component (default)
@@ -88,11 +96,27 @@ export default function ClientComponent() {
 }
 ```
 
+#### Server vs Client Component Best Practices
+- **Data fetching boundary**: Fetch data in server components when possible; use client components for interactive state
+- **Component composition**: Pass data from server components to client components as props
+- **Bundle optimization**: Keep client components small to reduce JavaScript bundle size
+- **Hydration safety**: Ensure server-rendered content matches client expectations
+- **Performance monitoring**: Monitor client component bundle size and runtime performance
+- **State management**: Use server components for static data, client components for interactive state
+
 ### Data Fetching Strategy
 - **Server Components**: Direct API calls or database queries
 - **Client Components**: TanStack Query for caching and synchronization
 - **Prefetching**: Use query prefetching for critical data
 - **Error Handling**: Implement proper error boundaries and fallbacks
+
+#### Data Fetching Best Practices
+- **Cache optimization**: Use Next.js caching strategies (force-cache, no-store, revalidate)
+- **Error handling**: Implement try-catch blocks in server components and error boundaries for client components
+- **Loading patterns**: Use streaming and Suspense for progressive data loading
+- **Data validation**: Validate all external data with Zod schemas
+- **Performance optimization**: Implement parallel data fetching where possible
+- **Stale-while-revalidate**: Use SWR patterns for data that can be stale temporarily
 
 ### Form Handling
 ```typescript
@@ -313,11 +337,28 @@ export const handlers = [
 - Use static generation where possible
 - Optimize bundle size with dynamic imports
 
+#### Next.js Performance Best Practices
+- **Image optimization**: Always use next/image with proper sizing and lazy loading
+- **Font optimization**: Use next/font for optimal font loading and FOUT prevention
+- **Dynamic imports**: Use dynamic imports for heavy components and third-party libraries
+- **Static generation**: Use generateStaticParams for dynamic routes when possible
+- **ISR implementation**: Use Incremental Static Regeneration for frequently updated content
+- **Edge functions**: Consider using Edge Runtime for globally distributed functions
+- **Bundle analysis**: Use @next/bundle-analyzer to identify optimization opportunities
+
 ### React Patterns
 - Leverage React Compiler for automatic optimization
 - Use `React.memo` strategically for expensive components
 - Implement proper key props for list rendering
 - Avoid unnecessary re-renders with `useCallback` and `useMemo`
+
+#### React Performance Best Practices
+- **Memoization strategy**: Use React.memo for pure components with complex props
+- **Callback optimization**: Use useCallback for functions passed to child components
+- **Value memoization**: Use useMemo for expensive calculations, not primitive values
+- **Key prop patterns**: Use stable, unique keys for list items; avoid array indices
+- **Component splitting**: Split large components into smaller, focused components
+- **Profiler usage**: Use React DevTools Profiler to identify performance bottlenecks
 
 ## Environment Configuration
 
@@ -360,3 +401,27 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - Implement proper SEO with metadata
 - Use progressive enhancement patterns
 - Handle loading and error states gracefully
+
+### SEO Best Practices
+- **Metadata management**: Use Next.js metadata API for dynamic and static metadata
+- **Structured data**: Implement JSON-LD structured data for rich snippets
+- **Sitemap generation**: Generate sitemaps automatically for better indexing
+- **Open Graph optimization**: Implement proper Open Graph and Twitter Card metadata
+- **Performance optimization**: Optimize Core Web Vitals (LCP, FID, CLS) for better rankings
+- **Mobile optimization**: Ensure responsive design and mobile-first development
+
+### Security Best Practices
+- **Environment variables**: Use Next.js environment variable validation and never expose secrets to client
+- **CSP headers**: Implement Content Security Policy headers in next.config.js
+- **Authentication**: Use secure authentication patterns with proper session management
+- **API routes security**: Validate all inputs and implement rate limiting for API routes
+- **HTTPS enforcement**: Ensure HTTPS is enforced in production environments
+- **Dependency auditing**: Regularly audit and update dependencies for security vulnerabilities
+
+### Deployment Best Practices
+- **Build optimization**: Optimize build process and enable all Next.js optimizations
+- **Caching strategy**: Implement proper CDN and browser caching strategies
+- **Monitoring setup**: Set up monitoring for Core Web Vitals and error tracking
+- **Environment configuration**: Use proper environment variable management across deployment stages
+- **Database optimization**: Implement connection pooling and query optimization for server-side data fetching
+- **Edge deployment**: Consider edge deployment for global performance optimization

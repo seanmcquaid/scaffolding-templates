@@ -62,6 +62,14 @@ src/
 - Follow semantic versioning principles
 - Maintain backward compatibility when possible
 
+#### API Design Best Practices
+- **Minimal API surface**: Keep the public API as small and focused as possible
+- **Consistent naming**: Use consistent naming conventions across all exported functions and types
+- **Type-first design**: Design TypeScript types first, then implement functionality
+- **Backward compatibility**: Use deprecation warnings before removing functionality
+- **Documentation**: Provide comprehensive JSDoc comments for all public APIs
+- **Error handling**: Design consistent error handling patterns across the library
+
 ### Module Structure
 - Organize code in feature-based directories under `src/`
 - Each feature should have its own directory with:
@@ -70,11 +78,27 @@ src/
   - Tests (co-located)
   - Documentation if complex
 
+#### Module Organization Best Practices
+- **Single responsibility**: Each module should have a single, well-defined purpose
+- **Loose coupling**: Minimize dependencies between modules
+- **Clear boundaries**: Use explicit imports/exports rather than implicit dependencies
+- **Test co-location**: Keep tests close to the code they test for better maintainability
+- **Documentation consistency**: Maintain consistent documentation patterns across modules
+- **Version management**: Consider versioning strategies for major API changes
+
 ### TypeScript Configuration
 - Use strict TypeScript settings for maximum type safety
 - Export both type definitions and runtime code
 - Ensure proper module resolution for both ESM and CJS consumers
 - Use `.d.ts` files for type-only exports when needed
+
+#### TypeScript Best Practices
+- **Strict mode always**: Use strict TypeScript settings to catch errors early
+- **Type-only imports**: Use type-only imports when importing types to avoid runtime dependencies
+- **Generic constraints**: Use generic constraints to create flexible yet type-safe APIs
+- **Utility types**: Leverage TypeScript utility types for better type transformations
+- **Declaration merging**: Use declaration merging judiciously for extending third-party types
+- **Type guards**: Implement type guards for runtime type validation
 
 ### Testing Strategy
 ```typescript
@@ -103,17 +127,41 @@ describe('yourFunction', () => {
 - Validate tree-shaking with `agadoo`
 - Monitor bundle size with bundlesize
 
+#### Code Quality Best Practices
+- **Automated formatting**: Use Prettier with pre-commit hooks to ensure consistent code style
+- **Linting rules**: Implement comprehensive ESLint rules including TypeScript-specific rules
+- **Circular dependency prevention**: Regularly check for and eliminate circular dependencies
+- **Tree-shaking validation**: Ensure all exports are tree-shakeable for optimal bundle sizes
+- **Code complexity monitoring**: Use tools to monitor code complexity and refactor when necessary
+- **Documentation linting**: Use tools like `documentation` to validate JSDoc comments
+
 ### Testing Requirements
 - Achieve high test coverage (aim for >90%)
 - Test both happy path and error conditions
 - Use descriptive test names and organize with `describe` blocks
 - Mock external dependencies appropriately
 
+#### Testing Best Practices
+- **Test pyramid strategy**: Focus on unit tests, with some integration tests and minimal end-to-end tests
+- **Test isolation**: Each test should be independent and not rely on the state from other tests
+- **Mocking strategy**: Mock external dependencies but avoid over-mocking internal modules
+- **Edge case coverage**: Test boundary conditions, error states, and edge cases thoroughly
+- **Performance testing**: Include performance tests for critical library functions
+- **Consumer testing**: Test how the library works when consumed in both TypeScript and JavaScript projects
+
 ### Performance Considerations
 - Keep bundle size minimal - monitor with bundlesize
 - Ensure tree-shaking compatibility
 - Avoid unnecessary dependencies
 - Use dynamic imports for optional features
+
+#### Performance Best Practices
+- **Bundle analysis**: Regularly analyze bundle composition and eliminate unnecessary code
+- **Dependency auditing**: Audit all dependencies for size and necessity; prefer zero-dependency solutions
+- **Lazy loading**: Use dynamic imports for features that aren't always needed
+- **Memory management**: Avoid memory leaks by properly cleaning up event listeners and timers
+- **Benchmark testing**: Create benchmarks for performance-critical functions
+- **Size budgets**: Set and enforce bundle size budgets in CI/CD pipeline
 
 ## Publishing Guidelines
 
@@ -202,3 +250,27 @@ export class LibraryError extends Error {
 - Test on multiple Node.js versions if possible
 - Consider backward compatibility when making changes
 - Use feature flags for experimental functionality
+
+### Library Development Best Practices
+- **Semantic versioning**: Follow semver strictly; use changesets for version management
+- **Breaking change management**: Provide clear migration guides and deprecation warnings
+- **Consumer-first design**: Design APIs from the consumer's perspective, not the implementation's
+- **Platform compatibility**: Test across different Node.js versions and module systems
+- **Documentation excellence**: Provide comprehensive README, API docs, and examples
+- **Community engagement**: Respond to issues and accept community contributions
+
+### Publishing Best Practices
+- **Pre-publish validation**: Run comprehensive checks before publishing (types, builds, tests)
+- **Package integrity**: Use `@arethetypeswrong/cli` to validate package exports
+- **Release automation**: Use automated publishing with proper CI/CD validation
+- **Changelog maintenance**: Keep detailed changelogs with clear categorization of changes
+- **Security considerations**: Audit dependencies and use appropriate npm security features
+- **License clarity**: Include clear license information and contribution guidelines
+
+### Maintenance Best Practices
+- **Dependency management**: Keep dependencies up to date and audit for security issues
+- **Issue triage**: Respond to issues promptly and categorize them appropriately
+- **Performance monitoring**: Track library performance over time and optimize as needed
+- **User feedback**: Actively seek and incorporate user feedback for API improvements
+- **Long-term support**: Plan for long-term maintenance and support lifecycle
+- **Community building**: Foster a healthy community around the library
