@@ -26,7 +26,7 @@
     "build": "tsup",
     "bundlesize": "bundlesize",
     "changeset": "changeset",
-    "check-treeshaking": "agadoo dist/index.mjs",
+    "check-treeshaking": "agadoo dist/index.js",
     "check-types": "npm pack && attw --pack",
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
