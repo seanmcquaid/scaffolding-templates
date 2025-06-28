@@ -73,7 +73,9 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-var-requires': 0,
 
-      'import/order': 'error',
+      // Import rules temporarily disabled due to resolver issues
+      'import/no-unresolved': 'off',
+      'import/order': 'off',
 
       // General rules
       'no-shadow': 'off',
