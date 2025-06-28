@@ -47,7 +47,7 @@ export function Layout({ children }: PropsWithChildren) {
   const isLoadingPage = navigation.state === 'loading';
 
   return (
-    <html className="h-screen min-h-screen w-full overflow-auto">
+    <html lang="en" className="h-screen min-h-screen w-full overflow-auto">
       <head>
         <meta charSet="UTF-8" />
         <meta content="Vite App" name="description" />

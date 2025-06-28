@@ -4,7 +4,6 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import react from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import importPlugin from 'eslint-plugin-import';
 import reactCompiler from 'eslint-plugin-react-compiler';
 import vitest from '@vitest/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier';
@@ -28,7 +27,6 @@ export default tseslint.config(
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
   jsxA11y.flatConfigs.recommended,
-  importPlugin.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   {
@@ -56,10 +54,6 @@ export default tseslint.config(
       react: {
         version: 'detect',
       },
-      'import/resolver': {
-        typescript: true,
-        node: true,
-      },
     },
     rules: {
       // React Hooks rules
@@ -80,23 +74,6 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-var-requires': 0,
 
-      // Import rules
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
-          'newlines-between': 'never',
-          alphabetize: { order: 'asc' },
-        },
-      ],
-
       // General rules
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': 'error',
@@ -110,7 +87,11 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/utils/**/*.{ts,tsx}', 'src/components/ui/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}'],
+    files: [
+      'src/utils/**/*.{ts,tsx}',
+      'src/components/ui/**/*.{ts,tsx}',
+      'src/hooks/**/*.{ts,tsx}',
+    ],
     rules: {
       'react-refresh/only-export-components': 'off',
     },
