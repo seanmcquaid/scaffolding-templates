@@ -1,7 +1,8 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
 import KitchenSinkPage, { clientAction } from '..';
-import type { Route } from '@/routes/kitchen-sink/+types';
+// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
+import type { Route } from '../+types';
 import {
   render,
   screen,
