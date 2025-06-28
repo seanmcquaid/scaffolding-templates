@@ -1,5 +1,10 @@
 import tailwindcss from '@tailwindcss/vite';
 import { createApp } from 'vinxi';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 import checker from 'vite-plugin-checker';
 import svgr from 'vite-plugin-svgr';
 import tsConfigPaths from 'vite-tsconfig-paths';
@@ -31,17 +36,17 @@ export default createApp({
       target: 'server',
     },
   ],
-  server: {
-    plugins: [
-      tsConfigPaths(),
-    ],
-  },
-  client: {
+  vite: {
     plugins: [
       tailwindcss(),
       tsConfigPaths(),
       svgr(),
       checker({ typescript: true }),
     ],
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './app'),
+      },
+    },
   },
 });
