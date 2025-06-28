@@ -17,4 +17,3 @@ npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/<templa
 3. React Router V7 SSR
 4. Next SSR
 5. TanStack Router SPA
-6. TanStack Start SSR
