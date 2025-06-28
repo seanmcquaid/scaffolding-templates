@@ -21,12 +21,32 @@ export default createApp({
       type: 'http',
       handler: './app/ssr.tsx',
       target: 'server',
+      vite: {
+        plugins: [],
+        resolve: {
+          alias: {
+            '@': resolve(__dirname, './app'),
+          },
+        },
+      },
     },
     {
       name: 'client',
       type: 'spa',
       handler: './app/client.tsx',
       target: 'browser',
+      vite: {
+        plugins: [
+          tailwindcss(),
+          svgr(),
+          checker({ typescript: true }),
+        ],
+        resolve: {
+          alias: {
+            '@': resolve(__dirname, './app'),
+          },
+        },
+      },
     },
     {
       name: 'server-fns',
@@ -34,19 +54,14 @@ export default createApp({
       base: '/api',
       handler: './app/api.ts',
       target: 'server',
-    },
-  ],
-  vite: {
-    plugins: [
-      tailwindcss(),
-      tsConfigPaths(),
-      svgr(),
-      checker({ typescript: true }),
-    ],
-    resolve: {
-      alias: {
-        '@': resolve(__dirname, './app'),
+      vite: {
+        plugins: [],
+        resolve: {
+          alias: {
+            '@': resolve(__dirname, './app'),
+          },
+        },
       },
     },
-  },
+  ],
 });
