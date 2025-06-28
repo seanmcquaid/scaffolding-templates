@@ -72,21 +72,7 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-var-requires': 0,
 
-      'import/order': [
-        'error',
-        {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
-          'newlines-between': 'never',
-          alphabetize: { order: 'asc' },
-        },
-      ],
+      'import/order': 'error',
 
       // General rules
       'no-shadow': 'off',

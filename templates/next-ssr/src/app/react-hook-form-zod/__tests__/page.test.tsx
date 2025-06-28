@@ -1,10 +1,10 @@
 import userEvent from '@testing-library/user-event';
+import ReactHookFormZodPage from '../page';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import ReactHookFormZodPage from '../page';
 
 describe('ReactHookFormZodPage', () => {
   it('Displays an error message if the passwords do not match', async () => {

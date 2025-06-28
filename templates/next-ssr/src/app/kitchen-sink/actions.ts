@@ -1,6 +1,6 @@
 'use server';
-import getValidatedFormData from '@/utils/getValidatedFormData';
 import formDataSchema from './formDataSchema';
+import getValidatedFormData from '@/utils/getValidatedFormData';
 
 export const submitName = async (_state: unknown, formData: FormData) => {
   const { errors } = getValidatedFormData({

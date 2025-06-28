@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useActionState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { submitName } from './actions';
 import formDataSchema from './formDataSchema';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 
 const KitchenSinkForm = () => {
   const {

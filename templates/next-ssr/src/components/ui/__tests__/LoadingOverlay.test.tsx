@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import LoadingOverlay from '../LoadingOverlay';
+import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('LoadingOverlay', () => {
   it('Displays the loading overlay when isLoading is true', () => {

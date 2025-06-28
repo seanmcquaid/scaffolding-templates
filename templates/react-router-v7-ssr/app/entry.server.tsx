@@ -1,3 +1,4 @@
+import { PassThrough } from 'stream';
 import { createReadableStreamFromReadable } from '@react-router/node';
 import { createInstance } from 'i18next';
 import Backend from 'i18next-fs-backend/cjs';
@@ -7,7 +8,6 @@ import { renderToPipeableStream } from 'react-dom/server';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import type { EntryContext } from 'react-router';
 import { ServerRouter } from 'react-router';
-import { PassThrough } from 'stream';
 import server from '../mocks/server';
 import i18n from './i18n/i18nConfig';
 import i18next from './i18n/i18next.server';

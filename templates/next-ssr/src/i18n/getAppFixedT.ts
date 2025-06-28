@@ -1,9 +1,9 @@
 import type { TOptions } from 'i18next';
 import { createInstance } from 'i18next';
 import I18NextHttpBackend from 'i18next-http-backend';
-import type LocaleKeys from '@/types/LocaleKeys';
 import getLanguageFromReferer from './getLanguageFromReferer';
 import i18nConfig from './i18nConfig';
+import type LocaleKeys from '@/types/LocaleKeys';
 
 const initI18next = async () => {
   const i18nInstance = createInstance();

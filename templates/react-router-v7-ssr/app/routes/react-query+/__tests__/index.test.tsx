@@ -1,11 +1,11 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
+import ReactQueryPage from '..';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import ReactQueryPage from '..';
 
 describe('ReactQueryPage', () => {
   it('Displays a toast when a post is deleted succesfully', async () => {
