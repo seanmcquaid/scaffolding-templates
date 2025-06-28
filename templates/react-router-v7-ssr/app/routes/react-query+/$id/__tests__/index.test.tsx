@@ -1,10 +1,10 @@
 import { createRoutesStub } from 'react-router';
+import ReactQueryPostPage from '..';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import ReactQueryPostPage from '..';
 
 describe('ReactQueryPostPage', () => {
   it('should render successfully', async () => {

@@ -1,7 +1,7 @@
 import '@/styles/index.css';
 import type { PropsWithChildren } from 'react';
-import getLanguageFromReferer from '@/i18n/getLanguageFromReferer';
 import Providers from './Providers';
+import getLanguageFromReferer from '@/i18n/getLanguageFromReferer';
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const lang = await getLanguageFromReferer();

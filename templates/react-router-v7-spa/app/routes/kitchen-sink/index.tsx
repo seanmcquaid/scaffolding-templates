@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Form, href } from 'react-router';
 import { z } from 'zod';
+import type { Route } from './+types';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
@@ -9,7 +10,6 @@ import { toast } from '@/hooks/useToast';
 import { getPostsQueryOptions } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
-import type { Route } from './+types';
 
 const formDataSchema = z.object({
   name: z

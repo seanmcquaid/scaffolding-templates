@@ -47,7 +47,7 @@ export function Layout({ children }: PropsWithChildren) {
   const isLoadingPage = navigation.state === 'loading';
 
   return (
-    <html className="h-screen min-h-screen w-full overflow-auto">
+    <html className="h-screen min-h-screen w-full overflow-auto" lang="en">
       <head>
         <meta charSet="UTF-8" />
         <meta content="Vite App" name="description" />
@@ -77,6 +77,7 @@ export function Layout({ children }: PropsWithChildren) {
         </main>
         <Scripts />
         <ScrollRestoration />
+        {/* eslint-disable-next-line i18next/no-literal-string */}
         <noscript>
           Your browser does not support JavaScript or it is not enabled! Please
           re-enable JavaScript in order to use this site.

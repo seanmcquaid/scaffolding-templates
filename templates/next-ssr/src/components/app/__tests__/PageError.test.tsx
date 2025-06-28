@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 import PageError from '../PageError';
+import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageError', () => {
   describe('Title text', () => {

@@ -1,6 +1,6 @@
 import { createRoutesStub } from 'react-router';
+import PageError from '@/components/app/PageError';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
-import PageError from '../PageError';
 
 describe('PageError', () => {
   describe('Title text', () => {

@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import PageError from './PageError';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 interface PageWrapperProps extends PropsWithChildren {
   isLoading?: boolean;

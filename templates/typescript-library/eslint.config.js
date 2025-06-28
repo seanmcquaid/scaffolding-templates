@@ -5,35 +5,29 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import vitest from '@vitest/eslint-plugin';
 
-export default tseslint.config(
+export default [
   {
-    ignores: [
-      'dist/**',
-      'build/**',
-      'coverage/**',
-      'node_modules/**',
-    ],
+    files: ['src/**'],
+    plugins: {
+      vitest,
+    },
+    rules: {
+      ...vitest.configs.recommended.rules,
+    },
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   {
-    files: ['**/*.{js,ts}'],
     languageOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
       globals: {
+        ...globals.browser,
         ...globals.node,
-        ...globals.es2020,
+        ...globals.serviceworker,
       },
     },
     rules: {
-      // TypeScript overrides
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
       'no-shadow': 'off',
       '@typescript-eslint/no-var-requires': 0,
       '@typescript-eslint/no-shadow': 'error',
@@ -45,13 +39,4 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
     },
   },
-  {
-    files: ['src/**/*.{test,spec}.{ts,tsx}'],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-  },
-);
+];

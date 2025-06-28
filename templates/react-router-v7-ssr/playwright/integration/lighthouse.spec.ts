@@ -2,10 +2,12 @@ import { test } from '@playwright/test';
 import { playAudit } from 'playwright-lighthouse';
 
 test.describe('Lighthouse tests', () => {
+  // eslint-disable-next-line playwright/no-skipped-test
   test.skip(
     ({ browserName }) => browserName !== 'chromium',
     'Lighthouse only supports Chromium',
   );
+  // eslint-disable-next-line playwright/expect-expect
   test('Home', async ({ playwright }) => {
     const browser = await playwright['chromium'].launch({
       args: ['--remote-debugging-port=9222'],

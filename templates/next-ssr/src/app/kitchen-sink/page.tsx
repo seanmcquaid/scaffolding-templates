@@ -1,6 +1,6 @@
+import KitchenSinkForm from './KitchenSinkForm';
 import LinkButton from '@/components/ui/LinkButton';
 import postsService from '@/services/postsService';
-import KitchenSinkForm from './KitchenSinkForm';
 
 const KitchenSinkPage = async () => {
   const posts = await postsService.getPosts();

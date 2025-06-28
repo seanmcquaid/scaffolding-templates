@@ -1,12 +1,13 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
+import KitchenSinkPage, { clientAction } from '..';
+// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
+import type { Route } from '../+types';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import KitchenSinkPage, { clientAction } from '..';
-import type { Route } from '../+types';
 
 describe('KitchenSinkPage', () => {
   describe('clientAction', () => {
