@@ -1,4 +1,4 @@
-import { getRouterManifest } from '@tanstack/react-start/router-manifest';
+import { getRouterManifest } from '@tanstack/react-start/server';
 // app/ssr.tsx
 /// <reference types="vinxi/types/server" />
 import {
