@@ -38,7 +38,6 @@ This repository contains a collection of opinionated scaffolding templates for m
 3. **react-router-v7-spa**: Single-page application using React Router v7
 4. **react-router-v7-ssr**: Server-side rendered application using React Router v7
 5. **tanstack-router-spa**: Single-page application using TanStack Router
-6. **tanstack-start-ssr**: Server-side rendered application using TanStack Start
 
 ## Coding Standards & Patterns
 
