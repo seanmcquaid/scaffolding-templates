@@ -1,4 +1,3 @@
-import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
 import tanstackQuery from '@tanstack/eslint-plugin-query';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -28,9 +27,8 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
-  ...fixupConfigRules(reactHooks.configs.recommended),
   jsxA11y.flatConfigs.recommended,
-  ...fixupConfigRules(importPlugin.configs.recommended),
+  importPlugin.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   {
@@ -49,11 +47,8 @@ export default tseslint.config(
       },
     },
     plugins: {
-      react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'jsx-a11y': jsxA11y,
-      import: importPlugin,
       'react-compiler': reactCompiler,
       '@tanstack/query': tanstackQuery,
     },
@@ -67,6 +62,9 @@ export default tseslint.config(
       },
     },
     rules: {
+      // React Hooks rules
+      ...reactHooks.configs.recommended.rules,
+
       // React rules
       'react-refresh/only-export-components': [
         'warn',
