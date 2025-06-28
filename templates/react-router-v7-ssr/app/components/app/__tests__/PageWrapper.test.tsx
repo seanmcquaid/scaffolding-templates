@@ -1,5 +1,5 @@
 import { createRoutesStub } from 'react-router';
-import PageWrapper from '../PageWrapper';
+import PageWrapper from '@/components/app/PageWrapper';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('PageWrapper', () => {
@@ -29,6 +29,7 @@ describe('PageWrapper', () => {
   it('Displays children when isLoading and isError are false', () => {
     const RoutesStub = createRoutesStub([
       {
+        // eslint-disable-next-line i18next/no-literal-string
         Component: () => <PageWrapper>Children</PageWrapper>,
         path: '/',
       },

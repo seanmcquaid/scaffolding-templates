@@ -1,111 +1,84 @@
-import js from '@eslint/js';
-import tanstackQuery from '@tanstack/eslint-plugin-query';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import react from 'eslint-plugin-react';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
+import { fixupPluginRules } from '@eslint/compat';
 import importPlugin from 'eslint-plugin-import';
-import reactCompiler from 'eslint-plugin-react-compiler';
-import vitest from '@vitest/eslint-plugin';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import reactHooks from 'eslint-plugin-react-hooks';
-import globals from 'globals';
+import js from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import i18next from 'eslint-plugin-i18next';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import vitest from '@vitest/eslint-plugin';
+import globals from 'globals';
+import nextPlugin from '@next/eslint-plugin-next';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
-export default tseslint.config(
+export default [
   js.configs.recommended,
-  importPlugin.flatConfigs.recommended,
-  importPlugin.flatConfigs.typescript,
+  ...pluginQuery.configs['flat/recommended'],
   ...tseslint.configs.recommended,
-  react.configs.flat.recommended,
-  react.configs.flat['jsx-runtime'],
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
+  i18next.configs['flat/recommended'],
+  reactPlugin.configs.flat['jsx-runtime'],
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    ...vitest.configs.recommended,
+    files: ['app/**'],
+  },
+  {
+    plugins: {
+      import: fixupPluginRules(importPlugin),
+      '@next/next': nextPlugin,
+      'no-relative-import-paths': noRelativeImportPaths,
+      'react-hooks': reactHooksPlugin,
+      'react-compiler': reactCompiler,
+    },
+    rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
+      ...reactHooksPlugin.configs.recommended.rules,
+    },
+  },
+  {
     languageOptions: {
-      ecmaVersion: 2020,
-      sourceType: 'module',
       globals: {
         ...globals.browser,
-        ...globals.es2020,
-      },
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'react-compiler': reactCompiler,
-      '@tanstack/query': tanstackQuery,
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-      'import/resolver': {
-        typescript: true,
-        node: true,
+        ...globals.node,
+        ...globals.serviceworker,
       },
     },
     rules: {
-      // React rules
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
-      'react-compiler/react-compiler': 'error',
-
-      // React Hooks rules
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-
-      // TypeScript overrides
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
-      '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/no-var-requires': 0,
-
-      // Import rules temporarily disabled due to resolver issues
-      'import/no-unresolved': 'off',
-      'import/order': 'off',
-
-      // General rules
       'no-shadow': 'off',
+      '@typescript-eslint/no-var-requires': 0,
       '@typescript-eslint/no-shadow': 'error',
       curly: ['warn', 'all'],
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react/prop-types': 'off',
+      'import/no-anonymous-default-export': 'off',
+      'import/order': 'warn',
+      'jsx-a11y/no-redundant-roles': 'off',
       'prefer-const': 'warn',
       'prettier/prettier': 'warn',
-
-      // TanStack Query rules
-      '@tanstack/query/exhaustive-deps': 'error',
-      '@tanstack/query/stable-query-client': 'error',
+      'react/jsx-uses-react': 'off',
+      'react/jsx-key': 'warn',
+      'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/no-namespace': 'off',
+      'react/no-unescaped-entities': 'off',
+      '@typescript-eslint/consistent-type-definitions': ['error'],
+      '@typescript-eslint/consistent-type-imports': 'error',
+      'no-relative-import-paths/no-relative-import-paths': [
+        'warn',
+        {
+          allowSameFolder: true,
+          rootDir: 'app',
+          prefix: '@',
+        },
+      ],
+      'react-compiler/react-compiler': 'error',
     },
   },
-  {
-    files: [
-      'src/utils/**/*.{ts,tsx}',
-      'src/components/ui/**/*.{ts,tsx}',
-      'src/hooks/**/*.{ts,tsx}',
-    ],
-    rules: {
-      'react-refresh/only-export-components': 'off',
-    },
-  },
-  {
-    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
-    plugins: {
-      vitest,
-    },
-    rules: {
-      ...vitest.configs.recommended.rules,
-    },
-  },
-);
+];

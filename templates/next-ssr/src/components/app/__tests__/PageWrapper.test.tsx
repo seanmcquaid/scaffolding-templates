@@ -14,6 +14,7 @@ describe('PageWrapper', () => {
     expect(screen.getByText('Error title')).toBeInTheDocument();
   });
   it('Displays children when isLoading and isError are false', () => {
+    // eslint-disable-next-line i18next/no-literal-string
     render(<PageWrapper>Children</PageWrapper>);
     expect(screen.getByText('Children')).toBeInTheDocument();
   });

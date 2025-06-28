@@ -1,7 +1,7 @@
 import type { HTTPError } from 'ky';
 import { HttpResponse, http } from 'msw';
 import { z } from 'zod';
-import createApiClient from '../createApiClient';
+import createApiClient from '@/services/createApiClient';
 import server from '@/mocks/server';
 
 describe('createApiClient', () => {

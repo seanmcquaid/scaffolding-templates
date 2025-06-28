@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import getValidatedFormData from '../getValidatedFormData';
+import getValidatedFormData from '@/utils/getValidatedFormData';
 
 describe('getValidatedFormData', () => {
   describe('Zod Refine + Super Refine', () => {

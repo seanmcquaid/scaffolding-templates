@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
 import KitchenSinkPage, { clientAction } from '..';
-import type { Route } from '../+types';
+import type { Route } from '@/routes/kitchen-sink/+types';
 import {
   render,
   screen,

@@ -37,6 +37,7 @@ describe('PageWrapper', () => {
   it('Displays children when isLoading and isError are false', async () => {
     const RoutesStub = createRoutesStub([
       {
+        // eslint-disable-next-line i18next/no-literal-string
         component: () => <PageWrapper>Children</PageWrapper>,
         path: '/',
       },
