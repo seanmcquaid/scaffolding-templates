@@ -146,6 +146,8 @@ export default tseslint.config(
     },
     rules: {
       ...playwright.configs.recommended.rules,
+      'playwright/no-skipped-test': 'off',
+      'playwright/expect-expect': 'off',
     },
   },
 );
