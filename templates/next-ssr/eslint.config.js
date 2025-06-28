@@ -14,6 +14,8 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   js.configs.recommended,
+  importPlugin.flatConfigs.recommended,
+  importPlugin.flatConfigs.typescript,
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
@@ -39,7 +41,6 @@ export default tseslint.config(
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      import: importPlugin,
       'react-compiler': reactCompiler,
       '@tanstack/query': tanstackQuery,
     },
