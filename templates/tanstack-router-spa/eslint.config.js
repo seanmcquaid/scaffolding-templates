@@ -1,4 +1,3 @@
-import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
 import tanstackQuery from '@tanstack/eslint-plugin-query';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -15,16 +14,6 @@ import tseslint from 'typescript-eslint';
 import globals from 'globals';
 
 export default tseslint.config(
-  {
-    ignores: [
-      'dist/**',
-      'build/**',
-      'coverage/**',
-      'node_modules/**',
-      'src/routeTree.gen.ts',
-      'public/mockServiceWorker.js',
-    ],
-  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
@@ -88,28 +77,21 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-var-requires': 0,
 
-      // Import rules - temporarily disabled due to resolver issues
-      // 'import/order': [
-      //   'error',
-      //   {
-      //     groups: [
-      //       'builtin',
-      //       'external',
-      //       'internal',
-      //       'parent',
-      //       'sibling',
-      //       'index',
-      //     ],
-      //     'newlines-between': 'never',
-      //     alphabetize: { order: 'asc' },
-      //   },
-      // ],
-      // Disable problematic import rules that have resolver issues
-      'import/no-unresolved': 'off',
-      'import/named': 'off',
-      'import/default': 'off',
-      'import/namespace': 'off',
-      'import/order': 'off',
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+          ],
+          'newlines-between': 'never',
+          alphabetize: { order: 'asc' },
+        },
+      ],
 
       // General rules
       'no-shadow': 'off',
@@ -124,7 +106,12 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/utils/**/*.{ts,tsx}', 'src/components/ui/**/*.{ts,tsx}', 'src/hooks/**/*.{ts,tsx}', '**/routes/**/*.{ts,tsx}'],
+    files: [
+      'src/utils/**/*.{ts,tsx}',
+      'src/components/ui/**/*.{ts,tsx}',
+      'src/hooks/**/*.{ts,tsx}',
+      '**/routes/**/*.{ts,tsx}',
+    ],
     rules: {
       'react-refresh/only-export-components': 'off',
     },
