@@ -458,6 +458,14 @@ export const Route = createLazyFileRoute('/dashboard/analytics')({
 })
 ```
 
+#### Performance Best Practices
+- **Strategic lazy loading**: Use lazy routes for heavy pages and non-critical functionality
+- **Bundle analysis**: Regularly analyze bundle size and split large dependencies
+- **Preloading strategy**: Use intent-based preloading for better perceived performance
+- **Data caching**: Leverage TanStack Query's caching with router loaders for optimal data loading
+- **Route hierarchy optimization**: Structure routes to minimize unnecessary re-renders
+- **Component memoization**: Use React.memo for expensive route components
+
 ### Preloading Strategies
 ```typescript
 // Preload routes on hover/focus
@@ -476,6 +484,14 @@ const preloadDashboard = () => {
   router.preloadRoute({ to: '/dashboard' })
 }
 ```
+
+#### Preloading Best Practices
+- **Intent-based preloading**: Preload routes when users show intent (hover, focus)
+- **Critical path preloading**: Preload essential routes during application initialization
+- **Data preloading**: Combine route preloading with data prefetching for seamless navigation
+- **Bandwidth consideration**: Implement smart preloading based on connection quality
+- **Cache management**: Ensure preloaded data doesn't exceed memory limits
+- **Preload timing**: Use appropriate delays to avoid unnecessary preloading
 
 ## Testing Patterns
 
@@ -547,3 +563,43 @@ it('updates search params when filter changes', async () => {
 - Test critical navigation flows thoroughly
 - Monitor bundle size and route performance
 - Use the router devtools for debugging
+
+### Routing Architecture Best Practices
+- **File-based organization**: Use clear, descriptive file names that match your URL structure
+- **Route grouping**: Group related routes in directories; use route groups for shared layouts
+- **Parameter design**: Design URL parameters to be user-friendly and shareable
+- **Search param schemas**: Always validate search parameters with Zod for type safety and error handling
+- **Route hierarchy**: Structure routes to reflect your application's logical hierarchy
+- **Layout composition**: Use nested layouts effectively to avoid code duplication
+
+### Data Loading Best Practices
+- **Loader efficiency**: Use loaderDeps to optimize when loaders run and avoid unnecessary executions
+- **Error handling**: Implement comprehensive error handling in loaders with proper user feedback
+- **Cache integration**: Combine router loaders with TanStack Query for optimal caching strategies
+- **Loading states**: Provide meaningful loading indicators during data fetching
+- **Parallel loading**: Load independent data in parallel for better performance
+- **Data freshness**: Implement appropriate stale-time and cache invalidation strategies
+
+### Navigation and UX Best Practices
+- **Navigation feedback**: Provide immediate feedback during navigation transitions
+- **Error boundaries**: Implement error boundaries at route level for graceful error handling
+- **404 handling**: Create meaningful 404 pages and implement proper not-found routing
+- **Accessibility**: Ensure all navigation is keyboard accessible and screen reader friendly
+- **Progressive enhancement**: Ensure core functionality works without JavaScript
+- **Deep linking**: Design URLs to be shareable and bookmarkable
+
+### Performance and Security Best Practices
+- **Route-level code splitting**: Split code at route boundaries for optimal loading
+- **Authentication integration**: Implement secure authentication patterns with route guards
+- **Data validation**: Validate all route parameters and search params for security
+- **Bundle monitoring**: Regularly audit bundle sizes and optimize heavy routes
+- **SEO optimization**: Implement proper meta tags and structured data for SPA SEO
+- **Security headers**: Implement appropriate security headers for production deployment
+
+### Testing Best Practices
+- **Route testing**: Test critical user flows including navigation and data loading
+- **Search param testing**: Test search parameter validation and edge cases
+- **Navigation testing**: Test programmatic navigation and URL state management
+- **Error scenario testing**: Test error boundaries and network failure scenarios
+- **Accessibility testing**: Test keyboard navigation and screen reader compatibility
+- **Performance testing**: Monitor route loading times and bundle size impact

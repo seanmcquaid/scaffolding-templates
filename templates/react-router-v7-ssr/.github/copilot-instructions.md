@@ -521,3 +521,67 @@ export function meta({ data }: Route.MetaArgs) {
 - Monitor both server and client performance
 - Test critical paths with disabled JavaScript
 - Use streaming SSR for better perceived performance
+
+### SSR Architecture Best Practices
+- **Universal components**: Write components that work seamlessly on both server and client
+- **Hydration safety**: Ensure server-rendered content exactly matches client expectations
+- **Progressive enhancement**: Build functionality that works without JavaScript and enhances with it
+- **Performance optimization**: Leverage SSR for faster initial page loads and better SEO
+- **Error resilience**: Implement error boundaries that handle both server and client errors
+- **Caching strategy**: Implement intelligent caching for server-rendered content and API responses
+
+### Server-Side Best Practices
+- **Data loading**: Fetch critical data on the server for immediate content delivery
+- **Error handling**: Implement comprehensive server-side error handling with proper HTTP status codes
+- **Security measures**: Implement proper authentication, authorization, and input validation on the server
+- **Performance monitoring**: Monitor server response times and optimize slow data fetching
+- **Resource management**: Properly manage server resources and implement connection pooling
+- **Environment configuration**: Secure environment variable management for server-side secrets
+
+### Client-Side Hydration Best Practices
+- **Hydration matching**: Ensure client-side data matches server-side data to prevent hydration errors
+- **Selective hydration**: Use selective hydration patterns for better performance
+- **Loading states**: Implement proper loading states for client-side navigation and updates
+- **State management**: Coordinate server state with client state using TanStack Query hydration
+- **Error recovery**: Implement client-side error recovery mechanisms for hydration failures
+- **Performance optimization**: Optimize client-side bundle size and runtime performance
+
+### SEO and Accessibility Best Practices
+- **Meta tag management**: Implement dynamic meta tags for better SEO and social sharing
+- **Structured data**: Add JSON-LD structured data for rich search results
+- **Semantic HTML**: Use proper HTML semantics for better accessibility and SEO
+- **Core Web Vitals**: Optimize LCP, FID, and CLS metrics for better search rankings
+- **Accessibility standards**: Ensure WCAG 2.1 compliance with server-rendered content
+- **Progressive enhancement**: Ensure accessibility features work without JavaScript
+
+### Form Handling Best Practices
+- **Server actions**: Use React Router V7 server actions for robust form handling
+- **Validation**: Implement validation on both client and server sides
+- **Error feedback**: Provide clear, actionable error messages for form validation
+- **Progressive enhancement**: Ensure forms work without JavaScript using traditional form submission
+- **Security**: Implement CSRF protection and input sanitization for form data
+- **User experience**: Provide immediate feedback during form submission and validation
+
+### Performance and Monitoring Best Practices
+- **Streaming SSR**: Use streaming server-side rendering for better perceived performance
+- **Bundle optimization**: Optimize both server and client bundles for faster loading
+- **Caching strategies**: Implement multi-level caching (CDN, server, browser)
+- **Monitoring setup**: Monitor both server performance and client-side metrics
+- **Error tracking**: Implement comprehensive error tracking for both server and client errors
+- **Performance budgets**: Set and enforce performance budgets for both server response times and client metrics
+
+### Security Best Practices
+- **Authentication**: Implement secure authentication with proper session management
+- **HTTPS enforcement**: Ensure all traffic uses HTTPS in production
+- **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+- **Input validation**: Validate and sanitize all user inputs on the server
+- **Dependency security**: Regularly audit and update dependencies for security vulnerabilities
+- **Data protection**: Implement proper data encryption and privacy protection measures
+
+### Testing Best Practices
+- **SSR testing**: Test both server-rendered and client-hydrated versions of components
+- **No-JS testing**: Test critical functionality with JavaScript disabled
+- **E2E testing**: Test complete user workflows including server-side rendering
+- **Performance testing**: Test both server response times and client-side performance
+- **Accessibility testing**: Test with screen readers and keyboard navigation
+- **Cross-browser testing**: Ensure compatibility across different browsers and devices

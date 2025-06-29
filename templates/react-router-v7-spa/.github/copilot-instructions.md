@@ -454,3 +454,51 @@ route("dashboard", "routes/dashboard.tsx", {
 - Use TypeScript strictly for type safety
 - Test critical user journeys with Playwright
 - Monitor bundle size and performance metrics
+
+### SPA Architecture Best Practices
+- **Client-side optimization**: Prioritize client-side performance with strategic code splitting and lazy loading
+- **State management**: Use URL state for shareable application state; local state for UI interactions
+- **Route organization**: Structure routes to reflect user mental models and business workflows
+- **Progressive enhancement**: Ensure core functionality works even with degraded experiences
+- **Bundle optimization**: Monitor and optimize bundle size; implement intelligent code splitting
+- **Caching strategy**: Implement effective caching strategies for both data and assets
+
+### Navigation and Routing Best Practices
+- **File-based routing**: Follow React Router V7 conventions for predictable route structure
+- **Error boundaries**: Implement error boundaries at route and component level for graceful degradation
+- **Loading states**: Provide meaningful loading feedback during route transitions and data loading
+- **URL design**: Create intuitive, shareable URLs that reflect application state
+- **Navigation patterns**: Implement consistent navigation patterns across the application
+- **Route protection**: Implement authentication and authorization patterns for protected routes
+
+### Performance Best Practices
+- **Lazy loading**: Use route-based code splitting and lazy loading for non-critical components
+- **Data fetching**: Optimize data fetching with TanStack Query caching and background updates
+- **Bundle analysis**: Regularly analyze bundle composition and eliminate unused dependencies
+- **Asset optimization**: Optimize images, fonts, and other static assets for web delivery
+- **Memory management**: Implement proper cleanup for subscriptions and event listeners
+- **Core Web Vitals**: Monitor and optimize LCP, FID, and CLS metrics
+
+### Security and Reliability Best Practices
+- **Input validation**: Validate all user inputs with Zod schemas on both client and server
+- **Error handling**: Implement comprehensive error handling with user-friendly error messages
+- **Authentication**: Use secure authentication patterns with proper token management
+- **Data security**: Sanitize data and implement proper XSS protection
+- **Dependency security**: Regularly audit and update dependencies for security vulnerabilities
+- **Environment management**: Properly manage environment variables and secrets
+
+### Testing and Quality Best Practices
+- **Test strategy**: Implement a balanced test strategy with unit, integration, and e2e tests
+- **User journey testing**: Focus on testing critical user workflows and edge cases
+- **Accessibility testing**: Test with screen readers and keyboard navigation
+- **Performance testing**: Monitor application performance and implement performance budgets
+- **Visual regression testing**: Implement visual testing to catch UI regressions
+- **Code quality**: Maintain high code quality with linting, formatting, and code reviews
+
+### Development and Deployment Best Practices
+- **Development experience**: Optimize development workflow with hot reloading and debugging tools
+- **Type safety**: Leverage TypeScript to its fullest extent for compile-time error detection
+- **Documentation**: Maintain clear documentation for setup, development, and deployment
+- **CI/CD pipeline**: Implement robust CI/CD with quality gates and automated deployment
+- **Monitoring**: Set up monitoring for errors, performance, and user analytics
+- **Backup and recovery**: Implement proper backup strategies for application data and configuration
