@@ -2,17 +2,21 @@
   "name": "scaffolding-templates",
   "license": "ISC",
   "author": "Sean McQuaid",
+  "packageManager": "pnpm@9.14.4",
   "scripts": {
-    "build": "pnpm -r build",
-    "bundlesize": "pnpm -r bundlesize",
-    "dev": "pnpm -r dev",
-    "lint": "pnpm -r lint",
-    "lint:fix": "pnpm -r lint:fix",
-    "start": "pnpm -r start",
-    "test": "pnpm -r test",
-    "test:coverage": "pnpm -r test:coverage",
-    "test:watch": "pnpm -r test:watch",
-    "playwright:run-integration": "pnpm -r playwright:run-integration",
-    "playwright:run-e2e": "pnpm -r playwright:run-e2e"
+    "build": "turbo build",
+    "bundlesize": "turbo bundlesize",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "lint:fix": "turbo lint:fix",
+    "start": "turbo start",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "test:watch": "turbo test:watch",
+    "playwright:run-integration": "turbo playwright:run-integration",
+    "playwright:run-e2e": "turbo playwright:run-e2e"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.4"
   }
 }
