@@ -55,7 +55,5 @@ jobs:
           cache: 'pnpm'
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build the app
-        run: pnpm build
       - name: Bundlesize Check
         run: pnpm bundlesize
