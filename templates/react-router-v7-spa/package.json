@@ -50,7 +50,7 @@
     "@eslint/compat": "^1.2.8",
     "@eslint/js": "^9.18.0",
     "@faker-js/faker": "^9.8.0",
-    "@msw/playwright": "^0.3.1",
+    "@msw/playwright": "^0.4.0",
     "@playwright/test": "^1.53.0",
     "@react-router/dev": "^7.6.3",
     "@react-router/remix-routes-option-adapter": "^7.6.3",
@@ -65,7 +65,7 @@
     "@vitest/coverage-istanbul": "^3.2.4",
     "@vitest/eslint-plugin": "^1.1.39",
     "babel-plugin-react-compiler": "19.0.0-beta-714736e-20250131",
-    "bundlesize": "^0.18.2",
+    "bundlesize2": "^0.0.35",
     "cross-env": "^7.0.3",
     "cross-fetch": "^4.1.0",
     "dpdm": "^3.14.0",
@@ -103,7 +103,7 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
   },
-  "packageManager": "pnpm@9.14.4",
+  "packageManager": "pnpm@10.12.4",
   "engines": {
     "node": ">=22.12.0"
   },
