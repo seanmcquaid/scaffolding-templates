@@ -53,16 +53,18 @@ app/
 ├── routes/               # Route components and pages
 │   ├── _index.tsx       # Home page route
 │   └── [feature]/       # Feature-based route organization
+├── assets/              # Static assets
+│   └── icons/          # SVG icons and graphics
 ├── components/           # Reusable components
 │   ├── ui/              # Base UI components (shadcn/ui)
 │   └── app/             # Application-specific components
-├── services/            # API clients and data fetching
-├── hooks/               # Custom React hooks
-├── utils/               # Utility functions
-├── types/               # TypeScript definitions
 ├── constants/           # Application constants
+├── hooks/               # Custom React hooks
 ├── i18n/               # Internationalization
-└── styles/             # Global styles and CSS
+├── services/            # API clients and data fetching
+├── styles/             # Global styles and CSS
+├── types/               # TypeScript definitions
+└── utils/               # Utility functions
 ```
 
 ## React Router V7 Patterns

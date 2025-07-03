@@ -53,16 +53,18 @@ src/
 │   ├── __root.tsx        # Root route layout and providers
 │   ├── index.lazy.tsx    # Home page (lazy loaded)
 │   └── [feature]/        # Feature-based route organization
+├── assets/               # Static assets
+│   └── icons/           # SVG icons and graphics
 ├── components/            # Reusable components
 │   ├── ui/               # Base UI components (shadcn/ui)
 │   └── app/              # Application-specific components
-├── services/             # API clients and data fetching
-├── hooks/                # Custom React hooks
-├── utils/                # Utility functions
-├── types/                # TypeScript definitions
 ├── constants/            # Application constants
+├── hooks/                # Custom React hooks
 ├── i18n/                 # Internationalization
-└── styles/               # Global styles and CSS
+├── services/             # API clients and data fetching
+├── styles/               # Global styles and CSS
+├── types/                # TypeScript definitions
+└── utils/                # Utility functions
 ```
 
 ## TanStack Router Patterns

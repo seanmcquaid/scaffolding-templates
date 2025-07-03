@@ -24,9 +24,9 @@ This is where all of your custom hooks will live. I have a `services` directory 
 
 This is where all of your i18n related files will live. I have a locales directory to store all of my translations for each language setting. I also have a typesafe instance of i18n that I use to access the translations so I can get type safety when accessing translations outside of the custom `useAppTranslation` hook I have included.
 
-## /routes
+## /app
 
-This is where all of your routes will live.
+This is where all of your Next.js App Router pages and layouts will live. This follows the Next.js App Router convention for file-based routing with server and client components.
 
 ## /services
 
