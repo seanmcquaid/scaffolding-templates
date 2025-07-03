@@ -100,7 +100,7 @@ function RootComponent() {
 
 // routes/index.lazy.tsx
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { WelcomeSection } from '~/components/app/WelcomeSection'
+import { WelcomeSection } from '@/components/app/WelcomeSection'
 
 export const Route = createLazyFileRoute('/')({
   component: HomePage,
@@ -120,7 +120,7 @@ function HomePage() {
 // routes/dashboard.tsx
 import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
-import { dashboardService } from '~/services/dashboardService'
+import { dashboardService } from '@/services/dashboardService'
 
 const dashboardSearchSchema = z.object({
   filter: z.enum(['all', 'active', 'inactive']).optional().default('all'),
@@ -184,7 +184,7 @@ function BlogLayout() {
 
 // routes/blog/$postId.tsx
 import { createFileRoute, notFound } from '@tanstack/react-router'
-import { blogService } from '~/services/blogService'
+import { blogService } from '@/services/blogService'
 
 export const Route = createFileRoute('/blog/$postId')({
   loader: async ({ params: { postId }, context: { queryClient } }) => {
@@ -345,7 +345,7 @@ const router = createRouter({
 // hooks/useDashboardData.ts
 import { useQuery } from '@tanstack/react-query'
 import { useSearch } from '@tanstack/react-router'
-import { dashboardService } from '~/services/dashboardService'
+import { dashboardService } from '@/services/dashboardService'
 
 export function useDashboardData() {
   const search = useSearch({ from: '/dashboard' })
@@ -364,7 +364,7 @@ export function useDashboardData() {
 // hooks/useCreatePost.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { blogService } from '~/services/blogService'
+import { blogService } from '@/services/blogService'
 
 export function useCreatePost() {
   const queryClient = useQueryClient()
@@ -449,7 +449,7 @@ import { createLazyFileRoute } from '@tanstack/react-router'
 export const Route = createLazyFileRoute('/dashboard/analytics')({
   component: () => {
     // Heavy component loaded only when needed
-    const AnalyticsDashboard = lazy(() => import('~/components/app/AnalyticsDashboard'))
+    const AnalyticsDashboard = lazy(() => import('@/components/app/AnalyticsDashboard'))
     
     return (
       <Suspense fallback={<div>Loading analytics...</div>}>
@@ -503,7 +503,7 @@ const preloadDashboard = () => {
 import { createMemoryHistory, createRouter } from '@tanstack/react-router'
 import { QueryClient } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
-import { routeTree } from '~/routeTree.gen'
+import { routeTree } from '@/routeTree.gen'
 
 describe('Dashboard Route', () => {
   it('loads and displays dashboard data', async () => {

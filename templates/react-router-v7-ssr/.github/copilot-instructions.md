@@ -52,7 +52,8 @@ app/
 ├── root.tsx              # Root component with providers and layout
 ├── routes.ts             # Route configuration
 ├── routes/               # Route components and pages
-│   ├── _index.tsx       # Home page route
+│   ├── index/           # Home page route
+│   │   └── index.tsx   # Home page component
 │   └── [feature]/       # Feature-based route organization
 ├── assets/              # Static assets
 │   └── icons/          # SVG icons and graphics
@@ -114,7 +115,7 @@ hydrateRoot(
 ```typescript
 // routes/dashboard.tsx
 import type { Route } from "./+types/dashboard";
-import { dashboardService } from "~/services/dashboardService";
+import { dashboardService } from "@/services/dashboardService";
 
 // Server-side data loading
 export async function loader({ request }: Route.LoaderArgs) {
@@ -299,7 +300,7 @@ export const clientEnv = clientEnvSchema.parse({
 
 ### Conditional Rendering for SSR/Client
 ```typescript
-import { useIsHydrated } from "~/hooks/useIsHydrated";
+import { useIsHydrated } from "@/hooks/useIsHydrated";
 
 export function ClientOnlyComponent() {
   const isHydrated = useIsHydrated();
@@ -358,7 +359,7 @@ export function meta({ data }: Route.MetaArgs) {
 ```typescript
 // services/apiClient.server.ts
 import ky from 'ky';
-import { serverEnv } from '~/env.server';
+import { serverEnv } from '@/env.server';
 
 export const serverApiClient = ky.create({
   prefixUrl: serverEnv.INTERNAL_API_URL,
