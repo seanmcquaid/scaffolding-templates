@@ -52,16 +52,18 @@ src/
 │   ├── page.tsx           # Home page
 │   ├── Providers.tsx      # Client-side providers wrapper
 │   └── [feature]/         # Feature-based page organization
+├── assets/               # Static assets
+│   └── icons/           # SVG icons and graphics
 ├── components/            # Reusable components
 │   ├── ui/               # Base UI components (shadcn/ui)
 │   └── app/              # Application-specific components
-├── services/             # API clients and data fetching
-├── hooks/                # Custom React hooks
-├── utils/                # Utility functions and helpers
-├── types/                # TypeScript type definitions
 ├── constants/            # Application constants and enums
+├── hooks/                # Custom React hooks
 ├── i18n/                 # Internationalization configuration
-└── styles/               # Global styles and Tailwind config
+├── services/             # API clients and data fetching
+├── styles/               # Global styles and Tailwind config
+├── types/                # TypeScript type definitions
+└── utils/                # Utility functions and helpers
 ```
 
 ## Development Patterns

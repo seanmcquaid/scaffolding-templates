@@ -51,18 +51,21 @@ app/
 ├── root.tsx              # Root component with providers and layout
 ├── routes.ts             # Route configuration
 ├── routes/               # Route components and pages
-│   ├── _index.tsx       # Home page route
+│   ├── index/           # Home page route
+│   │   └── index.tsx   # Home page component
 │   └── [feature]/       # Feature-based route organization
+├── assets/              # Static assets
+│   └── icons/          # SVG icons and graphics
 ├── components/           # Reusable components
 │   ├── ui/              # Base UI components (shadcn/ui)
 │   └── app/             # Application-specific components
-├── services/            # API clients and data fetching
-├── hooks/               # Custom React hooks
-├── utils/               # Utility functions
-├── types/               # TypeScript definitions
 ├── constants/           # Application constants
+├── hooks/               # Custom React hooks
 ├── i18n/               # Internationalization
-└── styles/             # Global styles and CSS
+├── services/            # API clients and data fetching
+├── styles/             # Global styles and CSS
+├── types/               # TypeScript definitions
+└── utils/               # Utility functions
 ```
 
 ## React Router V7 Patterns
@@ -70,23 +73,22 @@ app/
 ### Route Configuration
 ```typescript
 // routes.ts
-import { index, route, type RouteConfig } from "@react-router/dev/routes";
+import { type RouteConfig } from '@react-router/dev/routes';
+import { remixRoutesOptionAdapter } from '@react-router/remix-routes-option-adapter';
+import { flatRoutes } from 'remix-flat-routes';
 
-export default [
-  index("routes/_index.tsx"),
-  route("about", "routes/about.tsx"),
-  route("dashboard", "routes/dashboard.tsx", [
-    route("analytics", "routes/dashboard.analytics.tsx"),
-    route("settings", "routes/dashboard.settings.tsx"),
-  ]),
-] satisfies RouteConfig;
+const routes: RouteConfig = remixRoutesOptionAdapter(defineRoutes =>
+  flatRoutes('routes', defineRoutes),
+);
+
+export default routes;
 ```
 
 ### Route Components
 ```typescript
-// routes/_index.tsx
-import type { Route } from "./+types/_index";
-import { WelcomeSection } from "~/components/app/WelcomeSection";
+// routes/index/index.tsx
+import type { Route } from "./+types/index";
+import { WelcomeSection } from "@/components/app/WelcomeSection";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -108,7 +110,7 @@ export default function HomePage({}: Route.ComponentProps) {
 ```typescript
 // routes/dashboard.tsx
 import type { Route } from "./+types/dashboard";
-import { dashboardService } from "~/services/dashboardService";
+import { dashboardService } from "@/services/dashboardService";
 
 export async function clientLoader({}: Route.ClientLoaderArgs) {
   const data = await dashboardService.getData();
@@ -189,7 +191,7 @@ export default function ContactPage({}: Route.ComponentProps) {
 ```typescript
 // hooks/services/useUserProfile.ts
 import { useQuery } from '@tanstack/react-query';
-import { userService } from '~/services/userService';
+import { userService } from '@/services/userService';
 
 export function useUserProfile(userId: string) {
   return useQuery({
@@ -239,7 +241,7 @@ function reducer(state: State, action: Action): State {
 // root.tsx
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '~/components/ui/toaster';
+import { Toaster } from '@/components/ui/toaster';
 
 const queryClient = new QueryClient();
 
@@ -310,7 +312,7 @@ export function DataTable<T>({
 ```typescript
 // services/apiClient.ts
 import ky from 'ky';
-import { clientEnv } from '~/env.client';
+import { clientEnv } from '@/env.client';
 
 export const apiClient = ky.create({
   prefixUrl: clientEnv.VITE_API_URL,
@@ -394,10 +396,10 @@ describe('Navigation', () => {
 
 ### Route Testing
 ```typescript
-// routes/__tests__/_index.test.tsx
+// routes/__tests__/index.test.tsx
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
-import HomePage from '../_index';
+import HomePage from '../index/index';
 
 describe('HomePage', () => {
   it('renders welcome section', () => {

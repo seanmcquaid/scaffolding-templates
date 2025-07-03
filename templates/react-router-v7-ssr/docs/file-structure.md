@@ -20,7 +20,7 @@ This is where all of your custom hooks will live. I have a `services` directory 
 
 This is where all of your i18n related files will live. I have a locales directory to store all of my translations for each language setting. I also have a typesafe instance of i18n that I use to access the translations so I can get type safety when accessing translations outside of the custom `useAppTranslation` hook I have included.
 
-## /icons
+## /assets/icons
 
 This is where all of your icons will live. I like to use svgs for my icons and I use [svgr](https://react-svgr.com/) to convert them to React components.
 
