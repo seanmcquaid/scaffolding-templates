@@ -78,12 +78,12 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       zod:
-        specifier: ^3.25.64
-        version: 3.25.67
+        specifier: ^3.25.75
+        version: 3.25.75
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.67)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.75)
       '@eslint/compat':
         specifier: ^1.2.8
         version: 1.3.1(eslint@9.30.0(jiti@2.4.2))
@@ -280,12 +280,12 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       zod:
-        specifier: ^3.25.64
-        version: 3.25.67
+        specifier: ^3.25.75
+        version: 3.25.75
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.67)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.75)
       '@axe-core/playwright':
         specifier: ^4.10.2
         version: 4.10.2(playwright-core@1.53.2)
@@ -533,12 +533,12 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       zod:
-        specifier: ^3.25.64
-        version: 3.25.67
+        specifier: ^3.25.75
+        version: 3.25.75
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.67)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.75)
       '@axe-core/playwright':
         specifier: ^4.10.2
         version: 4.10.2(playwright-core@1.53.2)
@@ -765,12 +765,12 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1
       zod:
-        specifier: ^3.25.64
-        version: 3.25.67
+        specifier: ^3.25.75
+        version: 3.25.75
     devDependencies:
       '@anatine/zod-mock':
         specifier: ^3.14.0
-        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.67)
+        version: 3.14.0(@faker-js/faker@9.8.0)(zod@3.25.75)
       '@axe-core/playwright':
         specifier: ^4.10.2
         version: 4.10.2(playwright-core@1.53.2)
@@ -8197,8 +8197,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0
 
-  zod@3.25.67:
-    resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
+  zod@3.25.75:
+    resolution: {integrity: sha512-OhpzAmVzabPOL6C3A3gpAifqr9MqihV/Msx3gor2b2kviCgcb+HM9SEOpMWwwNp9MRunWnhtAKUoo0AHhjyPPg==}
 
 snapshots:
 
@@ -8211,11 +8211,11 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@anatine/zod-mock@3.14.0(@faker-js/faker@9.8.0)(zod@3.25.67)':
+  '@anatine/zod-mock@3.14.0(@faker-js/faker@9.8.0)(zod@3.25.75)':
     dependencies:
       '@faker-js/faker': 9.8.0
       randexp: 0.5.3
-      zod: 3.25.67
+      zod: 3.25.75
 
   '@andrewbranch/untar.js@1.0.3': {}
 
@@ -11041,7 +11041,7 @@ snapshots:
       recast: 0.23.11
       source-map: 0.7.4
       tsx: 4.20.3
-      zod: 3.25.67
+      zod: 3.25.75
     transitivePeerDependencies:
       - supports-color
 
@@ -11060,7 +11060,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       chokidar: 3.6.0
       unplugin: 2.3.5
-      zod: 3.25.67
+      zod: 3.25.75
     optionalDependencies:
       '@tanstack/react-router': 1.123.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite: 7.0.0(@types/node@24.0.10)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0)
@@ -11993,7 +11993,7 @@ snapshots:
     dependencies:
       devtools-protocol: 0.0.1464554
       mitt: 3.0.1
-      zod: 3.25.67
+      zod: 3.25.75
 
   ci-env@1.17.0: {}
 
@@ -12754,8 +12754,8 @@ snapshots:
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.27.4)
       eslint: 9.30.0(jiti@2.4.2)
       hermes-parser: 0.25.1
-      zod: 3.25.67
-      zod-validation-error: 3.5.2(zod@3.25.67)
+      zod: 3.25.75
+      zod-validation-error: 3.5.2(zod@3.25.75)
     transitivePeerDependencies:
       - supports-color
 
@@ -16188,8 +16188,8 @@ snapshots:
 
   yoctocolors-cjs@2.1.2: {}
 
-  zod-validation-error@3.5.2(zod@3.25.67):
+  zod-validation-error@3.5.2(zod@3.25.75):
     dependencies:
-      zod: 3.25.67
+      zod: 3.25.75
 
-  zod@3.25.67: {}
+  zod@3.25.75: {}
