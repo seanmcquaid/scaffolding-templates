@@ -142,8 +142,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.5(eslint@9.30.0(jiti@2.4.2))
       eslint-plugin-i18next:
-        specifier: ^6.1.1
-        version: 6.1.1
+        specifier: ^6.1.2
+        version: 6.1.2
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.32.0(@typescript-eslint/parser@8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.0(jiti@2.4.2))
@@ -365,8 +365,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.5(eslint@9.30.0(jiti@2.4.2))
       eslint-plugin-i18next:
-        specifier: ^6.1.1
-        version: 6.1.1
+        specifier: ^6.1.2
+        version: 6.1.2
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.32.0(@typescript-eslint/parser@8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.0(jiti@2.4.2))
@@ -618,8 +618,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.5(eslint@9.30.0(jiti@2.4.2))
       eslint-plugin-i18next:
-        specifier: ^6.1.1
-        version: 6.1.1
+        specifier: ^6.1.2
+        version: 6.1.2
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.32.0(@typescript-eslint/parser@8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.0(jiti@2.4.2))
@@ -847,8 +847,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.5(eslint@9.30.0(jiti@2.4.2))
       eslint-plugin-i18next:
-        specifier: ^6.1.1
-        version: 6.1.1
+        specifier: ^6.1.2
+        version: 6.1.2
       eslint-plugin-import:
         specifier: ^2.31.0
         version: 2.32.0(@typescript-eslint/parser@8.35.0(eslint@9.30.0(jiti@2.4.2))(typescript@5.8.3))(eslint@9.30.0(jiti@2.4.2))
@@ -4889,9 +4889,9 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
 
-  eslint-plugin-i18next@6.1.1:
-    resolution: {integrity: sha512-/Vy6BfX44njxpRnbJm7bbph0KaNJF2eillqN5W+u03hHuxmh9BjtjdPSrI9HPtyoEbG4j5nBn9gXm/dg99mz3Q==}
-    engines: {node: '>=0.10.0'}
+  eslint-plugin-i18next@6.1.2:
+    resolution: {integrity: sha512-hvTmws4kouNHkk314+9MHNj+RQmsqrkejWhTXGlRC0j8H+EXq2qDRLe6UqIjrFZo7/ogyd4btuqsnKCBi8wHbw==}
+    engines: {node: '>=18.10.0'}
 
   eslint-plugin-import@2.32.0:
     resolution: {integrity: sha512-whOE1HFo/qJDyX4SnXzP4N6zOWn79WhnCUY/iDR0mPfQZO8wcYE4JClzI2oZrhBnnMUCBCHZhO6VQyoBU95mZA==}
@@ -12677,7 +12677,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-i18next@6.1.1:
+  eslint-plugin-i18next@6.1.2:
     dependencies:
       lodash: 4.17.21
       requireindex: 1.1.0
