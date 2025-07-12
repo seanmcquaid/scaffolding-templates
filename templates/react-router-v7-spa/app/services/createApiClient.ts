@@ -5,6 +5,13 @@ const createApiClient = (baseUrl: string) => {
     hooks: {
       afterResponse: [
         async (_, options, response) => {
+          // Development-friendly logging for debugging
+          if (process.env.NODE_ENV === 'development') {
+            console.log(
+              `[API] ${response.status} ${response.statusText} - ${response.url}`,
+            );
+          }
+
           if (!response.ok || !options.validationSchema) {
             return response;
           }
@@ -30,12 +37,27 @@ const createApiClient = (baseUrl: string) => {
       ],
       beforeError: [
         async error => {
+          // Development-friendly error logging
+          if (process.env.NODE_ENV === 'development') {
+            console.error(
+              `[API Error] ${error.response?.status} ${error.response?.statusText} - ${error.request?.url}`,
+            );
+          }
+
           try {
             const response = await error.response.json();
             error.responseData = response;
             return error;
           } catch {
             return error;
+          }
+        },
+      ],
+      beforeRequest: [
+        request => {
+          // Development-friendly request logging
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] ${request.method} ${request.url}`);
           }
         },
       ],
@@ -55,6 +77,7 @@ const createApiClient = (baseUrl: string) => {
       ],
       statusCodes: [401, 403, 500, 504],
     },
+    timeout: 30000, // 30 second timeout for network resilience
   });
 };
 
