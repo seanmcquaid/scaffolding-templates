@@ -204,18 +204,115 @@ export function FeatureCard({ title, description, action }: FeatureCardProps) {
 }
 ```
 
-### Custom Hooks
+### TanStack Query with Next.js SSR
 ```typescript
-// hooks/services/useFeatureData.ts
-import { useQuery } from '@tanstack/react-query';
-import { featuresService } from '@/services/featuresService';
+// app/providers.tsx
+'use client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useState } from 'react'
 
-export function useFeatureData(id: string) {
-  return useQuery({
-    queryKey: ['features', id],
-    queryFn: () => featuresService.getById(id),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
+export function Providers({ children }: { children: React.ReactNode }) {
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000, // 1 minute
+        retry: 2,
+      },
+    },
+  }))
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
+}
+
+// app/layout.tsx
+import { Providers } from './providers'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  )
+}
+
+// Server Component with prefetching
+export default async function PostsPage() {
+  const queryClient = new QueryClient()
+  
+  // Prefetch data on server
+  await queryClient.prefetchQuery(getPostsQueryOptions())
+  
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostsList />
+    </HydrationBoundary>
+  )
+}
+
+// Client Component
+'use client'
+function PostsList() {
+  const { data, isLoading, error } = useQuery(getPostsQueryOptions())
+  
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+  
+  return (
+    <ul>
+      {data?.map(post => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### Mutations with Next.js
+```typescript
+// hooks/usePosts.ts
+'use client'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { PostsQueryKeys } from '@/services/queries/posts'
+import postsService from '@/services/postsService'
+
+export function useDeletePost() {
+  const queryClient = useQueryClient()
+  
+  return useMutation({
+    mutationFn: postsService.deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ 
+        queryKey: [PostsQueryKeys.GET_POSTS] 
+      })
+    },
+  })
+}
+
+// Component usage
+'use client'
+export function PostActions({ postId }: { postId: string }) {
+  const { mutate: deletePost, isPending } = useDeletePost()
+  
+  return (
+    <button
+      onClick={() => deletePost(postId)}
+      disabled={isPending}
+    >
+      {isPending ? 'Deleting...' : 'Delete'}
+    </button>
+  )
 }
 ```
 
@@ -237,15 +334,57 @@ export function useFeatureData(id: string) {
 
 ### Server State (TanStack Query)
 ```typescript
-// Queries for server data
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1 minute
-      retry: 2,
-    },
-  },
-});
+// services/queries/posts.ts
+import { queryOptions } from '@tanstack/react-query';
+import postsService from '@/services/postsService';
+
+export const PostsQueryKeys = {
+  GET_POST: 'GET_POST',
+  GET_POSTS: 'GET_POSTS',
+} as const;
+
+export const getPostQueryOptions = (id: string) =>
+  queryOptions({
+    queryFn: async () => postsService.getPost(id),
+    queryKey: [PostsQueryKeys.GET_POST, id],
+  });
+
+export const getPostsQueryOptions = () =>
+  queryOptions({
+    queryFn: () => postsService.getPosts(),
+    queryKey: [PostsQueryKeys.GET_POSTS],
+  });
+
+// Server Component with TanStack Query
+export default async function PostsPage() {
+  const queryClient = new QueryClient()
+  
+  // Prefetch data on server
+  await queryClient.prefetchQuery(getPostsQueryOptions())
+  
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <PostsList />
+    </HydrationBoundary>
+  )
+}
+
+// Client Component
+'use client'
+function PostsList() {
+  const { data, isLoading, error } = useQuery(getPostsQueryOptions())
+  
+  if (isLoading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
+  
+  return (
+    <ul>
+      {data?.map(post => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  )
+}
 ```
 
 ### Form State (React Hook Form)
