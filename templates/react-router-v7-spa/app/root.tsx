@@ -42,7 +42,7 @@ const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
 
 export const unstable_clientMiddleware = [clientLoggerMiddleware];
 
-export function Layout({ children }: PropsWithChildren) {
+export const Layout = ({ children }: PropsWithChildren) => {
   const navigation = useNavigation();
   const isLoadingPage = navigation.state === 'loading';
 
@@ -85,9 +85,9 @@ export function Layout({ children }: PropsWithChildren) {
       </body>
     </html>
   );
-}
+};
 
-export function ErrorBoundary() {
+export const ErrorBoundary = () => {
   const error = useRouteError();
 
   useEffect(() => {
@@ -96,9 +96,9 @@ export function ErrorBoundary() {
   }, [error]);
 
   return <PageError errorText="There was an app crash!" />;
-}
+};
 
-export function HydrateFallback() {
+export const HydrateFallback = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export function HydrateFallback() {
   }, []);
 
   return <LoadingOverlay isLoading={isLoading} />;
-}
+};
 
 const Root = () => {
   return <Outlet />;
