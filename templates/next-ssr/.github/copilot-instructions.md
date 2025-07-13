@@ -206,26 +206,20 @@ export function FeatureCard({ title, description, action }: FeatureCardProps) {
 
 ### TanStack Query with Next.js SSR
 ```typescript
-// app/providers.tsx
+// app/Providers.tsx
 'use client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { useState } from 'react'
+import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental'
+import queryClient from '@/services/queries/queryClient'
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 60 * 1000, // 1 minute
-        retry: 2,
-      },
-    },
-  }))
-
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryStreamedHydration>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </ReactQueryStreamedHydration>
     </QueryClientProvider>
   )
 }
@@ -249,25 +243,18 @@ export default function RootLayout({
 
 // Server Component with prefetching
 export default async function PostsPage() {
-  const queryClient = new QueryClient()
-  
-  // Prefetch data on server
-  await queryClient.prefetchQuery(getPostsQueryOptions())
-  
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <PostsList />
-    </HydrationBoundary>
-  )
+  // With ReactQueryStreamedHydration, prefetching happens automatically
+  // through the client components using useSuspenseQuery
+  return <PostsList />
 }
 
 // Client Component
 'use client'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { getPostsQueryOptions } from '@/services/queries/posts'
+
 function PostsList() {
-  const { data, isLoading, error } = useQuery(getPostsQueryOptions())
-  
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  const { data } = useSuspenseQuery(getPostsQueryOptions())
   
   return (
     <ul>
@@ -299,6 +286,9 @@ export function useDeletePost() {
     },
   })
 }
+
+// Note: Only create hook abstractions like useDeletePost if they are reused across multiple components
+// For single-use mutations, prefer inline useMutation calls in the component
 
 // Component usage
 'use client'
@@ -357,25 +347,18 @@ export const getPostsQueryOptions = () =>
 
 // Server Component with TanStack Query
 export default async function PostsPage() {
-  const queryClient = new QueryClient()
-  
-  // Prefetch data on server
-  await queryClient.prefetchQuery(getPostsQueryOptions())
-  
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <PostsList />
-    </HydrationBoundary>
-  )
+  // With ReactQueryStreamedHydration, prefetching happens automatically
+  // through the client components using useSuspenseQuery
+  return <PostsList />
 }
 
 // Client Component
 'use client'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import { getPostsQueryOptions } from '@/services/queries/posts'
+
 function PostsList() {
-  const { data, isLoading, error } = useQuery(getPostsQueryOptions())
-  
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  const { data } = useSuspenseQuery(getPostsQueryOptions())
   
   return (
     <ul>
