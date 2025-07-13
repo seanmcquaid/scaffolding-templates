@@ -326,21 +326,22 @@ export function SearchFilters() {
 import { queryOptions } from '@tanstack/react-query';
 import postsService from '@/services/postsService';
 
-export const PostsQueryKeys = {
-  GET_POST: 'GET_POST',
-  GET_POSTS: 'GET_POSTS',
+export const postsQueryKeys = {
+  post: ['post'],
+  postById: (id: string) => [...postsQueryKeys.post, id],
+  posts: ['posts'],
 } as const;
 
 export const getPostQueryOptions = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
-    queryKey: [PostsQueryKeys.GET_POST, id],
+    queryKey: postsQueryKeys.postById(id),
   });
 
 export const getPostsQueryOptions = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
-    queryKey: [PostsQueryKeys.GET_POSTS],
+    queryKey: postsQueryKeys.posts,
   });
 
 // Router setup with Query Client
@@ -399,7 +400,7 @@ export function useDashboardData() {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { blogService } from '@/services/blogService'
-import { PostsQueryKeys } from '@/services/queries/posts'
+import { postsQueryKeys } from '@/services/queries/posts'
 
 export function useCreatePost() {
   const queryClient = useQueryClient()
@@ -409,7 +410,7 @@ export function useCreatePost() {
     mutationFn: blogService.createPost,
     onSuccess: (newPost) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: [PostsQueryKeys.GET_POSTS] })
+      queryClient.invalidateQueries({ queryKey: postsQueryKeys.posts })
       
       // Navigate to the new post
       navigate({
@@ -453,7 +454,7 @@ export function CreatePostForm() {
 ```typescript
 // hooks/useTogglePostLike.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { PostsQueryKeys } from '@/services/queries/posts'
+import { postsQueryKeys } from '@/services/queries/posts'
 import { postsService } from '@/services/postsService'
 
 export function useTogglePostLike(postId: string) {
@@ -466,12 +467,12 @@ export function useTogglePostLike(postId: string) {
     // Optimistic update
     onMutate: async (liked: boolean) => {
       await queryClient.cancelQueries({ 
-        queryKey: [PostsQueryKeys.GET_POST, postId] 
+        queryKey: postsQueryKeys.postById(postId) 
       })
       
-      const previousPost = queryClient.getQueryData([PostsQueryKeys.GET_POST, postId])
+      const previousPost = queryClient.getQueryData(postsQueryKeys.postById(postId))
       
-      queryClient.setQueryData([PostsQueryKeys.GET_POST, postId], (old: any) => ({
+      queryClient.setQueryData(postsQueryKeys.postById(postId), (old: any) => ({
         ...old,
         liked,
         likeCount: liked ? old.likeCount + 1 : old.likeCount - 1,
@@ -483,7 +484,7 @@ export function useTogglePostLike(postId: string) {
     onError: (err, variables, context) => {
       // Rollback on error
       queryClient.setQueryData(
-        [PostsQueryKeys.GET_POST, postId],
+        postsQueryKeys.postById(postId),
         context?.previousPost
       )
     },
@@ -491,7 +492,7 @@ export function useTogglePostLike(postId: string) {
     onSettled: () => {
       // Refetch to ensure consistency
       queryClient.invalidateQueries({ 
-        queryKey: [PostsQueryKeys.GET_POST, postId] 
+        queryKey: postsQueryKeys.postById(postId) 
       })
     },
   })

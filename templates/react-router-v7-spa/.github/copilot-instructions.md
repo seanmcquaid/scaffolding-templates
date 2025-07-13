@@ -204,7 +204,7 @@ export default function ContactPage({}: Route.ComponentProps) {
 ```typescript
 // hooks/mutations/useDeletePost.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { PostsQueryKeys } from '@/services/queries/posts';
+import { postsQueryKeys } from '@/services/queries/posts';
 import postsService from '@/services/postsService';
 
 export function useDeletePost() {
@@ -215,7 +215,7 @@ export function useDeletePost() {
     onSuccess: () => {
       // Invalidate related queries
       queryClient.invalidateQueries({
-        queryKey: [PostsQueryKeys.GET_POSTS],
+        queryKey: postsQueryKeys.posts,
       });
     },
     onError: (error) => {
@@ -256,21 +256,22 @@ export function PostsList() {
 import { queryOptions } from '@tanstack/react-query';
 import postsService from '@/services/postsService';
 
-export const PostsQueryKeys = {
-  GET_POST: 'GET_POST',
-  GET_POSTS: 'GET_POSTS',
+export const postsQueryKeys = {
+  post: ['post'],
+  postById: (id: string) => [...postsQueryKeys.post, id],
+  posts: ['posts'],
 } as const;
 
 export const getPostQueryOptions = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
-    queryKey: [PostsQueryKeys.GET_POST, id],
+    queryKey: postsQueryKeys.postById(id),
   });
 
 export const getPostsQueryOptions = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
-    queryKey: [PostsQueryKeys.GET_POSTS],
+    queryKey: postsQueryKeys.posts,
   });
 
 // hooks/services/useUserProfile.ts
