@@ -119,8 +119,10 @@ function HomePage() {
 ```typescript
 // routes/dashboard.tsx
 import { createFileRoute } from '@tanstack/react-router'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { z } from 'zod'
 import { dashboardService } from '@/services/dashboardService'
+import { getDashboardQueryOptions } from '@/services/queries/dashboard'
 
 const dashboardSearchSchema = z.object({
   filter: z.enum(['all', 'active', 'inactive']).optional().default('all'),
@@ -132,11 +134,7 @@ export const Route = createFileRoute('/dashboard')({
   validateSearch: dashboardSearchSchema,
   loaderDeps: ({ search }) => ({ search }),
   loader: async ({ deps: { search }, context: { queryClient } }) => {
-    return queryClient.ensureQueryData({
-      queryKey: ['dashboard', search],
-      queryFn: () => dashboardService.getData(search),
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    })
+    return queryClient.ensureQueryData(getDashboardQueryOptions(search))
   },
   component: DashboardComponent,
 })
@@ -144,7 +142,9 @@ export const Route = createFileRoute('/dashboard')({
 function DashboardComponent() {
   const { filter, page, sort } = Route.useSearch()
   const navigate = Route.useNavigate()
-  const data = Route.useLoaderData()
+  
+  // Use suspense query for seamless loading
+  const { data } = useSuspenseQuery(getDashboardQueryOptions({ filter, page, sort }))
   
   const handleFilterChange = (newFilter: string) => {
     navigate({
@@ -322,6 +322,28 @@ export function SearchFilters() {
 
 ### TanStack Query Integration
 ```typescript
+// services/queries/posts.ts
+import { queryOptions } from '@tanstack/react-query';
+import postsService from '@/services/postsService';
+
+export const postsQueryKeys = {
+  post: ['post'],
+  postById: (id: string) => [...postsQueryKeys.post, id],
+  posts: ['posts'],
+} as const;
+
+export const getPostQueryOptions = (id: string) =>
+  queryOptions({
+    queryFn: async () => postsService.getPost(id),
+    queryKey: postsQueryKeys.postById(id),
+  });
+
+export const getPostsQueryOptions = () =>
+  queryOptions({
+    queryFn: () => postsService.getPosts(),
+    queryKey: postsQueryKeys.posts,
+  });
+
 // Router setup with Query Client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -338,6 +360,19 @@ const router = createRouter({
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
 })
+
+// Using useSuspenseQuery with TanStack Router
+export function PostsList() {
+  const { data } = useSuspenseQuery(getPostsQueryOptions());
+  
+  return (
+    <ul>
+      {data?.map(post => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
 ```
 
 ### Custom Hooks with Router Data
@@ -365,6 +400,7 @@ export function useDashboardData() {
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { blogService } from '@/services/blogService'
+import { postsQueryKeys } from '@/services/queries/posts'
 
 export function useCreatePost() {
   const queryClient = useQueryClient()
@@ -374,12 +410,89 @@ export function useCreatePost() {
     mutationFn: blogService.createPost,
     onSuccess: (newPost) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ['blog'] })
+      queryClient.invalidateQueries({ queryKey: postsQueryKeys.posts })
       
       // Navigate to the new post
       navigate({
         to: '/blog/$postId',
         params: { postId: newPost.id },
+      })
+    },
+    onError: (error) => {
+      // Handle error
+      console.error('Failed to create post:', error)
+    },
+  })
+}
+
+// Usage in component
+export function CreatePostForm() {
+  const { mutate: createPost, isPending, error } = useCreatePost()
+  
+  const handleSubmit = (formData: FormData) => {
+    const postData = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+    }
+    createPost(postData)
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <input name="title" placeholder="Post title" required />
+      <textarea name="content" placeholder="Post content" required />
+      <button type="submit" disabled={isPending}>
+        {isPending ? 'Creating...' : 'Create Post'}
+      </button>
+      {error && <p className="error">{error.message}</p>}
+    </form>
+  )
+}
+```
+
+### Optimistic Updates
+```typescript
+// hooks/useTogglePostLike.ts
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { postsQueryKeys } from '@/services/queries/posts'
+import { postsService } from '@/services/postsService'
+
+export function useTogglePostLike(postId: string) {
+  const queryClient = useQueryClient()
+  
+  return useMutation({
+    mutationFn: async (liked: boolean) => 
+      postsService.toggleLike(postId, liked),
+    
+    // Optimistic update
+    onMutate: async (liked: boolean) => {
+      await queryClient.cancelQueries({ 
+        queryKey: postsQueryKeys.postById(postId) 
+      })
+      
+      const previousPost = queryClient.getQueryData(postsQueryKeys.postById(postId))
+      
+      queryClient.setQueryData(postsQueryKeys.postById(postId), (old: any) => ({
+        ...old,
+        liked,
+        likeCount: liked ? old.likeCount + 1 : old.likeCount - 1,
+      }))
+      
+      return { previousPost }
+    },
+    
+    onError: (err, variables, context) => {
+      // Rollback on error
+      queryClient.setQueryData(
+        postsQueryKeys.postById(postId),
+        context?.previousPost
+      )
+    },
+    
+    onSettled: () => {
+      // Refetch to ensure consistency
+      queryClient.invalidateQueries({ 
+        queryKey: postsQueryKeys.postById(postId) 
       })
     },
   })

@@ -76,7 +76,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   return { locale };
 }
 
-export function Layout({ children }: PropsWithChildren) {
+export const Layout = ({ children }: PropsWithChildren) => {
   const { locale } = useLoaderData<typeof loader>();
   const { i18n } = useAppTranslation();
   const navigation = useNavigation();
@@ -122,9 +122,9 @@ export function Layout({ children }: PropsWithChildren) {
       </body>
     </html>
   );
-}
+};
 
-export function ErrorBoundary() {
+export const ErrorBoundary = () => {
   const error = useRouteError();
 
   useEffect(() => {
@@ -133,11 +133,11 @@ export function ErrorBoundary() {
   }, [error]);
 
   return <PageError errorText="There was an app crash!" />;
-}
+};
 
-export function HydrateFallback() {
+export const HydrateFallback = () => {
   return <LoadingOverlay isLoading />;
-}
+};
 
 const Root = () => {
   return <Outlet />;

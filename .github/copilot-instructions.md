@@ -183,6 +183,14 @@ Follow consistent directory structure across project templates:
 - **Type safety**: Use Zod schemas for both request validation and response parsing
 - **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
 
+#### TanStack Query Integration Best Practices
+- **Query options pattern**: Use `queryOptions` helper for reusable query configurations
+- **Query key organization**: Organize query keys with constants for consistent invalidation
+- **Mutation patterns**: Implement mutations with proper cache invalidation and optimistic updates
+- **Suspense integration**: Use `useSuspenseQuery` for better loading states in compatible frameworks
+- **Hydration support**: Properly handle server-side rendering with query client hydration
+- **Error boundaries**: Implement error boundaries that work with TanStack Query error states
+
 ### Performance Considerations
 - Monitor bundle sizes with bundlesize configuration
 - Implement code splitting where appropriate

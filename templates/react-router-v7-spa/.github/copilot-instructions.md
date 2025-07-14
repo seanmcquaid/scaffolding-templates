@@ -153,6 +153,7 @@ export function Navigation() {
 ### Form Handling with Navigation
 ```typescript
 import { Form, useActionData, useNavigation } from "react-router";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Route } from "./+types/contact";
 
 export async function clientAction({ request }: Route.ClientActionArgs) {
@@ -169,7 +170,21 @@ export async function clientAction({ request }: Route.ClientActionArgs) {
 export default function ContactPage({}: Route.ComponentProps) {
   const actionData = useActionData<typeof clientAction>();
   const navigation = useNavigation();
+  const queryClient = useQueryClient();
   const isSubmitting = navigation.state === "submitting";
+
+  // TanStack Query mutation for client-side submissions
+  const { mutate: submitContactMutation, isPending } = useMutation({
+    mutationFn: async (formData: FormData) => submitContact(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contacts'] });
+      navigate('/thank-you');
+    },
+    onError: (error) => {
+      // Handle errors
+      console.error('Contact submission failed:', error);
+    },
+  });
   
   return (
     <Form method="post">
@@ -177,10 +192,58 @@ export default function ContactPage({}: Route.ComponentProps) {
       {actionData?.errors?.email && (
         <p className="error">{actionData.errors.email}</p>
       )}
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Submitting..." : "Submit"}
+      <button type="submit" disabled={isSubmitting || isPending}>
+        {isSubmitting || isPending ? "Submitting..." : "Submit"}
       </button>
     </Form>
+  );
+}
+```
+
+### TanStack Query Mutations
+```typescript
+// hooks/mutations/useDeletePost.ts
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postsQueryKeys } from '@/services/queries/posts';
+import postsService from '@/services/postsService';
+
+export function useDeletePost() {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async (id: string) => postsService.deletePost(id),
+    onSuccess: () => {
+      // Invalidate related queries
+      queryClient.invalidateQueries({
+        queryKey: postsQueryKeys.posts,
+      });
+    },
+    onError: (error) => {
+      // Handle errors
+      console.error('Delete failed:', error);
+    },
+  });
+}
+
+// Usage in component
+export function PostsList() {
+  const { data: posts } = useQuery(getPostsQueryOptions());
+  const { mutate: deletePost, isPending } = useDeletePost();
+  
+  return (
+    <ul>
+      {posts?.map(post => (
+        <li key={post.id}>
+          {post.title}
+          <button
+            onClick={() => deletePost(post.id)}
+            disabled={isPending}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }
 ```
@@ -189,6 +252,28 @@ export default function ContactPage({}: Route.ComponentProps) {
 
 ### Server State (TanStack Query)
 ```typescript
+// services/queries/posts.ts
+import { queryOptions } from '@tanstack/react-query';
+import postsService from '@/services/postsService';
+
+export const postsQueryKeys = {
+  post: ['post'],
+  postById: (id: string) => [...postsQueryKeys.post, id],
+  posts: ['posts'],
+} as const;
+
+export const getPostQueryOptions = (id: string) =>
+  queryOptions({
+    queryFn: async () => postsService.getPost(id),
+    queryKey: postsQueryKeys.postById(id),
+  });
+
+export const getPostsQueryOptions = () =>
+  queryOptions({
+    queryFn: () => postsService.getPosts(),
+    queryKey: postsQueryKeys.posts,
+  });
+
 // hooks/services/useUserProfile.ts
 import { useQuery } from '@tanstack/react-query';
 import { userService } from '@/services/userService';
@@ -201,7 +286,20 @@ export function useUserProfile(userId: string) {
     retry: 2,
   });
 }
+
+// Using query options
+export function useUserProfileWithOptions(userId: string) {
+  return useQuery(getUserProfileQueryOptions(userId));
+}
 ```
+
+#### TanStack Query Best Practices
+- **Query options pattern**: Use `queryOptions` helper for reusable query configurations
+- **Query key organization**: Organize query keys with constants for consistent invalidation
+- **Mutation patterns**: Implement mutations with proper cache invalidation
+- **Error handling**: Use TanStack Query's built-in error handling with error boundaries
+- **Caching strategy**: Configure appropriate stale times and cache invalidation
+- **Optimistic updates**: Use optimistic updates for better user experience
 
 ### Client State Management
 ```typescript

@@ -228,6 +228,28 @@ export default function ContactPage({}: Route.ComponentProps) {
 
 ### TanStack Query with SSR
 ```typescript
+// services/queries/posts.ts
+import { queryOptions } from '@tanstack/react-query';
+import postsService from '@/services/postsService';
+
+export const postsQueryKeys = {
+  post: ['post'],
+  postById: (id: string) => [...postsQueryKeys.post, id],
+  posts: ['posts'],
+} as const;
+
+export const getPostQueryOptions = (id: string) =>
+  queryOptions({
+    queryFn: async () => postsService.getPost(id),
+    queryKey: postsQueryKeys.postById(id),
+  });
+
+export const getPostsQueryOptions = () =>
+  queryOptions({
+    queryFn: () => postsService.getPosts(),
+    queryKey: postsQueryKeys.posts,
+  });
+
 // root.tsx
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { dehydrate, hydrate } from '@tanstack/react-query';
@@ -266,6 +288,46 @@ export default function App() {
         <Scripts />
       </body>
     </html>
+  );
+}
+
+// Server-side data prefetching
+export async function loader({ request }: Route.LoaderArgs) {
+  const queryClient = new QueryClient();
+  const url = new URL(request.url);
+  const filter = url.searchParams.get("filter") || "all";
+  
+  // Prefetch data on server
+  await queryClient.prefetchQuery(getPostsQueryOptions());
+  
+  return {
+    dehydratedState: dehydrate(queryClient),
+    filter,
+  };
+}
+
+// Component with server-prefetched data
+export default function PostsPage({ loaderData }: Route.ComponentProps) {
+  const { dehydratedState, filter } = loaderData;
+  const queryClient = useQueryClient();
+  
+  // Hydrate server data
+  useEffect(() => {
+    if (dehydratedState) {
+      hydrate(queryClient, dehydratedState);
+    }
+  }, [queryClient, dehydratedState]);
+  
+  // Use data from cache
+  const { data, isLoading } = useQuery(getPostsQueryOptions());
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  return (
+    <div>
+      <h1>Posts</h1>
+      <PostsList posts={data} />
+    </div>
   );
 }
 ```

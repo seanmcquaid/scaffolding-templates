@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import { toast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
-import { PostsQueryKeys } from '@/services/queries/posts';
+import { postsQueryKeys } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 
@@ -34,7 +34,7 @@ export const clientLoader = async ({
 }: Route.ClientLoaderArgs) => {
   const posts = await queryClient.ensureQueryData({
     queryFn: () => serverLoader(),
-    queryKey: [PostsQueryKeys.GET_POSTS],
+    queryKey: postsQueryKeys.posts,
   });
 
   return posts;
