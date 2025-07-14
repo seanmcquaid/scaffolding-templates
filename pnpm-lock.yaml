@@ -88,8 +88,8 @@ importers:
         specifier: ^1.2.8
         version: 1.3.1(eslint@9.31.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.30.1
-        version: 9.30.1
+        specifier: ^9.31.0
+        version: 9.31.0
       '@tailwindcss/postcss':
         specifier: ^4.1.11
         version: 4.1.11
@@ -296,8 +296,8 @@ importers:
         specifier: ^1.2.8
         version: 1.3.1(eslint@9.31.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.30.1
-        version: 9.30.1
+        specifier: ^9.31.0
+        version: 9.31.0
       '@faker-js/faker':
         specifier: ^9.9.0
         version: 9.9.0
@@ -549,8 +549,8 @@ importers:
         specifier: ^1.2.8
         version: 1.3.1(eslint@9.31.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.30.1
-        version: 9.30.1
+        specifier: ^9.31.0
+        version: 9.31.0
       '@faker-js/faker':
         specifier: ^9.9.0
         version: 9.9.0
@@ -781,8 +781,8 @@ importers:
         specifier: ^1.2.8
         version: 1.3.1(eslint@9.31.0(jiti@2.4.2))
       '@eslint/js':
-        specifier: ^9.30.1
-        version: 9.30.1
+        specifier: ^9.31.0
+        version: 9.31.0
       '@faker-js/faker':
         specifier: ^9.9.0
         version: 9.9.0
@@ -937,8 +937,8 @@ importers:
         specifier: ^2.29.5
         version: 2.29.5
       '@eslint/js':
-        specifier: ^9.30.1
-        version: 9.30.1
+        specifier: ^9.31.0
+        version: 9.31.0
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4(@types/node@24.0.13)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)(msw@2.10.4(@types/node@24.0.13)(typescript@5.8.3))(terser@5.43.1)(tsx@4.20.3)(yaml@2.8.0))
@@ -2177,10 +2177,6 @@ packages:
 
   '@eslint/eslintrc@3.3.1':
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@eslint/js@9.30.1':
-    resolution: {integrity: sha512-zXhuECFlyep42KZUhWjfvsmXGX39W8K8LFb8AWXM9gSV9dQB+MrJGLKvW6Zw0Ggnbpw0VHTtrhFXYe3Gym18jg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/js@9.31.0':
@@ -10018,8 +10014,6 @@ snapshots:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
-
-  '@eslint/js@9.30.1': {}
 
   '@eslint/js@9.31.0': {}
 
