@@ -1,20 +1,19 @@
 import { faker } from '@faker-js/faker';
-import type Post from '../../app/types/Post';
+import type Post from '@/types/Post';
 
-export interface GeneratePostOptions {
-  id?: number;
-  userId?: number;
-}
+const DEFAULT_POSTS_COUNT = 5;
+const ID_RANGE = { min: 1, max: 1000 };
+const USER_ID_RANGE = { min: 1, max: 10 };
 
-export function generatePost(options: GeneratePostOptions = {}): Post {
+export const generatePost = (): Post => {
   return {
-    id: options.id ?? faker.number.int({ min: 1, max: 1000 }),
+    id: faker.number.int(ID_RANGE),
     title: faker.lorem.sentence(),
     body: faker.lorem.paragraphs(2),
-    userId: options.userId ?? faker.number.int({ min: 1, max: 10 }),
+    userId: faker.number.int(USER_ID_RANGE),
   };
-}
+};
 
-export function generatePosts(count = 5): Post[] {
+export const generatePosts = (count = DEFAULT_POSTS_COUNT): Post[] => {
   return faker.helpers.multiple(() => generatePost(), { count });
-}
+};
