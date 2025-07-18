@@ -16,9 +16,7 @@ const KitchenSinkForm = () => {
     mode: 'onChange',
     resolver: zodResolver(formDataSchema),
   });
-  const [formState, formAction] = useActionState(submitName, {
-    name: '',
-  });
+  const [formState, formAction] = useActionState(submitName, undefined);
 
   return (
     <form action={formAction}>

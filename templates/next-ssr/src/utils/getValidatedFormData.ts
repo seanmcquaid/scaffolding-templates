@@ -13,12 +13,16 @@ const getValidatedFormData = <T extends SchemaType>({
 }) => {
   const schemaKeys: string[] = [];
 
-  if ((schema as unknown)._def.type === 'pipe') {
-    const typedSchema = schema as unknown;
-    const inputSchema = (typedSchema as unknown)._def.in;
-    schemaKeys.push(...Object.keys((inputSchema as unknown)._def.shape));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ((schema as any)._def.type === 'pipe') {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const typedSchema = schema as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inputSchema = typedSchema._def.in as any;
+    schemaKeys.push(...Object.keys(inputSchema._def.shape));
   } else {
-    schemaKeys.push(...Object.keys((schema as unknown)._def.shape));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    schemaKeys.push(...Object.keys((schema as any)._def.shape));
   }
 
   const formDataFromSchema = schemaKeys.reduce(
@@ -34,8 +38,10 @@ const getValidatedFormData = <T extends SchemaType>({
   const validatedFormData = schema.safeParse(formDataFromSchema);
 
   if (!validatedFormData.success) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = validatedFormData.error.issues.reduce(
-      (acc: Record<string, string>, error: Record<string, unknown>) => ({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (acc: any, error: any) => ({
         ...acc,
         [error.path[0] as string]: error.message,
       }),
