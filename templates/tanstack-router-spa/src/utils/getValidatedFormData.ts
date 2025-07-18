@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
 type SchemaType =
   | z.ZodObject<z.ZodRawShape>
@@ -38,7 +38,6 @@ const getValidatedFormData = <T extends SchemaType>({
   const validatedFormData = schema.safeParse(formDataFromSchema);
 
   if (!validatedFormData.success) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errors = validatedFormData.error.issues.reduce(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (acc: any, error: any) => ({

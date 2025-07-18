@@ -2,9 +2,11 @@
 import formDataSchema from './formDataSchema';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 
-type ActionState = {
-  [key: string]: string;
-} | undefined;
+type ActionState =
+  | {
+      [key: string]: string;
+    }
+  | undefined;
 
 export const submitName = async (
   _state: ActionState,
