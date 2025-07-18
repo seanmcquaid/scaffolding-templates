@@ -1,0 +1,22 @@
+name: Pull Request
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+    - name: Setup PNPM
+      uses: pnpm/action-setup@v4
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+    - name: Set env to dev
+      shell: bash
+      run: |
+        touch .env
+        echo "VITE_APP_ENVIRONMENT=dev" >> .env
+    - name: Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
