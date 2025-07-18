@@ -1,16 +1,27 @@
-import { generateMock } from '@anatine/zod-mock';
 import { HttpResponse, http } from 'msw';
-import { z } from 'zod';
-import { postSchema } from '@/types/Post';
 
 export const getPostsHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts',
-  () => HttpResponse.json(generateMock(z.array(postSchema))),
+  () =>
+    HttpResponse.json([
+      {
+        id: 1,
+        title: 'Sample Post',
+        body: 'This is a sample post content.',
+        userId: 1,
+      },
+    ]),
 );
 
 export const getPostByIdHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts/:id',
-  () => HttpResponse.json(generateMock(postSchema)),
+  () =>
+    HttpResponse.json({
+      id: 1,
+      title: 'Sample Post',
+      body: 'This is a sample post content.',
+      userId: 1,
+    }),
 );
 
 export const deletePostByIdHandler = http.delete(
