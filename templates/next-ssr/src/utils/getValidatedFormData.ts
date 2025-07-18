@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
 type SchemaType =
   | z.ZodObject<z.ZodRawShape>
-  | z.ZodEffects<z.ZodObject<z.ZodRawShape>>;
+  | z.ZodTransform<z.ZodObject<z.ZodRawShape>, unknown>;
 
 const getValidatedFormData = <T extends SchemaType>({
   schema,
@@ -13,16 +13,12 @@ const getValidatedFormData = <T extends SchemaType>({
 }) => {
   const schemaKeys: string[] = [];
 
-  if (schema instanceof z.ZodEffects) {
-    const typedSchema = schema as unknown as z.ZodEffects<
-      z.Schema<z.ZodObjectDef>
-    >;
-    const def = typedSchema._def.schema._def as {
-      shape: () => z.ZodRawShape;
-    };
-    schemaKeys.push(...Object.keys(def.shape()));
+  if ((schema as unknown)._def.type === 'pipe') {
+    const typedSchema = schema as unknown;
+    const inputSchema = (typedSchema as unknown)._def.in;
+    schemaKeys.push(...Object.keys((inputSchema as unknown)._def.shape));
   } else {
-    schemaKeys.push(...Object.keys(schema._def.shape()));
+    schemaKeys.push(...Object.keys((schema as unknown)._def.shape));
   }
 
   const formDataFromSchema = schemaKeys.reduce(
@@ -38,8 +34,8 @@ const getValidatedFormData = <T extends SchemaType>({
   const validatedFormData = schema.safeParse(formDataFromSchema);
 
   if (!validatedFormData.success) {
-    const errors = validatedFormData.error.errors.reduce(
-      (acc, error) => ({
+    const errors = validatedFormData.error.issues.reduce(
+      (acc: Record<string, string>, error: Record<string, unknown>) => ({
         ...acc,
         [error.path[0] as string]: error.message,
       }),

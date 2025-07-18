@@ -40,6 +40,10 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
     return { defaultValues, errors };
   }
 
+  if (!data) {
+    throw new Error('Validation failed but no errors reported');
+  }
+
   toast({
     title: `Hello ${data.name}!`,
   });
