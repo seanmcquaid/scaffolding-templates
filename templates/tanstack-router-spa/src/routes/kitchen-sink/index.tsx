@@ -61,7 +61,9 @@ export const KitchenSinkPage = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useOnClickOutside(dropdownRef as React.RefObject<HTMLElement>, () => setDropdownOpen(false));
+  useOnClickOutside(dropdownRef as React.RefObject<HTMLElement>, () =>
+    setDropdownOpen(false),
+  );
 
   const handleOnSubmit = handleSubmit(data => {
     toast({

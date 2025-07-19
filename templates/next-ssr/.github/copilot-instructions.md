@@ -730,20 +730,25 @@ export default function DashboardPage() {
 ```tsx
 'use client';
 
-import { useState } from 'react';
+import { useActionState } from 'react';
 import useAppTranslation from '@/hooks/useAppTranslation';
+import { updateProfile } from './actions';
 
-export default function InteractiveForm() {
+export default function ProfileForm() {
   const { t } = useAppTranslation();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [state, formAction, isPending] = useActionState(updateProfile, { message: '' });
   
   return (
-    <form>
-      <label>{t('ContactForm.nameLabel')}</label>
-      <input placeholder={t('ContactForm.namePlaceholder')} />
+    <form action={formAction}>
+      <label>{t('ProfileForm.nameLabel')}</label>
+      <input name="name" placeholder={t('ProfileForm.namePlaceholder')} required />
       
-      <button disabled={isSubmitting}>
-        {isSubmitting ? t('Common.submitting') : t('ContactForm.submit')}
+      {state.message && (
+        <p className="error">{state.message}</p>
+      )}
+      
+      <button disabled={isPending}>
+        {isPending ? t('Common.submitting') : t('ProfileForm.submit')}
       </button>
     </form>
   );
@@ -756,18 +761,27 @@ export default function InteractiveForm() {
 
 import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
+import { getAppFixedT } from '@/utils/i18n';
 
-export async function updateProfile(formData: FormData) {
+export async function updateProfile(prevState: { message: string }, formData: FormData) {
+  const t = getAppFixedT();
+  
   try {
+    const name = formData.get('name') as string;
+    
+    if (!name || name.length < 2) {
+      return { message: t('ProfileForm.validation.nameRequired') };
+    }
+    
     // Process form data
-    await updateUserProfile(data);
+    await updateUserProfile({ name });
     
     revalidatePath('/profile');
     
-    // Return success message key for client-side toast
-    return { success: true, messageKey: 'Profile.updateSuccess' };
+    // Return success message
+    return { message: t('ProfileForm.updateSuccess') };
   } catch (error) {
-    return { success: false, messageKey: 'Profile.updateError' };
+    return { message: t('ProfileForm.updateError') };
   }
 }
 ```

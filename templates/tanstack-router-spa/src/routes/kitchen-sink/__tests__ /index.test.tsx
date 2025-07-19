@@ -17,7 +17,9 @@ describe('KitchenSinkPage', () => {
       },
     ]);
     render(<RoutesStub />);
-    await waitFor(() => expect(screen.getByText('KitchenSinkPage.submit')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText('KitchenSinkPage.submit')).toBeInTheDocument(),
+    );
     await user.type(screen.getByLabelText('KitchenSinkPage.name'), 'a');
     await waitFor(() =>
       expect(
