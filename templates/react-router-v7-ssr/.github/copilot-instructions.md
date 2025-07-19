@@ -39,6 +39,7 @@ This project provides a full-stack React application with server-side rendering 
 - **Vite**: Fast development server and build tool with SSR support
 - **TanStack Query**: Server state management with hydration support
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with SSR support
@@ -338,6 +339,74 @@ export default function PostsPage({ loaderData }: Route.ComponentProps) {
     </div>
   );
 }
+```
+
+### Client State Management
+
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
+
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence (isomorphic SSR-safe)
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form with SSR support
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
+};
+
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
+
+**SSR-Safe State**: Be careful with browser-only state during SSR:
+
+```typescript
+import { useEffect, useState } from 'react';
+
+// ✅ Good - SSR-safe state initialization
+const ClientOnlyComponent = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  // Browser-only code here
+  return <div>{/* client-only content */}</div>;
+};
+
+// ✅ Good - Use usehooks-ts hooks which handle SSR properly
+const [theme] = useLocalStorage('theme', 'light'); // SSR-safe
 ```
 
 ### Environment Variables
@@ -703,11 +772,15 @@ export function meta({ data }: Route.MetaArgs) {
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (React Router V7 excels at this)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
+- **SSR-safe state**: Be careful with browser-only state during server-side rendering
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Hydration safety**: Ensure client-side state matches server-side rendered state
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -789,5 +862,308 @@ export function meta({ data }: Route.MetaArgs) {
 - **Authentication**: Implement secure authentication patterns with proper session management
 - **HTTPS everywhere**: Ensure all network communications use HTTPS
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+## ⚠️ Translation Requirements - MANDATORY
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a strict requirement for this React Router V7 SSR project.
+
+### Translation Enforcement Rules
+
+1. **Never use hardcoded strings** - All text must use `useAppTranslation` hook
+2. **ESLint will catch violations** - The `i18next/no-literal-string` rule prevents hardcoded text
+3. **Tests validate i18n compliance** - Mock functions return translation keys for validation
+4. **SSR compatibility** - Ensure translations work properly with server-side rendering
+
+### React Router V7 SSR i18n Patterns
+
+**Server-Side Route Components with i18n:**
+```tsx
+// app/routes/dashboard.tsx
+import { json } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import type { Route } from './+types';
+
+export async function loader({ request }: Route.LoaderArgs) {
+  // Server-side data loading
+  const user = await getUserFromSession(request);
+  return json({ user });
+}
+
+export default function DashboardPage({ loaderData }: Route.ComponentProps) {
+  const { t } = useAppTranslation();
+  const { user } = loaderData;
+  
+  return (
+    <div>
+      <h1>{t('Dashboard.title')}</h1>
+      <p>{t('Dashboard.welcomeBack', { name: user.name })}</p>
+    </div>
+  );
+}
+```
+
+**Server Actions with i18n:**
+```tsx
+// app/routes/contact.tsx
+import { redirect, json } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import type { Route } from './+types';
+
+export async function action({ request }: Route.ActionArgs) {
+  const formData = await request.formData();
+  
+  try {
+    await submitContactForm(formData);
+    
+    // Redirect with success message
+    return redirect('/contact/success');
+  } catch (error) {
+    // Return error state for client-side translation
+    return json({
+      error: 'ContactForm.submitError',
+      values: Object.fromEntries(formData),
+    });
+  }
+}
+
+export async function clientAction({ serverAction }: Route.ClientActionArgs) {
+  const result = await serverAction();
+  
+  // Handle client-side notifications with translated messages
+  if (result.error) {
+    toast({
+      title: result.error, // Translation key
+      type: 'error',
+    });
+  }
+  
+  return result;
+}
+
+export default function ContactPage({ actionData }: Route.ComponentProps) {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('ContactForm.title')}</h1>
+      {actionData?.error && (
+        <div className="error">
+          {t(actionData.error)}
+        </div>
+      )}
+      
+      <form method="post">
+        <input 
+          name="email" 
+          placeholder={t('ContactForm.emailPlaceholder')}
+          defaultValue={actionData?.values?.email}
+        />
+        <button type="submit">
+          {t('ContactForm.submit')}
+        </button>
+      </form>
+    </div>
+  );
+}
+```
+
+**SEO-Friendly Meta Tags with i18n:**
+```tsx
+// app/routes/about.tsx
+import type { MetaFunction } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export const meta: MetaFunction = () => {
+  // Note: In SSR, you might need to handle translations differently for meta tags
+  return [
+    { title: 'About Us - Our Company' },
+    { name: 'description', content: 'Learn more about our company and mission' },
+  ];
+};
+
+export default function AboutPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('AboutPage.title')}</h1>
+      <p>{t('AboutPage.description')}</p>
+    </div>
+  );
+}
+```
+
+**Layout Components with i18n:**
+```tsx
+// app/components/Layout.tsx
+import { Outlet } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import Navigation from './Navigation';
+
+export default function Layout() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div className="min-h-screen">
+      <header>
+        <Navigation />
+      </header>
+      
+      <main>
+        <Outlet />
+      </main>
+      
+      <footer>
+        <p>{t('Footer.copyright', { year: new Date().getFullYear() })}</p>
+      </footer>
+    </div>
+  );
+}
+```
+
+**Error Pages with i18n:**
+```tsx
+// app/routes/$.tsx (Catch-all route for 404s)
+import { Link } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function NotFoundPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div className="error-page">
+      <h1>{t('Error.pageNotFound')}</h1>
+      <p>{t('Error.pageNotFoundMessage')}</p>
+      <Link to="/" className="btn">
+        {t('Error.goHome')}
+      </Link>
+    </div>
+  );
+}
+```
+
+### SSR-Specific i18n Considerations
+
+**Server-Side Translation Loading:**
+```tsx
+// app/entry.server.tsx
+import { renderToString } from 'react-dom/server';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n/server';
+
+export default function handleRequest(
+  request: Request,
+  responseStatusCode: number,
+  responseHeaders: Headers,
+  routerContext: RouterContext
+) {
+  // Initialize i18n for server-side rendering
+  const locale = getLocaleFromRequest(request);
+  i18n.changeLanguage(locale);
+  
+  const router = createMemoryRouter(routes, {
+    initialEntries: [request.url],
+  });
+  
+  const html = renderToString(
+    <I18nextProvider i18n={i18n}>
+      <RouterProvider router={router} />
+    </I18nextProvider>
+  );
+  
+  return new Response('<!DOCTYPE html>' + html, {
+    headers: { 'Content-Type': 'text/html' },
+    status: responseStatusCode,
+  });
+}
+```
+
+### Translation Key Organization for React Router SSR
+
+```json
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "contact": "Contact"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back, {{name}}!",
+    "statistics": "Statistics",
+    "recentActivity": "Recent Activity"
+  },
+  "ContactForm": {
+    "title": "Contact Us",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "emailPlaceholder": "Enter your email",
+    "messagePlaceholder": "Enter your message",
+    "submit": "Send Message",
+    "submitError": "Failed to send message. Please try again."
+  },
+  "Footer": {
+    "copyright": "© {{year}} Our Company. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "Error": {
+    "somethingWentWrong": "Something went wrong!",
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundMessage": "The page you're looking for doesn't exist.",
+    "goHome": "Go Home",
+    "serverError": "Server Error",
+    "tryAgain": "Try Again"
+  }
+}
+```
+
+### Testing SSR i18n
+
+**Server-side rendering tests:**
+```tsx
+// __tests__/ssr.test.tsx
+import { renderToString } from 'react-dom/server';
+import { createMemoryRouter, RouterProvider } from 'react-router';
+import DashboardPage from '@/routes/dashboard';
+
+// Mock translations for SSR testing
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({ t: (key: string) => key }),
+  I18nextProvider: ({ children }: { children: React.ReactNode }) => children,
+}));
+
+describe('SSR i18n', () => {
+  it('renders translated content on server', () => {
+    const router = createMemoryRouter([
+      {
+        path: '/dashboard',
+        element: <DashboardPage loaderData={{ user: { name: 'John' } }} />,
+      },
+    ], {
+      initialEntries: ['/dashboard'],
+    });
+    
+    const html = renderToString(<RouterProvider router={router} />);
+    
+    expect(html).toContain('Dashboard.title');
+  });
+});
+```
+
+This comprehensive approach ensures that all user-facing text in the React Router V7 SSR application is properly internationalized while maintaining SSR compatibility and performance.
 
 

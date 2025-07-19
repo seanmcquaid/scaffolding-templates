@@ -38,6 +38,7 @@ This project provides a production-ready Next.js application with server-side re
 - **TypeScript**: Full type safety with strict configuration
 - **TanStack Query**: Server state management with React integration
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling with custom design system
 - **shadcn/ui**: Component library built on Radix UI primitives
 - **i18next**: Internationalization with type safety
@@ -396,11 +397,64 @@ function PostsList() {
 - Handle submission states and error display
 - Provide good user feedback during form interactions
 
-### Local UI State
+### Client State Management
 
-- Use `useState` for simple component state
-- Use `useReducer` for complex state logic
-- Context for deeply nested prop drilling (sparingly)
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
+
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
+};
+
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
+
+**Local UI State**: Use useState for simple state, useReducer only for complex UI state:
+
+```typescript
+// ✅ Good - Simple state
+const [isOpen, setIsOpen] = useState(false);
+
+// ✅ Good - Complex UI state (not data management)
+const [wizardState, dispatch] = useReducer(wizardReducer, initialWizardState);
+
+// ❌ Bad - Don't manage server data with useReducer
+const [apiState, dispatch] = useReducer(apiReducer, { data: null, loading: false });
+// Use TanStack Query instead
+```
 
 ## Internationalization
 
@@ -603,11 +657,14 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (Next.js supports this well)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Server Components**: Leverage Next.js Server Components to reduce client-side state when possible
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -638,6 +695,214 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Context-aware translations**: Provide context to translators through key naming and comments
 - **Lazy loading**: Load translation bundles on-demand for better performance
 - **RTL support**: Consider right-to-left languages in CSS and layout design
+
+## ⚠️ Translation Requirements - MANDATORY
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a strict requirement for this Next.js project.
+
+### Translation Enforcement Rules
+
+1. **Never use hardcoded strings** - All text must use `useAppTranslation` hook
+2. **ESLint will catch violations** - The `i18next/no-literal-string` rule prevents hardcoded text
+3. **Tests validate i18n compliance** - Mock functions return translation keys for validation
+4. **Server Components support** - Use proper i18n patterns for both server and client components
+
+### Next.js-Specific i18n Patterns
+
+**Server Components with i18n:**
+```tsx
+// app/dashboard/page.tsx - Server Component
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function DashboardPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('Dashboard.title')}</h1>
+      <p>{t('Dashboard.welcomeMessage')}</p>
+    </div>
+  );
+}
+```
+
+**Client Components with i18n:**
+```tsx
+'use client';
+
+import { useActionState } from 'react';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import { updateProfile } from './actions';
+
+export default function ProfileForm() {
+  const { t } = useAppTranslation();
+  const [state, formAction, isPending] = useActionState(updateProfile, { message: '' });
+  
+  return (
+    <form action={formAction}>
+      <label>{t('ProfileForm.nameLabel')}</label>
+      <input name="name" placeholder={t('ProfileForm.namePlaceholder')} required />
+      
+      {state.message && (
+        <p className="error">{state.message}</p>
+      )}
+      
+      <button disabled={isPending}>
+        {isPending ? t('Common.submitting') : t('ProfileForm.submit')}
+      </button>
+    </form>
+  );
+}
+```
+
+**Server Actions with i18n:**
+```tsx
+'use server';
+
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+import { getAppFixedT } from '@/utils/i18n';
+
+export async function updateProfile(prevState: { message: string }, formData: FormData) {
+  const t = getAppFixedT();
+  
+  try {
+    const name = formData.get('name') as string;
+    
+    if (!name || name.length < 2) {
+      return { message: t('ProfileForm.validation.nameRequired') };
+    }
+    
+    // Process form data
+    await updateUserProfile({ name });
+    
+    revalidatePath('/profile');
+    
+    // Return success message
+    return { message: t('ProfileForm.updateSuccess') };
+  } catch (error) {
+    return { message: t('ProfileForm.updateError') };
+  }
+}
+```
+
+**Error Boundaries with i18n:**
+```tsx
+'use client';
+
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function ErrorBoundary({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  const { t } = useAppTranslation();
+
+  return (
+    <div className="error-boundary">
+      <h2>{t('Error.somethingWentWrong')}</h2>
+      <p>{t('Error.tryAgainMessage')}</p>
+      <button onClick={reset}>
+        {t('Error.tryAgainButton')}
+      </button>
+    </div>
+  );
+}
+```
+
+**Metadata with i18n:**
+```tsx
+// app/about/page.tsx
+import type { Metadata } from 'next';
+import getAppFixedT from '@/i18n/getAppFixedT';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getAppFixedT();
+  
+  return {
+    title: t('AboutPage.metaTitle'),
+    description: t('AboutPage.metaDescription'),
+  };
+}
+
+export default function AboutPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('AboutPage.title')}</h1>
+      <p>{t('AboutPage.content')}</p>
+    </div>
+  );
+}
+```
+
+### Translation Key Organization for Next.js
+
+```json
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "HomePage": {
+    "title": "Welcome to Our Application",
+    "subtitle": "Build amazing web experiences",
+    "metaTitle": "Home - Our Application",
+    "metaDescription": "Welcome to our modern web application"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeMessage": "Welcome back, {{userName}}!",
+    "metaTitle": "Dashboard - Our Application"
+  },
+  "Error": {
+    "somethingWentWrong": "Something went wrong!",
+    "tryAgainMessage": "Please try again or contact support if the problem persists.",
+    "tryAgainButton": "Try Again",
+    "pageNotFound": "Page Not Found",
+    "backToHome": "Back to Home"
+  }
+}
+```
+
+### Testing i18n in Next.js
+
+**Component tests with mocked translations:**
+```tsx
+// __tests__/dashboard.test.tsx
+import { render, screen } from '@testing-library/react';
+import DashboardPage from '@/app/dashboard/page';
+
+// setupTests.ts includes this mock:
+// vi.mock('react-i18next', () => ({
+//   useTranslation: () => ({ t: (key: string) => key })
+// }));
+
+describe('DashboardPage', () => {
+  it('renders translated content', () => {
+    render(<DashboardPage />);
+    
+    // Test expects translation keys since that's what the mock returns
+    expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
+    expect(screen.getByText('Dashboard.welcomeMessage')).toBeInTheDocument();
+  });
+});
+```
+
+This comprehensive approach ensures that all user-facing text in the Next.js application is properly internationalized and maintainable across different locales.
 
 ### API Client Best Practices
 - **Error handling strategy**: Implement consistent error handling across all API calls

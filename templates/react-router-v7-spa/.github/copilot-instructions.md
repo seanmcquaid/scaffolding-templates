@@ -39,6 +39,7 @@ This project provides a modern single-page application built with React Router V
 - **Vite**: Fast development server and build tool
 - **TanStack Query**: Server state management and caching
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with type safety
@@ -315,34 +316,82 @@ export function useUserProfileWithOptions(userId: string) {
 
 ### Client State Management
 
-```typescript
-// For simple component state
-const [isOpen, setIsOpen] = useState(false);
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
 
-// For complex state with useReducer
-type State = {
-  status: 'idle' | 'loading' | 'success' | 'error';
-  data: any;
-  error: string | null;
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+
+// Form state - ALWAYS use React Hook Form
+const { register, handleSubmit, formState: { errors } } = useForm({
+  resolver: zodResolver(schema),
+});
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
 };
 
-type Action =
-  | { type: 'LOADING' }
-  | { type: 'SUCCESS'; payload: any }
-  | { type: 'ERROR'; payload: string };
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
 
-function reducer(state: State, action: Action): State {
+**Complex UI State**: Use useReducer only for complex UI state, not data management:
+
+```typescript
+// ✅ Good - UI state like form wizards, modals with multiple steps
+type WizardState = {
+  step: number;
+  data: Record<string, any>;
+  isValid: boolean;
+};
+
+const wizardReducer = (state: WizardState, action: WizardAction) => {
   switch (action.type) {
-    case 'LOADING':
-      return { ...state, status: 'loading', error: null };
-    case 'SUCCESS':
-      return { ...state, status: 'success', data: action.payload };
-    case 'ERROR':
-      return { ...state, status: 'error', error: action.payload };
+    case 'NEXT_STEP':
+      return { ...state, step: state.step + 1 };
+    case 'PREV_STEP':
+      return { ...state, step: Math.max(0, state.step - 1) };
     default:
       return state;
   }
-}
+};
+
+// ❌ Bad - Don't use useReducer for data that should be in TanStack Query
+const dataReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_SUCCESS':
+      return { ...state, data: action.payload }; // Use TanStack Query instead
+  }
+};
 ```
 
 ## Component Architecture
@@ -653,10 +702,13 @@ route('dashboard', 'routes/dashboard.tsx', {
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
 - **Prefer URL state**: Use URL parameters for shareable application state
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **UseReducer for UI only**: Only use useReducer for complex UI state, not data management
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -730,3 +782,264 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Authentication**: Implement secure authentication patterns with proper session management
 - **HTTPS everywhere**: Ensure all network communications use HTTPS
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+## ⚠️ Translation Requirements - MANDATORY
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a strict requirement for this React Router V7 SPA project.
+
+### Translation Enforcement Rules
+
+1. **Never use hardcoded strings** - All text must use `useAppTranslation` hook
+2. **ESLint will catch violations** - The `i18next/no-literal-string` rule prevents hardcoded text
+3. **Tests validate i18n compliance** - Mock functions return translation keys for validation
+4. **Client-side optimization** - Leverage React Router's code splitting with i18n bundles
+
+### React Router V7 SPA i18n Patterns
+
+**Route Components with i18n:**
+```tsx
+// app/routes/dashboard.index.tsx
+import { useLoaderData } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import type { Route } from './+types';
+
+export async function loader({ request }: Route.LoaderArgs) {
+  // Loader logic here
+  return { user: await getUser() };
+}
+
+export default function DashboardPage({ loaderData }: Route.ComponentProps) {
+  const { t } = useAppTranslation();
+  const { user } = loaderData;
+  
+  return (
+    <div>
+      <h1>{t('Dashboard.title')}</h1>
+      <p>{t('Dashboard.welcomeBack', { name: user.name })}</p>
+    </div>
+  );
+}
+```
+
+**Client Actions with i18n:**
+```tsx
+// app/routes/contact.tsx
+import { redirect } from 'react-router';
+import { toast } from '@/hooks/useToast';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import type { Route } from './+types';
+
+export async function clientAction({ request }: Route.ClientActionArgs) {
+  const formData = await request.formData();
+  
+  try {
+    await submitContactForm(formData);
+    
+    // Use translation key for success message
+    toast({
+      title: 'ContactForm.submitSuccess',
+      type: 'success',
+    });
+    
+    return redirect('/contact/success');
+  } catch (error) {
+    return {
+      error: 'ContactForm.submitError'
+    };
+  }
+}
+
+export default function ContactPage({ actionData }: Route.ComponentProps) {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('ContactForm.title')}</h1>
+      {actionData?.error && (
+        <div className="error">
+          {t(actionData.error)}
+        </div>
+      )}
+      
+      <form method="post">
+        <input 
+          name="email" 
+          placeholder={t('ContactForm.emailPlaceholder')} 
+        />
+        <button type="submit">
+          {t('ContactForm.submit')}
+        </button>
+      </form>
+    </div>
+  );
+}
+```
+
+**Navigation with i18n:**
+```tsx
+// app/components/Navigation.tsx
+import { NavLink } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function Navigation() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <nav>
+      <NavLink to="/">
+        {t('Navigation.home')}
+      </NavLink>
+      <NavLink to="/dashboard">
+        {t('Navigation.dashboard')}
+      </NavLink>
+      <NavLink to="/profile">
+        {t('Navigation.profile')}
+      </NavLink>
+    </nav>
+  );
+}
+```
+
+**Error Boundaries with i18n:**
+```tsx
+// app/components/ErrorBoundary.tsx
+import { isRouteErrorResponse, useRouteError } from 'react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function ErrorBoundary() {
+  const { t } = useAppTranslation();
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="error-page">
+        <h1>{t('Error.pageNotFound')}</h1>
+        <p>{t('Error.pageNotFoundMessage')}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="error-page">
+      <h1>{t('Error.somethingWentWrong')}</h1>
+      <p>{t('Error.unexpectedError')}</p>
+    </div>
+  );
+}
+```
+
+### SPA-Specific i18n Optimizations
+
+**Lazy Loading Translation Bundles:**
+```tsx
+// app/i18n/loadTranslations.ts
+import { lazy } from 'react';
+
+export const loadTranslations = async (locale: string) => {
+  const translations = await import(`./locales/${locale}.json`);
+  return translations.default;
+};
+
+// Use with React Router's lazy loading
+export const LazyDashboard = lazy(() => import('../routes/dashboard.index'));
+```
+
+**Route-Based Translation Loading:**
+```tsx
+// app/routes/settings.tsx
+import { useEffect } from 'react';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function SettingsPage() {
+  const { t, i18n } = useAppTranslation();
+  
+  // Load settings-specific translations on demand
+  useEffect(() => {
+    i18n.loadNamespaces('settings');
+  }, [i18n]);
+  
+  return (
+    <div>
+      <h1>{t('Settings.title')}</h1>
+      <p>{t('Settings.description')}</p>
+    </div>
+  );
+}
+```
+
+### Translation Key Organization for React Router SPA
+
+```json
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "back": "Back"
+  },
+  "Navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back, {{name}}!",
+    "noData": "No data available",
+    "loadMore": "Load More"
+  },
+  "ContactForm": {
+    "title": "Contact Us",
+    "emailPlaceholder": "Enter your email",
+    "messagePlaceholder": "Enter your message",
+    "submit": "Send Message",
+    "submitSuccess": "Message sent successfully!",
+    "submitError": "Failed to send message. Please try again."
+  },
+  "Error": {
+    "somethingWentWrong": "Something went wrong!",
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundMessage": "The page you're looking for doesn't exist.",
+    "unexpectedError": "An unexpected error occurred",
+    "goHome": "Go Home"
+  }
+}
+```
+
+### Testing i18n in React Router SPA
+
+**Route testing with mocked translations:**
+```tsx
+// __tests__/dashboard.test.tsx
+import { render, screen } from '@testing-library/react';
+import { createRoutesStub } from 'react-router';
+import DashboardPage from '@/routes/dashboard.index';
+
+// setupTests.ts includes this mock:
+// vi.mock('react-i18next', () => ({
+//   useTranslation: () => ({ t: (key: string) => key })
+// }));
+
+describe('DashboardPage', () => {
+  it('renders translated content', () => {
+    const RoutesStub = createRoutesStub([
+      {
+        path: '/dashboard',
+        Component: DashboardPage,
+        loader: () => ({ user: { name: 'John' } }),
+      },
+    ]);
+    
+    render(<RoutesStub initialEntries={['/dashboard']} />);
+    
+    // Test expects translation keys since that's what the mock returns
+    expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
+  });
+});
+```
+
+This ensures that all user-facing text in the React Router V7 SPA is properly internationalized and leverages client-side routing for optimal user experience.
