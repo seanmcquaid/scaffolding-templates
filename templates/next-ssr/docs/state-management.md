@@ -115,8 +115,6 @@ async function ProductList({ searchParams }: { searchParams: { category?: string
 }
 ```
 
-For comprehensive code examples of each state management pattern, refer to the root [CoPilot Instructions](../../.github/copilot-instructions.md) which includes detailed examples for URL state, web storage, context, global state, and more.
-
 ## HTTP Requests
 
 For managing state for HTTP requests, I recommend the following:
