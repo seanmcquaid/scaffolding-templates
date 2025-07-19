@@ -58,6 +58,11 @@ This repository contains a collection of opinionated scaffolding templates for m
 - **@testing-library/react**: Component testing utilities
 - **MSW (Mock Service Worker)**: API mocking for testing
 
+#### Three-Tier Testing Approach (from repository docs):
+1. **Unit Tests** for components, hooks, utils, pages, etc. - If a component navigates to another page and you want to test behavior after that navigation, test that in an integration test instead.
+2. **Integration Tests with mocked APIs** for happy path flows - Due to MSW limitations with server-side requests, run your app while hitting the MSW server to mock server-side requests. This is a limitation of SSR with MSW.
+3. **End-to-End Tests with real APIs** for high level user flows - Use Playwright or Cypress in a real browser environment. These tests can be slow and brittle, so don't include them in PR checks. Run them in CI/CD pipeline after successful build and deploy.
+
 ### Build & Development
 - **Vite**: Primary build tool for most project templates
 - **tsup**: Build tool for TypeScript libraries
@@ -79,7 +84,7 @@ Follow consistent directory structure across project templates:
 ##### File Organization Best Practices
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
@@ -109,6 +114,23 @@ Follow consistent directory structure across project templates:
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+
+#### State Management Hierarchy (from repository docs):
+| State Type | Use case |
+|------------|----------|
+| URL | Sharable app location |
+| Web storage | Persist between sessions, one browser |
+| Local state | Only one component needs the state |
+| Lifted state | Multiple related components need the state |
+| Derived state | State can be derived from existing state |
+| Refs | DOM Reference, state that isn't rendered |
+| Context | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+**HTTP Requests**: For managing state for HTTP requests:
+1. Use what's built into your framework (e.g., Next.js RSC for server state)
+2. TanStack Query if not using Redux Toolkit for client-side caching
+3. Redux Toolkit Query if using Redux Toolkit
 
 #### Styling
 - **Tailwind CSS**: Utility-first CSS framework
@@ -204,6 +226,85 @@ Follow consistent directory structure across project templates:
 - **Bundle analysis**: Regularly analyze bundle composition and eliminate unused code
 - **Loading strategies**: Implement progressive loading for improved perceived performance
 
+#### React Performance Best Practices
+- **Memoization strategy**: Use React.memo for pure components with complex props
+- **Callback optimization**: Use useCallback for functions passed to child components
+- **Value memoization**: Use useMemo for expensive calculations, not primitive values
+- **Key prop patterns**: Use stable, unique keys for list items; avoid array indices
+- **Component splitting**: Split large components into smaller, focused components
+- **Profiler usage**: Use React DevTools Profiler to identify performance bottlenecks
+
+## Environment Configuration
+
+### Environment Variables with Zod Validation
+
+```typescript
+// env.client.ts - Client-side environment variables
+import { z } from 'zod';
+
+const clientEnvSchema = z.object({
+  NEXT_PUBLIC_API_URL: z.string().url(),
+});
+
+export const clientEnv = clientEnvSchema.parse({
+  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+});
+
+// env.server.ts - Server-side environment variables
+const serverEnvSchema = z.object({
+  DATABASE_URL: z.string().url(),
+  SECRET_KEY: z.string().min(32),
+});
+
+export const serverEnv = serverEnvSchema.parse(process.env);
+```
+
+## SEO Best Practices
+
+- **Metadata management**: Use framework metadata APIs for dynamic and static metadata
+- **Structured data**: Implement JSON-LD structured data for rich snippets
+- **Sitemap generation**: Generate sitemaps automatically for better indexing
+- **Open Graph optimization**: Implement proper Open Graph and Twitter Card metadata
+- **Performance optimization**: Optimize Core Web Vitals (LCP, FID, CLS) for better rankings
+- **Mobile optimization**: Ensure responsive design and mobile-first development
+
+## Deployment Patterns
+
+### Client-Side Rendering (CSR)
+```
+Domain -> DNS -> CDN -> WAF -> S3
+```
+- CDN for Static assets (Cloudfront, Fastly, etc) for static directory
+- Host static files on S3 or similar
+- Web Application Firewall (Cloudflare, AWS WAF, etc)
+- DNS Resolution + Aliasing (Route53, Cloudflare, etc)
+
+### Server-Side Rendering (SSR)
+```
+Domain -> DNS -> CDN -> WAF -> Server
+```
+- CDN for Static assets (Cloudfront, Fastly, etc) for static directory
+- Server for SSR (Kubernetes, ECS, etc)
+- Web Application Firewall (Cloudflare, AWS WAF, etc)
+- DNS Resolution + Aliasing (Route53, Cloudflare, etc)
+
+### Deployment Best Practices
+- **Build optimization**: Optimize build process and enable all framework optimizations
+- **Caching strategy**: Implement proper CDN and browser caching strategies
+- **Monitoring setup**: Set up monitoring for Core Web Vitals and error tracking
+- **Environment configuration**: Use proper environment variable management across deployment stages
+- **Database optimization**: Implement connection pooling and query optimization for server-side data fetching
+- **Edge deployment**: Consider edge deployment for global performance optimization
+
+## Publishing Workflow (for TypeScript Libraries)
+
+Using Changesets for NPM publishing with GitHub Actions:
+
+1. Add GitHub Token and NPM Token as secrets for GitHub Actions
+2. Run `pnpm changeset` locally to add a changeset markdown file and commit it
+3. Push to main branch - another PR will open giving you the option to merge the current changeset
+4. Merge the changeset PR to trigger the release process
+
 ## Contributing Guidelines
 - Each project template should be self-contained and fully functional
 - Include comprehensive README and documentation
@@ -226,6 +327,15 @@ Follow consistent directory structure across project templates:
 - **Authentication**: Implement secure authentication patterns with proper session management
 - **HTTPS everywhere**: Ensure all network communications use HTTPS
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+### Monitoring and Error Tracking
+
+- **Core Web Vitals monitoring**: Track LCP, FID, CLS metrics in production
+- **Error tracking**: Implement comprehensive error tracking and reporting
+- **Performance monitoring**: Monitor bundle sizes, build times, and runtime performance
+- **User analytics**: Track user behavior and application usage patterns
+- **Health checks**: Implement application health checks for deployment validation
+- **Alerting**: Set up alerts for critical application failures and performance degradation
 
 ### Accessibility Best Practices
 - **Semantic HTML**: Use proper HTML elements for their intended purpose
