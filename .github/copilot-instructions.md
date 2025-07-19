@@ -104,8 +104,53 @@ Follow consistent directory structure across project templates:
 
 #### State Management
 - **TanStack Query**: For server state management
-- **React Hook Form**: For form state management
+- **React Hook Form**: For form state management (avoid managing form state manually)
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - Local component state with useState/useReducer for UI state
+
+##### Essential Hooks Library (usehooks-ts)
+The `usehooks-ts` library provides type-safe, well-tested hooks for common patterns:
+
+**Storage Hooks**:
+- `useLocalStorage` - Persist state in localStorage with JSON serialization
+- `useSessionStorage` - Persist state in sessionStorage for single sessions
+- `useReadLocalStorage` - Read-only access to localStorage values
+
+**UI/UX Hooks**:
+- `useToggle` - Boolean state with toggle, set true/false methods
+- `useBoolean` - More explicit boolean state management
+- `useCounter` - Counter with increment/decrement/reset/set methods
+- `useDebounce` - Debounce values for search inputs and API calls
+- `useThrottle` - Throttle rapidly changing values
+
+**Browser API Hooks**:
+- `useWindowSize` - Responsive design with window dimensions
+- `useMediaQuery` - CSS media query matching
+- `useOnClickOutside` - Close modals/dropdowns when clicking outside
+- `useEventListener` - Clean event listener management
+- `useCopyToClipboard` - Copy text to clipboard with feedback
+
+**Advanced Hooks**:
+- `usePrevious` - Access previous value of a variable
+- `useUpdateEffect` - useEffect that skips the first render
+- `useInterval` - Declarative interval hook with cleanup
+- `useTimeout` - Declarative timeout hook with cleanup
+
+Example usage:
+```tsx
+import { useLocalStorage, useToggle, useDebounce } from 'usehooks-ts';
+
+const UserPreferences = () => {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [showAdvanced, toggleAdvanced] = useToggle(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearch = useDebounce(searchTerm, 300);
+
+  return (
+    // Component using the hooks...
+  );
+};
+```
 
 ##### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
@@ -114,6 +159,8 @@ Follow consistent directory structure across project templates:
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Form state**: Always use React Hook Form instead of manual state management for forms
+- **Use proven hooks**: Leverage usehooks-ts for common patterns instead of implementing from scratch
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -131,6 +178,448 @@ Follow consistent directory structure across project templates:
 1. Use what's built into your framework (e.g., Next.js RSC for server state)
 2. TanStack Query if not using Redux Toolkit for client-side caching
 3. Redux Toolkit Query if using Redux Toolkit
+
+##### State Management Code Examples
+
+**URL State - Search and Filter Interface**:
+```tsx
+import { useSearchParams } from 'react-router'; // or Next.js useSearchParams
+
+const ProductSearch = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [tempSearch, setTempSearch] = useState(searchParams.get('search') || '');
+
+  // Extract state from URL
+  const search = searchParams.get('search') || '';
+  const category = searchParams.get('category') || 'all';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
+  // Helper to update URL params
+  const updateParams = (updates: Record<string, string | null>) => {
+    const newParams = new URLSearchParams(searchParams);
+    
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === null || value === '') {
+        newParams.delete(key);
+      } else {
+        newParams.set(key, value);
+      }
+    });
+
+    // Reset to page 1 when filters change
+    if (!('page' in updates) && Object.keys(updates).some(key => key !== 'page')) {
+      newParams.delete('page');
+    }
+
+    setSearchParams(newParams);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateParams({ search: tempSearch });
+  };
+
+  // Filter and paginate data based on URL state
+  const filteredResults = data.filter(item => 
+    item.name.toLowerCase().includes(search.toLowerCase()) &&
+    (category === 'all' || item.category === category)
+  );
+
+  return (
+    <div>
+      <form onSubmit={handleSearch}>
+        <input
+          value={tempSearch}
+          onChange={(e) => setTempSearch(e.target.value)}
+          placeholder="Search..."
+        />
+        <button type="submit">Search</button>
+      </form>
+      
+      <select
+        value={category}
+        onChange={(e) => updateParams({ category: e.target.value })}
+      >
+        <option value="all">All Categories</option>
+        <option value="frontend">Frontend</option>
+        <option value="backend">Backend</option>
+      </select>
+
+      {/* Results and pagination */}
+      <div className="results">
+        {filteredResults.map(item => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+**Web Storage - Type-Safe Persistence with i18n**:
+```tsx
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+interface UserPreferences {
+  theme: 'light' | 'dark' | 'auto';
+  language: 'en-US' | 'en-CA'; // Align with actual locale detection
+  notifications: boolean;
+}
+
+const UserSettings = () => {
+  const { t, i18n } = useAppTranslation();
+  
+  // localStorage for persistent preferences
+  const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
+    'userPreferences',
+    { theme: 'light', language: 'en-US', notifications: true }
+  );
+
+  // sessionStorage for temporary data
+  const [sessionData, setSessionData] = useSessionStorage('sessionData', {
+    tabId: Math.random().toString(36).substr(2, 9),
+    startTime: new Date().toISOString(),
+  });
+
+  const updateTheme = (theme: UserPreferences['theme']) => {
+    setPreferences(prev => ({ ...prev, theme }));
+  };
+
+  const updateLanguage = (language: UserPreferences['language']) => {
+    setPreferences(prev => ({ ...prev, language }));
+    i18n.changeLanguage(language); // Update i18next language
+  };
+
+  return (
+    <div>
+      <h3>{t('Settings.title')}</h3>
+      <select
+        value={preferences.theme}
+        onChange={(e) => updateTheme(e.target.value as UserPreferences['theme'])}
+      >
+        <option value="light">{t('Settings.lightTheme')}</option>
+        <option value="dark">{t('Settings.darkTheme')}</option>
+        <option value="auto">{t('Settings.autoTheme')}</option>
+      </select>
+
+      <select
+        value={preferences.language}
+        onChange={(e) => updateLanguage(e.target.value as UserPreferences['language'])}
+      >
+        <option value="en-US">{t('Settings.englishUS')}</option>
+        <option value="en-CA">{t('Settings.englishCA')}</option>
+      </select>
+
+      <h3>{t('Settings.sessionInfo')}</h3>
+      <p>{t('Settings.tabId')}: {sessionData.tabId}</p>
+      <p>{t('Settings.sessionStarted')}: {sessionData.startTime}</p>
+    </div>
+  );
+};
+```
+
+**Local State - Component-Specific State with i18n**:
+```tsx
+import { useToggle, useCounter } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const LocalStateExample = () => {
+  const { t } = useAppTranslation();
+  
+  // Simple boolean state
+  const [isVisible, toggleVisible] = useToggle(false);
+  
+  // Counter with built-in operations
+  const { count, increment, decrement, reset, setCount } = useCounter(0);
+
+  return (
+    <div>
+      {/* Toggle example */}
+      <button onClick={toggleVisible}>
+        {isVisible ? t('Common.hide') : t('Common.show')} {t('Common.content')}
+      </button>
+      {isVisible && <p>{t('LocalState.toggledContent')}</p>}
+
+      {/* Counter example */}
+      <div>
+        <span>{t('Common.count')}: {count}</span>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+        <button onClick={reset}>{t('Common.reset')}</button>
+        <button onClick={() => setCount(10)}>{t('LocalState.setToTen')}</button>
+      </div>
+    </div>
+  );
+};
+```
+
+**Lifted State - Shared Between Components**:
+```tsx
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+const ShoppingCartContext = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  return (
+    <div>
+      <ProductCatalog onAddToCart={addToCart} />
+      <CartSidebar items={cartItems} onRemove={removeFromCart} />
+      <CartSummary items={cartItems} />
+    </div>
+  );
+};
+```
+
+**Derived State - Computed Values**:
+```tsx
+import { useMemo } from 'react';
+
+const ShoppingCartSummary = ({ items }: { items: CartItem[] }) => {
+  // Compute derived values with useMemo
+  const summary = useMemo(() => {
+    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const averagePrice = totalItems > 0 ? totalPrice / totalItems : 0;
+    const mostExpensive = items.reduce((max, item) => 
+      item.price > max.price ? item : max, items[0]
+    );
+
+    return { totalItems, totalPrice, averagePrice, mostExpensive };
+  }, [items]);
+
+  return (
+    <div>
+      <p>Total Items: {summary.totalItems}</p>
+      <p>Total Price: ${summary.totalPrice.toFixed(2)}</p>
+      <p>Average Price: ${summary.averagePrice.toFixed(2)}</p>
+      {summary.mostExpensive && (
+        <p>Most Expensive: {summary.mostExpensive.name}</p>
+      )}
+    </div>
+  );
+};
+```
+
+**Refs - DOM Interaction and Non-Rendering Values**:
+```tsx
+import { useRef, useEffect } from 'react';
+import { usePrevious, useInterval } from 'usehooks-ts';
+
+const RefsExample = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [count, setCount] = useState(0);
+  const previousCount = usePrevious(count);
+
+  // Focus management
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  // Timer with cleanup
+  useInterval(() => {
+    setCount(c => c + 1);
+  }, 1000);
+
+  return (
+    <div>
+      <input ref={inputRef} placeholder="Click button to focus" />
+      <button onClick={focusInput}>Focus Input</button>
+      
+      <p>Current count: {count}</p>
+      <p>Previous count: {previousCount}</p>
+    </div>
+  );
+};
+```
+
+**Context - Subtree State Management with i18n**:
+```tsx
+import { createContext, useContext, ReactNode } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === 'dark' ? 'dark' : ''}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
+
+// Usage in components with proper i18n
+const ThemeToggle = () => {
+  const { t } = useAppTranslation();
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? t('Theme.switchToDark') : t('Theme.switchToLight')}
+    </button>
+  );
+};
+```
+
+**Global State - Application-Wide State**:
+```tsx
+// Simple global store implementation
+interface GlobalState {
+  user: User | null;
+  notifications: Notification[];
+  isOnline: boolean;
+}
+
+const useGlobalStore = () => {
+  const [state, setState] = useState<GlobalState>({
+    user: null,
+    notifications: [],
+    isOnline: navigator.onLine,
+  });
+
+  const setUser = (user: User | null) => {
+    setState(prev => ({ ...prev, user }));
+  };
+
+  const addNotification = (notification: Omit<Notification, 'id'>) => {
+    const newNotification = { ...notification, id: Date.now() };
+    setState(prev => ({
+      ...prev,
+      notifications: [...prev.notifications, newNotification],
+    }));
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      setState(prev => ({
+        ...prev,
+        notifications: prev.notifications.filter(n => n.id !== newNotification.id),
+      }));
+    }, 5000);
+  };
+
+  // Listen for online/offline events
+  useEventListener('online', () => setState(prev => ({ ...prev, isOnline: true })));
+  useEventListener('offline', () => setState(prev => ({ ...prev, isOnline: false })));
+
+  return { state, setUser, addNotification };
+};
+
+// For larger applications, consider:
+// - Redux Toolkit for complex state logic
+// - Zustand for simpler global state
+// - Jotai for atomic state management
+```
+
+**Form State Management with React Hook Form**:
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  age: z.number().min(18, 'Must be at least 18 years old'),
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+
+const UserForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      age: 18,
+    },
+  });
+
+  const onSubmit = async (data: UserFormData) => {
+    try {
+      await submitUser(data);
+      reset();
+    } catch (error) {
+      console.error('Failed to submit:', error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        {...register('name')}
+        placeholder="Name"
+      />
+      {errors.name && <span>{errors.name.message}</span>}
+
+      <input
+        {...register('email')}
+        type="email"
+        placeholder="Email"
+      />
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <input
+        {...register('age', { valueAsNumber: true })}
+        type="number"
+        placeholder="Age"
+      />
+      {errors.age && <span>{errors.age.message}</span>}
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+};
+```
 
 #### Styling
 - **Tailwind CSS**: Utility-first CSS framework
@@ -150,6 +639,203 @@ Follow consistent directory structure across project templates:
 - **react-i18next**: React bindings for i18next
 - Type-safe translation keys
 
+##### ⚠️ Translation Requirements
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a mandatory requirement across all project templates.
+
+**❌ NEVER use hardcoded strings in components:**
+```tsx
+// ❌ BAD - Never do this
+const BadComponent = () => {
+  return (
+    <div>
+      <h1>Welcome to the app</h1>
+      <button>Click me</button>
+      <p>Hello world</p>
+    </div>
+  );
+};
+```
+
+**✅ ALWAYS use translation keys:**
+```tsx
+// ✅ GOOD - Always do this
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const GoodComponent = () => {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('WelcomePage.title')}</h1>
+      <button>{t('Common.clickMe')}</button>
+      <p>{t('Common.helloWorld')}</p>
+    </div>
+  );
+};
+```
+
+**Translation Enforcement:**
+- ESLint rule `i18next/no-literal-string` prevents hardcoded strings
+- All templates must pass this linting rule
+- Test mocks return translation keys for validation
+
+##### Translation Key Naming Conventions
+
+**Organize by feature/page:**
+```typescript
+// en-US.json structure
+{
+  "Common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "HomePage": {
+    "title": "Welcome to the Application",
+    "subtitle": "Get started with modern web development"
+  },
+  "UserProfile": {
+    "title": "User Profile",
+    "editButton": "Edit Profile",
+    "saveChanges": "Save Changes"
+  },
+  "Form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "minLength": "Must be at least {{count}} characters"
+    }
+  }
+}
+```
+
+**Key naming patterns:**
+- Use PascalCase for namespaces: `HomePage`, `UserProfile`
+- Use camelCase for keys: `title`, `submitButton`, `errorMessage`
+- Use descriptive names: `deleteConfirmation` not `confirm`
+- Group related keys: `validation.required`, `validation.email`
+
+##### Dynamic Content and Interpolation
+
+**Variable interpolation:**
+```tsx
+// Translation file
+{
+  "UserGreeting": {
+    "welcome": "Welcome back, {{name}}!",
+    "itemCount": "You have {{count}} item",
+    "itemCount_other": "You have {{count}} items"
+  }
+}
+
+// Component usage
+const UserDashboard = ({ user, items }: Props) => {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('UserGreeting.welcome', { name: user.name })}</h1>
+      <p>{t('UserGreeting.itemCount', { count: items.length })}</p>
+    </div>
+  );
+};
+```
+
+**Conditional content:**
+```tsx
+// Use translation keys for all conditions
+const StatusBadge = ({ status }: { status: 'active' | 'inactive' | 'pending' }) => {
+  const { t } = useAppTranslation();
+  
+  const statusKey = `Status.${status}` as const;
+  const colorClass = status === 'active' ? 'text-green-500' : 
+                    status === 'inactive' ? 'text-red-500' : 'text-yellow-500';
+  
+  return (
+    <span className={colorClass}>
+      {t(statusKey)}
+    </span>
+  );
+};
+```
+
+##### Form Labels and Validation
+
+**Form fields with i18n:**
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const ContactForm = () => {
+  const { t } = useAppTranslation();
+  
+  // Create schema with translated error messages
+  const schema = z.object({
+    name: z.string().min(2, t('Form.validation.nameMinLength')),
+    email: z.string().email(t('Form.validation.invalidEmail')),
+    message: z.string().min(10, t('Form.validation.messageMinLength')),
+  });
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>{t('ContactForm.name')}</label>
+        <input {...register('name')} />
+        {errors.name && <span>{errors.name.message}</span>}
+      </div>
+      
+      <div>
+        <label>{t('ContactForm.email')}</label>
+        <input {...register('email')} type="email" />
+        {errors.email && <span>{errors.email.message}</span>}
+      </div>
+      
+      <div>
+        <label>{t('ContactForm.message')}</label>
+        <textarea {...register('message')} />
+        {errors.message && <span>{errors.message.message}</span>}
+      </div>
+      
+      <button type="submit">{t('ContactForm.submit')}</button>
+    </form>
+  );
+};
+```
+
+##### Testing with i18n
+
+**Mock translations in tests:**
+```typescript
+// setupTests.ts - All templates include this mock
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      i18n: {
+        changeLanguage: () => Promise.resolve(),
+      },
+      t: (i18nKey: string) => i18nKey, // Returns the key for validation
+    };
+  },
+}));
+
+// Test expects translation keys, not translated text
+test('displays form validation error', async () => {
+  render(<ContactForm />);
+  
+  await user.click(screen.getByText('ContactForm.submit'));
+  
+  expect(screen.getByText('Form.validation.nameRequired')).toBeInTheDocument();
+});
+```
+
 ##### Internationalization Best Practices
 - **Type-safe translations**: Generate TypeScript types from translation files to catch missing keys at compile time
 - **Namespace organization**: Organize translations by feature or page to avoid conflicts and improve maintainability
@@ -157,6 +843,65 @@ Follow consistent directory structure across project templates:
 - **Context-aware translations**: Provide context to translators through key naming and comments
 - **Lazy loading**: Load translation bundles on-demand for better performance
 - **RTL support**: Consider right-to-left languages in CSS and layout design
+
+##### Locale Management Implementation
+The project templates implement locale management with:
+
+**Language Detection Order**:
+1. Query string (`?lng=en-US`)
+2. Domain-based detection (`.ca` domain → `en-CA`)
+3. Cookie storage
+4. localStorage persistence (`i18nextLng`)
+5. Browser navigator language
+6. HTML tag language attribute
+
+**Configuration Example**:
+```typescript
+// i18next.client.ts
+languageDetector.addDetector({
+  cacheUserLanguage(lng) {
+    localStorage.setItem('i18nextLng', lng);
+  },
+  lookup() {
+    const host = window.location.host;
+    if (host.includes('.ca')) {
+      return 'en-CA';
+    }
+    return 'en-US';
+  },
+  name: 'domain',
+});
+
+i18next.init({
+  detection: {
+    order: [
+      'querystring',
+      'domain',
+      'cookie', 
+      'localStorage',
+      'navigator',
+      'htmlTag',
+    ],
+  },
+  fallbackLng: 'en-US',
+  // ...
+});
+```
+
+**Type-Safe Translation Hook**:
+```typescript
+// useAppTranslation.tsx
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const Component = () => {
+  const { t, i18n } = useAppTranslation();
+  
+  // Type-safe translation keys
+  return <h1>{t('HomePage.title')}</h1>;
+};
+```
+
+This approach ensures locale state is properly managed and persisted across sessions while providing type safety for translation keys.
 
 ## Development Guidelines
 

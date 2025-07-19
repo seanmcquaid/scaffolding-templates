@@ -39,6 +39,7 @@ This project provides a modern single-page application built with TanStack Route
 - **Vite**: Fast development server and build tool
 - **TanStack Query**: Server state management integrated with router
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with type safety
@@ -769,11 +770,14 @@ it('updates search params when filter changes', async () => {
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (TanStack Router excels at this)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Router-integrated state**: Leverage TanStack Router's search params and loaders for shareable state
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -847,5 +851,386 @@ it('updates search params when filter changes', async () => {
 - **Authentication**: Implement secure authentication patterns with proper session management
 - **HTTPS everywhere**: Ensure all network communications use HTTPS
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+## ⚠️ Translation Requirements - MANDATORY
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a strict requirement for this TanStack Router SPA project.
+
+### Translation Enforcement Rules
+
+1. **Never use hardcoded strings** - All text must use `useAppTranslation` hook
+2. **ESLint will catch violations** - The `i18next/no-literal-string` rule prevents hardcoded text
+3. **Tests validate i18n compliance** - Mock functions return translation keys for validation
+4. **Type-safe routing** - Leverage TanStack Router's type safety with i18n patterns
+
+### TanStack Router SPA i18n Patterns
+
+**File-Based Route Components with i18n:**
+```tsx
+// src/routes/dashboard/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import useAppTranslation from '@/hooks/useAppTranslation';
+import { getDashboardDataQuery } from '@/services/queries/dashboard';
+
+export const Route = createFileRoute('/dashboard/')({
+  component: DashboardPage,
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(getDashboardDataQuery()),
+});
+
+function DashboardPage() {
+  const { t } = useAppTranslation();
+  const { data } = useSuspenseQuery(getDashboardDataQuery());
+  
+  return (
+    <div>
+      <h1>{t('Dashboard.title')}</h1>
+      <p>{t('Dashboard.welcomeMessage', { name: data.user.name })}</p>
+    </div>
+  );
+}
+```
+
+**Route Search Params with i18n:**
+```tsx
+// src/routes/products/index.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { z } from 'zod';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const searchSchema = z.object({
+  search: z.string().optional(),
+  category: z.string().optional(),
+  page: z.number().optional().default(1),
+});
+
+export const Route = createFileRoute('/products/')({
+  component: ProductsPage,
+  validateSearch: searchSchema,
+});
+
+function ProductsPage() {
+  const { t } = useAppTranslation();
+  const { search, category, page } = Route.useSearch();
+  const navigate = Route.useNavigate();
+  
+  const updateSearch = (newSearch: string) => {
+    navigate({
+      search: (prev) => ({ ...prev, search: newSearch, page: 1 }),
+    });
+  };
+  
+  return (
+    <div>
+      <h1>{t('ProductsPage.title')}</h1>
+      
+      <input
+        placeholder={t('ProductsPage.searchPlaceholder')}
+        value={search || ''}
+        onChange={(e) => updateSearch(e.target.value)}
+      />
+      
+      {!search && (
+        <p>{t('ProductsPage.browseProducts')}</p>
+      )}
+      
+      {search && (
+        <p>{t('ProductsPage.searchResults', { query: search })}</p>
+      )}
+    </div>
+  );
+}
+```
+
+**Navigation with Type-Safe i18n:**
+```tsx
+// src/components/Navigation.tsx
+import { Link } from '@tanstack/react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function Navigation() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <nav className="main-nav">
+      <Link to="/" className="nav-link">
+        {t('Navigation.home')}
+      </Link>
+      <Link to="/dashboard" className="nav-link">
+        {t('Navigation.dashboard')}
+      </Link>
+      <Link to="/products" search={{ category: 'all' }} className="nav-link">
+        {t('Navigation.products')}
+      </Link>
+      <Link to="/profile" className="nav-link">
+        {t('Navigation.profile')}
+      </Link>
+    </nav>
+  );
+}
+```
+
+**Error Components with i18n:**
+```tsx
+// src/routes/__root.tsx
+import { createRootRoute, Outlet } from '@tanstack/react-router';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export const Route = createRootRoute({
+  component: RootComponent,
+  errorComponent: ErrorComponent,
+  notFoundComponent: NotFoundComponent,
+});
+
+function ErrorComponent({ error }: { error: Error }) {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div className="error-page">
+      <h1>{t('Error.somethingWentWrong')}</h1>
+      <p>{t('Error.errorMessage')}</p>
+      <pre>{error.message}</pre>
+    </div>
+  );
+}
+
+function NotFoundComponent() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div className="not-found-page">
+      <h1>{t('Error.pageNotFound')}</h1>
+      <p>{t('Error.pageNotFoundMessage')}</p>
+      <Link to="/">
+        {t('Error.goHome')}
+      </Link>
+    </div>
+  );
+}
+
+function RootComponent() {
+  return (
+    <div className="app">
+      <Outlet />
+    </div>
+  );
+}
+```
+
+**Loading States with i18n:**
+```tsx
+// src/routes/dashboard/settings.tsx
+import { createFileRoute } from '@tanstack/react-router';
+import { Suspense } from 'react';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export const Route = createFileRoute('/dashboard/settings')({
+  component: SettingsPage,
+});
+
+function LoadingSpinner() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div className="loading-spinner">
+      <span>{t('Common.loading')}</span>
+    </div>
+  );
+}
+
+function SettingsPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('SettingsPage.title')}</h1>
+      
+      <Suspense fallback={<LoadingSpinner />}>
+        <SettingsForm />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+**Search Validation with i18n Error Messages:**
+```tsx
+// src/routes/search/index.tsx
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { z } from 'zod';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const searchSchema = z.object({
+  q: z.string().min(1, 'SearchPage.validation.queryRequired'),
+  type: z.enum(['all', 'posts', 'users']).default('all'),
+});
+
+export const Route = createFileRoute('/search/')({
+  component: SearchPage,
+  validateSearch: searchSchema,
+  beforeLoad: ({ search }) => {
+    // Redirect if search query is invalid
+    if (!search.q) {
+      throw redirect({ to: '/' });
+    }
+  },
+});
+
+function SearchPage() {
+  const { t } = useAppTranslation();
+  const { q, type } = Route.useSearch();
+  
+  return (
+    <div>
+      <h1>{t('SearchPage.title')}</h1>
+      <p>{t('SearchPage.searchingFor', { query: q, type })}</p>
+    </div>
+  );
+}
+```
+
+### TanStack Router Specific i18n Optimizations
+
+**Route-Based Code Splitting with i18n:**
+```tsx
+// src/routes/admin/index.lazy.tsx
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { lazy } from 'react';
+
+// Lazy load both component and its translations
+const AdminDashboard = lazy(async () => {
+  const [mod, translations] = await Promise.all([
+    import('../components/AdminDashboard'),
+    import('../i18n/locales/admin/en-US.json'),
+  ]);
+  
+  // Register admin-specific translations
+  i18n.addResourceBundle('en-US', 'admin', translations.default);
+  
+  return mod;
+});
+
+export const Route = createLazyFileRoute('/admin/')({
+  component: AdminDashboard,
+});
+```
+
+### Translation Key Organization for TanStack Router
+
+```json
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "search": "Search",
+    "filter": "Filter"
+  },
+  "Navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "profile": "Profile",
+    "admin": "Admin"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeMessage": "Welcome back, {{name}}!",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions"
+  },
+  "ProductsPage": {
+    "title": "Products",
+    "searchPlaceholder": "Search products...",
+    "browseProducts": "Browse our products",
+    "searchResults": "Results for \"{{query}}\"",
+    "noResults": "No products found",
+    "loadMore": "Load More Products"
+  },
+  "SearchPage": {
+    "title": "Search Results",
+    "searchingFor": "Searching {{type}} for \"{{query}}\"",
+    "validation": {
+      "queryRequired": "Search query is required"
+    }
+  },
+  "Error": {
+    "somethingWentWrong": "Something went wrong!",
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundMessage": "The page you're looking for doesn't exist.",
+    "errorMessage": "An unexpected error occurred",
+    "goHome": "Go Home"
+  }
+}
+```
+
+### Testing TanStack Router i18n
+
+**Route component testing:**
+```tsx
+// __tests__/dashboard.test.tsx
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from '@tanstack/react-router';
+import { createRoutesStub } from '@/utils/testing/createRoutesStub';
+import DashboardPage from '@/routes/dashboard/index';
+
+// setupTests.ts includes this mock:
+// vi.mock('react-i18next', () => ({
+//   useTranslation: () => ({ t: (key: string) => key })
+// }));
+
+describe('DashboardPage', () => {
+  it('renders translated content', async () => {
+    const RoutesStub = createRoutesStub([
+      {
+        path: '/dashboard',
+        component: DashboardPage,
+      },
+    ]);
+    
+    render(<RoutesStub />);
+    
+    // Test expects translation keys since that's what the mock returns
+    expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
+  });
+});
+```
+
+**Navigation testing with type safety:**
+```tsx
+// __tests__/navigation.test.tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Navigation from '@/components/Navigation';
+import { createRoutesStub } from '@/utils/testing/createRoutesStub';
+
+describe('Navigation', () => {
+  it('navigates to products with correct search params', async () => {
+    const user = userEvent.setup();
+    
+    const RoutesStub = createRoutesStub([
+      {
+        path: '/',
+        component: () => <Navigation />,
+      },
+      {
+        path: '/products',
+        component: () => <div>Products Page</div>,
+      },
+    ]);
+    
+    render(<RoutesStub />);
+    
+    await user.click(screen.getByText('Navigation.products'));
+    
+    expect(screen.getByText('Products Page')).toBeInTheDocument();
+  });
+});
+```
+
+This ensures that all user-facing text in the TanStack Router SPA is properly internationalized while leveraging TanStack Router's powerful type-safe routing and search parameter features.
 
 
