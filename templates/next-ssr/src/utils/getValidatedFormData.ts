@@ -26,8 +26,7 @@ const getValidatedFormData = <T extends SchemaType>({
 
   if (!validatedFormData.success) {
     const errors = validatedFormData.error.issues.reduce(
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (acc: any, error: any) => ({
+      (acc, error) => ({
         ...acc,
         [error.path[0] as string]: error.message,
       }),
