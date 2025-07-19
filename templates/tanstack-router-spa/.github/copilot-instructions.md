@@ -39,6 +39,7 @@ This project provides a modern single-page application built with TanStack Route
 - **Vite**: Fast development server and build tool
 - **TanStack Query**: Server state management integrated with router
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with type safety
@@ -769,11 +770,14 @@ it('updates search params when filter changes', async () => {
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (TanStack Router excels at this)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Router-integrated state**: Leverage TanStack Router's search params and loaders for shareable state
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |

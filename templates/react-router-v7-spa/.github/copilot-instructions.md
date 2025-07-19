@@ -39,6 +39,7 @@ This project provides a modern single-page application built with React Router V
 - **Vite**: Fast development server and build tool
 - **TanStack Query**: Server state management and caching
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with type safety
@@ -315,34 +316,82 @@ export function useUserProfileWithOptions(userId: string) {
 
 ### Client State Management
 
-```typescript
-// For simple component state
-const [isOpen, setIsOpen] = useState(false);
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
 
-// For complex state with useReducer
-type State = {
-  status: 'idle' | 'loading' | 'success' | 'error';
-  data: any;
-  error: string | null;
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+
+// Form state - ALWAYS use React Hook Form
+const { register, handleSubmit, formState: { errors } } = useForm({
+  resolver: zodResolver(schema),
+});
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
 };
 
-type Action =
-  | { type: 'LOADING' }
-  | { type: 'SUCCESS'; payload: any }
-  | { type: 'ERROR'; payload: string };
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
 
-function reducer(state: State, action: Action): State {
+**Complex UI State**: Use useReducer only for complex UI state, not data management:
+
+```typescript
+// ✅ Good - UI state like form wizards, modals with multiple steps
+type WizardState = {
+  step: number;
+  data: Record<string, any>;
+  isValid: boolean;
+};
+
+const wizardReducer = (state: WizardState, action: WizardAction) => {
   switch (action.type) {
-    case 'LOADING':
-      return { ...state, status: 'loading', error: null };
-    case 'SUCCESS':
-      return { ...state, status: 'success', data: action.payload };
-    case 'ERROR':
-      return { ...state, status: 'error', error: action.payload };
+    case 'NEXT_STEP':
+      return { ...state, step: state.step + 1 };
+    case 'PREV_STEP':
+      return { ...state, step: Math.max(0, state.step - 1) };
     default:
       return state;
   }
-}
+};
+
+// ❌ Bad - Don't use useReducer for data that should be in TanStack Query
+const dataReducer = (state, action) => {
+  switch (action.type) {
+    case 'FETCH_SUCCESS':
+      return { ...state, data: action.payload }; // Use TanStack Query instead
+  }
+};
 ```
 
 ## Component Architecture
@@ -653,10 +702,13 @@ route('dashboard', 'routes/dashboard.tsx', {
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
 - **Prefer URL state**: Use URL parameters for shareable application state
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **UseReducer for UI only**: Only use useReducer for complex UI state, not data management
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |

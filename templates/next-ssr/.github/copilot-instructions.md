@@ -38,6 +38,7 @@ This project provides a production-ready Next.js application with server-side re
 - **TypeScript**: Full type safety with strict configuration
 - **TanStack Query**: Server state management with React integration
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling with custom design system
 - **shadcn/ui**: Component library built on Radix UI primitives
 - **i18next**: Internationalization with type safety
@@ -396,11 +397,64 @@ function PostsList() {
 - Handle submission states and error display
 - Provide good user feedback during form interactions
 
-### Local UI State
+### Client State Management
 
-- Use `useState` for simple component state
-- Use `useReducer` for complex state logic
-- Context for deeply nested prop drilling (sparingly)
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
+
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
+};
+
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
+
+**Local UI State**: Use useState for simple state, useReducer only for complex UI state:
+
+```typescript
+// ✅ Good - Simple state
+const [isOpen, setIsOpen] = useState(false);
+
+// ✅ Good - Complex UI state (not data management)
+const [wizardState, dispatch] = useReducer(wizardReducer, initialWizardState);
+
+// ❌ Bad - Don't manage server data with useReducer
+const [apiState, dispatch] = useReducer(apiReducer, { data: null, loading: false });
+// Use TanStack Query instead
+```
 
 ## Internationalization
 
@@ -603,11 +657,14 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (Next.js supports this well)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Server Components**: Leverage Next.js Server Components to reduce client-side state when possible
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |

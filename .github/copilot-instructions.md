@@ -104,8 +104,53 @@ Follow consistent directory structure across project templates:
 
 #### State Management
 - **TanStack Query**: For server state management
-- **React Hook Form**: For form state management
+- **React Hook Form**: For form state management (avoid managing form state manually)
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - Local component state with useState/useReducer for UI state
+
+##### Essential Hooks Library (usehooks-ts)
+The `usehooks-ts` library provides type-safe, well-tested hooks for common patterns:
+
+**Storage Hooks**:
+- `useLocalStorage` - Persist state in localStorage with JSON serialization
+- `useSessionStorage` - Persist state in sessionStorage for single sessions
+- `useReadLocalStorage` - Read-only access to localStorage values
+
+**UI/UX Hooks**:
+- `useToggle` - Boolean state with toggle, set true/false methods
+- `useBoolean` - More explicit boolean state management
+- `useCounter` - Counter with increment/decrement/reset/set methods
+- `useDebounce` - Debounce values for search inputs and API calls
+- `useThrottle` - Throttle rapidly changing values
+
+**Browser API Hooks**:
+- `useWindowSize` - Responsive design with window dimensions
+- `useMediaQuery` - CSS media query matching
+- `useOnClickOutside` - Close modals/dropdowns when clicking outside
+- `useEventListener` - Clean event listener management
+- `useCopyToClipboard` - Copy text to clipboard with feedback
+
+**Advanced Hooks**:
+- `usePrevious` - Access previous value of a variable
+- `useUpdateEffect` - useEffect that skips the first render
+- `useInterval` - Declarative interval hook with cleanup
+- `useTimeout` - Declarative timeout hook with cleanup
+
+Example usage:
+```tsx
+import { useLocalStorage, useToggle, useDebounce } from 'usehooks-ts';
+
+const UserPreferences = () => {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [showAdvanced, toggleAdvanced] = useToggle(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearch = useDebounce(searchTerm, 300);
+
+  return (
+    // Component using the hooks...
+  );
+};
+```
 
 ##### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
@@ -114,6 +159,8 @@ Follow consistent directory structure across project templates:
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Form state**: Always use React Hook Form instead of manual state management for forms
+- **Use proven hooks**: Leverage usehooks-ts for common patterns instead of implementing from scratch
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
@@ -131,6 +178,426 @@ Follow consistent directory structure across project templates:
 1. Use what's built into your framework (e.g., Next.js RSC for server state)
 2. TanStack Query if not using Redux Toolkit for client-side caching
 3. Redux Toolkit Query if using Redux Toolkit
+
+##### State Management Code Examples
+
+**URL State - Search and Filter Interface**:
+```tsx
+import { useSearchParams } from 'react-router'; // or Next.js useSearchParams
+
+const ProductSearch = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [tempSearch, setTempSearch] = useState(searchParams.get('search') || '');
+
+  // Extract state from URL
+  const search = searchParams.get('search') || '';
+  const category = searchParams.get('category') || 'all';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+
+  // Helper to update URL params
+  const updateParams = (updates: Record<string, string | null>) => {
+    const newParams = new URLSearchParams(searchParams);
+    
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === null || value === '') {
+        newParams.delete(key);
+      } else {
+        newParams.set(key, value);
+      }
+    });
+
+    // Reset to page 1 when filters change
+    if (!('page' in updates) && Object.keys(updates).some(key => key !== 'page')) {
+      newParams.delete('page');
+    }
+
+    setSearchParams(newParams);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateParams({ search: tempSearch });
+  };
+
+  // Filter and paginate data based on URL state
+  const filteredResults = data.filter(item => 
+    item.name.toLowerCase().includes(search.toLowerCase()) &&
+    (category === 'all' || item.category === category)
+  );
+
+  return (
+    <div>
+      <form onSubmit={handleSearch}>
+        <input
+          value={tempSearch}
+          onChange={(e) => setTempSearch(e.target.value)}
+          placeholder="Search..."
+        />
+        <button type="submit">Search</button>
+      </form>
+      
+      <select
+        value={category}
+        onChange={(e) => updateParams({ category: e.target.value })}
+      >
+        <option value="all">All Categories</option>
+        <option value="frontend">Frontend</option>
+        <option value="backend">Backend</option>
+      </select>
+
+      {/* Results and pagination */}
+      <div className="results">
+        {filteredResults.map(item => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+**Web Storage - Type-Safe Persistence**:
+```tsx
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+
+interface UserPreferences {
+  theme: 'light' | 'dark' | 'auto';
+  language: 'en' | 'es' | 'fr';
+  notifications: boolean;
+}
+
+const UserSettings = () => {
+  // localStorage for persistent preferences
+  const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
+    'userPreferences',
+    { theme: 'light', language: 'en', notifications: true }
+  );
+
+  // sessionStorage for temporary data
+  const [sessionData, setSessionData] = useSessionStorage('sessionData', {
+    tabId: Math.random().toString(36).substr(2, 9),
+    startTime: new Date().toISOString(),
+  });
+
+  const updateTheme = (theme: UserPreferences['theme']) => {
+    setPreferences(prev => ({ ...prev, theme }));
+  };
+
+  return (
+    <div>
+      <h3>Settings (Saved in localStorage)</h3>
+      <select
+        value={preferences.theme}
+        onChange={(e) => updateTheme(e.target.value as UserPreferences['theme'])}
+      >
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="auto">Auto</option>
+      </select>
+
+      <h3>Session Info (sessionStorage)</h3>
+      <p>Tab ID: {sessionData.tabId}</p>
+      <p>Session Started: {sessionData.startTime}</p>
+    </div>
+  );
+};
+```
+
+**Local State - Component-Specific State**:
+```tsx
+import { useToggle, useCounter } from 'usehooks-ts';
+
+const LocalStateExample = () => {
+  // Simple boolean state
+  const [isVisible, toggleVisible] = useToggle(false);
+  
+  // Counter with built-in operations
+  const { count, increment, decrement, reset, setCount } = useCounter(0);
+
+  return (
+    <div>
+      {/* Toggle example */}
+      <button onClick={toggleVisible}>
+        {isVisible ? 'Hide' : 'Show'} Content
+      </button>
+      {isVisible && <p>This content is toggled!</p>}
+
+      {/* Counter example */}
+      <div>
+        <span>Count: {count}</span>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+        <button onClick={reset}>Reset</button>
+        <button onClick={() => setCount(10)}>Set to 10</button>
+      </div>
+    </div>
+  );
+};
+```
+
+**Lifted State - Shared Between Components**:
+```tsx
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+const ShoppingCartContext = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  return (
+    <div>
+      <ProductCatalog onAddToCart={addToCart} />
+      <CartSidebar items={cartItems} onRemove={removeFromCart} />
+      <CartSummary items={cartItems} />
+    </div>
+  );
+};
+```
+
+**Derived State - Computed Values**:
+```tsx
+import { useMemo } from 'react';
+
+const ShoppingCartSummary = ({ items }: { items: CartItem[] }) => {
+  // Compute derived values with useMemo
+  const summary = useMemo(() => {
+    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const averagePrice = totalItems > 0 ? totalPrice / totalItems : 0;
+    const mostExpensive = items.reduce((max, item) => 
+      item.price > max.price ? item : max, items[0]
+    );
+
+    return { totalItems, totalPrice, averagePrice, mostExpensive };
+  }, [items]);
+
+  return (
+    <div>
+      <p>Total Items: {summary.totalItems}</p>
+      <p>Total Price: ${summary.totalPrice.toFixed(2)}</p>
+      <p>Average Price: ${summary.averagePrice.toFixed(2)}</p>
+      {summary.mostExpensive && (
+        <p>Most Expensive: {summary.mostExpensive.name}</p>
+      )}
+    </div>
+  );
+};
+```
+
+**Refs - DOM Interaction and Non-Rendering Values**:
+```tsx
+import { useRef, useEffect } from 'react';
+import { usePrevious, useInterval } from 'usehooks-ts';
+
+const RefsExample = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [count, setCount] = useState(0);
+  const previousCount = usePrevious(count);
+
+  // Focus management
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  // Timer with cleanup
+  useInterval(() => {
+    setCount(c => c + 1);
+  }, 1000);
+
+  return (
+    <div>
+      <input ref={inputRef} placeholder="Click button to focus" />
+      <button onClick={focusInput}>Focus Input</button>
+      
+      <p>Current count: {count}</p>
+      <p>Previous count: {previousCount}</p>
+    </div>
+  );
+};
+```
+
+**Context - Subtree State Management**:
+```tsx
+import { createContext, useContext, ReactNode } from 'react';
+
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === 'dark' ? 'dark' : ''}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
+
+// Usage in components
+const ThemeToggle = () => {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+    </button>
+  );
+};
+```
+
+**Global State - Application-Wide State**:
+```tsx
+// Simple global store implementation
+interface GlobalState {
+  user: User | null;
+  notifications: Notification[];
+  isOnline: boolean;
+}
+
+const useGlobalStore = () => {
+  const [state, setState] = useState<GlobalState>({
+    user: null,
+    notifications: [],
+    isOnline: navigator.onLine,
+  });
+
+  const setUser = (user: User | null) => {
+    setState(prev => ({ ...prev, user }));
+  };
+
+  const addNotification = (notification: Omit<Notification, 'id'>) => {
+    const newNotification = { ...notification, id: Date.now() };
+    setState(prev => ({
+      ...prev,
+      notifications: [...prev.notifications, newNotification],
+    }));
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      setState(prev => ({
+        ...prev,
+        notifications: prev.notifications.filter(n => n.id !== newNotification.id),
+      }));
+    }, 5000);
+  };
+
+  // Listen for online/offline events
+  useEventListener('online', () => setState(prev => ({ ...prev, isOnline: true })));
+  useEventListener('offline', () => setState(prev => ({ ...prev, isOnline: false })));
+
+  return { state, setUser, addNotification };
+};
+
+// For larger applications, consider:
+// - Redux Toolkit for complex state logic
+// - Zustand for simpler global state
+// - Jotai for atomic state management
+```
+
+**Form State Management with React Hook Form**:
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  age: z.number().min(18, 'Must be at least 18 years old'),
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+
+const UserForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      age: 18,
+    },
+  });
+
+  const onSubmit = async (data: UserFormData) => {
+    try {
+      await submitUser(data);
+      reset();
+    } catch (error) {
+      console.error('Failed to submit:', error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        {...register('name')}
+        placeholder="Name"
+      />
+      {errors.name && <span>{errors.name.message}</span>}
+
+      <input
+        {...register('email')}
+        type="email"
+        placeholder="Email"
+      />
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <input
+        {...register('age', { valueAsNumber: true })}
+        type="number"
+        placeholder="Age"
+      />
+      {errors.age && <span>{errors.age.message}</span>}
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+};
+```
 
 #### Styling
 - **Tailwind CSS**: Utility-first CSS framework

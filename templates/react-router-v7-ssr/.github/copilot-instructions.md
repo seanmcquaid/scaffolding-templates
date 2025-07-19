@@ -39,6 +39,7 @@ This project provides a full-stack React application with server-side rendering 
 - **Vite**: Fast development server and build tool with SSR support
 - **TanStack Query**: Server state management with hydration support
 - **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Collection of essential React hooks for common patterns
 - **Tailwind CSS**: Utility-first styling framework
 - **shadcn/ui**: Component library built on Radix UI
 - **i18next**: Internationalization with SSR support
@@ -338,6 +339,74 @@ export default function PostsPage({ loaderData }: Route.ComponentProps) {
     </div>
   );
 }
+```
+
+### Client State Management
+
+This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
+
+```typescript
+import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import { useForm } from 'react-hook-form';
+
+// Storage hooks for persistence (isomorphic SSR-safe)
+const [theme, setTheme] = useLocalStorage('theme', 'light');
+const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+
+// UI state hooks
+const [isVisible, toggleVisible] = useToggle(false);
+const { count, increment, decrement, reset } = useCounter(0);
+
+// Performance hooks
+const debouncedSearch = useDebounce(searchTerm, 300);
+```
+
+**Form State Management**: Never manage form state manually. Always use React Hook Form:
+
+```typescript
+// ✅ Good - Use React Hook Form with SSR support
+const ContactForm = () => {
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    resolver: zodResolver(contactSchema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register('email')} />
+      {errors.email && <span>{errors.email.message}</span>}
+    </form>
+  );
+};
+
+// ❌ Bad - Manual form state management
+const ContactForm = () => {
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  // Don't do this - use React Hook Form instead
+};
+```
+
+**SSR-Safe State**: Be careful with browser-only state during SSR:
+
+```typescript
+import { useEffect, useState } from 'react';
+
+// ✅ Good - SSR-safe state initialization
+const ClientOnlyComponent = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  // Browser-only code here
+  return <div>{/* client-only content */}</div>;
+};
+
+// ✅ Good - Use usehooks-ts hooks which handle SSR properly
+const [theme] = useLocalStorage('theme', 'light'); // SSR-safe
 ```
 
 ### Environment Variables
@@ -703,11 +772,15 @@ export function meta({ data }: Route.MetaArgs) {
 
 ### State Management Best Practices
 - **Keep state local**: Only lift state up when multiple components need it
-- **Prefer URL state**: Use URL parameters for shareable application state
+- **Prefer URL state**: Use URL parameters for shareable application state (React Router V7 excels at this)
+- **Use React Hook Form for forms**: Never manage form state manually with useState
+- **Leverage usehooks-ts**: Use proven hooks instead of implementing common patterns from scratch
+- **SSR-safe state**: Be careful with browser-only state during server-side rendering
 - **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
 - **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
 - **Derived state**: Calculate derived values in render rather than storing them in state
 - **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+- **Hydration safety**: Ensure client-side state matches server-side rendered state
 
 #### State Management Hierarchy (from repository docs):
 | State Type | Use case |
