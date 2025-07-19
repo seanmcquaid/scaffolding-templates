@@ -278,7 +278,6 @@ export class LibraryError extends Error {
 
 ### File Organization Best Practices
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
-- **Use barrel exports**: Create `index.ts` files to provide clean public interfaces for directories
 - **Separate concerns clearly**: Don't mix UI components with business logic components
 - **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
