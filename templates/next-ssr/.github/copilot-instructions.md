@@ -696,6 +696,200 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Lazy loading**: Load translation bundles on-demand for better performance
 - **RTL support**: Consider right-to-left languages in CSS and layout design
 
+## ⚠️ Translation Requirements - MANDATORY
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a strict requirement for this Next.js project.
+
+### Translation Enforcement Rules
+
+1. **Never use hardcoded strings** - All text must use `useAppTranslation` hook
+2. **ESLint will catch violations** - The `i18next/no-literal-string` rule prevents hardcoded text
+3. **Tests validate i18n compliance** - Mock functions return translation keys for validation
+4. **Server Components support** - Use proper i18n patterns for both server and client components
+
+### Next.js-Specific i18n Patterns
+
+**Server Components with i18n:**
+```tsx
+// app/dashboard/page.tsx - Server Component
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function DashboardPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('Dashboard.title')}</h1>
+      <p>{t('Dashboard.welcomeMessage')}</p>
+    </div>
+  );
+}
+```
+
+**Client Components with i18n:**
+```tsx
+'use client';
+
+import { useState } from 'react';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function InteractiveForm() {
+  const { t } = useAppTranslation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  return (
+    <form>
+      <label>{t('ContactForm.nameLabel')}</label>
+      <input placeholder={t('ContactForm.namePlaceholder')} />
+      
+      <button disabled={isSubmitting}>
+        {isSubmitting ? t('Common.submitting') : t('ContactForm.submit')}
+      </button>
+    </form>
+  );
+}
+```
+
+**Server Actions with i18n:**
+```tsx
+'use server';
+
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
+
+export async function updateProfile(formData: FormData) {
+  try {
+    // Process form data
+    await updateUserProfile(data);
+    
+    revalidatePath('/profile');
+    
+    // Return success message key for client-side toast
+    return { success: true, messageKey: 'Profile.updateSuccess' };
+  } catch (error) {
+    return { success: false, messageKey: 'Profile.updateError' };
+  }
+}
+```
+
+**Error Boundaries with i18n:**
+```tsx
+'use client';
+
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export default function ErrorBoundary({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  const { t } = useAppTranslation();
+
+  return (
+    <div className="error-boundary">
+      <h2>{t('Error.somethingWentWrong')}</h2>
+      <p>{t('Error.tryAgainMessage')}</p>
+      <button onClick={reset}>
+        {t('Error.tryAgainButton')}
+      </button>
+    </div>
+  );
+}
+```
+
+**Metadata with i18n:**
+```tsx
+// app/about/page.tsx
+import type { Metadata } from 'next';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = useAppTranslation();
+  
+  return {
+    title: t('AboutPage.metaTitle'),
+    description: t('AboutPage.metaDescription'),
+  };
+}
+
+export default function AboutPage() {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('AboutPage.title')}</h1>
+      <p>{t('AboutPage.content')}</p>
+    </div>
+  );
+}
+```
+
+### Translation Key Organization for Next.js
+
+```json
+{
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "Navigation": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "HomePage": {
+    "title": "Welcome to Our Application",
+    "subtitle": "Build amazing web experiences",
+    "metaTitle": "Home - Our Application",
+    "metaDescription": "Welcome to our modern web application"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcomeMessage": "Welcome back, {{userName}}!",
+    "metaTitle": "Dashboard - Our Application"
+  },
+  "Error": {
+    "somethingWentWrong": "Something went wrong!",
+    "tryAgainMessage": "Please try again or contact support if the problem persists.",
+    "tryAgainButton": "Try Again",
+    "pageNotFound": "Page Not Found",
+    "backToHome": "Back to Home"
+  }
+}
+```
+
+### Testing i18n in Next.js
+
+**Component tests with mocked translations:**
+```tsx
+// __tests__/dashboard.test.tsx
+import { render, screen } from '@testing-library/react';
+import DashboardPage from '@/app/dashboard/page';
+
+// setupTests.ts includes this mock:
+// vi.mock('react-i18next', () => ({
+//   useTranslation: () => ({ t: (key: string) => key })
+// }));
+
+describe('DashboardPage', () => {
+  it('renders translated content', () => {
+    render(<DashboardPage />);
+    
+    // Test expects translation keys since that's what the mock returns
+    expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
+    expect(screen.getByText('Dashboard.welcomeMessage')).toBeInTheDocument();
+  });
+});
+```
+
+This comprehensive approach ensures that all user-facing text in the Next.js application is properly internationalized and maintainable across different locales.
+
 ### API Client Best Practices
 - **Error handling strategy**: Implement consistent error handling across all API calls
 - **Request/response logging**: Provide development-friendly logging for debugging

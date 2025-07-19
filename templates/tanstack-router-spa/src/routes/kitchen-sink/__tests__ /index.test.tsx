@@ -17,8 +17,8 @@ describe('KitchenSinkPage', () => {
       },
     ]);
     render(<RoutesStub />);
-    await waitFor(() => expect(screen.getByText('Submit')).toBeInTheDocument());
-    await user.type(screen.getByLabelText('Name'), 'a');
+    await waitFor(() => expect(screen.getByText('KitchenSinkPage.submit')).toBeInTheDocument());
+    await user.type(screen.getByLabelText('KitchenSinkPage.name'), 'a');
     await waitFor(() =>
       expect(
         screen.getByText('Name must be between 3 and 10 characters'),

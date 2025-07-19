@@ -61,7 +61,7 @@ export const KitchenSinkPage = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useOnClickOutside(dropdownRef, () => setDropdownOpen(false));
+  useOnClickOutside(dropdownRef as React.RefObject<HTMLElement>, () => setDropdownOpen(false));
 
   const handleOnSubmit = handleSubmit(data => {
     toast({
@@ -178,7 +178,7 @@ export const KitchenSinkPage = () => {
           <Input
             label={t('KitchenSinkPage.filterPosts')}
             value={filterText}
-            onChange={e => setFilterText(e.target.value)}
+            onChange={e => setFilterText((e.target as HTMLInputElement).value)}
             placeholder={t('KitchenSinkPage.typeToFilter')}
             className="mb-2"
           />

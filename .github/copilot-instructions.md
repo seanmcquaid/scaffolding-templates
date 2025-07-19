@@ -639,6 +639,203 @@ const UserForm = () => {
 - **react-i18next**: React bindings for i18next
 - Type-safe translation keys
 
+##### ⚠️ Translation Requirements
+
+**ALL USER-FACING TEXT MUST BE TRANSLATED** - This is a mandatory requirement across all project templates.
+
+**❌ NEVER use hardcoded strings in components:**
+```tsx
+// ❌ BAD - Never do this
+const BadComponent = () => {
+  return (
+    <div>
+      <h1>Welcome to the app</h1>
+      <button>Click me</button>
+      <p>Hello world</p>
+    </div>
+  );
+};
+```
+
+**✅ ALWAYS use translation keys:**
+```tsx
+// ✅ GOOD - Always do this
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const GoodComponent = () => {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('WelcomePage.title')}</h1>
+      <button>{t('Common.clickMe')}</button>
+      <p>{t('Common.helloWorld')}</p>
+    </div>
+  );
+};
+```
+
+**Translation Enforcement:**
+- ESLint rule `i18next/no-literal-string` prevents hardcoded strings
+- All templates must pass this linting rule
+- Test mocks return translation keys for validation
+
+##### Translation Key Naming Conventions
+
+**Organize by feature/page:**
+```typescript
+// en-US.json structure
+{
+  "Common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "HomePage": {
+    "title": "Welcome to the Application",
+    "subtitle": "Get started with modern web development"
+  },
+  "UserProfile": {
+    "title": "User Profile",
+    "editButton": "Edit Profile",
+    "saveChanges": "Save Changes"
+  },
+  "Form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "minLength": "Must be at least {{count}} characters"
+    }
+  }
+}
+```
+
+**Key naming patterns:**
+- Use PascalCase for namespaces: `HomePage`, `UserProfile`
+- Use camelCase for keys: `title`, `submitButton`, `errorMessage`
+- Use descriptive names: `deleteConfirmation` not `confirm`
+- Group related keys: `validation.required`, `validation.email`
+
+##### Dynamic Content and Interpolation
+
+**Variable interpolation:**
+```tsx
+// Translation file
+{
+  "UserGreeting": {
+    "welcome": "Welcome back, {{name}}!",
+    "itemCount": "You have {{count}} item",
+    "itemCount_other": "You have {{count}} items"
+  }
+}
+
+// Component usage
+const UserDashboard = ({ user, items }: Props) => {
+  const { t } = useAppTranslation();
+  
+  return (
+    <div>
+      <h1>{t('UserGreeting.welcome', { name: user.name })}</h1>
+      <p>{t('UserGreeting.itemCount', { count: items.length })}</p>
+    </div>
+  );
+};
+```
+
+**Conditional content:**
+```tsx
+// Use translation keys for all conditions
+const StatusBadge = ({ status }: { status: 'active' | 'inactive' | 'pending' }) => {
+  const { t } = useAppTranslation();
+  
+  const statusKey = `Status.${status}` as const;
+  const colorClass = status === 'active' ? 'text-green-500' : 
+                    status === 'inactive' ? 'text-red-500' : 'text-yellow-500';
+  
+  return (
+    <span className={colorClass}>
+      {t(statusKey)}
+    </span>
+  );
+};
+```
+
+##### Form Labels and Validation
+
+**Form fields with i18n:**
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const ContactForm = () => {
+  const { t } = useAppTranslation();
+  
+  // Create schema with translated error messages
+  const schema = z.object({
+    name: z.string().min(2, t('Form.validation.nameMinLength')),
+    email: z.string().email(t('Form.validation.invalidEmail')),
+    message: z.string().min(10, t('Form.validation.messageMinLength')),
+  });
+
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label>{t('ContactForm.name')}</label>
+        <input {...register('name')} />
+        {errors.name && <span>{errors.name.message}</span>}
+      </div>
+      
+      <div>
+        <label>{t('ContactForm.email')}</label>
+        <input {...register('email')} type="email" />
+        {errors.email && <span>{errors.email.message}</span>}
+      </div>
+      
+      <div>
+        <label>{t('ContactForm.message')}</label>
+        <textarea {...register('message')} />
+        {errors.message && <span>{errors.message.message}</span>}
+      </div>
+      
+      <button type="submit">{t('ContactForm.submit')}</button>
+    </form>
+  );
+};
+```
+
+##### Testing with i18n
+
+**Mock translations in tests:**
+```typescript
+// setupTests.ts - All templates include this mock
+vi.mock('react-i18next', () => ({
+  useTranslation: () => {
+    return {
+      i18n: {
+        changeLanguage: () => Promise.resolve(),
+      },
+      t: (i18nKey: string) => i18nKey, // Returns the key for validation
+    };
+  },
+}));
+
+// Test expects translation keys, not translated text
+test('displays form validation error', async () => {
+  render(<ContactForm />);
+  
+  await user.click(screen.getByText('ContactForm.submit'));
+  
+  expect(screen.getByText('Form.validation.nameRequired')).toBeInTheDocument();
+});
+```
+
 ##### Internationalization Best Practices
 - **Type-safe translations**: Generate TypeScript types from translation files to catch missing keys at compile time
 - **Namespace organization**: Organize translations by feature or page to avoid conflicts and improve maintainability
