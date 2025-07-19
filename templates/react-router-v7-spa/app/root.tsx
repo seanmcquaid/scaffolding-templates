@@ -1,7 +1,7 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { PropsWithChildren } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Links,
   Meta,
@@ -11,6 +11,7 @@ import {
   useNavigation,
   useRouteError,
 } from 'react-router';
+import { useBoolean } from 'usehooks-ts';
 import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
@@ -99,11 +100,11 @@ export const ErrorBoundary = () => {
 };
 
 export const HydrateFallback = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const { value: isLoading, setTrue: setIsLoading } = useBoolean(false);
 
   useEffect(() => {
-    setIsLoading(true);
-  }, []);
+    setIsLoading();
+  }, [setIsLoading]);
 
   return <LoadingOverlay isLoading={isLoading} />;
 };
