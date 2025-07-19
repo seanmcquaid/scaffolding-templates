@@ -1,8 +1,6 @@
-import { z } from 'zod';
+import type { z } from 'zod';
 
-type SchemaType =
-  | z.ZodObject<z.ZodRawShape>
-  | z.ZodEffects<z.ZodObject<z.ZodRawShape>>;
+type SchemaType = z.ZodObject<z.ZodRawShape>;
 
 const getValidatedFormData = <T extends SchemaType>({
   schema,
@@ -11,20 +9,7 @@ const getValidatedFormData = <T extends SchemaType>({
   formData: FormData;
   schema: T;
 }) => {
-  const schemaKeys: string[] = [];
-
-  if (schema instanceof z.ZodEffects) {
-    const typedSchema = schema as unknown as z.ZodEffects<
-      z.Schema<z.ZodObjectDef>
-    >;
-    const def = typedSchema._def.schema._def as {
-      shape: () => z.ZodRawShape;
-    };
-    schemaKeys.push(...Object.keys(def.shape()));
-  } else {
-    schemaKeys.push(...Object.keys(schema._def.shape()));
-  }
-
+  const schemaKeys = Object.keys(schema.def.shape);
   const formDataFromSchema = schemaKeys.reduce(
     (acc, key) => ({
       ...acc,
@@ -34,14 +19,13 @@ const getValidatedFormData = <T extends SchemaType>({
       [Key in keyof z.infer<T>]: string;
     },
   );
-
   const validatedFormData = schema.safeParse(formDataFromSchema);
 
   if (!validatedFormData.success) {
-    const errors = validatedFormData.error.errors.reduce(
+    const errors = validatedFormData.error.issues.reduce(
       (acc, error) => ({
         ...acc,
-        [error.path[0]]: error.message,
+        [error.path[0] as string]: error.message,
       }),
       {} as {
         [Key in keyof z.infer<T>]: string;

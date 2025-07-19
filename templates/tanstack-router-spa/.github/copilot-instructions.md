@@ -5,6 +5,7 @@
 **You are an Expert TanStack Router Developer** with deep expertise in type-safe routing, advanced client-side application architecture, and the TanStack ecosystem. You specialize in building sophisticated single-page applications that leverage TanStack Router's powerful type safety and data loading capabilities.
 
 Your expertise includes:
+
 - **Type-Safe Routing**: TanStack Router's type system, route parameters, search params, and route context
 - **File-Based Conventions**: Route generation, lazy loading, and file-based routing patterns
 - **Advanced Data Loading**: Loaders, TanStack Query integration, caching strategies, and data dependencies
@@ -27,9 +28,11 @@ When working with this TanStack Router SPA project, CoPilot should:
 5. **Performance Optimization**: Take advantage of TanStack Router's built-in code splitting, lazy loading, and caching capabilities.
 
 ## Purpose
+
 This project provides a modern single-page application built with TanStack Router, featuring type-safe routing, powerful data loading patterns, and comprehensive development tooling. It's designed for applications that need sophisticated client-side routing with excellent developer experience and performance.
 
 ## Technology Stack
+
 - **TanStack Router**: Type-safe router with powerful data loading and caching
 - **React 19**: Latest React with concurrent features
 - **TypeScript**: Full type safety including route parameters and search params
@@ -45,6 +48,7 @@ This project provides a modern single-page application built with TanStack Route
 ## Project Architecture
 
 ### File Structure
+
 ```
 src/
 ├── main.tsx               # Application entry point and router setup
@@ -70,6 +74,7 @@ src/
 ## TanStack Router Patterns
 
 ### Route Definition
+
 ```typescript
 // routes/__root.tsx
 import { createRootRoute, Outlet } from '@tanstack/react-router'
@@ -116,6 +121,7 @@ function HomePage() {
 ```
 
 ### Data Loading with Search Params
+
 ```typescript
 // routes/dashboard.tsx
 import { createFileRoute } from '@tanstack/react-router'
@@ -142,19 +148,19 @@ export const Route = createFileRoute('/dashboard')({
 function DashboardComponent() {
   const { filter, page, sort } = Route.useSearch()
   const navigate = Route.useNavigate()
-  
+
   // Use suspense query for seamless loading
   const { data } = useSuspenseQuery(getDashboardQueryOptions({ filter, page, sort }))
-  
+
   const handleFilterChange = (newFilter: string) => {
     navigate({
       search: (prev) => ({ ...prev, filter: newFilter, page: 1 }),
     })
   }
-  
+
   return (
     <div>
-      <DashboardFilters 
+      <DashboardFilters
         currentFilter={filter}
         onFilterChange={handleFilterChange}
       />
@@ -165,6 +171,7 @@ function DashboardComponent() {
 ```
 
 ### Nested Routes with Parameters
+
 ```typescript
 // routes/blog.tsx
 import { createFileRoute, Outlet } from '@tanstack/react-router'
@@ -203,7 +210,7 @@ export const Route = createFileRoute('/blog/$postId')({
 
 function BlogPostComponent() {
   const post = Route.useLoaderData()
-  
+
   return (
     <article>
       <h1>{post.title}</h1>
@@ -214,6 +221,7 @@ function BlogPostComponent() {
 ```
 
 ### Route Protection and Authentication
+
 ```typescript
 // routes/dashboard.tsx
 export const Route = createFileRoute('/dashboard')({
@@ -221,32 +229,33 @@ export const Route = createFileRoute('/dashboard')({
     const { user } = await context.queryClient.ensureQueryData({
       queryKey: ['auth', 'user'],
       queryFn: authService.getCurrentUser,
-    })
-    
+    });
+
     if (!user) {
       throw redirect({
         to: '/login',
         search: {
           redirect: location.href,
         },
-      })
+      });
     }
-    
-    return { user }
+
+    return { user };
   },
   component: DashboardComponent,
-})
+});
 ```
 
 ## Navigation and Link Patterns
 
 ### Type-Safe Navigation
+
 ```typescript
 import { Link, useNavigate } from '@tanstack/react-router'
 
 export function Navigation() {
   const navigate = useNavigate()
-  
+
   return (
     <nav className="flex space-x-4">
       <Link
@@ -256,7 +265,7 @@ export function Navigation() {
       >
         Home
       </Link>
-      
+
       <Link
         to="/dashboard"
         search={{ filter: 'active' }}
@@ -264,11 +273,11 @@ export function Navigation() {
       >
         Dashboard
       </Link>
-      
+
       <button
-        onClick={() => navigate({ 
-          to: '/blog/$postId', 
-          params: { postId: 'latest' } 
+        onClick={() => navigate({
+          to: '/blog/$postId',
+          params: { postId: 'latest' }
         })}
       >
         Latest Post
@@ -279,6 +288,7 @@ export function Navigation() {
 ```
 
 ### Search Parameter Management
+
 ```typescript
 // components/app/SearchFilters.tsx
 import { useNavigate, useSearch } from '@tanstack/react-router'
@@ -286,7 +296,7 @@ import { useNavigate, useSearch } from '@tanstack/react-router'
 export function SearchFilters() {
   const search = useSearch({ from: '/dashboard' })
   const navigate = useNavigate({ from: '/dashboard' })
-  
+
   const updateFilter = (key: string, value: any) => {
     navigate({
       search: (prev) => ({
@@ -296,7 +306,7 @@ export function SearchFilters() {
       }),
     })
   }
-  
+
   return (
     <div className="flex gap-4">
       <Select
@@ -307,7 +317,7 @@ export function SearchFilters() {
         <SelectItem value="active">Active</SelectItem>
         <SelectItem value="inactive">Inactive</SelectItem>
       </Select>
-      
+
       <Input
         placeholder="Search..."
         value={search.query || ''}
@@ -321,6 +331,7 @@ export function SearchFilters() {
 ## Data Loading Integration
 
 ### TanStack Query Integration
+
 ```typescript
 // services/queries/posts.ts
 import { queryOptions } from '@tanstack/react-query';
@@ -332,13 +343,13 @@ export const postsQueryKeys = {
   posts: ['posts'],
 } as const;
 
-export const getPostQueryOptions = (id: string) =>
+export const getPostQuery = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
     queryKey: postsQueryKeys.postById(id),
   });
 
-export const getPostsQueryOptions = () =>
+export const getPostsQuery = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
     queryKey: postsQueryKeys.posts,
@@ -363,8 +374,8 @@ const router = createRouter({
 
 // Using useSuspenseQuery with TanStack Router
 export function PostsList() {
-  const { data } = useSuspenseQuery(getPostsQueryOptions());
-  
+  const { data } = useSuspenseQuery(getPostsQuery());
+
   return (
     <ul>
       {data?.map(post => (
@@ -376,25 +387,27 @@ export function PostsList() {
 ```
 
 ### Custom Hooks with Router Data
+
 ```typescript
 // hooks/useDashboardData.ts
-import { useQuery } from '@tanstack/react-query'
-import { useSearch } from '@tanstack/react-router'
-import { dashboardService } from '@/services/dashboardService'
+import { useQuery } from '@tanstack/react-query';
+import { useSearch } from '@tanstack/react-router';
+import { dashboardService } from '@/services/dashboardService';
 
 export function useDashboardData() {
-  const search = useSearch({ from: '/dashboard' })
-  
+  const search = useSearch({ from: '/dashboard' });
+
   return useQuery({
     queryKey: ['dashboard', search],
     queryFn: () => dashboardService.getData(search),
     // Data is already loaded by route loader, so this will use cached data
     initialDataUpdatedAt: () => Date.now(),
-  })
+  });
 }
 ```
 
 ### Mutations with Router Navigation
+
 ```typescript
 // hooks/useCreatePost.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -405,13 +418,13 @@ import { postsQueryKeys } from '@/services/queries/posts'
 export function useCreatePost() {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  
+
   return useMutation({
     mutationFn: blogService.createPost,
     onSuccess: (newPost) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.posts })
-      
+
       // Navigate to the new post
       navigate({
         to: '/blog/$postId',
@@ -428,7 +441,7 @@ export function useCreatePost() {
 // Usage in component
 export function CreatePostForm() {
   const { mutate: createPost, isPending, error } = useCreatePost()
-  
+
   const handleSubmit = (formData: FormData) => {
     const postData = {
       title: formData.get('title') as string,
@@ -436,7 +449,7 @@ export function CreatePostForm() {
     }
     createPost(postData)
   }
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <input name="title" placeholder="Post title" required />
@@ -451,57 +464,61 @@ export function CreatePostForm() {
 ```
 
 ### Optimistic Updates
+
 ```typescript
 // hooks/useTogglePostLike.ts
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { postsQueryKeys } from '@/services/queries/posts'
-import { postsService } from '@/services/postsService'
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { postsQueryKeys } from '@/services/queries/posts';
+import { postsService } from '@/services/postsService';
 
 export function useTogglePostLike(postId: string) {
-  const queryClient = useQueryClient()
-  
+  const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: async (liked: boolean) => 
+    mutationFn: async (liked: boolean) =>
       postsService.toggleLike(postId, liked),
-    
+
     // Optimistic update
     onMutate: async (liked: boolean) => {
-      await queryClient.cancelQueries({ 
-        queryKey: postsQueryKeys.postById(postId) 
-      })
-      
-      const previousPost = queryClient.getQueryData(postsQueryKeys.postById(postId))
-      
+      await queryClient.cancelQueries({
+        queryKey: postsQueryKeys.postById(postId),
+      });
+
+      const previousPost = queryClient.getQueryData(
+        postsQueryKeys.postById(postId),
+      );
+
       queryClient.setQueryData(postsQueryKeys.postById(postId), (old: any) => ({
         ...old,
         liked,
         likeCount: liked ? old.likeCount + 1 : old.likeCount - 1,
-      }))
-      
-      return { previousPost }
+      }));
+
+      return { previousPost };
     },
-    
+
     onError: (err, variables, context) => {
       // Rollback on error
       queryClient.setQueryData(
         postsQueryKeys.postById(postId),
-        context?.previousPost
-      )
+        context?.previousPost,
+      );
     },
-    
+
     onSettled: () => {
       // Refetch to ensure consistency
-      queryClient.invalidateQueries({ 
-        queryKey: postsQueryKeys.postById(postId) 
-      })
+      queryClient.invalidateQueries({
+        queryKey: postsQueryKeys.postById(postId),
+      });
     },
-  })
+  });
 }
 ```
 
 ## Form Handling with Router
 
 ### Form with Search Params
+
 ```typescript
 // routes/search.tsx
 const searchSchema = z.object({
@@ -515,7 +532,7 @@ export const Route = createFileRoute('/search')({
   loaderDeps: ({ search }) => ({ search }),
   loader: async ({ deps: { search } }) => {
     if (!search.q) return { results: [], total: 0 }
-    
+
     return searchService.search(search)
   },
   component: SearchComponent,
@@ -525,14 +542,14 @@ function SearchComponent() {
   const search = Route.useSearch()
   const navigate = Route.useNavigate()
   const data = Route.useLoaderData()
-  
+
   const form = useForm({
     defaultValues: {
       query: search.q || '',
       category: search.category || '',
     },
   })
-  
+
   const onSubmit = (formData: FormData) => {
     navigate({
       search: {
@@ -542,7 +559,7 @@ function SearchComponent() {
       },
     })
   }
-  
+
   return (
     <div>
       <SearchForm form={form} onSubmit={onSubmit} />
@@ -555,6 +572,7 @@ function SearchComponent() {
 ## Performance Optimization
 
 ### Route Code Splitting
+
 ```typescript
 // Lazy routes for better bundle splitting
 import { createLazyFileRoute } from '@tanstack/react-router'
@@ -563,7 +581,7 @@ export const Route = createLazyFileRoute('/dashboard/analytics')({
   component: () => {
     // Heavy component loaded only when needed
     const AnalyticsDashboard = lazy(() => import('@/components/app/AnalyticsDashboard'))
-    
+
     return (
       <Suspense fallback={<div>Loading analytics...</div>}>
         <AnalyticsDashboard />
@@ -574,6 +592,7 @@ export const Route = createLazyFileRoute('/dashboard/analytics')({
 ```
 
 #### Performance Best Practices
+
 - **Strategic lazy loading**: Use lazy routes for heavy pages and non-critical functionality
 - **Bundle analysis**: Regularly analyze bundle size and split large dependencies
 - **Preloading strategy**: Use intent-based preloading for better perceived performance
@@ -582,6 +601,7 @@ export const Route = createLazyFileRoute('/dashboard/analytics')({
 - **Component memoization**: Use React.memo for expensive route components
 
 ### Preloading Strategies
+
 ```typescript
 // Preload routes on hover/focus
 <Link
@@ -601,6 +621,7 @@ const preloadDashboard = () => {
 ```
 
 #### Preloading Best Practices
+
 - **Intent-based preloading**: Preload routes when users show intent (hover, focus)
 - **Critical path preloading**: Preload essential routes during application initialization
 - **Data preloading**: Combine route preloading with data prefetching for seamless navigation
@@ -611,6 +632,7 @@ const preloadDashboard = () => {
 ## Testing Patterns
 
 ### Route Testing
+
 ```typescript
 // routes/__tests__/dashboard.test.tsx
 import { createMemoryHistory, createRouter } from '@tanstack/react-router'
@@ -623,15 +645,15 @@ describe('Dashboard Route', () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     })
-    
+
     const router = createRouter({
       routeTree,
       context: { queryClient },
       history: createMemoryHistory({ initialEntries: ['/dashboard'] }),
     })
-    
+
     render(<RouterProvider router={router} />)
-    
+
     await screen.findByText('Dashboard')
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
   })
@@ -639,23 +661,25 @@ describe('Dashboard Route', () => {
 ```
 
 ### Navigation Testing
+
 ```typescript
 // Test navigation and search params
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react';
 
 it('updates search params when filter changes', async () => {
   // ... setup router and render
-  
-  const filterSelect = screen.getByRole('combobox')
-  fireEvent.change(filterSelect, { target: { value: 'active' } })
-  
+
+  const filterSelect = screen.getByRole('combobox');
+  fireEvent.change(filterSelect, { target: { value: 'active' } });
+
   await waitFor(() => {
-    expect(router.state.location.search).toEqual({ filter: 'active' })
-  })
-})
+    expect(router.state.location.search).toEqual({ filter: 'active' });
+  });
+});
 ```
 
 ## Development Commands
+
 - `pnpm dev`: Start development server with router devtools
 - `pnpm build`: Build for production
 - `pnpm serve`: Preview production build
@@ -666,6 +690,7 @@ it('updates search params when filter changes', async () => {
 - `pnpm lint`: Check code quality
 
 ## Best Practices
+
 - Use file-based routing for better organization
 - Leverage type-safe search params for complex filtering
 - Implement proper loading states with Suspense
@@ -680,6 +705,7 @@ it('updates search params when filter changes', async () => {
 - Use the router devtools for debugging
 
 ### Routing Architecture Best Practices
+
 - **File-based organization**: Use clear, descriptive file names that match your URL structure
 - **Route grouping**: Group related routes in directories; use route groups for shared layouts
 - **Parameter design**: Design URL parameters to be user-friendly and shareable
@@ -688,6 +714,7 @@ it('updates search params when filter changes', async () => {
 - **Layout composition**: Use nested layouts effectively to avoid code duplication
 
 ### Data Loading Best Practices
+
 - **Loader efficiency**: Use loaderDeps to optimize when loaders run and avoid unnecessary executions
 - **Error handling**: Implement comprehensive error handling in loaders with proper user feedback
 - **Cache integration**: Combine router loaders with TanStack Query for optimal caching strategies
@@ -696,6 +723,7 @@ it('updates search params when filter changes', async () => {
 - **Data freshness**: Implement appropriate stale-time and cache invalidation strategies
 
 ### Navigation and UX Best Practices
+
 - **Navigation feedback**: Provide immediate feedback during navigation transitions
 - **Error boundaries**: Implement error boundaries at route level for graceful error handling
 - **404 handling**: Create meaningful 404 pages and implement proper not-found routing
@@ -704,6 +732,7 @@ it('updates search params when filter changes', async () => {
 - **Deep linking**: Design URLs to be shareable and bookmarkable
 
 ### Performance and Security Best Practices
+
 - **Route-level code splitting**: Split code at route boundaries for optimal loading
 - **Authentication integration**: Implement secure authentication patterns with route guards
 - **Data validation**: Validate all route parameters and search params for security
@@ -712,6 +741,7 @@ it('updates search params when filter changes', async () => {
 - **Security headers**: Implement appropriate security headers for production deployment
 
 ### Testing Best Practices
+
 - **Route testing**: Test critical user flows including navigation and data loading
 - **Search param testing**: Test search parameter validation and edge cases
 - **Navigation testing**: Test programmatic navigation and URL state management

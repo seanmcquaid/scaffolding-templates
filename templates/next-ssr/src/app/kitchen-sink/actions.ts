@@ -2,10 +2,21 @@
 import formDataSchema from './formDataSchema';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 
-export const submitName = async (_state: unknown, formData: FormData) => {
-  const { errors } = getValidatedFormData({
+type ActionState =
+  | {
+      [key: string]: string;
+    }
+  | undefined;
+
+export const submitName = async (
+  _state: ActionState,
+  formData: FormData,
+): Promise<ActionState> => {
+  const result = getValidatedFormData({
     formData,
     schema: formDataSchema,
   });
-  return errors;
+
+  // Return errors if validation failed, undefined if successful
+  return result.errors ? (result.errors as ActionState) : undefined;
 };

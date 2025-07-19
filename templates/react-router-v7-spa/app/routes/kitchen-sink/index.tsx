@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import { toast } from '@/hooks/useToast';
-import { getPostsQueryOptions } from '@/services/queries/posts';
+import { getPostsQuery } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
 
@@ -23,7 +23,7 @@ const formDataSchema = z.object({
 });
 
 export const clientLoader = async () => {
-  const posts = await queryClient.ensureQueryData(getPostsQueryOptions());
+  const posts = await queryClient.ensureQueryData(getPostsQuery());
 
   return posts;
 };
@@ -38,6 +38,10 @@ export const clientAction = async ({ request }: Route.ClientActionArgs) => {
   });
   if (errors) {
     return { defaultValues, errors };
+  }
+
+  if (!data) {
+    throw new Error('Validation failed but no errors reported');
   }
 
   toast({

@@ -5,11 +5,11 @@ import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { useToast } from '@/hooks/useToast';
 import postsService from '@/services/postsService';
-import { getPostsQueryOptions, postsQueryKeys } from '@/services/queries/posts';
+import { getPostsQuery, postsQueryKeys } from '@/services/queries/posts';
 
 const ReactQueryPage = () => {
   const { t } = useAppTranslation();
-  const { data, isLoading, isError } = useQuery(getPostsQueryOptions());
+  const { data, isLoading, isError } = useQuery(getPostsQuery());
   const queryClient = useQueryClient();
   const { toast } = useToast();
 

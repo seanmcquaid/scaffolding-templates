@@ -107,7 +107,7 @@ describe('getValidatedFormData', () => {
 
       expect(result).toEqual({
         defaultValues: { name: 'John Doe' },
-        errors: { name: 'String must contain at least 10 character(s)' },
+        errors: { name: 'Too small: expected string to have >=10 characters' },
       });
     });
     it('returns an object with data and defaultValues from the validated formData when the form data is valid', () => {

@@ -1,12 +1,12 @@
-import type { ZodFirstPartySchemaTypes } from 'zod';
+import type { ZodType } from 'zod';
 
 declare module 'ky' {
   export interface Options {
-    validationSchema?: ZodFirstPartySchemaTypes;
+    validationSchema?: ZodType;
   }
 
   export interface NormalizedOptions {
-    validationSchema?: ZodFirstPartySchemaTypes;
+    validationSchema?: ZodType;
   }
 
   export interface HTTPError<T = unknown> {

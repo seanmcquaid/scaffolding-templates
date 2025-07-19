@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import { useToast } from '@/hooks/useToast';
-import { getPostsQueryOptions } from '@/services/queries/posts';
+import { getPostsQuery } from '@/services/queries/posts';
 
 const formDataSchema = z.object({
   name: z
@@ -21,7 +21,7 @@ const formDataSchema = z.object({
 });
 
 export const KitchenSinkPage = () => {
-  const { data: posts } = useSuspenseQuery(getPostsQueryOptions());
+  const { data: posts } = useSuspenseQuery(getPostsQuery());
   const {
     register,
     formState: { errors },
@@ -68,5 +68,5 @@ export const KitchenSinkPage = () => {
 export const Route = createFileRoute('/kitchen-sink/')({
   component: KitchenSinkPage,
   loader: ({ context: { queryClient } }) =>
-    queryClient.ensureQueryData(getPostsQueryOptions()),
+    queryClient.ensureQueryData(getPostsQuery()),
 });

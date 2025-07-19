@@ -1,13 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import PageWrapper from '@/components/app/PageWrapper';
-import { getPostQueryOptions } from '@/services/queries/posts';
+import { getPostQuery } from '@/services/queries/posts';
 
 export const ReactQueryPostPage = () => {
   const { id } = Route.useParams();
-  const { data, isLoading, isError } = useSuspenseQuery(
-    getPostQueryOptions(id),
-  );
+  const { data, isLoading, isError } = useSuspenseQuery(getPostQuery(id));
 
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
