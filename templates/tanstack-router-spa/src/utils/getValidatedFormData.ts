@@ -9,9 +9,7 @@ const getValidatedFormData = <T extends SchemaType>({
   formData: FormData;
   schema: T;
 }) => {
-  const schemaKeys: string[] = [];
-  schemaKeys.push(...Object.keys(schema.def.shape));
-
+  const schemaKeys = Object.keys(schema.def.shape);
   const formDataFromSchema = schemaKeys.reduce(
     (acc, key) => ({
       ...acc,
@@ -21,7 +19,6 @@ const getValidatedFormData = <T extends SchemaType>({
       [Key in keyof z.infer<T>]: string;
     },
   );
-
   const validatedFormData = schema.safeParse(formDataFromSchema);
 
   if (!validatedFormData.success) {
