@@ -17,9 +17,8 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import { useToast } from '@/hooks/useToast';
+import useAppTranslation from '@/hooks/useAppTranslation';
 import { getPostsQuery } from '@/services/queries/posts';
-
-/* eslint-disable i18next/no-literal-string */
 
 const formDataSchema = z.object({
   name: z
@@ -33,6 +32,7 @@ const formDataSchema = z.object({
 });
 
 export const KitchenSinkPage = () => {
+  const { t } = useAppTranslation();
   const { data: posts } = useSuspenseQuery(getPostsQuery());
   const {
     register,
@@ -77,36 +77,41 @@ export const KitchenSinkPage = () => {
 
   return (
     <div className="space-y-6 p-4">
-      <h1 className="text-2xl font-bold">
-        Kitchen Sink - usehooks-ts Examples
-      </h1>
+      <h1 className="text-2xl font-bold">{t('KitchenSinkPage.title')}</h1>
 
       {/* Original form */}
       <section className="rounded border p-4">
         <h2 className="mb-2 text-lg font-semibold">
-          React Hook Form + Zod + TanStack Query
+          {t('KitchenSinkPage.reactHookFormZodTanstack')}
         </h2>
         <form onSubmit={handleOnSubmit}>
           <Input
             className="m-4"
             errorMessage={errors?.name?.message}
-            label="Name"
+            label={t('KitchenSinkPage.name')}
             {...register('name')}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t('KitchenSinkPage.submit')}</Button>
         </form>
       </section>
 
       {/* usehooks-ts examples */}
       <section className="rounded border p-4">
-        <h2 className="mb-4 text-lg font-semibold">usehooks-ts Examples</h2>
+        <h2 className="mb-4 text-lg font-semibold">
+          {t('KitchenSinkPage.usehookstsExamples')}
+        </h2>
 
         {/* useLocalStorage + useToggle */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useLocalStorage + useToggle</h3>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useLocalStorageToggle')}
+          </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Layout: {userPrefs.layout} | Dark Mode:{' '}
-            {userPrefs.darkMode ? 'On' : 'Off'}
+            {t('KitchenSinkPage.layout')}: {userPrefs.layout} |{' '}
+            {t('KitchenSinkPage.darkMode')}:{' '}
+            {userPrefs.darkMode
+              ? t('KitchenSinkPage.on')
+              : t('KitchenSinkPage.off')}
           </p>
           <div className="mb-2 space-x-2">
             <Button
@@ -117,10 +122,17 @@ export const KitchenSinkPage = () => {
                 }))
               }
             >
-              Switch to {userPrefs.layout === 'grid' ? 'List' : 'Grid'} View
+              {t('KitchenSinkPage.switchTo')}{' '}
+              {userPrefs.layout === 'grid'
+                ? t('KitchenSinkPage.listView')
+                : t('KitchenSinkPage.gridView')}{' '}
+              {t('KitchenSinkPage.view')}
             </Button>
             <Button onClick={toggleFilters}>
-              {showFilters ? 'Hide' : 'Show'} Filters
+              {showFilters
+                ? t('KitchenSinkPage.hide')
+                : t('KitchenSinkPage.show')}{' '}
+              {t('KitchenSinkPage.filters')}
             </Button>
           </div>
           {showFilters && (
@@ -137,7 +149,7 @@ export const KitchenSinkPage = () => {
                   }
                   className="mr-2"
                 />
-                Enable dark mode
+                {t('KitchenSinkPage.enableDarkMode')}
               </label>
             </div>
           )}
@@ -145,48 +157,64 @@ export const KitchenSinkPage = () => {
 
         {/* useCounter */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useCounter</h3>
-          <p className="mb-2 text-sm text-gray-600">Count: {count}</p>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useCounter')}
+          </h3>
+          <p className="mb-2 text-sm text-gray-600">
+            {t('KitchenSinkPage.count')}: {count}
+          </p>
           <div className="space-x-2">
             <Button onClick={increment}>+</Button>
             <Button onClick={decrement}>-</Button>
-            <Button onClick={reset}>Reset</Button>
+            <Button onClick={reset}>{t('KitchenSinkPage.reset')}</Button>
           </div>
         </div>
 
         {/* useDebounceValue */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useDebounceValue</h3>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useDebounceValue')}
+          </h3>
           <Input
-            label="Filter Posts (debounced)"
+            label={t('KitchenSinkPage.filterPosts')}
             value={filterText}
             onChange={e => setFilterText(e.target.value)}
-            placeholder="Type to filter posts..."
+            placeholder={t('KitchenSinkPage.typeToFilter')}
             className="mb-2"
           />
           <p className="text-sm text-gray-600">
-            Debounced filter: "{debouncedFilter}"
-            {debouncedFilter && ` (${filteredPosts?.length} matches)`}
+            {t('KitchenSinkPage.debouncedFilter')}:{' '}
+            {debouncedFilter ? `"${debouncedFilter}"` : '""'}
+            {debouncedFilter &&
+              ` (${filteredPosts?.length} ${t('KitchenSinkPage.matches')})`}
           </p>
         </div>
 
         {/* useMediaQuery + useOnClickOutside */}
         <div className="mb-4">
           <h3 className="mb-2 font-medium">
-            useMediaQuery + useOnClickOutside
+            {t('KitchenSinkPage.useMediaQueryOnClickOutside')}
           </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Device: {isMobile ? 'Mobile' : 'Desktop'}
+            {t('KitchenSinkPage.device')}:{' '}
+            {isMobile
+              ? t('KitchenSinkPage.mobile')
+              : t('KitchenSinkPage.desktop')}
           </p>
           <div className="relative" ref={dropdownRef}>
             <Button onClick={() => setDropdownOpen(!dropdownOpen)}>
-              Dropdown Menu {dropdownOpen ? '▲' : '▼'}
+              {t('KitchenSinkPage.dropdownMenu')} {dropdownOpen ? '▲' : '▼'}
             </Button>
             {dropdownOpen && (
               <div className="absolute top-full left-0 z-10 mt-1 rounded border bg-white p-2 shadow-lg">
-                <p className="text-sm">Click outside to close!</p>
+                <p className="text-sm">
+                  {t('KitchenSinkPage.clickOutsideToClose')}
+                </p>
                 <p className="text-xs text-gray-500">
-                  Optimized for {isMobile ? 'mobile' : 'desktop'}
+                  {t('KitchenSinkPage.optimizedFor')}{' '}
+                  {isMobile
+                    ? t('KitchenSinkPage.mobile').toLowerCase()
+                    : t('KitchenSinkPage.desktop').toLowerCase()}
                 </p>
               </div>
             )}
@@ -197,7 +225,8 @@ export const KitchenSinkPage = () => {
       {/* Posts list with layout preference */}
       <section className="rounded border p-4">
         <h2 className="mb-2 text-lg font-semibold">
-          Posts ({filteredPosts?.length || 0}/{posts?.length || 0})
+          {t('KitchenSinkPage.posts')} ({filteredPosts?.length || 0}/
+          {posts?.length || 0})
         </h2>
         <ul
           className={
@@ -226,7 +255,7 @@ export const KitchenSinkPage = () => {
         </ul>
         {debouncedFilter && filteredPosts?.length === 0 && (
           <p className="mt-2 text-gray-500">
-            No posts found matching "{debouncedFilter}"
+            {t('KitchenSinkPage.noPostsFound')} "{debouncedFilter}"
           </p>
         )}
       </section>

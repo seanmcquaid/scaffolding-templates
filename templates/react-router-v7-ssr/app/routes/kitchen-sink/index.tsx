@@ -14,12 +14,11 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import LinkButton from '@/components/ui/LinkButton';
 import { toast } from '@/hooks/useToast';
+import useAppTranslation from '@/hooks/useAppTranslation';
 import postsService from '@/services/postsService';
 import { postsQueryKeys } from '@/services/queries/posts';
 import queryClient from '@/services/queries/queryClient';
 import getValidatedFormData from '@/utils/getValidatedFormData';
-
-/* eslint-disable i18next/no-literal-string */
 
 const formDataSchema = z.object({
   name: z
@@ -81,6 +80,7 @@ export const clientAction = async ({
 };
 
 const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
+  const { t } = useAppTranslation();
   const {
     register,
     formState: { errors },
@@ -117,37 +117,42 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
 
   return (
     <div className="space-y-6 p-4">
-      <h1 className="text-2xl font-bold">
-        Kitchen Sink - SSR + usehooks-ts Examples
-      </h1>
+      <h1 className="text-2xl font-bold">{t('KitchenSinkPage.title')}</h1>
 
       {/* Original form */}
       <section className="rounded border p-4">
         <h2 className="mb-2 text-lg font-semibold">
-          React Hook Form + Zod + SSR
+          {t('KitchenSinkPage.reactHookFormZodSsr')}
         </h2>
         <Form method="POST">
           <Input
             className="m-4"
             defaultValue={actionData?.defaultValues?.name}
             errorMessage={errors?.name?.message || actionData?.errors?.name}
-            label="Name"
+            label={t('KitchenSinkPage.name')}
             {...register('name')}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t('KitchenSinkPage.submit')}</Button>
         </Form>
       </section>
 
       {/* usehooks-ts examples */}
       <section className="rounded border p-4">
-        <h2 className="mb-4 text-lg font-semibold">usehooks-ts Examples</h2>
+        <h2 className="mb-4 text-lg font-semibold">
+          {t('KitchenSinkPage.usehookstsExamples')}
+        </h2>
 
         {/* useLocalStorage + useToggle */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useLocalStorage + useToggle</h3>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useLocalStorageToggle')}
+          </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Auto Refresh: {appConfig.autoRefresh ? 'On' : 'Off'} | Items per
-            page: {appConfig.itemsPerPage}
+            {t('KitchenSinkPage.autoRefresh')}:{' '}
+            {appConfig.autoRefresh
+              ? t('KitchenSinkPage.on')
+              : t('KitchenSinkPage.off')}{' '}
+            | {t('KitchenSinkPage.itemsPerPage')}: {appConfig.itemsPerPage}
           </p>
           <div className="mb-2 space-x-2">
             <Button
@@ -158,16 +163,22 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
                 }))
               }
             >
-              {appConfig.autoRefresh ? 'Stop' : 'Start'} Auto Refresh
+              {appConfig.autoRefresh
+                ? t('KitchenSinkPage.stop')
+                : t('KitchenSinkPage.start')}{' '}
+              {t('KitchenSinkPage.autoRefresh')}
             </Button>
             <Button onClick={toggleAdvanced}>
-              {showAdvanced ? 'Hide' : 'Show'} Advanced Settings
+              {showAdvanced
+                ? t('KitchenSinkPage.hide')
+                : t('KitchenSinkPage.show')}{' '}
+              {t('KitchenSinkPage.advancedSettings')}
             </Button>
           </div>
           {showAdvanced && (
             <div className="rounded bg-gray-50 p-2">
               <label className="mb-2 block">
-                Items per page:
+                {t('KitchenSinkPage.itemsPerPage')}:
                 <select
                   value={appConfig.itemsPerPage}
                   onChange={e =>
@@ -189,16 +200,22 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
 
         {/* useCounter + useInterval */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useCounter + useInterval</h3>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useCounterInterval')}
+          </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Current time: {currentTime} | Refresh count: {refreshCount}
+            {t('KitchenSinkPage.currentTime')}: {currentTime} |{' '}
+            {t('KitchenSinkPage.refreshCount')}: {refreshCount}
           </p>
           <div className="space-x-2">
-            <Button onClick={resetRefresh}>Reset Counter</Button>
+            <Button onClick={resetRefresh}>
+              {t('KitchenSinkPage.resetCounter')}
+            </Button>
           </div>
           {appConfig.autoRefresh && (
             <p className="mt-1 text-xs text-blue-600">
-              ⏱️ Auto-refreshing every second...
+              {t('KitchenSinkPage.timerEmoji')}{' '}
+              {t('KitchenSinkPage.autoRefreshingEverySecond')}
             </p>
           )}
         </div>
@@ -207,7 +224,8 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
       {/* Posts list with pagination */}
       <section className="rounded border p-4">
         <h2 className="mb-2 text-lg font-semibold">
-          Posts (showing first {appConfig.itemsPerPage} of{' '}
+          {t('KitchenSinkPage.posts')} ({t('KitchenSinkPage.showingFirst')}{' '}
+          {appConfig.itemsPerPage} {t('KitchenSinkPage.of')}{' '}
           {loaderData?.length || 0})
         </h2>
         <ul className="grid grid-cols-2 gap-2">
@@ -221,7 +239,9 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
         </ul>
         {loaderData && loaderData.length > appConfig.itemsPerPage && (
           <p className="mt-2 text-sm text-gray-500">
-            Showing {appConfig.itemsPerPage} of {loaderData.length} posts
+            {t('KitchenSinkPage.showing')} {appConfig.itemsPerPage}{' '}
+            {t('KitchenSinkPage.of')} {loaderData.length}{' '}
+            {t('KitchenSinkPage.posts').toLowerCase()}
           </p>
         )}
       </section>

@@ -14,10 +14,10 @@ import { submitName } from './actions';
 import formDataSchema from './formDataSchema';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-
-/* eslint-disable i18next/no-literal-string */
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 const KitchenSinkForm = () => {
+  const { t } = useAppTranslation();
   const {
     register,
     formState: { errors },
@@ -39,41 +39,46 @@ const KitchenSinkForm = () => {
   const [copiedText, copyToClipboard] = useCopyToClipboard();
 
   const handleCopyWindowSize = () => {
-    copyToClipboard(`Window size: ${width}x${height}`);
+    copyToClipboard(`${t('KitchenSinkPage.windowSize')}: ${width}x${height}`);
   };
 
   return (
     <div className="space-y-6 p-4">
-      <h1 className="text-2xl font-bold">
-        Kitchen Sink - usehooks-ts Examples
-      </h1>
+      <h1 className="text-2xl font-bold">{t('KitchenSinkPage.title')}</h1>
 
       {/* Original form */}
       <section className="rounded border p-4">
         <h2 className="mb-2 text-lg font-semibold">
-          React Hook Form + Zod + Server Actions
+          {t('KitchenSinkPage.reactHookFormZodServerActions')}
         </h2>
         <form action={formAction}>
           <Input
             className="m-4"
             errorMessage={errors?.name?.message || formState?.name}
-            label="Name"
+            label={t('KitchenSinkPage.name')}
             {...register('name')}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">{t('KitchenSinkPage.submit')}</Button>
         </form>
       </section>
 
       {/* usehooks-ts examples */}
       <section className="rounded border p-4">
-        <h2 className="mb-4 text-lg font-semibold">usehooks-ts Examples</h2>
+        <h2 className="mb-4 text-lg font-semibold">
+          {t('KitchenSinkPage.usehookstsExamples')}
+        </h2>
 
         {/* useLocalStorage + useToggle */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useLocalStorage + useToggle</h3>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useLocalStorageToggle')}
+          </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Theme: {settings.theme} | Notifications:{' '}
-            {settings.notifications ? 'On' : 'Off'}
+            {t('KitchenSinkPage.theme')}: {settings.theme} |{' '}
+            {t('KitchenSinkPage.notifications')}:{' '}
+            {settings.notifications
+              ? t('KitchenSinkPage.on')
+              : t('KitchenSinkPage.off')}
           </p>
           <div className="mb-2 space-x-2">
             <Button
@@ -84,10 +89,13 @@ const KitchenSinkForm = () => {
                 }))
               }
             >
-              Toggle Theme
+              {t('KitchenSinkPage.toggleTheme')}
             </Button>
             <Button onClick={toggleDetails}>
-              {showDetails ? 'Hide' : 'Show'} Details
+              {showDetails
+                ? t('KitchenSinkPage.hide')
+                : t('KitchenSinkPage.show')}{' '}
+              {t('KitchenSinkPage.details')}
             </Button>
           </div>
           {showDetails && (
@@ -104,7 +112,7 @@ const KitchenSinkForm = () => {
                   }
                   className="mr-2"
                 />
-                Enable notifications
+                {t('KitchenSinkPage.enableNotifications')}
               </label>
             </div>
           )}
@@ -112,27 +120,37 @@ const KitchenSinkForm = () => {
 
         {/* useCounter */}
         <div className="mb-4">
-          <h3 className="mb-2 font-medium">useCounter</h3>
-          <p className="mb-2 text-sm text-gray-600">Count: {count}</p>
+          <h3 className="mb-2 font-medium">
+            {t('KitchenSinkPage.useCounter')}
+          </h3>
+          <p className="mb-2 text-sm text-gray-600">
+            {t('KitchenSinkPage.count')}: {count}
+          </p>
           <div className="space-x-2">
             <Button onClick={increment}>+</Button>
             <Button onClick={decrement}>-</Button>
-            <Button onClick={reset}>Reset</Button>
+            <Button onClick={reset}>{t('KitchenSinkPage.reset')}</Button>
           </div>
         </div>
 
         {/* useWindowSize + useCopyToClipboard */}
         <div className="mb-4">
           <h3 className="mb-2 font-medium">
-            useWindowSize + useCopyToClipboard
+            {t('KitchenSinkPage.useWindowSizeCopyToClipboard')}
           </h3>
           <p className="mb-2 text-sm text-gray-600">
-            Window size: {width || 0}x{height || 0}px
+            {t('KitchenSinkPage.windowSize')}: {width || 0}
+            {t('KitchenSinkPage.x')}
+            {height || 0}
+            {t('KitchenSinkPage.px')}
           </p>
-          <Button onClick={handleCopyWindowSize}>Copy Window Size</Button>
+          <Button onClick={handleCopyWindowSize}>
+            {t('KitchenSinkPage.copyWindowSize')}
+          </Button>
           {copiedText && (
             <p className="mt-2 text-sm text-green-600">
-              ✓ Copied: {copiedText}
+              {t('KitchenSinkPage.checkmark')} {t('KitchenSinkPage.copied')}:{' '}
+              {copiedText}
             </p>
           )}
         </div>

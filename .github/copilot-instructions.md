@@ -256,21 +256,24 @@ const ProductSearch = () => {
 };
 ```
 
-**Web Storage - Type-Safe Persistence**:
+**Web Storage - Type-Safe Persistence with i18n**:
 ```tsx
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 interface UserPreferences {
   theme: 'light' | 'dark' | 'auto';
-  language: 'en' | 'es' | 'fr';
+  language: 'en-US' | 'en-CA'; // Align with actual locale detection
   notifications: boolean;
 }
 
 const UserSettings = () => {
+  const { t, i18n } = useAppTranslation();
+  
   // localStorage for persistent preferences
   const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
     'userPreferences',
-    { theme: 'light', language: 'en', notifications: true }
+    { theme: 'light', language: 'en-US', notifications: true }
   );
 
   // sessionStorage for temporary data
@@ -283,31 +286,47 @@ const UserSettings = () => {
     setPreferences(prev => ({ ...prev, theme }));
   };
 
+  const updateLanguage = (language: UserPreferences['language']) => {
+    setPreferences(prev => ({ ...prev, language }));
+    i18n.changeLanguage(language); // Update i18next language
+  };
+
   return (
     <div>
-      <h3>Settings (Saved in localStorage)</h3>
+      <h3>{t('Settings.title')}</h3>
       <select
         value={preferences.theme}
         onChange={(e) => updateTheme(e.target.value as UserPreferences['theme'])}
       >
-        <option value="light">Light</option>
-        <option value="dark">Dark</option>
-        <option value="auto">Auto</option>
+        <option value="light">{t('Settings.lightTheme')}</option>
+        <option value="dark">{t('Settings.darkTheme')}</option>
+        <option value="auto">{t('Settings.autoTheme')}</option>
       </select>
 
-      <h3>Session Info (sessionStorage)</h3>
-      <p>Tab ID: {sessionData.tabId}</p>
-      <p>Session Started: {sessionData.startTime}</p>
+      <select
+        value={preferences.language}
+        onChange={(e) => updateLanguage(e.target.value as UserPreferences['language'])}
+      >
+        <option value="en-US">{t('Settings.englishUS')}</option>
+        <option value="en-CA">{t('Settings.englishCA')}</option>
+      </select>
+
+      <h3>{t('Settings.sessionInfo')}</h3>
+      <p>{t('Settings.tabId')}: {sessionData.tabId}</p>
+      <p>{t('Settings.sessionStarted')}: {sessionData.startTime}</p>
     </div>
   );
 };
 ```
 
-**Local State - Component-Specific State**:
+**Local State - Component-Specific State with i18n**:
 ```tsx
 import { useToggle, useCounter } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 const LocalStateExample = () => {
+  const { t } = useAppTranslation();
+  
   // Simple boolean state
   const [isVisible, toggleVisible] = useToggle(false);
   
@@ -318,17 +337,17 @@ const LocalStateExample = () => {
     <div>
       {/* Toggle example */}
       <button onClick={toggleVisible}>
-        {isVisible ? 'Hide' : 'Show'} Content
+        {isVisible ? t('Common.hide') : t('Common.show')} {t('Common.content')}
       </button>
-      {isVisible && <p>This content is toggled!</p>}
+      {isVisible && <p>{t('LocalState.toggledContent')}</p>}
 
       {/* Counter example */}
       <div>
-        <span>Count: {count}</span>
+        <span>{t('Common.count')}: {count}</span>
         <button onClick={increment}>+</button>
         <button onClick={decrement}>-</button>
-        <button onClick={reset}>Reset</button>
-        <button onClick={() => setCount(10)}>Set to 10</button>
+        <button onClick={reset}>{t('Common.reset')}</button>
+        <button onClick={() => setCount(10)}>{t('LocalState.setToTen')}</button>
       </div>
     </div>
   );
@@ -435,9 +454,11 @@ const RefsExample = () => {
 };
 ```
 
-**Context - Subtree State Management**:
+**Context - Subtree State Management with i18n**:
 ```tsx
 import { createContext, useContext, ReactNode } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -470,13 +491,14 @@ export const useTheme = () => {
   return context;
 };
 
-// Usage in components
+// Usage in components with proper i18n
 const ThemeToggle = () => {
+  const { t } = useAppTranslation();
   const { theme, toggleTheme } = useTheme();
   
   return (
     <button onClick={toggleTheme}>
-      {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+      {theme === 'light' ? t('Theme.switchToDark') : t('Theme.switchToLight')}
     </button>
   );
 };
@@ -624,6 +646,65 @@ const UserForm = () => {
 - **Context-aware translations**: Provide context to translators through key naming and comments
 - **Lazy loading**: Load translation bundles on-demand for better performance
 - **RTL support**: Consider right-to-left languages in CSS and layout design
+
+##### Locale Management Implementation
+The project templates implement locale management with:
+
+**Language Detection Order**:
+1. Query string (`?lng=en-US`)
+2. Domain-based detection (`.ca` domain → `en-CA`)
+3. Cookie storage
+4. localStorage persistence (`i18nextLng`)
+5. Browser navigator language
+6. HTML tag language attribute
+
+**Configuration Example**:
+```typescript
+// i18next.client.ts
+languageDetector.addDetector({
+  cacheUserLanguage(lng) {
+    localStorage.setItem('i18nextLng', lng);
+  },
+  lookup() {
+    const host = window.location.host;
+    if (host.includes('.ca')) {
+      return 'en-CA';
+    }
+    return 'en-US';
+  },
+  name: 'domain',
+});
+
+i18next.init({
+  detection: {
+    order: [
+      'querystring',
+      'domain',
+      'cookie', 
+      'localStorage',
+      'navigator',
+      'htmlTag',
+    ],
+  },
+  fallbackLng: 'en-US',
+  // ...
+});
+```
+
+**Type-Safe Translation Hook**:
+```typescript
+// useAppTranslation.tsx
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const Component = () => {
+  const { t, i18n } = useAppTranslation();
+  
+  // Type-safe translation keys
+  return <h1>{t('HomePage.title')}</h1>;
+};
+```
+
+This approach ensures locale state is properly managed and persisted across sessions while providing type safety for translation keys.
 
 ## Development Guidelines
 
