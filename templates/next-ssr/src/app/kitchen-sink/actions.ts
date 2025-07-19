@@ -18,5 +18,5 @@ export const submitName = async (
   });
 
   // Return errors if validation failed, undefined if successful
-  return 'errors' in result ? (result.errors as ActionState) : undefined;
+  return result.errors ? (result.errors as ActionState) : undefined;
 };
