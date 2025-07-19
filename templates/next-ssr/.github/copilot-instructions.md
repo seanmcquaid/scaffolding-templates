@@ -664,18 +664,4 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Color contrast**: Maintain WCAG 2.1 AA color contrast ratios
 - **Focus management**: Implement visible focus indicators and logical focus order
 
-### Template Creation Best Practices
-- **Start with existing patterns**: Use an existing template as a starting point to maintain consistency
-- **Document decisions**: Include architectural decision records (ADRs) for major design choices
-- **Provide examples**: Include sample components, services, and tests that demonstrate best practices
-- **Environment setup**: Provide comprehensive setup instructions and troubleshooting guides
-- **Performance baselines**: Establish bundle size limits and performance budgets from the start
-- **Accessibility audit**: Ensure templates meet WCAG 2.1 AA standards out of the box
 
-### Template Maintenance Best Practices
-- **Version consistency**: Keep dependencies aligned across templates when possible
-- **Breaking change communication**: Clearly document breaking changes and provide migration guides
-- **Cross-template testing**: Test changes across multiple templates to ensure consistency
-- **Documentation currency**: Keep documentation in sync with code changes
-- **Dependency management**: Regularly audit and update dependencies for security and performance
-- **Community feedback**: Incorporate feedback from template users to improve usability
