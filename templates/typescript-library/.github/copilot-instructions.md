@@ -279,7 +279,7 @@ export class LibraryError extends Error {
 ### File Organization Best Practices
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
@@ -305,6 +305,13 @@ export class LibraryError extends Error {
 3. **GitHub Actions integration**: Merge the changeset PR to trigger automated release process
 4. **Required tokens**: Ensure GitHub Token and NPM Token are added as secrets for GitHub Actions before starting this process
 
+### Accessibility Best Practices
+- **Semantic HTML**: Use proper HTML elements for their intended purpose
+- **ARIA attributes**: Implement ARIA labels and descriptions where necessary
+- **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
+- **Screen reader compatibility**: Test with screen readers and provide meaningful alt text
+- **Color contrast**: Maintain WCAG 2.1 AA color contrast ratios
+- **Focus management**: Implement visible focus indicators and logical focus order
 
 ### Performance Best Practices
 - **Measurement first**: Establish performance baselines and monitor Core Web Vitals

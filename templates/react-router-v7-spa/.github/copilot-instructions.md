@@ -637,7 +637,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 ### File Organization Best Practices
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
@@ -714,3 +714,19 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Unit Tests**: For components, hooks, utils, pages - If a component navigates to another page, test that behavior in integration tests instead
 - **Integration Tests with mocked APIs**: For happy path flows using Playwright + Mock Service Worker with dynamic mocks for each happy path flow
 - **End-to-End Tests with real APIs**: For high level user flows using Playwright or Cypress - Keep these separate from PR checks, run after successful build and deploy
+
+### Code Quality Best Practices
+- **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
+- **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
+- **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
+- **Code review process**: Implement thorough code review practices with automated checks
+- **Git hygiene**: Use conventional commits and meaningful commit messages
+- **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
+
+### Security Best Practices
+- **Dependency management**: Regularly audit dependencies for security vulnerabilities
+- **Environment variables**: Never commit secrets; use proper environment variable management
+- **Input validation**: Validate all user inputs and API responses
+- **Authentication**: Implement secure authentication patterns with proper session management
+- **HTTPS everywhere**: Ensure all network communications use HTTPS
+- **Content Security Policy**: Implement CSP headers to prevent XSS attacks
