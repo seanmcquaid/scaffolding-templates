@@ -803,10 +803,10 @@ export default function ErrorBoundary({
 ```tsx
 // app/about/page.tsx
 import type { Metadata } from 'next';
-import useAppTranslation from '@/hooks/useAppTranslation';
+import getAppFixedT from '@/i18n/getAppFixedT';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { t } = useAppTranslation();
+  const { t } = await getAppFixedT();
   
   return {
     title: t('AboutPage.metaTitle'),
