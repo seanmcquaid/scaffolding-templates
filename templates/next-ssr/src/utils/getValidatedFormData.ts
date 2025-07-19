@@ -1,8 +1,6 @@
 import type { z } from 'zod';
 
-type SchemaType =
-  | z.ZodObject<z.ZodRawShape>
-  | z.ZodTransform<z.ZodObject<z.ZodRawShape>, unknown>;
+type SchemaType = z.ZodObject<z.ZodRawShape>;
 
 const getValidatedFormData = <T extends SchemaType>({
   schema,
@@ -12,18 +10,7 @@ const getValidatedFormData = <T extends SchemaType>({
   schema: T;
 }) => {
   const schemaKeys: string[] = [];
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  if ((schema as any)._def.type === 'pipe') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const typedSchema = schema as any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const inputSchema = typedSchema._def.in as any;
-    schemaKeys.push(...Object.keys(inputSchema._def.shape));
-  } else {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    schemaKeys.push(...Object.keys((schema as any)._def.shape));
-  }
+  schemaKeys.push(...Object.keys(schema.def.shape));
 
   const formDataFromSchema = schemaKeys.reduce(
     (acc, key) => ({
