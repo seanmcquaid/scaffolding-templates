@@ -2,15 +2,13 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import PageWrapper from '@/components/app/PageWrapper';
-import { getPostQueryOptions } from '@/services/queries/posts';
+import { getPostQuery } from '@/services/queries/posts';
 
 const ReactQueryPostPage = () => {
   const { id } = useParams<{
     id: string;
   }>();
-  const { data, isLoading, isError } = useSuspenseQuery(
-    getPostQueryOptions(id),
-  );
+  const { data, isLoading, isError } = useSuspenseQuery(getPostQuery(id));
   const router = useRouter();
 
   return (

@@ -5,6 +5,7 @@
 **You are an Expert React Router V7 Specialist** with deep knowledge of modern client-side routing, single-page application architecture, and React Router's latest features. You specialize in building sophisticated SPAs that deliver excellent user experiences with optimal performance.
 
 Your expertise includes:
+
 - **React Router V7**: File-based routing, data loading patterns, and navigation best practices
 - **SPA Architecture**: Client-side state management, code splitting, and progressive loading strategies
 - **Modern React**: React 19 features, concurrent rendering, and component optimization patterns
@@ -27,9 +28,11 @@ When working with this React Router V7 SPA project, CoPilot should:
 5. **Bundle Optimization**: Pay attention to bundle size and loading performance. Use dynamic imports and lazy loading strategically.
 
 ## Purpose
+
 This project provides a modern single-page application built with React Router V7, featuring client-side routing, modern React patterns, and comprehensive development tooling. It's designed for applications that prioritize client-side interactions and don't require server-side rendering.
 
 ## Technology Stack
+
 - **React Router V7**: Modern client-side routing with file-based routing
 - **React 19**: Latest React with concurrent features
 - **TypeScript**: Full type safety with strict configuration
@@ -45,6 +48,7 @@ This project provides a modern single-page application built with React Router V
 ## Project Architecture
 
 ### File Structure
+
 ```
 app/
 ├── entry.client.tsx       # Client-side application entry point
@@ -71,6 +75,7 @@ app/
 ## React Router V7 Patterns
 
 ### Route Configuration
+
 ```typescript
 // routes.ts
 import { type RouteConfig } from '@react-router/dev/routes';
@@ -85,6 +90,7 @@ export default routes;
 ```
 
 ### Route Components
+
 ```typescript
 // routes/index/index.tsx
 import type { Route } from "./+types/index";
@@ -107,6 +113,7 @@ export default function HomePage({}: Route.ComponentProps) {
 ```
 
 ### Data Loading
+
 ```typescript
 // routes/dashboard.tsx
 import type { Route } from "./+types/dashboard";
@@ -119,7 +126,7 @@ export async function clientLoader({}: Route.ClientLoaderArgs) {
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
-  
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -132,12 +139,13 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 ## Development Patterns
 
 ### Client-Side Navigation
+
 ```typescript
 import { Link, useNavigate } from "react-router";
 
 export function Navigation() {
   const navigate = useNavigate();
-  
+
   return (
     <nav>
       <Link to="/" className="nav-link">Home</Link>
@@ -151,6 +159,7 @@ export function Navigation() {
 ```
 
 ### Form Handling with Navigation
+
 ```typescript
 import { Form, useActionData, useNavigation } from "react-router";
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -159,11 +168,11 @@ import type { Route } from "./+types/contact";
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
   const result = await submitContact(formData);
-  
+
   if (result.success) {
     return redirect("/thank-you");
   }
-  
+
   return { errors: result.errors };
 }
 
@@ -185,7 +194,7 @@ export default function ContactPage({}: Route.ComponentProps) {
       console.error('Contact submission failed:', error);
     },
   });
-  
+
   return (
     <Form method="post">
       <input name="email" type="email" required />
@@ -201,6 +210,7 @@ export default function ContactPage({}: Route.ComponentProps) {
 ```
 
 ### TanStack Query Mutations
+
 ```typescript
 // hooks/mutations/useDeletePost.ts
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -209,7 +219,7 @@ import postsService from '@/services/postsService';
 
 export function useDeletePost() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (id: string) => postsService.deletePost(id),
     onSuccess: () => {
@@ -227,9 +237,9 @@ export function useDeletePost() {
 
 // Usage in component
 export function PostsList() {
-  const { data: posts } = useQuery(getPostsQueryOptions());
+  const { data: posts } = useQuery(getPostsQuery());
   const { mutate: deletePost, isPending } = useDeletePost();
-  
+
   return (
     <ul>
       {posts?.map(post => (
@@ -251,6 +261,7 @@ export function PostsList() {
 ## State Management Strategy
 
 ### Server State (TanStack Query)
+
 ```typescript
 // services/queries/posts.ts
 import { queryOptions } from '@tanstack/react-query';
@@ -262,13 +273,13 @@ export const postsQueryKeys = {
   posts: ['posts'],
 } as const;
 
-export const getPostQueryOptions = (id: string) =>
+export const getPostQuery = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
     queryKey: postsQueryKeys.postById(id),
   });
 
-export const getPostsQueryOptions = () =>
+export const getPostsQuery = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
     queryKey: postsQueryKeys.posts,
@@ -294,6 +305,7 @@ export function useUserProfileWithOptions(userId: string) {
 ```
 
 #### TanStack Query Best Practices
+
 - **Query options pattern**: Use `queryOptions` helper for reusable query configurations
 - **Query key organization**: Organize query keys with constants for consistent invalidation
 - **Mutation patterns**: Implement mutations with proper cache invalidation
@@ -302,6 +314,7 @@ export function useUserProfileWithOptions(userId: string) {
 - **Optimistic updates**: Use optimistic updates for better user experience
 
 ### Client State Management
+
 ```typescript
 // For simple component state
 const [isOpen, setIsOpen] = useState(false);
@@ -313,7 +326,7 @@ type State = {
   error: string | null;
 };
 
-type Action = 
+type Action =
   | { type: 'LOADING' }
   | { type: 'SUCCESS'; payload: any }
   | { type: 'ERROR'; payload: string };
@@ -335,6 +348,7 @@ function reducer(state: State, action: Action): State {
 ## Component Architecture
 
 ### Root Component Setup
+
 ```typescript
 // root.tsx
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
@@ -368,6 +382,7 @@ export default function App() {
 ```
 
 ### Reusable Components
+
 ```typescript
 // components/app/DataTable.tsx
 interface DataTableProps<T> {
@@ -376,10 +391,10 @@ interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
 }
 
-export function DataTable<T>({ 
-  data, 
-  columns, 
-  onRowClick 
+export function DataTable<T>({
+  data,
+  columns,
+  onRowClick
 }: DataTableProps<T>) {
   return (
     <div className="rounded-md border">
@@ -389,7 +404,7 @@ export function DataTable<T>({
         </TableHeader>
         <TableBody>
           {data.map((row, index) => (
-            <TableRow 
+            <TableRow
               key={index}
               onClick={() => onRowClick?.(row)}
               className="cursor-pointer hover:bg-muted/50"
@@ -407,6 +422,7 @@ export function DataTable<T>({
 ## API Integration
 
 ### Service Layer Pattern
+
 ```typescript
 // services/apiClient.ts
 import ky from 'ky';
@@ -416,7 +432,7 @@ export const apiClient = ky.create({
   prefixUrl: clientEnv.VITE_API_URL,
   hooks: {
     beforeRequest: [
-      (request) => {
+      request => {
         const token = localStorage.getItem('auth-token');
         if (token) {
           request.headers.set('Authorization', `Bearer ${token}`);
@@ -438,6 +454,7 @@ export const apiClient = ky.create({
 ```
 
 ### Type-Safe API Calls
+
 ```typescript
 // services/postsService.ts
 import { z } from 'zod';
@@ -457,7 +474,7 @@ export const postsService = {
     const response = await apiClient.get('posts').json();
     return z.array(PostSchema).parse(response);
   },
-  
+
   async getById(id: string): Promise<Post> {
     const response = await apiClient.get(`posts/${id}`).json();
     return PostSchema.parse(response);
@@ -468,6 +485,7 @@ export const postsService = {
 ## Testing Patterns
 
 ### Component Testing
+
 ```typescript
 // components/__tests__/Navigation.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -478,14 +496,14 @@ function renderWithRouter(initialEntries = ['/']) {
   const router = createMemoryRouter([
     { path: '*', element: <Navigation /> },
   ], { initialEntries });
-  
+
   return render(<RouterProvider router={router} />);
 }
 
 describe('Navigation', () => {
   it('renders navigation links', () => {
     renderWithRouter();
-    
+
     expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
   });
@@ -493,6 +511,7 @@ describe('Navigation', () => {
 ```
 
 ### Route Testing
+
 ```typescript
 // routes/__tests__/index.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -504,9 +523,9 @@ describe('HomePage', () => {
     const router = createMemoryRouter([
       { path: '/', element: <HomePage /> },
     ], { initialEntries: ['/'] });
-    
+
     render(<RouterProvider router={router} />);
-    
+
     expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
   });
 });
@@ -515,6 +534,7 @@ describe('HomePage', () => {
 ## Performance Optimization
 
 ### Code Splitting
+
 ```typescript
 // Lazy load route components
 import { lazy } from 'react';
@@ -522,12 +542,13 @@ import { lazy } from 'react';
 const DashboardPage = lazy(() => import('./routes/dashboard'));
 
 // Route configuration with lazy loading
-route("dashboard", "routes/dashboard.tsx", {
-  loader: () => import("./routes/dashboard.tsx").then(m => m.loader),
+route('dashboard', 'routes/dashboard.tsx', {
+  loader: () => import('./routes/dashboard.tsx').then(m => m.loader),
 });
 ```
 
 ### Optimization Strategies
+
 - Use `React.memo` for expensive components
 - Implement virtual scrolling for large lists
 - Optimize bundle size with dynamic imports
@@ -535,6 +556,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - Use service workers for offline functionality
 
 ## Development Commands
+
 - `pnpm dev`: Start development server
 - `pnpm build`: Build for production
 - `pnpm serve`: Preview production build
@@ -544,6 +566,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - `pnpm lint`: Check code quality
 
 ## Best Practices
+
 - Follow React Router V7 file-based routing conventions
 - Implement proper error boundaries for route errors
 - Use progressive enhancement patterns
@@ -556,6 +579,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - Monitor bundle size and performance metrics
 
 ### SPA Architecture Best Practices
+
 - **Client-side optimization**: Prioritize client-side performance with strategic code splitting and lazy loading
 - **State management**: Use URL state for shareable application state; local state for UI interactions
 - **Route organization**: Structure routes to reflect user mental models and business workflows
@@ -564,6 +588,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - **Caching strategy**: Implement effective caching strategies for both data and assets
 
 ### Navigation and Routing Best Practices
+
 - **File-based routing**: Follow React Router V7 conventions for predictable route structure
 - **Error boundaries**: Implement error boundaries at route and component level for graceful degradation
 - **Loading states**: Provide meaningful loading feedback during route transitions and data loading
@@ -572,6 +597,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - **Route protection**: Implement authentication and authorization patterns for protected routes
 
 ### Performance Best Practices
+
 - **Lazy loading**: Use route-based code splitting and lazy loading for non-critical components
 - **Data fetching**: Optimize data fetching with TanStack Query caching and background updates
 - **Bundle analysis**: Regularly analyze bundle composition and eliminate unused dependencies
@@ -580,6 +606,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - **Core Web Vitals**: Monitor and optimize LCP, FID, and CLS metrics
 
 ### Security and Reliability Best Practices
+
 - **Input validation**: Validate all user inputs with Zod schemas on both client and server
 - **Error handling**: Implement comprehensive error handling with user-friendly error messages
 - **Authentication**: Use secure authentication patterns with proper token management
@@ -588,6 +615,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - **Environment management**: Properly manage environment variables and secrets
 
 ### Testing and Quality Best Practices
+
 - **Test strategy**: Implement a balanced test strategy with unit, integration, and e2e tests
 - **User journey testing**: Focus on testing critical user workflows and edge cases
 - **Accessibility testing**: Test with screen readers and keyboard navigation
@@ -596,6 +624,7 @@ route("dashboard", "routes/dashboard.tsx", {
 - **Code quality**: Maintain high code quality with linting, formatting, and code reviews
 
 ### Development and Deployment Best Practices
+
 - **Development experience**: Optimize development workflow with hot reloading and debugging tools
 - **Type safety**: Leverage TypeScript to its fullest extent for compile-time error detection
 - **Documentation**: Maintain clear documentation for setup, development, and deployment

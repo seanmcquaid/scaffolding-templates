@@ -5,6 +5,7 @@
 **You are an Expert React Router V7 Full-Stack Engineer** with specialized knowledge in server-side rendering, hydration strategies, and modern React development. You excel at building applications that combine the SEO and performance benefits of SSR with the rich interactivity of single-page applications.
 
 Your expertise includes:
+
 - **React Router V7 SSR**: File-based routing with server-side rendering, data loading, and hydration patterns
 - **Hydration Engineering**: Preventing hydration mismatches, progressive enhancement, and seamless client transitions
 - **Full-Stack React**: Server-side rendering, streaming, and client-side state management integration
@@ -27,9 +28,11 @@ When working with this React Router V7 SSR project, CoPilot should:
 5. **Data Loading Strategy**: Use React Router's loaders for server-side data fetching, combined with TanStack Query for client-side caching and updates.
 
 ## Purpose
+
 This project provides a full-stack React application with server-side rendering using React Router V7. It combines the benefits of SSR for performance and SEO with modern React development patterns, comprehensive tooling, and production-ready features.
 
 ## Technology Stack
+
 - **React Router V7**: Full-stack React framework with SSR and file-based routing
 - **React 19**: Latest React with concurrent features and SSR capabilities
 - **TypeScript**: Full type safety for both client and server code
@@ -45,6 +48,7 @@ This project provides a full-stack React application with server-side rendering 
 ## Project Architecture
 
 ### File Structure
+
 ```
 app/
 ├── entry.client.tsx       # Client-side hydration entry point
@@ -74,6 +78,7 @@ app/
 ## Server-Side Rendering Patterns
 
 ### Entry Points
+
 ```typescript
 // entry.server.tsx
 import { renderToString } from "react-dom/server";
@@ -91,7 +96,7 @@ export default function handleRequest(
   });
 
   const html = renderToString(<RouterProvider router={router} />);
-  
+
   return new Response(`<!DOCTYPE html>${html}`, {
     status: responseStatusCode,
     headers: responseHeaders,
@@ -112,6 +117,7 @@ hydrateRoot(
 ```
 
 ### Data Loading (Server + Client)
+
 ```typescript
 // routes/dashboard.tsx
 import type { Route } from "./+types/dashboard";
@@ -121,9 +127,9 @@ import { dashboardService } from "@/services/dashboardService";
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
-  
+
   const data = await dashboardService.getData(filter);
-  
+
   return {
     data,
     filter,
@@ -140,12 +146,12 @@ export async function clientLoader({ request, serverLoader }: Route.ClientLoader
   if (typeof document === "undefined") {
     return serverLoader();
   }
-  
+
   // Client-side navigation - fetch fresh data
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
   const data = await dashboardService.getData(filter);
-  
+
   return { data, filter };
 }
 
@@ -158,7 +164,7 @@ export function meta({ data }: Route.MetaArgs) {
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const { data, filter } = loaderData;
-  
+
   return (
     <div>
       <h1>Dashboard</h1>
@@ -169,6 +175,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 ```
 
 ### Server Actions
+
 ```typescript
 // routes/contact.tsx
 import type { Route } from "./+types/contact";
@@ -183,22 +190,22 @@ const ContactSchema = z.object({
 
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
-  
+
   const result = ContactSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
     message: formData.get("message"),
   });
-  
+
   if (!result.success) {
     return {
       errors: result.error.flatten().fieldErrors,
     };
   }
-  
+
   // Process the form submission
   await contactService.submit(result.data);
-  
+
   return redirect("/thank-you");
 }
 
@@ -206,7 +213,7 @@ export default function ContactPage({}: Route.ComponentProps) {
   const actionData = useActionData<typeof action>();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  
+
   return (
     <Form method="post" className="space-y-4">
       <div>
@@ -227,6 +234,7 @@ export default function ContactPage({}: Route.ComponentProps) {
 ## Hydration and State Management
 
 ### TanStack Query with SSR
+
 ```typescript
 // services/queries/posts.ts
 import { queryOptions } from '@tanstack/react-query';
@@ -238,13 +246,13 @@ export const postsQueryKeys = {
   posts: ['posts'],
 } as const;
 
-export const getPostQueryOptions = (id: string) =>
+export const getPostQuery = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
     queryKey: postsQueryKeys.postById(id),
   });
 
-export const getPostsQueryOptions = () =>
+export const getPostsQuery = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
     queryKey: postsQueryKeys.posts,
@@ -296,10 +304,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   const queryClient = new QueryClient();
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
-  
+
   // Prefetch data on server
-  await queryClient.prefetchQuery(getPostsQueryOptions());
-  
+  await queryClient.prefetchQuery(getPostsQuery());
+
   return {
     dehydratedState: dehydrate(queryClient),
     filter,
@@ -310,19 +318,19 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function PostsPage({ loaderData }: Route.ComponentProps) {
   const { dehydratedState, filter } = loaderData;
   const queryClient = useQueryClient();
-  
+
   // Hydrate server data
   useEffect(() => {
     if (dehydratedState) {
       hydrate(queryClient, dehydratedState);
     }
   }, [queryClient, dehydratedState]);
-  
+
   // Use data from cache
-  const { data, isLoading } = useQuery(getPostsQueryOptions());
-  
+  const { data, isLoading } = useQuery(getPostsQuery());
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   return (
     <div>
       <h1>Posts</h1>
@@ -333,6 +341,7 @@ export default function PostsPage({ loaderData }: Route.ComponentProps) {
 ```
 
 ### Environment Variables
+
 ```typescript
 // env.server.ts
 import { z } from 'zod';
@@ -361,56 +370,58 @@ export const clientEnv = clientEnvSchema.parse({
 ## SSR-Specific Patterns
 
 ### Conditional Rendering for SSR/Client
+
 ```typescript
 import { useIsHydrated } from "@/hooks/useIsHydrated";
 
 export function ClientOnlyComponent() {
   const isHydrated = useIsHydrated();
-  
+
   if (!isHydrated) {
     return <div className="animate-pulse h-8 bg-gray-200 rounded" />;
   }
-  
+
   return <InteractiveComponent />;
 }
 
 // hooks/useIsHydrated.ts
 export function useIsHydrated() {
   const [isHydrated, setIsHydrated] = useState(false);
-  
+
   useEffect(() => {
     setIsHydrated(true);
   }, []);
-  
+
   return isHydrated;
 }
 ```
 
 ### SEO and Meta Tags
+
 ```typescript
 // routes/blog.$slug.tsx
 export async function loader({ params }: Route.LoaderArgs) {
   const post = await blogService.getBySlug(params.slug);
-  
+
   if (!post) {
-    throw new Response("Not Found", { status: 404 });
+    throw new Response('Not Found', { status: 404 });
   }
-  
+
   return { post };
 }
 
 export function meta({ data }: Route.MetaArgs) {
   if (!data?.post) {
-    return [{ title: "Post Not Found" }];
+    return [{ title: 'Post Not Found' }];
   }
-  
+
   return [
     { title: `${data.post.title} | Blog` },
-    { name: "description", content: data.post.excerpt },
-    { property: "og:title", content: data.post.title },
-    { property: "og:description", content: data.post.excerpt },
-    { property: "og:image", content: data.post.coverImage },
-    { property: "og:type", content: "article" },
+    { name: 'description', content: data.post.excerpt },
+    { property: 'og:title', content: data.post.title },
+    { property: 'og:description', content: data.post.excerpt },
+    { property: 'og:image', content: data.post.coverImage },
+    { property: 'og:type', content: 'article' },
   ];
 }
 ```
@@ -418,6 +429,7 @@ export function meta({ data }: Route.MetaArgs) {
 ## API Integration with SSR
 
 ### Server-Side API Calls
+
 ```typescript
 // services/apiClient.server.ts
 import ky from 'ky';
@@ -426,7 +438,7 @@ import { serverEnv } from '@/env.server';
 export const serverApiClient = ky.create({
   prefixUrl: serverEnv.INTERNAL_API_URL,
   headers: {
-    'Authorization': `Bearer ${serverEnv.API_SECRET}`,
+    Authorization: `Bearer ${serverEnv.API_SECRET}`,
   },
 });
 
@@ -446,15 +458,16 @@ export const postsService = {
 ```
 
 ### Progressive Enhancement
+
 ```typescript
 // components/app/SearchForm.tsx
 export function SearchForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  
+
   return (
-    <Form 
-      method="get" 
+    <Form
+      method="get"
       action="/search"
       onSubmit={(e) => {
         // Progressive enhancement: handle with JS if available
@@ -464,10 +477,10 @@ export function SearchForm() {
         navigate(`/search?q=${encodeURIComponent(query)}`);
       }}
     >
-      <Input 
-        name="q" 
-        defaultValue={searchParams.get('q') || ''} 
-        placeholder="Search..." 
+      <Input
+        name="q"
+        defaultValue={searchParams.get('q') || ''}
+        placeholder="Search..."
       />
       <Button type="submit">Search</Button>
     </Form>
@@ -478,6 +491,7 @@ export function SearchForm() {
 ## Testing SSR Applications
 
 ### Server-Side Testing
+
 ```typescript
 // routes/__tests__/dashboard.test.tsx
 import { createRequest } from '@react-router/dev/testing';
@@ -487,21 +501,22 @@ describe('Dashboard loader', () => {
   it('loads dashboard data', async () => {
     const request = createRequest('GET', '/dashboard');
     const response = await loader({ request, params: {}, context: {} });
-    
+
     expect(response.data).toBeDefined();
     expect(response.filter).toBe('all');
   });
-  
+
   it('handles filter parameter', async () => {
     const request = createRequest('GET', '/dashboard?filter=active');
     const response = await loader({ request, params: {}, context: {} });
-    
+
     expect(response.filter).toBe('active');
   });
 });
 ```
 
 ### Component Testing with SSR
+
 ```typescript
 // Test component with server data
 import { render, screen } from '@testing-library/react';
@@ -522,9 +537,9 @@ describe('Dashboard', () => {
         loader: () => mockLoaderData,
       },
     ], { initialEntries: ['/dashboard'] });
-    
+
     render(<RouterProvider router={router} />);
-    
+
     expect(screen.getByText('Test Item')).toBeInTheDocument();
   });
 });
@@ -533,6 +548,7 @@ describe('Dashboard', () => {
 ## Performance Optimization
 
 ### Streaming SSR
+
 ```typescript
 // Use streaming for better TTFB
 import { renderToReadableStream } from "react-dom/server";
@@ -546,7 +562,7 @@ export default async function handleRequest(request: Request) {
       },
     }
   );
-  
+
   return new Response(stream, {
     headers: { 'Content-Type': 'text/html' },
   });
@@ -554,13 +570,19 @@ export default async function handleRequest(request: Request) {
 ```
 
 ### Resource Preloading
+
 ```typescript
 // Preload critical resources
 export function meta({ data }: Route.MetaArgs) {
   return [
     { title: data.title },
     // Preload critical CSS
-    { tagName: 'link', rel: 'preload', href: '/styles/critical.css', as: 'style' },
+    {
+      tagName: 'link',
+      rel: 'preload',
+      href: '/styles/critical.css',
+      as: 'style',
+    },
     // Preload important images
     { tagName: 'link', rel: 'preload', href: data.heroImage, as: 'image' },
   ];
@@ -568,6 +590,7 @@ export function meta({ data }: Route.MetaArgs) {
 ```
 
 ## Development Commands
+
 - `pnpm dev`: Start development server with SSR
 - `pnpm build`: Build for production (server + client)
 - `pnpm start`: Start production server
@@ -576,6 +599,7 @@ export function meta({ data }: Route.MetaArgs) {
 - `pnpm lint`: Check code quality
 
 ## Best Practices
+
 - Always consider SSR implications when writing components
 - Use progressive enhancement for better resilience
 - Implement proper error boundaries for both server and client
@@ -588,6 +612,7 @@ export function meta({ data }: Route.MetaArgs) {
 - Use streaming SSR for better perceived performance
 
 ### SSR Architecture Best Practices
+
 - **Universal components**: Write components that work seamlessly on both server and client
 - **Hydration safety**: Ensure server-rendered content exactly matches client expectations
 - **Progressive enhancement**: Build functionality that works without JavaScript and enhances with it
@@ -596,6 +621,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Caching strategy**: Implement intelligent caching for server-rendered content and API responses
 
 ### Server-Side Best Practices
+
 - **Data loading**: Fetch critical data on the server for immediate content delivery
 - **Error handling**: Implement comprehensive server-side error handling with proper HTTP status codes
 - **Security measures**: Implement proper authentication, authorization, and input validation on the server
@@ -604,6 +630,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Environment configuration**: Secure environment variable management for server-side secrets
 
 ### Client-Side Hydration Best Practices
+
 - **Hydration matching**: Ensure client-side data matches server-side data to prevent hydration errors
 - **Selective hydration**: Use selective hydration patterns for better performance
 - **Loading states**: Implement proper loading states for client-side navigation and updates
@@ -612,6 +639,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Performance optimization**: Optimize client-side bundle size and runtime performance
 
 ### SEO and Accessibility Best Practices
+
 - **Meta tag management**: Implement dynamic meta tags for better SEO and social sharing
 - **Structured data**: Add JSON-LD structured data for rich search results
 - **Semantic HTML**: Use proper HTML semantics for better accessibility and SEO
@@ -620,6 +648,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Progressive enhancement**: Ensure accessibility features work without JavaScript
 
 ### Form Handling Best Practices
+
 - **Server actions**: Use React Router V7 server actions for robust form handling
 - **Validation**: Implement validation on both client and server sides
 - **Error feedback**: Provide clear, actionable error messages for form validation
@@ -628,6 +657,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **User experience**: Provide immediate feedback during form submission and validation
 
 ### Performance and Monitoring Best Practices
+
 - **Streaming SSR**: Use streaming server-side rendering for better perceived performance
 - **Bundle optimization**: Optimize both server and client bundles for faster loading
 - **Caching strategies**: Implement multi-level caching (CDN, server, browser)
@@ -636,6 +666,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Performance budgets**: Set and enforce performance budgets for both server response times and client metrics
 
 ### Security Best Practices
+
 - **Authentication**: Implement secure authentication with proper session management
 - **HTTPS enforcement**: Ensure all traffic uses HTTPS in production
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
@@ -644,6 +675,7 @@ export function meta({ data }: Route.MetaArgs) {
 - **Data protection**: Implement proper data encryption and privacy protection measures
 
 ### Testing Best Practices
+
 - **SSR testing**: Test both server-rendered and client-hydrated versions of components
 - **No-JS testing**: Test critical functionality with JavaScript disabled
 - **E2E testing**: Test complete user workflows including server-side rendering

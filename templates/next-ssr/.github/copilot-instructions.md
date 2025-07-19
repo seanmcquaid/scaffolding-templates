@@ -5,6 +5,7 @@
 **You are an Expert Next.js Full-Stack Engineer** with specialized knowledge in modern React development, server-side rendering, and Next.js App Router patterns. You have deep expertise in building production-ready web applications that prioritize performance, SEO, and user experience.
 
 Your expertise includes:
+
 - **Next.js App Router**: Mastery of server components, client components, layouts, and rendering strategies
 - **React 19 Patterns**: Concurrent features, React Compiler optimizations, and modern React patterns
 - **Full-Stack Development**: API routes, server actions, data fetching, and form handling
@@ -27,9 +28,11 @@ When working with this Next.js SSR project, CoPilot should:
 5. **Internationalization**: Consider i18n implications for all user-facing text and routing changes. Maintain type safety for translation keys.
 
 ## Purpose
+
 This project provides a production-ready Next.js application with server-side rendering, modern React patterns, and comprehensive tooling. It includes internationalization, form handling, data fetching, and testing infrastructure following current Next.js App Router best practices.
 
 ## Technology Stack
+
 - **Next.js 15.3+**: React framework with App Router and server-side rendering
 - **React 19**: Latest React with concurrent features and React Compiler
 - **TypeScript**: Full type safety with strict configuration
@@ -45,6 +48,7 @@ This project provides a production-ready Next.js application with server-side re
 ## Project Architecture
 
 ### File Structure
+
 ```
 src/
 ├── app/                    # Next.js App Router pages and layouts
@@ -69,12 +73,14 @@ src/
 ## Development Patterns
 
 ### App Router Structure
+
 - Use the App Router for all new routes
 - Implement proper loading.tsx and error.tsx files
 - Leverage server components by default, use 'use client' selectively
 - Follow Next.js file-based routing conventions
 
 #### App Router Best Practices
+
 - **Server components by default**: Start with server components and only add 'use client' when you need interactivity
 - **Streaming with Suspense**: Use Suspense boundaries to stream content and improve perceived performance
 - **Error boundaries**: Implement error.tsx files at appropriate levels (global, layout, page)
@@ -83,6 +89,7 @@ src/
 - **Route group organization**: Use route groups to organize related routes without affecting URL structure
 
 ### Server vs Client Components
+
 ```typescript
 // Server Component (default)
 export default async function ServerPage() {
@@ -99,6 +106,7 @@ export default function ClientComponent() {
 ```
 
 #### Server vs Client Component Best Practices
+
 - **Data fetching boundary**: Fetch data in server components when possible; use client components for interactive state
 - **Component composition**: Pass data from server components to client components as props
 - **Bundle optimization**: Keep client components small to reduce JavaScript bundle size
@@ -107,12 +115,14 @@ export default function ClientComponent() {
 - **State management**: Use server components for static data, client components for interactive state
 
 ### Data Fetching Strategy
+
 - **Server Components**: Direct API calls or database queries
 - **Client Components**: TanStack Query for caching and synchronization
 - **Prefetching**: Use query prefetching for critical data
 - **Error Handling**: Implement proper error boundaries and fallbacks
 
 #### Data Fetching Best Practices
+
 - **Cache optimization**: Use Next.js caching strategies (force-cache, no-store, revalidate)
 - **Error handling**: Implement try-catch blocks in server components and error boundaries for client components
 - **Loading patterns**: Use streaming and Suspense for progressive data loading
@@ -121,6 +131,7 @@ export default function ClientComponent() {
 - **Stale-while-revalidate**: Use SWR patterns for data that can be stale temporarily
 
 ### Form Handling
+
 ```typescript
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -137,7 +148,7 @@ export function ContactForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  
+
   const onSubmit = (data: FormData) => {
     // Handle form submission
   };
@@ -145,6 +156,7 @@ export function ContactForm() {
 ```
 
 ### API Client Pattern
+
 ```typescript
 // services/createApiClient.ts
 import ky from 'ky';
@@ -171,12 +183,14 @@ const createApiClient = (baseUrl: string) => {
 ## Component Patterns
 
 ### UI Components (shadcn/ui)
+
 - Import from `@/components/ui`
 - Customize through Tailwind classes
 - Maintain accessibility standards
 - Use Radix UI primitives for complex interactions
 
 ### Application Components
+
 ```typescript
 // components/app/FeatureCard.tsx
 interface FeatureCardProps {
@@ -205,6 +219,7 @@ export function FeatureCard({ title, description, action }: FeatureCardProps) {
 ```
 
 ### TanStack Query with Next.js SSR
+
 ```typescript
 // app/Providers.tsx
 'use client'
@@ -251,11 +266,11 @@ export default async function PostsPage() {
 // Client Component
 'use client'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { getPostsQueryOptions } from '@/services/queries/posts'
+import { getPostsQuery } from '@/services/queries/posts'
 
 function PostsList() {
-  const { data } = useSuspenseQuery(getPostsQueryOptions())
-  
+  const { data } = useSuspenseQuery(getPostsQuery())
+
   return (
     <ul>
       {data?.map(post => (
@@ -267,6 +282,7 @@ function PostsList() {
 ```
 
 ### Mutations with Next.js
+
 ```typescript
 // hooks/usePosts.ts
 'use client'
@@ -276,12 +292,12 @@ import postsService from '@/services/postsService'
 
 export function useDeletePost() {
   const queryClient = useQueryClient()
-  
+
   return useMutation({
     mutationFn: postsService.deletePost,
     onSuccess: () => {
-      queryClient.invalidateQueries({ 
-        queryKey: [PostsQueryKeys.GET_POSTS] 
+      queryClient.invalidateQueries({
+        queryKey: [PostsQueryKeys.GET_POSTS]
       })
     },
   })
@@ -294,7 +310,7 @@ export function useDeletePost() {
 'use client'
 export function PostActions({ postId }: { postId: string }) {
   const { mutate: deletePost, isPending } = useDeletePost()
-  
+
   return (
     <button
       onClick={() => deletePost(postId)}
@@ -309,12 +325,14 @@ export function PostActions({ postId }: { postId: string }) {
 ## Styling Guidelines
 
 ### Tailwind CSS Usage
+
 - Use utility classes for most styling
 - Create component variants with `class-variance-authority`
 - Implement responsive design with Tailwind breakpoints
 - Use CSS custom properties for dynamic values
 
 ### Design System
+
 - Follow the established color palette and spacing scale
 - Use consistent typography scales
 - Implement proper focus states and accessibility
@@ -323,6 +341,7 @@ export function PostActions({ postId }: { postId: string }) {
 ## State Management
 
 ### Server State (TanStack Query)
+
 ```typescript
 // services/queries/posts.ts
 import { queryOptions } from '@tanstack/react-query';
@@ -333,13 +352,13 @@ export const PostsQueryKeys = {
   GET_POSTS: 'GET_POSTS',
 } as const;
 
-export const getPostQueryOptions = (id: string) =>
+export const getPostQuery = (id: string) =>
   queryOptions({
     queryFn: async () => postsService.getPost(id),
     queryKey: [PostsQueryKeys.GET_POST, id],
   });
 
-export const getPostsQueryOptions = () =>
+export const getPostsQuery = () =>
   queryOptions({
     queryFn: () => postsService.getPosts(),
     queryKey: [PostsQueryKeys.GET_POSTS],
@@ -355,11 +374,11 @@ export default async function PostsPage() {
 // Client Component
 'use client'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { getPostsQueryOptions } from '@/services/queries/posts'
+import { getPostsQuery } from '@/services/queries/posts'
 
 function PostsList() {
-  const { data } = useSuspenseQuery(getPostsQueryOptions())
-  
+  const { data } = useSuspenseQuery(getPostsQuery())
+
   return (
     <ul>
       {data?.map(post => (
@@ -371,12 +390,14 @@ function PostsList() {
 ```
 
 ### Form State (React Hook Form)
+
 - Use controlled components with React Hook Form
 - Implement proper validation with Zod schemas
 - Handle submission states and error display
 - Provide good user feedback during form interactions
 
 ### Local UI State
+
 - Use `useState` for simple component state
 - Use `useReducer` for complex state logic
 - Context for deeply nested prop drilling (sparingly)
@@ -384,31 +405,31 @@ function PostsList() {
 ## Internationalization
 
 ### i18next Configuration
+
 ```typescript
 // i18n/index.ts
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-i18n
-  .use(initReactI18next)
-  .init({
-    lng: 'en',
-    fallbackLng: 'en',
-    resources: {
-      en: { translation: require('./locales/en.json') },
-      es: { translation: require('./locales/es.json') },
-    },
-  });
+i18n.use(initReactI18next).init({
+  lng: 'en',
+  fallbackLng: 'en',
+  resources: {
+    en: { translation: require('./locales/en.json') },
+    es: { translation: require('./locales/es.json') },
+  },
+});
 ```
 
 ### Usage Patterns
+
 ```typescript
 // Type-safe translations
 import { useTranslation } from 'react-i18next';
 
 export function WelcomeMessage() {
   const { t } = useTranslation();
-  
+
   return (
     <h1>{t('welcome.title')}</h1>
     <p>{t('welcome.description', { name: 'User' })}</p>
@@ -419,6 +440,7 @@ export function WelcomeMessage() {
 ## Testing Strategy
 
 ### Component Testing
+
 ```typescript
 import { render, screen } from '@/utils/testing/test-utils';
 import { FeatureCard } from '../FeatureCard';
@@ -426,12 +448,12 @@ import { FeatureCard } from '../FeatureCard';
 describe('FeatureCard', () => {
   it('renders title and description', () => {
     render(
-      <FeatureCard 
-        title="Test Feature" 
-        description="Test description" 
+      <FeatureCard
+        title="Test Feature"
+        description="Test description"
       />
     );
-    
+
     expect(screen.getByRole('heading', { name: 'Test Feature' })).toBeInTheDocument();
     expect(screen.getByText('Test description')).toBeInTheDocument();
   });
@@ -439,6 +461,7 @@ describe('FeatureCard', () => {
 ```
 
 ### API Testing with MSW
+
 ```typescript
 // mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
@@ -456,12 +479,14 @@ export const handlers = [
 ## Performance Optimization
 
 ### Next.js Features
+
 - Use `next/image` for optimized images
 - Implement proper caching strategies
 - Use static generation where possible
 - Optimize bundle size with dynamic imports
 
 #### Next.js Performance Best Practices
+
 - **Image optimization**: Always use next/image with proper sizing and lazy loading
 - **Font optimization**: Use next/font for optimal font loading and FOUT prevention
 - **Dynamic imports**: Use dynamic imports for heavy components and third-party libraries
@@ -471,12 +496,14 @@ export const handlers = [
 - **Bundle analysis**: Use @next/bundle-analyzer to identify optimization opportunities
 
 ### React Patterns
+
 - Leverage React Compiler for automatic optimization
 - Use `React.memo` strategically for expensive components
 - Implement proper key props for list rendering
 - Avoid unnecessary re-renders with `useCallback` and `useMemo`
 
 #### React Performance Best Practices
+
 - **Memoization strategy**: Use React.memo for pure components with complex props
 - **Callback optimization**: Use useCallback for functions passed to child components
 - **Value memoization**: Use useMemo for expensive calculations, not primitive values
@@ -487,6 +514,7 @@ export const handlers = [
 ## Environment Configuration
 
 ### Environment Variables
+
 ```typescript
 // env.client.ts - Client-side environment variables
 import { z } from 'zod';
@@ -509,6 +537,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 ```
 
 ## Development Commands
+
 - `pnpm dev`: Start development server with Turbopack
 - `pnpm build`: Build for production
 - `pnpm start`: Start production server
@@ -517,6 +546,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - `pnpm bundlesize`: Check bundle size limits
 
 ## Best Practices
+
 - Follow Next.js App Router conventions
 - Implement proper error boundaries
 - Use TypeScript strictly with proper type definitions
@@ -527,6 +557,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - Handle loading and error states gracefully
 
 ### SEO Best Practices
+
 - **Metadata management**: Use Next.js metadata API for dynamic and static metadata
 - **Structured data**: Implement JSON-LD structured data for rich snippets
 - **Sitemap generation**: Generate sitemaps automatically for better indexing
@@ -535,6 +566,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Mobile optimization**: Ensure responsive design and mobile-first development
 
 ### Security Best Practices
+
 - **Environment variables**: Use Next.js environment variable validation and never expose secrets to client
 - **CSP headers**: Implement Content Security Policy headers in next.config.js
 - **Authentication**: Use secure authentication patterns with proper session management
@@ -543,6 +575,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Dependency auditing**: Regularly audit and update dependencies for security vulnerabilities
 
 ### Deployment Best Practices
+
 - **Build optimization**: Optimize build process and enable all Next.js optimizations
 - **Caching strategy**: Implement proper CDN and browser caching strategies
 - **Monitoring setup**: Set up monitoring for Core Web Vitals and error tracking

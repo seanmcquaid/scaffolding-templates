@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import type { Route } from './+types';
 import PageWrapper from '@/components/app/PageWrapper';
-import { getPostQueryOptions } from '@/services/queries/posts';
+import { getPostQuery } from '@/services/queries/posts';
 
 const ReactQueryPostPage = ({ params }: Route.ComponentProps) => {
-  const { data, isLoading, isError } = useQuery(getPostQueryOptions(params.id));
+  const { data, isLoading, isError } = useQuery(getPostQuery(params.id));
 
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
