@@ -273,4 +273,60 @@ export class LibraryError extends Error {
 - **Performance monitoring**: Track library performance over time and optimize as needed
 - **User feedback**: Actively seek and incorporate user feedback for API improvements
 - **Long-term support**: Plan for long-term maintenance and support lifecycle
+
+## Comprehensive Best Practices from Repository Documentation
+
+### File Organization Best Practices
+- **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
+- **Use barrel exports**: Create `index.ts` files to provide clean public interfaces for directories
+- **Separate concerns clearly**: Don't mix UI components with business logic components
+- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
+- **Feature-based organization**: Group files by feature rather than by file type when features grow large
+
+### Code Quality Best Practices
+- **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
+- **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
+- **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
+- **Code review process**: Implement thorough code review practices with automated checks
+- **Git hygiene**: Use conventional commits and meaningful commit messages
+- **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
+
+### Security Best Practices
+- **Dependency management**: Regularly audit dependencies for security vulnerabilities
+- **Environment variables**: Never commit secrets; use proper environment variable management
+- **Input validation**: Validate all user inputs and API responses
+- **Authentication**: Implement secure authentication patterns with proper session management
+- **HTTPS everywhere**: Ensure all network communications use HTTPS
+- **Content Security Policy**: Implement CSP headers to prevent XSS attacks
+
+### Publishing to NPM Best Practices (from repository docs)
+1. **Changesets workflow**: Run `pnpm changeset` locally to add a changeset markdown file and commit it to the project
+2. **Automated release process**: Once you push to the main branch, another PR will open giving you the option to merge in the current changeset
+3. **GitHub Actions integration**: Merge the changeset PR to trigger automated release process
+4. **Required tokens**: Ensure GitHub Token and NPM Token are added as secrets for GitHub Actions before starting this process
+
+### Template Creation Best Practices
+- **Start with existing patterns**: Use an existing template as a starting point to maintain consistency
+- **Document decisions**: Include architectural decision records (ADRs) for major design choices
+- **Provide examples**: Include sample components, services, and tests that demonstrate best practices
+- **Environment setup**: Provide comprehensive setup instructions and troubleshooting guides
+- **Performance baselines**: Establish bundle size limits and performance budgets from the start
+- **Accessibility audit**: Ensure templates meet WCAG 2.1 AA standards out of the box
+
+### Template Maintenance Best Practices
+- **Version consistency**: Keep dependencies aligned across templates when possible
+- **Breaking change communication**: Clearly document breaking changes and provide migration guides
+- **Cross-template testing**: Test changes across multiple templates to ensure consistency
+- **Documentation currency**: Keep documentation in sync with code changes
+- **Dependency management**: Regularly audit and update dependencies for security and performance
+- **Community feedback**: Incorporate feedback from template users to improve usability
+
+### Performance Best Practices
+- **Measurement first**: Establish performance baselines and monitor Core Web Vitals
+- **Code splitting strategy**: Split code by routes and features, not just by vendor libraries
+- **Asset optimization**: Optimize images, fonts, and other static assets
+- **Runtime performance**: Use React DevTools Profiler to identify performance bottlenecks
+- **Bundle analysis**: Regularly analyze bundle composition and eliminate unused code
+- **Loading strategies**: Implement progressive loading for improved perceived performance
 - **Community building**: Foster a healthy community around the library

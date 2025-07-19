@@ -631,3 +631,87 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **CI/CD pipeline**: Implement robust CI/CD with quality gates and automated deployment
 - **Monitoring**: Set up monitoring for errors, performance, and user analytics
 - **Backup and recovery**: Implement proper backup strategies for application data and configuration
+
+## Comprehensive Best Practices from Repository Documentation
+
+### File Organization Best Practices
+- **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
+- **Use barrel exports**: Create `index.ts` files to provide clean public interfaces for directories
+- **Separate concerns clearly**: Don't mix UI components with business logic components
+- **Follow naming conventions**: Use PascalCase for components, camelCase for utilities, SCREAMING_SNAKE_CASE for constants
+- **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
+- **Feature-based organization**: Group files by feature rather than by file type when features grow large
+
+### Component Development Best Practices
+- **Single Responsibility Principle**: Each component should have one clear purpose
+- **Composition over inheritance**: Use component composition patterns rather than complex inheritance
+- **Props interface design**: Keep props interfaces simple and focused; avoid "god objects"
+- **Error boundaries**: Implement error boundaries at appropriate levels (page, feature, or critical component level)
+- **Loading states**: Always handle loading, error, and empty states explicitly
+- **Accessibility first**: Use semantic HTML and ARIA attributes; test with screen readers
+- **Performance optimization**: Use React.memo for expensive components, useMemo for expensive calculations
+
+### State Management Best Practices
+- **Keep state local**: Only lift state up when multiple components need it
+- **Prefer URL state**: Use URL parameters for shareable application state
+- **Avoid prop drilling**: Use React Context for deeply nested components (sparingly)
+- **Server state vs client state**: Distinguish between server data (use TanStack Query) and client UI state (use local state)
+- **Derived state**: Calculate derived values in render rather than storing them in state
+- **State normalization**: Normalize complex state structures to avoid deep nesting and mutations
+
+#### State Management Hierarchy (from repository docs):
+| State Type | Use case |
+|------------|----------|
+| URL | Sharable app location |
+| Web storage | Persist between sessions, one browser |
+| Local state | Only one component needs the state |
+| Lifted state | Multiple related components need the state |
+| Derived state | State can be derived from existing state |
+| Refs | DOM Reference, state that isn't rendered |
+| Context | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+### Styling Best Practices
+- **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
+- **Mobile-first responsive design**: Start with mobile layouts and enhance for larger screens
+- **Semantic CSS classes**: When using custom CSS, prefer semantic class names over presentational ones
+- **Performance optimization**: Purge unused CSS in production; use CSS-in-JS judiciously
+- **Accessibility considerations**: Ensure sufficient color contrast; provide focus indicators
+- **Component variants**: Use tools like `class-variance-authority` for systematic component variations
+
+### API Client Best Practices
+- **Error handling strategy**: Implement consistent error handling across all API calls
+- **Request/response logging**: Provide development-friendly logging for debugging
+- **Authentication integration**: Design flexible authentication patterns that work across different auth providers
+- **Caching strategy**: Integrate with TanStack Query for intelligent caching and background updates
+- **Type safety**: Use Zod schemas for both request validation and response parsing
+- **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
+
+### TanStack Query Integration Best Practices
+- **Query options pattern**: Use `queryOptions` helper for reusable query configurations
+- **Query key organization**: Organize query keys with constants for consistent invalidation
+- **Mutation patterns**: Implement mutations with proper cache invalidation and optimistic updates
+- **Suspense integration**: Use `useSuspenseQuery` for better loading states in compatible frameworks
+- **Hydration support**: Properly handle server-side rendering with query client hydration
+- **Error boundaries**: Implement error boundaries that work with TanStack Query error states
+
+### Performance Best Practices
+- **Measurement first**: Establish performance baselines and monitor Core Web Vitals
+- **Code splitting strategy**: Split code by routes and features, not just by vendor libraries
+- **Asset optimization**: Optimize images, fonts, and other static assets
+- **Runtime performance**: Use React DevTools Profiler to identify performance bottlenecks
+- **Bundle analysis**: Regularly analyze bundle composition and eliminate unused code
+- **Loading strategies**: Implement progressive loading for improved perceived performance
+
+### Accessibility Best Practices
+- **Semantic HTML**: Use proper HTML elements for their intended purpose
+- **ARIA attributes**: Implement ARIA labels and descriptions where necessary
+- **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
+- **Screen reader compatibility**: Test with screen readers and provide meaningful alt text
+- **Color contrast**: Maintain WCAG 2.1 AA color contrast ratios
+- **Focus management**: Implement visible focus indicators and logical focus order
+
+### Testing Strategy (from repository docs)
+- **Unit Tests**: For components, hooks, utils, pages - If a component navigates to another page, test that behavior in integration tests instead
+- **Integration Tests with mocked APIs**: For happy path flows using Playwright + Mock Service Worker with dynamic mocks for each happy path flow
+- **End-to-End Tests with real APIs**: For high level user flows using Playwright or Cypress - Keep these separate from PR checks, run after successful build and deploy
