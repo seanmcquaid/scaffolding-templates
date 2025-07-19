@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import type Post from '@/types/Post';
 
-export const generatePost = (): Post => {
+export const generatePost = (id?: number): Post => {
   return {
-    id: faker.number.int({ min: 1, max: 1000 }),
+    id: id ?? faker.number.int({ min: 1, max: 1000 }),
     title: faker.lorem.sentence(),
     body: faker.lorem.paragraphs(2),
     userId: faker.number.int({ min: 1, max: 10 }),

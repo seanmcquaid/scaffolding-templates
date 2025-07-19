@@ -13,8 +13,7 @@ export const getPostByIdHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts/:id',
   ({ params }) => {
     const { id } = params;
-    const post = generatePost();
-    post.id = Number(id);
+    const post = generatePost(Number(id));
     return HttpResponse.json(post);
   },
 );
