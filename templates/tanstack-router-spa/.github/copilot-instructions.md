@@ -753,13 +753,15 @@ it('updates search params when filter changes', async () => {
 ## Comprehensive Best Practices from Repository Documentation
 
 ### File Organization Best Practices
+
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components and constants, camelCase for utilities + React hooks
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
 ### Component Development Best Practices
+
 - **Single Responsibility Principle**: Each component should have one clear purpose
 - **Composition over inheritance**: Use component composition patterns rather than complex inheritance
 - **Props interface design**: Keep props interfaces simple and focused; avoid "god objects"
@@ -769,6 +771,7 @@ it('updates search params when filter changes', async () => {
 - **Performance optimization**: Use React.memo for expensive components, useMemo for expensive calculations
 
 ### State Management Best Practices
+
 - **Keep state local**: Only lift state up when multiple components need it
 - **Prefer URL state**: Use URL parameters for shareable application state (TanStack Router excels at this)
 - **Use React Hook Form for forms**: Never manage form state manually with useState
@@ -780,18 +783,20 @@ it('updates search params when filter changes', async () => {
 - **Router-integrated state**: Leverage TanStack Router's search params and loaders for shareable state
 
 #### State Management Hierarchy (from repository docs):
-| State Type | Use case |
-|------------|----------|
-| URL | Sharable app location |
-| Web storage | Persist between sessions, one browser |
-| Local state | Only one component needs the state |
-| Lifted state | Multiple related components need the state |
-| Derived state | State can be derived from existing state |
-| Refs | DOM Reference, state that isn't rendered |
-| Context | Subtree state or a small amount of Global state |
-| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+| State Type                                        | Use case                                        |
+| ------------------------------------------------- | ----------------------------------------------- |
+| URL                                               | Sharable app location                           |
+| Web storage                                       | Persist between sessions, one browser           |
+| Local state                                       | Only one component needs the state              |
+| Lifted state                                      | Multiple related components need the state      |
+| Derived state                                     | State can be derived from existing state        |
+| Refs                                              | DOM Reference, state that isn't rendered        |
+| Context                                           | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State           |
 
 ### Styling Best Practices
+
 - **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
 - **Mobile-first responsive design**: Start with mobile layouts and enhance for larger screens
 - **Semantic CSS classes**: When using custom CSS, prefer semantic class names over presentational ones
@@ -800,6 +805,7 @@ it('updates search params when filter changes', async () => {
 - **Component variants**: Use tools like `class-variance-authority` for systematic component variations
 
 ### API Client Best Practices
+
 - **Error handling strategy**: Implement consistent error handling across all API calls
 - **Request/response logging**: Provide development-friendly logging for debugging
 - **Authentication integration**: Design flexible authentication patterns that work across different auth providers
@@ -808,6 +814,7 @@ it('updates search params when filter changes', async () => {
 - **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
 
 ### TanStack Query Integration Best Practices
+
 - **Query options pattern**: Use `queryOptions` helper for reusable query configurations
 - **Query key organization**: Organize query keys with constants for consistent invalidation
 - **Mutation patterns**: Implement mutations with proper cache invalidation and optimistic updates
@@ -816,6 +823,7 @@ it('updates search params when filter changes', async () => {
 - **Error boundaries**: Implement error boundaries that work with TanStack Query error states
 
 ### Performance Best Practices
+
 - **Measurement first**: Establish performance baselines and monitor Core Web Vitals
 - **Code splitting strategy**: Split code by routes and features, not just by vendor libraries
 - **Asset optimization**: Optimize images, fonts, and other static assets
@@ -824,6 +832,7 @@ it('updates search params when filter changes', async () => {
 - **Loading strategies**: Implement progressive loading for improved perceived performance
 
 ### Accessibility Best Practices
+
 - **Semantic HTML**: Use proper HTML elements for their intended purpose
 - **ARIA attributes**: Implement ARIA labels and descriptions where necessary
 - **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
@@ -832,11 +841,13 @@ it('updates search params when filter changes', async () => {
 - **Focus management**: Implement visible focus indicators and logical focus order
 
 ### Testing Strategy (from repository docs)
+
 - **Unit Tests**: For components, hooks, utils, pages - If a component navigates to another page, test that behavior in integration tests instead
 - **Integration Tests with mocked APIs**: For happy path flows using Playwright + Mock Service Worker with dynamic mocks for each happy path flow
 - **End-to-End Tests with real APIs**: For high level user flows using Playwright or Cypress - Keep these separate from PR checks, run after successful build and deploy
 
 ### Code Quality Best Practices
+
 - **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
 - **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
 - **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
@@ -845,6 +856,7 @@ it('updates search params when filter changes', async () => {
 - **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
 
 ### Security Best Practices
+
 - **Dependency management**: Regularly audit dependencies for security vulnerabilities
 - **Environment variables**: Never commit secrets; use proper environment variable management
 - **Input validation**: Validate all user inputs and API responses
@@ -866,6 +878,7 @@ it('updates search params when filter changes', async () => {
 ### TanStack Router SPA i18n Patterns
 
 **File-Based Route Components with i18n:**
+
 ```tsx
 // src/routes/dashboard/index.tsx
 import { createFileRoute } from '@tanstack/react-router';
@@ -882,7 +895,7 @@ export const Route = createFileRoute('/dashboard/')({
 function DashboardPage() {
   const { t } = useAppTranslation();
   const { data } = useSuspenseQuery(getDashboardDataQuery());
-  
+
   return (
     <div>
       <h1>{t('Dashboard.title')}</h1>
@@ -893,6 +906,7 @@ function DashboardPage() {
 ```
 
 **Route Search Params with i18n:**
+
 ```tsx
 // src/routes/products/index.tsx
 import { createFileRoute } from '@tanstack/react-router';
@@ -914,36 +928,33 @@ function ProductsPage() {
   const { t } = useAppTranslation();
   const { search, category, page } = Route.useSearch();
   const navigate = Route.useNavigate();
-  
+
   const updateSearch = (newSearch: string) => {
     navigate({
-      search: (prev) => ({ ...prev, search: newSearch, page: 1 }),
+      search: prev => ({ ...prev, search: newSearch, page: 1 }),
     });
   };
-  
+
   return (
     <div>
       <h1>{t('ProductsPage.title')}</h1>
-      
+
       <input
         placeholder={t('ProductsPage.searchPlaceholder')}
         value={search || ''}
-        onChange={(e) => updateSearch(e.target.value)}
+        onChange={e => updateSearch(e.target.value)}
       />
-      
-      {!search && (
-        <p>{t('ProductsPage.browseProducts')}</p>
-      )}
-      
-      {search && (
-        <p>{t('ProductsPage.searchResults', { query: search })}</p>
-      )}
+
+      {!search && <p>{t('ProductsPage.browseProducts')}</p>}
+
+      {search && <p>{t('ProductsPage.searchResults', { query: search })}</p>}
     </div>
   );
 }
 ```
 
 **Navigation with Type-Safe i18n:**
+
 ```tsx
 // src/components/Navigation.tsx
 import { Link } from '@tanstack/react-router';
@@ -951,7 +962,7 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function Navigation() {
   const { t } = useAppTranslation();
-  
+
   return (
     <nav className="main-nav">
       <Link to="/" className="nav-link">
@@ -972,6 +983,7 @@ export default function Navigation() {
 ```
 
 **Error Components with i18n:**
+
 ```tsx
 // src/routes/__root.tsx
 import { createRootRoute, Outlet } from '@tanstack/react-router';
@@ -985,7 +997,7 @@ export const Route = createRootRoute({
 
 function ErrorComponent({ error }: { error: Error }) {
   const { t } = useAppTranslation();
-  
+
   return (
     <div className="error-page">
       <h1>{t('Error.somethingWentWrong')}</h1>
@@ -997,14 +1009,12 @@ function ErrorComponent({ error }: { error: Error }) {
 
 function NotFoundComponent() {
   const { t } = useAppTranslation();
-  
+
   return (
     <div className="not-found-page">
       <h1>{t('Error.pageNotFound')}</h1>
       <p>{t('Error.pageNotFoundMessage')}</p>
-      <Link to="/">
-        {t('Error.goHome')}
-      </Link>
+      <Link to="/">{t('Error.goHome')}</Link>
     </div>
   );
 }
@@ -1019,6 +1029,7 @@ function RootComponent() {
 ```
 
 **Loading States with i18n:**
+
 ```tsx
 // src/routes/dashboard/settings.tsx
 import { createFileRoute } from '@tanstack/react-router';
@@ -1031,7 +1042,7 @@ export const Route = createFileRoute('/dashboard/settings')({
 
 function LoadingSpinner() {
   const { t } = useAppTranslation();
-  
+
   return (
     <div className="loading-spinner">
       <span>{t('Common.loading')}</span>
@@ -1041,11 +1052,11 @@ function LoadingSpinner() {
 
 function SettingsPage() {
   const { t } = useAppTranslation();
-  
+
   return (
     <div>
       <h1>{t('SettingsPage.title')}</h1>
-      
+
       <Suspense fallback={<LoadingSpinner />}>
         <SettingsForm />
       </Suspense>
@@ -1055,6 +1066,7 @@ function SettingsPage() {
 ```
 
 **Search Validation with i18n Error Messages:**
+
 ```tsx
 // src/routes/search/index.tsx
 import { createFileRoute, redirect } from '@tanstack/react-router';
@@ -1080,7 +1092,7 @@ export const Route = createFileRoute('/search/')({
 function SearchPage() {
   const { t } = useAppTranslation();
   const { q, type } = Route.useSearch();
-  
+
   return (
     <div>
       <h1>{t('SearchPage.title')}</h1>
@@ -1093,6 +1105,7 @@ function SearchPage() {
 ### TanStack Router Specific i18n Optimizations
 
 **Route-Based Code Splitting with i18n:**
+
 ```tsx
 // src/routes/admin/index.lazy.tsx
 import { createLazyFileRoute } from '@tanstack/react-router';
@@ -1104,10 +1117,10 @@ const AdminDashboard = lazy(async () => {
     import('../components/AdminDashboard'),
     import('../i18n/locales/admin/en-US.json'),
   ]);
-  
+
   // Register admin-specific translations
   i18n.addResourceBundle('en-US', 'admin', translations.default);
-  
+
   return mod;
 });
 
@@ -1170,6 +1183,7 @@ export const Route = createLazyFileRoute('/admin/')({
 ### Testing TanStack Router i18n
 
 **Route component testing:**
+
 ```tsx
 // __tests__/dashboard.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -1190,9 +1204,9 @@ describe('DashboardPage', () => {
         component: DashboardPage,
       },
     ]);
-    
+
     render(<RoutesStub />);
-    
+
     // Test expects translation keys since that's what the mock returns
     expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
   });
@@ -1200,6 +1214,7 @@ describe('DashboardPage', () => {
 ```
 
 **Navigation testing with type safety:**
+
 ```tsx
 // __tests__/navigation.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -1210,7 +1225,7 @@ import { createRoutesStub } from '@/utils/testing/createRoutesStub';
 describe('Navigation', () => {
   it('navigates to products with correct search params', async () => {
     const user = userEvent.setup();
-    
+
     const RoutesStub = createRoutesStub([
       {
         path: '/',
@@ -1221,16 +1236,14 @@ describe('Navigation', () => {
         component: () => <div>Products Page</div>,
       },
     ]);
-    
+
     render(<RoutesStub />);
-    
+
     await user.click(screen.getByText('Navigation.products'));
-    
+
     expect(screen.getByText('Products Page')).toBeInTheDocument();
   });
 });
 ```
 
 This ensures that all user-facing text in the TanStack Router SPA is properly internationalized while leveraging TanStack Router's powerful type-safe routing and search parameter features.
-
-

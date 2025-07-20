@@ -402,12 +402,20 @@ function PostsList() {
 This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
 
 ```typescript
-import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import {
+  useLocalStorage,
+  useToggle,
+  useCounter,
+  useDebounce,
+} from 'usehooks-ts';
 import { useForm } from 'react-hook-form';
 
 // Storage hooks for persistence
 const [theme, setTheme] = useLocalStorage('theme', 'light');
-const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+const [preferences, setPreferences] = useLocalStorage(
+  'userPrefs',
+  defaultPrefs,
+);
 
 // UI state hooks
 const [isVisible, toggleVisible] = useToggle(false);
@@ -452,7 +460,10 @@ const [isOpen, setIsOpen] = useState(false);
 const [wizardState, dispatch] = useReducer(wizardReducer, initialWizardState);
 
 // ❌ Bad - Don't manage server data with useReducer
-const [apiState, dispatch] = useReducer(apiReducer, { data: null, loading: false });
+const [apiState, dispatch] = useReducer(apiReducer, {
+  data: null,
+  loading: false,
+});
 // Use TanStack Query instead
 ```
 
@@ -640,13 +651,15 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 ## Comprehensive Best Practices from Repository Documentation
 
 ### File Organization Best Practices
+
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components and constants, camelCase for utilities + React hooks
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
 ### Component Development Best Practices
+
 - **Single Responsibility Principle**: Each component should have one clear purpose
 - **Composition over inheritance**: Use component composition patterns rather than complex inheritance
 - **Props interface design**: Keep props interfaces simple and focused; avoid "god objects"
@@ -656,6 +669,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Performance optimization**: Use React.memo for expensive components, useMemo for expensive calculations
 
 ### State Management Best Practices
+
 - **Keep state local**: Only lift state up when multiple components need it
 - **Prefer URL state**: Use URL parameters for shareable application state (Next.js supports this well)
 - **Use React Hook Form for forms**: Never manage form state manually with useState
@@ -667,20 +681,22 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Server Components**: Leverage Next.js Server Components to reduce client-side state when possible
 
 #### State Management Hierarchy (from repository docs):
-| State Type | Use case |
-|------------|----------|
-| URL | Sharable app location |
-| Web storage | Persist between sessions, one browser |
-| Local state | Only one component needs the state |
-| Lifted state | Multiple related components need the state |
-| Derived state | State can be derived from existing state |
-| Refs | DOM Reference, state that isn't rendered |
-| Context | Subtree state or a small amount of Global state |
-| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+| State Type                                        | Use case                                        |
+| ------------------------------------------------- | ----------------------------------------------- |
+| URL                                               | Sharable app location                           |
+| Web storage                                       | Persist between sessions, one browser           |
+| Local state                                       | Only one component needs the state              |
+| Lifted state                                      | Multiple related components need the state      |
+| Derived state                                     | State can be derived from existing state        |
+| Refs                                              | DOM Reference, state that isn't rendered        |
+| Context                                           | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State           |
 
 **Note for Next.js**: Next has RSC for server state management, but if you want to utilize a client cache, use TanStack Query or Redux Toolkit Query in addition.
 
 ### Styling Best Practices
+
 - **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
 - **Mobile-first responsive design**: Start with mobile layouts and enhance for larger screens
 - **Semantic CSS classes**: When using custom CSS, prefer semantic class names over presentational ones
@@ -689,6 +705,7 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 - **Component variants**: Use tools like `class-variance-authority` for systematic component variations
 
 ### Internationalization Best Practices
+
 - **Type-safe translations**: Generate TypeScript types from translation files to catch missing keys at compile time
 - **Namespace organization**: Organize translations by feature or page to avoid conflicts and improve maintainability
 - **Pluralization support**: Use i18next's pluralization features for proper plural forms across languages
@@ -710,13 +727,14 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 ### Next.js-Specific i18n Patterns
 
 **Server Components with i18n:**
+
 ```tsx
 // app/dashboard/page.tsx - Server Component
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function DashboardPage() {
   const { t } = useAppTranslation();
-  
+
   return (
     <div>
       <h1>{t('Dashboard.title')}</h1>
@@ -727,6 +745,7 @@ export default function DashboardPage() {
 ```
 
 **Client Components with i18n:**
+
 ```tsx
 'use client';
 
@@ -736,17 +755,21 @@ import { updateProfile } from './actions';
 
 export default function ProfileForm() {
   const { t } = useAppTranslation();
-  const [state, formAction, isPending] = useActionState(updateProfile, { message: '' });
-  
+  const [state, formAction, isPending] = useActionState(updateProfile, {
+    message: '',
+  });
+
   return (
     <form action={formAction}>
       <label>{t('ProfileForm.nameLabel')}</label>
-      <input name="name" placeholder={t('ProfileForm.namePlaceholder')} required />
-      
-      {state.message && (
-        <p className="error">{state.message}</p>
-      )}
-      
+      <input
+        name="name"
+        placeholder={t('ProfileForm.namePlaceholder')}
+        required
+      />
+
+      {state.message && <p className="error">{state.message}</p>}
+
       <button disabled={isPending}>
         {isPending ? t('Common.submitting') : t('ProfileForm.submit')}
       </button>
@@ -756,6 +779,7 @@ export default function ProfileForm() {
 ```
 
 **Server Actions with i18n:**
+
 ```tsx
 'use server';
 
@@ -763,21 +787,24 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 import { getAppFixedT } from '@/utils/i18n';
 
-export async function updateProfile(prevState: { message: string }, formData: FormData) {
+export async function updateProfile(
+  prevState: { message: string },
+  formData: FormData,
+) {
   const t = getAppFixedT();
-  
+
   try {
     const name = formData.get('name') as string;
-    
+
     if (!name || name.length < 2) {
       return { message: t('ProfileForm.validation.nameRequired') };
     }
-    
+
     // Process form data
     await updateUserProfile({ name });
-    
+
     revalidatePath('/profile');
-    
+
     // Return success message
     return { message: t('ProfileForm.updateSuccess') };
   } catch (error) {
@@ -787,6 +814,7 @@ export async function updateProfile(prevState: { message: string }, formData: Fo
 ```
 
 **Error Boundaries with i18n:**
+
 ```tsx
 'use client';
 
@@ -805,15 +833,14 @@ export default function ErrorBoundary({
     <div className="error-boundary">
       <h2>{t('Error.somethingWentWrong')}</h2>
       <p>{t('Error.tryAgainMessage')}</p>
-      <button onClick={reset}>
-        {t('Error.tryAgainButton')}
-      </button>
+      <button onClick={reset}>{t('Error.tryAgainButton')}</button>
     </div>
   );
 }
 ```
 
 **Metadata with i18n:**
+
 ```tsx
 // app/about/page.tsx
 import type { Metadata } from 'next';
@@ -821,7 +848,7 @@ import getAppFixedT from '@/i18n/getAppFixedT';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getAppFixedT();
-  
+
   return {
     title: t('AboutPage.metaTitle'),
     description: t('AboutPage.metaDescription'),
@@ -830,7 +857,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function AboutPage() {
   const { t } = useAppTranslation();
-  
+
   return (
     <div>
       <h1>{t('AboutPage.title')}</h1>
@@ -881,6 +908,7 @@ export default function AboutPage() {
 ### Testing i18n in Next.js
 
 **Component tests with mocked translations:**
+
 ```tsx
 // __tests__/dashboard.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -894,7 +922,7 @@ import DashboardPage from '@/app/dashboard/page';
 describe('DashboardPage', () => {
   it('renders translated content', () => {
     render(<DashboardPage />);
-    
+
     // Test expects translation keys since that's what the mock returns
     expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
     expect(screen.getByText('Dashboard.welcomeMessage')).toBeInTheDocument();
@@ -905,6 +933,7 @@ describe('DashboardPage', () => {
 This comprehensive approach ensures that all user-facing text in the Next.js application is properly internationalized and maintainable across different locales.
 
 ### API Client Best Practices
+
 - **Error handling strategy**: Implement consistent error handling across all API calls
 - **Request/response logging**: Provide development-friendly logging for debugging
 - **Authentication integration**: Design flexible authentication patterns that work across different auth providers
@@ -913,6 +942,7 @@ This comprehensive approach ensures that all user-facing text in the Next.js app
 - **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
 
 ### TanStack Query Integration Best Practices
+
 - **Query options pattern**: Use `queryOptions` helper for reusable query configurations
 - **Query key organization**: Organize query keys with constants for consistent invalidation
 - **Mutation patterns**: Implement mutations with proper cache invalidation and optimistic updates
@@ -921,6 +951,7 @@ This comprehensive approach ensures that all user-facing text in the Next.js app
 - **Error boundaries**: Implement error boundaries that work with TanStack Query error states
 
 ### Accessibility Best Practices
+
 - **Semantic HTML**: Use proper HTML elements for their intended purpose
 - **ARIA attributes**: Implement ARIA labels and descriptions where necessary
 - **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
@@ -929,6 +960,7 @@ This comprehensive approach ensures that all user-facing text in the Next.js app
 - **Focus management**: Implement visible focus indicators and logical focus order
 
 ### Code Quality Best Practices
+
 - **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
 - **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
 - **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
@@ -937,11 +969,10 @@ This comprehensive approach ensures that all user-facing text in the Next.js app
 - **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
 
 ### Security Best Practices
+
 - **Dependency management**: Regularly audit dependencies for security vulnerabilities
 - **Environment variables**: Never commit secrets; use proper environment variable management
 - **Input validation**: Validate all user inputs and API responses
 - **Authentication**: Implement secure authentication patterns with proper session management
 - **HTTPS everywhere**: Ensure all network communications use HTTPS
 - **Content Security Policy**: Implement CSP headers to prevent XSS attacks
-
-

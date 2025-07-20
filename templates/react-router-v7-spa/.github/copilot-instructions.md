@@ -319,12 +319,20 @@ export function useUserProfileWithOptions(userId: string) {
 This project includes **usehooks-ts** for common state management patterns. Always prefer proven hooks over custom implementations:
 
 ```typescript
-import { useLocalStorage, useToggle, useCounter, useDebounce } from 'usehooks-ts';
+import {
+  useLocalStorage,
+  useToggle,
+  useCounter,
+  useDebounce,
+} from 'usehooks-ts';
 import { useForm } from 'react-hook-form';
 
 // Storage hooks for persistence
 const [theme, setTheme] = useLocalStorage('theme', 'light');
-const [preferences, setPreferences] = useLocalStorage('userPrefs', defaultPrefs);
+const [preferences, setPreferences] = useLocalStorage(
+  'userPrefs',
+  defaultPrefs,
+);
 
 // UI state hooks
 const [isVisible, toggleVisible] = useToggle(false);
@@ -334,7 +342,11 @@ const { count, increment, decrement, reset } = useCounter(0);
 const debouncedSearch = useDebounce(searchTerm, 300);
 
 // Form state - ALWAYS use React Hook Form
-const { register, handleSubmit, formState: { errors } } = useForm({
+const {
+  register,
+  handleSubmit,
+  formState: { errors },
+} = useForm({
   resolver: zodResolver(schema),
 });
 ```
@@ -684,13 +696,15 @@ route('dashboard', 'routes/dashboard.tsx', {
 ## Comprehensive Best Practices from Repository Documentation
 
 ### File Organization Best Practices
+
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components and constants, camelCase for utilities + React hooks
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
 ### Component Development Best Practices
+
 - **Single Responsibility Principle**: Each component should have one clear purpose
 - **Composition over inheritance**: Use component composition patterns rather than complex inheritance
 - **Props interface design**: Keep props interfaces simple and focused; avoid "god objects"
@@ -700,6 +714,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Performance optimization**: Use React.memo for expensive components, useMemo for expensive calculations
 
 ### State Management Best Practices
+
 - **Keep state local**: Only lift state up when multiple components need it
 - **Prefer URL state**: Use URL parameters for shareable application state
 - **Use React Hook Form for forms**: Never manage form state manually with useState
@@ -711,18 +726,20 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **UseReducer for UI only**: Only use useReducer for complex UI state, not data management
 
 #### State Management Hierarchy (from repository docs):
-| State Type | Use case |
-|------------|----------|
-| URL | Sharable app location |
-| Web storage | Persist between sessions, one browser |
-| Local state | Only one component needs the state |
-| Lifted state | Multiple related components need the state |
-| Derived state | State can be derived from existing state |
-| Refs | DOM Reference, state that isn't rendered |
-| Context | Subtree state or a small amount of Global state |
-| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+| State Type                                        | Use case                                        |
+| ------------------------------------------------- | ----------------------------------------------- |
+| URL                                               | Sharable app location                           |
+| Web storage                                       | Persist between sessions, one browser           |
+| Local state                                       | Only one component needs the state              |
+| Lifted state                                      | Multiple related components need the state      |
+| Derived state                                     | State can be derived from existing state        |
+| Refs                                              | DOM Reference, state that isn't rendered        |
+| Context                                           | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State           |
 
 ### Styling Best Practices
+
 - **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
 - **Mobile-first responsive design**: Start with mobile layouts and enhance for larger screens
 - **Semantic CSS classes**: When using custom CSS, prefer semantic class names over presentational ones
@@ -731,6 +748,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Component variants**: Use tools like `class-variance-authority` for systematic component variations
 
 ### API Client Best Practices
+
 - **Error handling strategy**: Implement consistent error handling across all API calls
 - **Request/response logging**: Provide development-friendly logging for debugging
 - **Authentication integration**: Design flexible authentication patterns that work across different auth providers
@@ -739,6 +757,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Network resilience**: Implement retry logic, timeout handling, and offline scenarios
 
 ### TanStack Query Integration Best Practices
+
 - **Query options pattern**: Use `queryOptions` helper for reusable query configurations
 - **Query key organization**: Organize query keys with constants for consistent invalidation
 - **Mutation patterns**: Implement mutations with proper cache invalidation and optimistic updates
@@ -747,6 +766,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Error boundaries**: Implement error boundaries that work with TanStack Query error states
 
 ### Performance Best Practices
+
 - **Measurement first**: Establish performance baselines and monitor Core Web Vitals
 - **Code splitting strategy**: Split code by routes and features, not just by vendor libraries
 - **Asset optimization**: Optimize images, fonts, and other static assets
@@ -755,6 +775,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Loading strategies**: Implement progressive loading for improved perceived performance
 
 ### Accessibility Best Practices
+
 - **Semantic HTML**: Use proper HTML elements for their intended purpose
 - **ARIA attributes**: Implement ARIA labels and descriptions where necessary
 - **Keyboard navigation**: Ensure all interactive elements are keyboard accessible
@@ -763,11 +784,13 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Focus management**: Implement visible focus indicators and logical focus order
 
 ### Testing Strategy (from repository docs)
+
 - **Unit Tests**: For components, hooks, utils, pages - If a component navigates to another page, test that behavior in integration tests instead
 - **Integration Tests with mocked APIs**: For happy path flows using Playwright + Mock Service Worker with dynamic mocks for each happy path flow
 - **End-to-End Tests with real APIs**: For high level user flows using Playwright or Cypress - Keep these separate from PR checks, run after successful build and deploy
 
 ### Code Quality Best Practices
+
 - **Linting and formatting**: Use ESLint and Prettier with shared configurations across all templates
 - **Type safety**: Maintain strict TypeScript configurations and avoid `any` types
 - **Testing coverage**: Aim for high test coverage (80%+) focusing on critical paths and edge cases
@@ -776,6 +799,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 - **Documentation standards**: Keep README files current and include setup, development, and deployment instructions
 
 ### Security Best Practices
+
 - **Dependency management**: Regularly audit dependencies for security vulnerabilities
 - **Environment variables**: Never commit secrets; use proper environment variable management
 - **Input validation**: Validate all user inputs and API responses
@@ -797,6 +821,7 @@ route('dashboard', 'routes/dashboard.tsx', {
 ### React Router V7 SPA i18n Patterns
 
 **Route Components with i18n:**
+
 ```tsx
 // app/routes/dashboard.index.tsx
 import { useLoaderData } from 'react-router';
@@ -811,7 +836,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function DashboardPage({ loaderData }: Route.ComponentProps) {
   const { t } = useAppTranslation();
   const { user } = loaderData;
-  
+
   return (
     <div>
       <h1>{t('Dashboard.title')}</h1>
@@ -822,6 +847,7 @@ export default function DashboardPage({ loaderData }: Route.ComponentProps) {
 ```
 
 **Client Actions with i18n:**
+
 ```tsx
 // app/routes/contact.tsx
 import { redirect } from 'react-router';
@@ -831,44 +857,35 @@ import type { Route } from './+types';
 
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
-  
+
   try {
     await submitContactForm(formData);
-    
+
     // Use translation key for success message
     toast({
       title: 'ContactForm.submitSuccess',
       type: 'success',
     });
-    
+
     return redirect('/contact/success');
   } catch (error) {
     return {
-      error: 'ContactForm.submitError'
+      error: 'ContactForm.submitError',
     };
   }
 }
 
 export default function ContactPage({ actionData }: Route.ComponentProps) {
   const { t } = useAppTranslation();
-  
+
   return (
     <div>
       <h1>{t('ContactForm.title')}</h1>
-      {actionData?.error && (
-        <div className="error">
-          {t(actionData.error)}
-        </div>
-      )}
-      
+      {actionData?.error && <div className="error">{t(actionData.error)}</div>}
+
       <form method="post">
-        <input 
-          name="email" 
-          placeholder={t('ContactForm.emailPlaceholder')} 
-        />
-        <button type="submit">
-          {t('ContactForm.submit')}
-        </button>
+        <input name="email" placeholder={t('ContactForm.emailPlaceholder')} />
+        <button type="submit">{t('ContactForm.submit')}</button>
       </form>
     </div>
   );
@@ -876,6 +893,7 @@ export default function ContactPage({ actionData }: Route.ComponentProps) {
 ```
 
 **Navigation with i18n:**
+
 ```tsx
 // app/components/Navigation.tsx
 import { NavLink } from 'react-router';
@@ -883,24 +901,19 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function Navigation() {
   const { t } = useAppTranslation();
-  
+
   return (
     <nav>
-      <NavLink to="/">
-        {t('Navigation.home')}
-      </NavLink>
-      <NavLink to="/dashboard">
-        {t('Navigation.dashboard')}
-      </NavLink>
-      <NavLink to="/profile">
-        {t('Navigation.profile')}
-      </NavLink>
+      <NavLink to="/">{t('Navigation.home')}</NavLink>
+      <NavLink to="/dashboard">{t('Navigation.dashboard')}</NavLink>
+      <NavLink to="/profile">{t('Navigation.profile')}</NavLink>
     </nav>
   );
 }
 ```
 
 **Error Boundaries with i18n:**
+
 ```tsx
 // app/components/ErrorBoundary.tsx
 import { isRouteErrorResponse, useRouteError } from 'react-router';
@@ -931,6 +944,7 @@ export default function ErrorBoundary() {
 ### SPA-Specific i18n Optimizations
 
 **Lazy Loading Translation Bundles:**
+
 ```tsx
 // app/i18n/loadTranslations.ts
 import { lazy } from 'react';
@@ -945,6 +959,7 @@ export const LazyDashboard = lazy(() => import('../routes/dashboard.index'));
 ```
 
 **Route-Based Translation Loading:**
+
 ```tsx
 // app/routes/settings.tsx
 import { useEffect } from 'react';
@@ -952,12 +967,12 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function SettingsPage() {
   const { t, i18n } = useAppTranslation();
-  
+
   // Load settings-specific translations on demand
   useEffect(() => {
     i18n.loadNamespaces('settings');
   }, [i18n]);
-  
+
   return (
     <div>
       <h1>{t('Settings.title')}</h1>
@@ -1013,6 +1028,7 @@ export default function SettingsPage() {
 ### Testing i18n in React Router SPA
 
 **Route testing with mocked translations:**
+
 ```tsx
 // __tests__/dashboard.test.tsx
 import { render, screen } from '@testing-library/react';
@@ -1033,9 +1049,9 @@ describe('DashboardPage', () => {
         loader: () => ({ user: { name: 'John' } }),
       },
     ]);
-    
+
     render(<RoutesStub initialEntries={['/dashboard']} />);
-    
+
     // Test expects translation keys since that's what the mock returns
     expect(screen.getByText('Dashboard.title')).toBeInTheDocument();
   });

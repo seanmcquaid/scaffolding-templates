@@ -84,7 +84,7 @@ Follow consistent directory structure across project templates:
 ##### File Organization Best Practices
 - **Keep related files close**: Co-locate tests, types, and components in the same directory when they're tightly coupled
 - **Separate concerns clearly**: Don't mix UI components with business logic components
-- **Follow naming conventions**: Use PascalCase for React components, camelCase for utilities + React hooks, SCREAMING_SNAKE_CASE for constants
+- **Follow naming conventions**: Use PascalCase for React components and constants, camelCase for utilities + React hooks
 - **Avoid deep nesting**: Keep directory structures shallow (max 3-4 levels deep)
 - **Feature-based organization**: Group files by feature rather than by file type when features grow large
 
