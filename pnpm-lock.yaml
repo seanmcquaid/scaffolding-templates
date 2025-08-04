@@ -380,8 +380,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
       eslint-plugin-playwright:
-        specifier: ^2.2.1
-        version: 2.2.1(eslint@9.32.0(jiti@2.4.2))
+        specifier: ^2.2.2
+        version: 2.2.2(eslint@9.32.0(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: ^5.5.3
         version: 5.5.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.4.2)))(eslint@9.32.0(jiti@2.4.2))(prettier@3.6.2)
@@ -633,8 +633,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
       eslint-plugin-playwright:
-        specifier: ^2.2.1
-        version: 2.2.1(eslint@9.32.0(jiti@2.4.2))
+        specifier: ^2.2.2
+        version: 2.2.2(eslint@9.32.0(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: ^5.5.3
         version: 5.5.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.4.2)))(eslint@9.32.0(jiti@2.4.2))(prettier@3.6.2)
@@ -862,8 +862,8 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
       eslint-plugin-playwright:
-        specifier: ^2.2.1
-        version: 2.2.1(eslint@9.32.0(jiti@2.4.2))
+        specifier: ^2.2.2
+        version: 2.2.2(eslint@9.32.0(jiti@2.4.2))
       eslint-plugin-prettier:
         specifier: ^5.5.3
         version: 5.5.3(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.32.0(jiti@2.4.2)))(eslint@9.32.0(jiti@2.4.2))(prettier@3.6.2)
@@ -5124,8 +5124,8 @@ packages:
   eslint-plugin-no-relative-import-paths@1.6.1:
     resolution: {integrity: sha512-YZNeOnsOrJcwhFw0X29MXjIzu2P/f5X2BZDPWw1R3VUYBRFxNIh77lyoL/XrMU9ewZNQPcEvAgL/cBOT1P330A==}
 
-  eslint-plugin-playwright@2.2.1:
-    resolution: {integrity: sha512-vYGKs9Y0H2A7tvvuKBF11w2aJa7diS9JRJbo/3Y5nU12RRgZummSUKvfZbickRdNVmt65R4lSrWn8Nyali2a3w==}
+  eslint-plugin-playwright@2.2.2:
+    resolution: {integrity: sha512-j0jKpndIPOXRRP9uMkwb9l/nSmModOU3452nrFdgFJoEv/435J1onk8+aITzjDW8DfypxgmVaDMdmVIa6F7I0w==}
     engines: {node: '>=16.6.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -13106,7 +13106,7 @@ snapshots:
 
   eslint-plugin-no-relative-import-paths@1.6.1: {}
 
-  eslint-plugin-playwright@2.2.1(eslint@9.32.0(jiti@2.4.2)):
+  eslint-plugin-playwright@2.2.2(eslint@9.32.0(jiti@2.4.2)):
     dependencies:
       eslint: 9.32.0(jiti@2.4.2)
       globals: 13.24.0
