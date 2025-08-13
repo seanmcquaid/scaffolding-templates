@@ -1,0 +1,38 @@
+{
+  "Common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "retry": "Try Again"
+  },
+  "HomePage": {
+    "title": "Welcome to React Native with Expo Router!",
+    "subtitle": "This is a scaffolding template with modern React Native patterns.",
+    "navigateToAbout": "Go to About"
+  },
+  "AboutPage": {
+    "title": "About",
+    "description": "This template includes modern React Native development patterns and tools.",
+    "features": {
+      "title": "Features",
+      "expo": "Expo Router for navigation",
+      "typescript": "TypeScript for type safety",
+      "testing": "Jest & React Native Testing Library",
+      "linting": "ESLint & Prettier for code quality",
+      "i18n": "Internationalization with i18next",
+      "stateManagement": "TanStack Query for server state",
+      "forms": "React Hook Form with Zod validation"
+    },
+    "backToHome": "Back to Home"
+  },
+  "Form": {
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email address",
+      "minLength": "Must be at least {{count}} characters"
+    }
+  }
+}
