@@ -253,8 +253,8 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0
       isbot:
-        specifier: ^5.1.29
-        version: 5.1.29
+        specifier: ^5.1.30
+        version: 5.1.30
       ky:
         specifier: ^1.8.2
         version: 1.8.2
@@ -503,8 +503,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       isbot:
-        specifier: ^5.1.29
-        version: 5.1.29
+        specifier: ^5.1.30
+        version: 5.1.30
       ky:
         specifier: ^1.8.2
         version: 1.8.2
@@ -4431,6 +4431,11 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
+  browserslist@4.25.3:
+    resolution: {integrity: sha512-cDGv1kkDI4/0e5yON9yM5G/0A5u8sf5TnmdX5C9qHzI9PPu++sQ9zjm1k9NiOrf3riY4OkK0zSGqfvJyJsgCBQ==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+
   buffer-crc32@0.2.13:
     resolution: {integrity: sha512-VO9Ht/+p3SN7SKWqcrgEzjGbRSJYTx+Q1pTQC0wrWqHx0vpJraQ6GtHx8tvcg1rlK1byhU5gccxgOgj7B0TDkQ==}
 
@@ -4495,6 +4500,9 @@ packages:
 
   caniuse-lite@1.0.30001735:
     resolution: {integrity: sha512-EV/laoX7Wq2J9TQlyIXRxTJqIw4sxfXS4OYgudGxBYRuTv0q7AM6yMEpU/Vo1I94thg9U6EZ2NfZx9GJq83u7w==}
+
+  caniuse-lite@1.0.30001737:
+    resolution: {integrity: sha512-BiloLiXtQNrY5UyF0+1nSJLXUENuhka2pzy2Fx5pGxqavdrxSCW4U6Pn/PoG3Efspi2frRbHpBV2XsrPE6EDlw==}
 
   chai@5.2.0:
     resolution: {integrity: sha512-mCuXncKXk5iCLhfhwTc0izo0gtEmpz5CtG2y8GiOINBlMVS6v8TMRc5TaLWKS6692m9+dVVfzgeVxR5UxWHTYw==}
@@ -5046,6 +5054,9 @@ packages:
 
   electron-to-chromium@1.5.203:
     resolution: {integrity: sha512-uz4i0vLhfm6dLZWbz/iH88KNDV+ivj5+2SA+utpgjKaj9Q0iDLuwk6Idhe9BTxciHudyx6IvTvijhkPvFGUQ0g==}
+
+  electron-to-chromium@1.5.208:
+    resolution: {integrity: sha512-ozZyibehoe7tOhNaf16lKmljVf+3npZcJIEbJRVftVsmAg5TeA1mGS9dVCZzOwr2xT7xK15V0p7+GZqSPgkuPg==}
 
   emoji-regex@10.4.0:
     resolution: {integrity: sha512-EC+0oUMY1Rqm4O6LLrgjtYDvcVYTy7chDnM4Q7030tP4Kwj3u/pR6gP9ygnp2CJMK5Gq+9Q2oqmrFJAz01DXjw==}
@@ -5989,10 +6000,6 @@ packages:
 
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
-
-  isbot@5.1.29:
-    resolution: {integrity: sha512-DelDWWoa3mBoyWTq3wjp+GIWx/yZdN7zLUE7NFhKjAiJ+uJVRkbLlwykdduCE4sPUUy8mlTYTmdhBUYu91F+sw==}
-    engines: {node: '>=18'}
 
   isbot@5.1.30:
     resolution: {integrity: sha512-3wVJEonAns1OETX83uWsk5IAne2S5zfDcntD2hbtU23LelSqNXzXs9zKjMPOLMzroCgIjCfjYAEHrd2D6FOkiA==}
@@ -7751,6 +7758,10 @@ packages:
 
   tapable@2.2.2:
     resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
+    engines: {node: '>=6'}
+
+  tapable@2.2.3:
+    resolution: {integrity: sha512-ZL6DDuAlRlLGghwcfmSn9sK3Hr6ArtyudlSAiCqQ6IfE+b+HHbydbYDIG15IfS5do+7XQQBdBiubF/cV2dnDzg==}
     engines: {node: '>=6'}
 
   tar-fs@3.1.0:
@@ -10908,7 +10919,7 @@ snapshots:
       dedent: 1.6.0(babel-plugin-macros@3.1.0)
       es-module-lexer: 1.7.0
       exit-hook: 2.2.1
-      isbot: 5.1.29
+      isbot: 5.1.30
       jsesc: 3.0.2
       lodash: 4.17.21
       pathe: 1.1.2
@@ -12398,6 +12409,13 @@ snapshots:
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.2)
 
+  browserslist@4.25.3:
+    dependencies:
+      caniuse-lite: 1.0.30001737
+      electron-to-chromium: 1.5.208
+      node-releases: 2.0.19
+      update-browserslist-db: 1.1.3(browserslist@4.25.3)
+
   buffer-crc32@0.2.13: {}
 
   buffer-from@1.1.2: {}
@@ -12465,6 +12483,8 @@ snapshots:
   caniuse-lite@1.0.30001731: {}
 
   caniuse-lite@1.0.30001735: {}
+
+  caniuse-lite@1.0.30001737: {}
 
   chai@5.2.0:
     dependencies:
@@ -12995,6 +13015,8 @@ snapshots:
   ee-first@1.1.1: {}
 
   electron-to-chromium@1.5.203: {}
+
+  electron-to-chromium@1.5.208: {}
 
   emoji-regex@10.4.0: {}
 
@@ -14126,8 +14148,6 @@ snapshots:
   isarray@1.0.0: {}
 
   isarray@2.0.5: {}
-
-  isbot@5.1.29: {}
 
   isbot@5.1.30: {}
 
@@ -16011,6 +16031,8 @@ snapshots:
 
   tapable@2.2.2: {}
 
+  tapable@2.2.3: {}
+
   tar-fs@3.1.0:
     dependencies:
       pump: 3.0.3
@@ -16335,6 +16357,12 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
+  update-browserslist-db@1.1.3(browserslist@4.25.3):
+    dependencies:
+      browserslist: 4.25.3
+      escalade: 3.2.0
+      picocolors: 1.1.1
+
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
@@ -16557,7 +16585,7 @@ snapshots:
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
-      browserslist: 4.25.2
+      browserslist: 4.25.3
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.3
       es-module-lexer: 1.7.0
@@ -16570,7 +16598,7 @@ snapshots:
       mime-types: 2.1.35
       neo-async: 2.6.2
       schema-utils: 4.3.2
-      tapable: 2.2.2
+      tapable: 2.2.3
       terser-webpack-plugin: 5.3.14(webpack@5.99.9)
       watchpack: 2.4.4
       webpack-sources: 3.3.3
