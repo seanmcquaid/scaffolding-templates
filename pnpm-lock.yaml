@@ -36,8 +36,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       i18next:
-        specifier: ^25.3.6
-        version: 25.3.6(typescript@5.9.2)
+        specifier: ^25.4.2
+        version: 25.4.2(typescript@5.9.2)
       i18next-browser-languagedetector:
         specifier: ^8.2.0
         version: 8.2.0
@@ -67,7 +67,7 @@ importers:
         version: 7.62.0(react@19.1.1)
       react-i18next:
         specifier: ^15.7.2
-        version: 15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -247,8 +247,8 @@ importers:
         specifier: ^14.1.1
         version: 14.1.1
       i18next:
-        specifier: ^25.3.6
-        version: 25.3.6(typescript@5.9.2)
+        specifier: ^25.4.2
+        version: 25.4.2(typescript@5.9.2)
       i18next-browser-languagedetector:
         specifier: ^8.2.0
         version: 8.2.0
@@ -272,7 +272,7 @@ importers:
         version: 7.62.0(react@19.1.1)
       react-i18next:
         specifier: ^15.7.2
-        version: 15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       react-router:
         specifier: ^7.8.1
         version: 7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -491,8 +491,8 @@ importers:
         specifier: ^17.2.1
         version: 17.2.1
       i18next:
-        specifier: ^25.3.6
-        version: 25.3.6(typescript@5.9.2)
+        specifier: ^25.4.2
+        version: 25.4.2(typescript@5.9.2)
       i18next-browser-languagedetector:
         specifier: ^8.2.0
         version: 8.2.0
@@ -522,13 +522,13 @@ importers:
         version: 7.62.0(react@19.1.1)
       react-i18next:
         specifier: ^15.7.2
-        version: 15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       react-router:
         specifier: ^7.8.1
         version: 7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       remix-i18next:
         specifier: ^7.3.0
-        version: 7.3.0(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        version: 7.3.0(i18next@25.4.2(typescript@5.9.2))(react-i18next@15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -738,8 +738,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       i18next:
-        specifier: ^25.3.6
-        version: 25.3.6(typescript@5.9.2)
+        specifier: ^25.4.2
+        version: 25.4.2(typescript@5.9.2)
       i18next-browser-languagedetector:
         specifier: ^8.2.0
         version: 8.2.0
@@ -760,7 +760,7 @@ importers:
         version: 7.62.0(react@19.1.1)
       react-i18next:
         specifier: ^15.7.2
-        version: 15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -5752,8 +5752,8 @@ packages:
   i18next-http-backend@3.0.2:
     resolution: {integrity: sha512-PdlvPnvIp4E1sYi46Ik4tBYh/v/NbYfFFgTjkwFl0is8A18s7/bx9aXqsrOax9WUbeNS6mD2oix7Z0yGGf6m5g==}
 
-  i18next@25.3.6:
-    resolution: {integrity: sha512-dThZ0CTCM3sUG/qS0ZtQYZQcUI6DtBN8yBHK+SKEqihPcEYmjVWh/YJ4luic73Iq6Uxhp6q7LJJntRK5+1t7jQ==}
+  i18next@25.4.2:
+    resolution: {integrity: sha512-gD4T25a6ovNXsfXY1TwHXXXLnD/K2t99jyYMCSimSCBnBRJVQr5j+VAaU83RJCPzrTGhVQ6dqIga66xO2rtd5g==}
     peerDependencies:
       typescript: ^5
     peerDependenciesMeta:
@@ -13911,7 +13911,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  i18next@25.3.6(typescript@5.9.2):
+  i18next@25.4.2(typescript@5.9.2):
     dependencies:
       '@babel/runtime': 7.28.3
     optionalDependencies:
@@ -15251,11 +15251,11 @@ snapshots:
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
 
-  react-i18next@15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2):
+  react-i18next@15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2):
     dependencies:
       '@babel/runtime': 7.28.3
       html-parse-stringify: 3.0.1
-      i18next: 25.3.6(typescript@5.9.2)
+      i18next: 25.4.2(typescript@5.9.2)
       react: 19.1.1
     optionalDependencies:
       react-dom: 19.1.1(react@19.1.1)
@@ -15437,11 +15437,11 @@ snapshots:
       fs-extra: 11.3.0
       minimatch: 10.0.1
 
-  remix-i18next@7.3.0(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  remix-i18next@7.3.0(i18next@25.4.2(typescript@5.9.2))(react-i18next@15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
-      i18next: 25.3.6(typescript@5.9.2)
+      i18next: 25.4.2(typescript@5.9.2)
       react: 19.1.1
-      react-i18next: 15.7.2(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+      react-i18next: 15.7.2(i18next@25.4.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       react-router: 7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
 
   require-directory@2.1.1: {}
