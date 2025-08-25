@@ -527,8 +527,8 @@ importers:
         specifier: ^7.8.1
         version: 7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       remix-i18next:
-        specifier: ^7.2.1
-        version: 7.2.1(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.6.1(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        specifier: ^7.3.0
+        version: 7.3.0(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.6.1(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -7278,8 +7278,8 @@ packages:
     engines: {node: '>=16.6.0'}
     hasBin: true
 
-  remix-i18next@7.2.1:
-    resolution: {integrity: sha512-zjyDEOtSw2yF31tNHP6RLr7LZl1kEdZ3j3EpzB8905JNg4HsUk+6bNVrWhq8fFfacT6sPK0eH//NrYbpAI7bzw==}
+  remix-i18next@7.3.0:
+    resolution: {integrity: sha512-KbuOTr5G7+GYZRgXfd/ugpT0gw0kCN+ESbLrPyTrKKQfMY/s/y5ejAjXYK94ODsO9stuVh8AAchQ60uoA4EUJA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       i18next: ^24.0.0 || ^25.0.0
@@ -15426,7 +15426,7 @@ snapshots:
       fs-extra: 11.3.0
       minimatch: 10.0.1
 
-  remix-i18next@7.2.1(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.6.1(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  remix-i18next@7.3.0(i18next@25.3.6(typescript@5.9.2))(react-i18next@15.6.1(i18next@25.3.6(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.8.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
       i18next: 25.3.6(typescript@5.9.2)
       react: 19.1.1
