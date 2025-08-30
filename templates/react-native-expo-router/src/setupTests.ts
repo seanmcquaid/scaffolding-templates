@@ -1,5 +1,23 @@
 import '@testing-library/jest-native/extend-expect';
 
+// Mock React Native
+jest.mock('react-native', () => ({
+  StyleSheet: {
+    create: jest.fn((styles) => styles),
+  },
+  View: 'View',
+  Text: 'Text',
+  TouchableOpacity: 'TouchableOpacity',
+  ScrollView: 'ScrollView',
+  ActivityIndicator: 'ActivityIndicator',
+  Platform: {
+    OS: 'ios',
+  },
+  Dimensions: {
+    get: jest.fn(() => ({ width: 375, height: 667 })),
+  },
+}));
+
 // Mock react-i18next
 jest.mock('react-i18next', () => ({
   useTranslation: () => {
