@@ -17,13 +17,13 @@
     }
   },
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "bundlesize": "bundlesize",
     "changeset": "changeset",
     "check-treeshaking": "agadoo dist/index.js",
@@ -45,7 +45,6 @@
     "agadoo": "^3.0.0",
     "bundlesize2": "^0.0.35",
     "dpdm": "^3.14.0",
-    "esbuild-plugin-file-path-extensions": "^2.1.4",
     "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
@@ -55,7 +54,7 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^16.1.5",
     "prettier": "^3.6.2",
-    "tsup": "^8.5.0",
+    "tsdown": "^0.14.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.40.0",
     "vite": "^7.1.3",
