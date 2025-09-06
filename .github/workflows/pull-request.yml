@@ -11,7 +11,7 @@ jobs:
     name: Linting
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
       - name: Setup Node
@@ -28,7 +28,7 @@ jobs:
     name: Unit Tests
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
       - name: Setup Node
@@ -45,7 +45,7 @@ jobs:
     name: Bundle Size
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup PNPM
         uses: pnpm/action-setup@v4
       - name: Setup Node
@@ -57,3 +57,42 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Bundlesize Check
         run: pnpm bundlesize
+
+  typescript-library-type-check:
+    runs-on: ubuntu-latest
+    name: TypeScript Library Type Check
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v5
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build TypeScript Library
+        run: pnpm --filter typescript-library build
+      - name: Check Types
+        run: pnpm --filter typescript-library check-types
+  typescript-library-tree-shaking:
+    runs-on: ubuntu-latest
+    name: TypeScript Library Tree Shaking
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v5
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build TypeScript Library
+        run: pnpm --filter typescript-library build
+      - name: Check Tree Shaking
+        run: pnpm --filter typescript-library check-treeshaking

@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - uses: ./.github/actions/setup-pull-request-job
       - name: Install Playwright Browsers
         run: pnpm playwright install --with-deps
