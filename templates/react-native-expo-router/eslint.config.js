@@ -6,11 +6,13 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  ...pluginQuery.configs['flat/recommended'],
   prettier,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
