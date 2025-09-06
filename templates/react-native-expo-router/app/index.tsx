@@ -24,6 +24,7 @@ export default function HomeScreen() {
               title={t('HomePage.navigateToAbout')}
               variant="primary"
               testID="navigate-to-about"
+              onPress={() => {}}
             />
           </Link>
         </View>

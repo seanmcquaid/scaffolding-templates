@@ -64,12 +64,10 @@ A modern React Native scaffolding template with Expo Router, TypeScript, and bes
 ## Project Structure
 
 ```
-├── app/                    # Expo Router pages
+├── app/                    # Expo Router pages and source code
 │   ├── _layout.tsx        # Root layout with providers
 │   ├── index.tsx          # Home screen
-│   └── about.tsx          # About screen
-├── assets/                # Static assets (images, fonts)
-├── src/
+│   ├── about.tsx          # About screen
 │   ├── components/        # Reusable components
 │   │   ├── ui/           # Generic UI components
 │   │   └── app/          # App-specific components
@@ -79,7 +77,9 @@ A modern React Native scaffolding template with Expo Router, TypeScript, and bes
 │   ├── constants/        # App constants and themes
 │   ├── types/            # TypeScript type definitions
 │   ├── i18n/             # Internationalization setup
-│   └── setupTests.ts     # Test configuration
+│   ├── setupTests.ts     # Test configuration
+│   └── env.ts            # Environment variable validation
+├── assets/                # Static assets (images, fonts)
 ├── docs/                 # Documentation
 └── package.json
 ```

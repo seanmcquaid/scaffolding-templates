@@ -3,7 +3,7 @@ import '@testing-library/jest-native/extend-expect';
 // Mock React Native
 jest.mock('react-native', () => ({
   StyleSheet: {
-    create: jest.fn((styles) => styles),
+    create: jest.fn(styles => styles),
   },
   View: 'View',
   Text: 'Text',

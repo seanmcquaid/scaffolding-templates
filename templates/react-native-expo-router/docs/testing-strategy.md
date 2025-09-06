@@ -24,21 +24,20 @@ The template follows a three-tier testing strategy:
 ```javascript
 module.exports = {
   preset: 'jest-expo',
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/app/setupTests.ts'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/app/$1',
     // ... other path mappings
   },
   collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
     'app/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/__tests__/**',
+    '!app/**/*.d.ts',
+    '!app/__tests__/**',
   ],
 };
 ```
 
-### Test Setup (`src/setupTests.ts`)
+### Test Setup (`app/setupTests.ts`)
 
 ```typescript
 import '@testing-library/jest-native/extend-expect';
@@ -253,7 +252,7 @@ Aim for high test coverage while focusing on critical paths:
 ### File Structure
 
 ```
-src/
+app/
 ├── components/
 │   └── ui/
 │       ├── Button.tsx

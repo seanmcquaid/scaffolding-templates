@@ -1,4 +1,4 @@
-import type enUSLocale from '@/i18n/locales/en-US';
+import type enUSLocale from '@/i18n/locales/en-US.json';
 
 type DotPrefix<T extends string> = T extends '' ? '' : `.${T}`;
 

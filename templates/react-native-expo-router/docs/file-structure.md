@@ -6,38 +6,37 @@ This document outlines the file organization and architectural patterns used in 
 
 ```
 react-native-expo-router/
-├── app/                        # Expo Router pages and layouts
+├── app/                        # Expo Router pages and source code
 │   ├── _layout.tsx            # Root layout with providers
 │   ├── index.tsx              # Home screen
-│   └── about.tsx              # About screen
-├── assets/                    # Static assets
-│   ├── icon.png              # App icon
-│   ├── splash-icon.png       # Splash screen icon
-│   ├── adaptive-icon.png     # Android adaptive icon
-│   └── favicon.png           # Web favicon
-├── src/                      # Source code
-│   ├── components/           # React components
-│   │   ├── ui/              # Generic UI components
-│   │   │   ├── Button.tsx   # Reusable button component
+│   ├── about.tsx              # About screen
+│   ├── components/            # React components
+│   │   ├── ui/               # Generic UI components
+│   │   │   ├── Button.tsx    # Reusable button component
 │   │   │   ├── LoadingSpinner.tsx
-│   │   │   └── index.ts     # UI components barrel export
-│   │   └── app/             # App-specific components
-│   ├── hooks/               # Custom React hooks
+│   │   │   └── index.ts      # UI components barrel export
+│   │   └── app/              # App-specific components
+│   ├── hooks/                # Custom React hooks
 │   │   └── useAppTranslation.tsx
-│   ├── services/            # External services and API clients
-│   │   └── api.ts          # HTTP client with Zod validation
-│   ├── utils/               # Utility functions
-│   │   └── helpers.ts      # Common helper functions
-│   ├── constants/           # App constants and configuration
-│   │   └── index.ts        # Colors, app constants
-│   ├── types/               # TypeScript type definitions
-│   ├── i18n/                # Internationalization
-│   │   ├── locales/         # Translation files
+│   ├── services/             # External services and API clients
+│   │   └── api.ts           # HTTP client with Zod validation
+│   ├── utils/                # Utility functions
+│   │   └── helpers.ts       # Common helper functions
+│   ├── constants/            # App constants and configuration
+│   │   └── index.ts         # Colors, app constants
+│   ├── types/                # TypeScript type definitions
+│   ├── i18n/                 # Internationalization
+│   │   ├── locales/          # Translation files
 │   │   │   ├── en-US.json
 │   │   │   └── en-CA.json
-│   │   └── index.ts         # i18n configuration
-│   ├── setupTests.ts        # Jest test setup
-│   └── env.ts               # Environment variable validation
+│   │   └── index.ts          # i18n configuration
+│   ├── setupTests.ts         # Jest test setup
+│   └── env.ts                # Environment variable validation
+├── assets/                   # Static assets
+│   ├── icon.png             # App icon
+│   ├── splash-icon.png      # Splash screen icon
+│   ├── adaptive-icon.png    # Android adaptive icon
+│   └── favicon.png          # Web favicon
 ├── docs/                    # Documentation
 ├── .expo/                   # Expo configuration (generated)
 ├── node_modules/            # Dependencies
@@ -59,14 +58,14 @@ react-native-expo-router/
 
 ### Component Organization
 
-Components are organized by purpose and reusability:
+Components are organized by purpose and reusability within the `app/components/` directory:
 
-- **`src/components/ui/`** - Generic, reusable UI components
+- **`app/components/ui/`** - Generic, reusable UI components
   - These should be framework-agnostic and highly reusable
   - Examples: Button, LoadingSpinner, Input, Modal
   - Should not contain business logic or app-specific behavior
 
-- **`src/components/app/`** - App-specific components
+- **`app/components/app/`** - App-specific components
   - Components that contain business logic or app-specific behavior
   - Examples: UserProfile, ProductCard, NavigationHeader
   - Can use UI components but add app-specific functionality
@@ -94,7 +93,7 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 ### Screen vs Component Pattern
 
 - **Screens** (in `app/` directory): Full-page components that represent routes
-- **Components** (in `src/components/`): Reusable pieces that make up screens
+- **Components** (in `app/components/`): Reusable pieces that make up screens
 
 ## Expo Router Structure
 
