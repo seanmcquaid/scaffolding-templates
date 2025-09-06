@@ -4,6 +4,6 @@ export default defineConfig({
   clean: true,
   dts: true,
   entry: ['src/**/*', '!src/**/*.test.ts', '!src/**/*.test.tsx'],
-  format: ['esm', 'cjs'],
+  format: ['esm'],
   unbundle: true,
 });
