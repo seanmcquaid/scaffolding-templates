@@ -1,40 +1,49 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
+  presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#007AFF',
-          dark: '#0056CC',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
-        secondary: '#5856D6',
-        background: {
-          DEFAULT: '#FFFFFF',
-          dark: '#000000',
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
-        surface: {
-          DEFAULT: '#F2F2F7',
-          dark: '#1C1C1E',
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
-        text: {
-          DEFAULT: '#000000',
-          dark: '#FFFFFF',
-          secondary: '#8E8E93',
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
-        border: {
-          DEFAULT: '#C6C6C8',
-          dark: '#38383A',
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
-        gray: {
-          300: '#d1d5db',
-          600: '#6b7280',
-          700: '#374151',
-          800: '#1f2937',
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
-        error: '#FF3B30',
-        success: '#34C759',
-        warning: '#FF9500',
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
       },
       spacing: {
         xs: '4px',
@@ -43,12 +52,6 @@ module.exports = {
         lg: '24px',
         xl: '32px',
         xxl: '48px',
-      },
-      borderRadius: {
-        sm: '4px',
-        md: '8px',
-        lg: '12px',
-        xl: '16px',
       },
       fontSize: {
         'h1': ['32px', { lineHeight: '40px', fontWeight: 'bold' }],
@@ -63,5 +66,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };

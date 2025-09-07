@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
-import LoadingSpinner from './LoadingSpinner';
+import { LoadingSpinner } from './LoadingSpinner';
 
 interface LoadingOverlayProps {
   isLoading: boolean;

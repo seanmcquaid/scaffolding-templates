@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import type { PropsWithChildren } from 'react';
 import PageError from './PageError';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 interface PageWrapperProps extends PropsWithChildren {
   isLoading?: boolean;
@@ -20,7 +20,7 @@ const PageWrapper = ({
 }: PageWrapperProps) => {
   if (isLoading) {
     return (
-      <View style={styles.loadingContainer}>
+      <View className="flex-1 justify-center items-center">
         <LoadingSpinner />
       </View>
     );
@@ -30,19 +30,7 @@ const PageWrapper = ({
     return <PageError errorText={errorText} titleText={errorTitleText} />;
   }
 
-  return <View style={styles.container}>{children}</View>;
+  return <View className="flex-1 p-4">{children}</View>;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default PageWrapper;

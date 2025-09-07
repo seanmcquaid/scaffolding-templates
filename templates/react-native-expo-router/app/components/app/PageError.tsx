@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import useAppTranslation from '@/hooks/useAppTranslation';
-import Button from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
 interface PageErrorProps {
   errorText?: string;
@@ -13,44 +13,22 @@ const PageError = ({ errorText, titleText, onRetry }: PageErrorProps) => {
   const { t } = useAppTranslation();
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{titleText || t('Common.error')}</Text>
-      <Text style={styles.message}>
+    <View className="flex-1 justify-center items-center p-4">
+      <Text className="text-2xl font-bold mb-4 text-center text-foreground">
+        {titleText || t('Common.error')}
+      </Text>
+      <Text className="text-base text-center mb-6 text-muted-foreground">
         {errorText || t('Common.somethingWentWrong')}
       </Text>
       {onRetry && (
         <Button
           title={t('Common.tryAgain')}
           onPress={onRetry}
-          style={styles.button}
+          className="min-w-[120px]"
         />
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  message: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 24,
-    color: '#666',
-  },
-  button: {
-    minWidth: 120,
-  },
-});
 
 export default PageError;

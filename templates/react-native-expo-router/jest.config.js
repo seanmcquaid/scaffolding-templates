@@ -2,7 +2,7 @@ module.exports = {
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/app/setupTests.ts'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|react-native-.*|@react-native-.*|expo|expo-.*|@expo|@expo/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg))',
+    'node_modules/(?!(react-native|@react-native|react-native-.*|@react-native-.*|expo|expo-.*|@expo|@expo/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|nativewind|react-native-css-interop|tailwind-merge|class-variance-authority))',
   ],
   collectCoverageFrom: [
     'app/**/*.{ts,tsx}',

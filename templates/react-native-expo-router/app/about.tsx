@@ -53,7 +53,7 @@ export default function AboutScreen() {
           <Button
             title={t('AboutPage.backToHome')}
             onPress={handleGoBack}
-            variant="primary"
+            variant="default"
             testID="back-to-home"
           />
         </View>

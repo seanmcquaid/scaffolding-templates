@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Slot } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as SplashScreen from 'expo-splash-screen';
+import { PortalHost } from '@rn-primitives/portal';
 import '@/i18n';
 import '../global.css';
 
@@ -27,6 +28,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <Slot />
+      <PortalHost />
     </QueryClientProvider>
   );
 }

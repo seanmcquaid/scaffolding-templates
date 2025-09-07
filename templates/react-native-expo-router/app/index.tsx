@@ -1,37 +1,69 @@
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Link } from 'expo-router';
-import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 import useAppTranslation from '@/hooks/useAppTranslation';
-import { Button } from '@/components/ui';
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  Badge,
+} from '@/components/ui';
 
 export default function HomeScreen() {
   const { t } = useAppTranslation();
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-background">
       <StatusBar style="auto" />
-      <View className="flex-1 items-center justify-center p-5">
-        <Text className="text-h2 text-center mb-4 text-gray-800">
-          {t('HomePage.title')}
-        </Text>
-        <Text className="text-body text-center text-gray-600 mb-8 leading-6">
-          {t('HomePage.subtitle')}
-        </Text>
+      <ScrollView className="flex-1">
+        <View className="flex-1 items-center justify-center p-5">
+          <Card className="w-full max-w-sm">
+            <CardHeader>
+              <CardTitle className="text-center">
+                {t('HomePage.title')}
+              </CardTitle>
+              <CardDescription className="text-center">
+                {t('HomePage.subtitle')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="items-center space-y-4">
+              <Badge variant="secondary">{t('HomePage.welcomeBadge')}</Badge>
 
-        <View className="mt-5">
-          <Link href="/about" asChild>
-            <Button
-              title={t('HomePage.navigateToAbout')}
-              variant="primary"
-              testID="navigate-to-about"
-              onPress={() => {}}
-            />
-          </Link>
+              <View className="flex-row space-x-2">
+                <Link href="/about" asChild>
+                  <Button
+                    title={t('HomePage.navigateToAbout')}
+                    variant="default"
+                    size="default"
+                    testID="navigate-to-about"
+                    onPress={() => {}}
+                  />
+                </Link>
+              </View>
+
+              <View className="flex-row space-x-2">
+                <Button
+                  title={t('HomePage.secondaryButton')}
+                  variant="outline"
+                  size="sm"
+                  onPress={() => {}}
+                />
+                <Button
+                  title={t('HomePage.destructiveButton')}
+                  variant="destructive"
+                  size="sm"
+                  onPress={() => {}}
+                />
+              </View>
+            </CardContent>
+          </Card>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

@@ -9,7 +9,14 @@ module.exports = function (api) {
   }
   
   return {
-    presets: ['babel-preset-expo'],
+    presets: [
+      [
+        'babel-preset-expo',
+        process.env.NODE_ENV !== 'test' ? {
+          jsxImportSource: 'nativewind',
+        } : {},
+      ],
+    ],
     plugins,
   };
 };

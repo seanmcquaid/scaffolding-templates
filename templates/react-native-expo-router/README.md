@@ -8,6 +8,7 @@ A modern React Native scaffolding template with Expo Router, TypeScript, and bes
 - 📱 **React Native 0.79** - Latest React Native with New Architecture support
 - 🔷 **TypeScript** - Full type safety with strict configuration
 - 🎨 **NativeWind** - Tailwind CSS for React Native with utility-first styling
+- 🧩 **React Native Reusables** - shadcn/ui equivalent components for React Native
 - 🧪 **Testing Setup** - Jest + React Native Testing Library
 - 🌍 **Internationalization** - i18next with locale management
 - 📡 **API Client** - Ky-based HTTP client with Zod validation
@@ -242,6 +243,17 @@ The template enforces code quality through:
 Follow Expo's deployment guides for:
 - [App Store deployment](https://docs.expo.dev/submit/ios/)
 - [Google Play deployment](https://docs.expo.dev/submit/android/)
+
+## Documentation
+
+For detailed guides and advanced usage, see the documentation in the `docs/` folder:
+
+- [React Native Reusables Integration](./docs/react-native-reusables.md) - Component library integration guide
+- [File Structure](./docs/file-structure.md) - Project organization guide
+- [Styling Guide](./docs/styling.md) - NativeWind and component styling
+- [API Integration](./docs/api-integration.md) - HTTP client and API patterns
+- [Testing Guide](./docs/testing.md) - Testing strategies and examples
+- [Deployment Options](./docs/deployment-options.md) - Build and deployment guide
 
 ## Contributing
 
