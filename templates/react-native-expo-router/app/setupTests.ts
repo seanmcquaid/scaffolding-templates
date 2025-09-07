@@ -7,15 +7,26 @@ jest.mock('react-native', () => ({
   },
   View: 'View',
   Text: 'Text',
+  TextInput: 'TextInput',
   TouchableOpacity: 'TouchableOpacity',
+  Pressable: 'Pressable',
   ScrollView: 'ScrollView',
   ActivityIndicator: 'ActivityIndicator',
+  Modal: 'Modal',
   Platform: {
     OS: 'ios',
   },
   Dimensions: {
     get: jest.fn(() => ({ width: 375, height: 667 })),
   },
+}));
+
+// Mock AsyncStorage
+jest.mock('@react-native-async-storage/async-storage', () => ({
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
 }));
 
 // Mock react-i18next

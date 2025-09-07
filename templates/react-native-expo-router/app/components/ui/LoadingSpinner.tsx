@@ -11,11 +11,11 @@ interface LoadingSpinnerProps {
 export const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   size = 'large',
   color = COLORS.PRIMARY,
-  testID,
+  testID = 'activityIndicator',
 }) => {
   return (
     <View style={styles.container} testID={testID}>
-      <ActivityIndicator size={size} color={color} />
+      <ActivityIndicator size={size} color={color} testID="activityIndicator" />
     </View>
   );
 };

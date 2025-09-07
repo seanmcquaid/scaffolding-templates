@@ -1,5 +1,5 @@
 module.exports = {
-  testEnvironment: 'jsdom',
+  preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/app/setupTests.ts'],
   transform: {
     '^.+\\.(js|ts|tsx)$': ['babel-jest', { presets: ['babel-preset-expo'] }],

@@ -6,7 +6,7 @@ This document outlines the file organization and architectural patterns used in 
 
 ```
 react-native-expo-router/
-├── app/                        # Expo Router pages and source code
+├── app/                        # Expo Router pages and all source code
 │   ├── _layout.tsx            # Root layout with providers
 │   ├── index.tsx              # Home screen
 │   ├── about.tsx              # About screen
@@ -14,24 +14,40 @@ react-native-expo-router/
 │   │   ├── ui/               # Generic UI components
 │   │   │   ├── Button.tsx    # Reusable button component
 │   │   │   ├── LoadingSpinner.tsx
+│   │   │   ├── Input.tsx     # Text input component
+│   │   │   ├── LoadingOverlay.tsx # Modal loading overlay
+│   │   │   ├── Toast.tsx     # Toast notification component
+│   │   │   ├── Toaster.tsx   # Toast container component
 │   │   │   └── index.ts      # UI components barrel export
 │   │   └── app/              # App-specific components
+│   │       ├── PageWrapper.tsx # Page layout wrapper
+│   │       └── PageError.tsx  # Error display component
 │   ├── hooks/                # Custom React hooks
-│   │   └── useAppTranslation.tsx
+│   │   ├── useAppTranslation.tsx # i18n hook
+│   │   ├── useToast.tsx      # Toast notification hook
+│   │   ├── useUserPreferences.tsx # User preferences with AsyncStorage
+│   │   └── useOnUnmount.tsx  # Cleanup hook
 │   ├── services/             # External services and API clients
-│   │   └── api.ts           # HTTP client with Zod validation
-│   ├── utils/                # Utility functions
-│   │   └── helpers.ts       # Common helper functions
-│   ├── constants/            # App constants and configuration
+│   │   ├── createApiClient.ts # HTTP client factory with validation
+│   │   ├── postsService.ts   # Example API service
+│   │   ├── ky.d.ts          # Type definitions for ky
+│   │   └── queries/         # TanStack Query configuration
+│   │       ├── queryClient.ts # Query client setup
+│   │       └── posts.ts     # Posts query definitions
+│   ├── styles/              # Styling system
+│   │   └── index.ts         # Design tokens and common styles
+│   ├── utils/               # Utility functions
+│   ├── constants/           # App constants and configuration
 │   │   └── index.ts         # Colors, app constants
-│   ├── types/                # TypeScript type definitions
-│   ├── i18n/                 # Internationalization
-│   │   ├── locales/          # Translation files
+│   ├── types/               # TypeScript type definitions
+│   │   └── Post.ts          # Example type definitions
+│   ├── i18n/                # Internationalization
+│   │   ├── locales/         # Translation files
 │   │   │   ├── en-US.json
 │   │   │   └── en-CA.json
-│   │   └── index.ts          # i18n configuration
-│   ├── setupTests.ts         # Jest test setup
-│   └── env.ts                # Environment variable validation
+│   │   └── index.ts         # i18n configuration
+│   ├── setupTests.ts        # Jest test setup
+│   └── env.ts               # Environment variable validation
 ├── assets/                   # Static assets
 │   ├── icon.png             # App icon
 │   ├── splash-icon.png      # Splash screen icon
