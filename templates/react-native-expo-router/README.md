@@ -7,9 +7,9 @@ A modern React Native scaffolding template with Expo Router, TypeScript, and bes
 - 🚀 **Expo Router** - File-based routing for React Native
 - 📱 **React Native 0.79** - Latest React Native with New Architecture support
 - 🔷 **TypeScript** - Full type safety with strict configuration
+- 🎨 **NativeWind** - Tailwind CSS for React Native with utility-first styling
 - 🧪 **Testing Setup** - Jest + React Native Testing Library
 - 🌍 **Internationalization** - i18next with locale management
-- 🎨 **UI Components** - Reusable components with consistent styling
 - 📡 **API Client** - Ky-based HTTP client with Zod validation
 - 🔍 **Code Quality** - ESLint, Prettier, and pre-commit hooks
 - 📝 **Form Handling** - React Hook Form with Zod validation
@@ -115,6 +115,31 @@ const { t } = useAppTranslation();
 // Use translation keys instead of hardcoded text
 <Text>{t('HomePage.title')}</Text>
 ```
+
+### Styling with NativeWind
+
+This template uses **NativeWind** to bring Tailwind CSS to React Native, providing consistency with web templates:
+
+```typescript
+import { View, Text } from 'react-native';
+import { cn } from '@/utils/styles';
+
+// Use Tailwind classes directly
+<View className="flex-1 bg-white p-4">
+  <Text className="text-h1 text-center text-gray-800">
+    Welcome
+  </Text>
+</View>
+
+// Combine with conditional classes
+const buttonClasses = cn(
+  'py-3 px-6 rounded-lg items-center',
+  variant === 'primary' ? 'bg-primary' : 'bg-secondary',
+  disabled && 'opacity-50'
+);
+```
+
+Custom design tokens are defined in `tailwind.config.js` with colors, spacing, and typography that align with the design system.
 
 ### API Integration
 

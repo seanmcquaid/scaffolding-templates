@@ -1,9 +1,6 @@
 module.exports = {
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/app/setupTests.ts'],
-  transform: {
-    '^.+\\.(js|ts|tsx)$': ['babel-jest', { presets: ['babel-preset-expo'] }],
-  },
   transformIgnorePatterns: [
     'node_modules/(?!(react-native|@react-native|react-native-.*|@react-native-.*|expo|expo-.*|@expo|@expo/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg))',
   ],
@@ -25,5 +22,6 @@ module.exports = {
     '^@/types/(.*)$': '<rootDir>/app/types/$1',
     '^@/utils/(.*)$': '<rootDir>/app/utils/$1',
     '^@/constants/(.*)$': '<rootDir>/app/constants/$1',
+    '\\.(css)$': 'identity-obj-proxy',
   },
 };

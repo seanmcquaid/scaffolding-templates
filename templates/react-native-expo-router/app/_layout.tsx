@@ -3,6 +3,7 @@ import { Slot } from 'expo-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import * as SplashScreen from 'expo-splash-screen';
 import '@/i18n';
+import '../global.css';
 
 // Prevent the splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();

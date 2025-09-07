@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { Button } from '@/components/ui';
-import { COLORS } from '@/constants';
 
 export default function AboutScreen() {
   const { t } = useAppTranslation();
@@ -26,25 +25,31 @@ export default function AboutScreen() {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white">
       <StatusBar style="auto" />
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>{t('AboutPage.title')}</Text>
-        <Text style={styles.description}>{t('AboutPage.description')}</Text>
+      <ScrollView contentContainerStyle={{ padding: 20, paddingBottom: 40 }}>
+        <Text className="text-h1 text-center mb-4 text-gray-800">
+          {t('AboutPage.title')}
+        </Text>
+        <Text className="text-body text-center text-gray-600 mb-8 leading-6">
+          {t('AboutPage.description')}
+        </Text>
 
-        <View style={styles.featuresContainer}>
-          <Text style={styles.featuresTitle}>
+        <View className="mb-8">
+          <Text className="text-h3 mb-4 text-gray-800">
             {t('AboutPage.features.title')}
           </Text>
           {features.map((feature, index) => (
-            <View key={index} style={styles.featureItem}>
-              <Text style={styles.featureBullet}>•</Text>
-              <Text style={styles.featureText}>{feature}</Text>
+            <View key={index} className="flex-row items-start mb-2">
+              <Text className="text-body text-primary mr-2 mt-0.5">•</Text>
+              <Text className="flex-1 text-body text-gray-700 leading-5.5">
+                {feature}
+              </Text>
             </View>
           ))}
         </View>
 
-        <View style={styles.buttonContainer}>
+        <View className="mt-5">
           <Button
             title={t('AboutPage.backToHome')}
             onPress={handleGoBack}
@@ -56,57 +61,3 @@ export default function AboutScreen() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  content: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
-    color: COLORS.GRAY[800],
-  },
-  description: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: COLORS.GRAY[600],
-    marginBottom: 32,
-    lineHeight: 24,
-  },
-  featuresContainer: {
-    marginBottom: 32,
-  },
-  featuresTitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 16,
-    color: COLORS.GRAY[800],
-  },
-  featureItem: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 8,
-  },
-  featureBullet: {
-    fontSize: 16,
-    color: COLORS.PRIMARY,
-    marginRight: 8,
-    marginTop: 2,
-  },
-  featureText: {
-    flex: 1,
-    fontSize: 16,
-    color: COLORS.GRAY[700],
-    lineHeight: 22,
-  },
-  buttonContainer: {
-    marginTop: 20,
-  },
-});
