@@ -1677,12 +1677,8 @@ const UserForm = () => {
   });
 
   const onSubmit = async (data: UserFormData) => {
-    try {
-      await submitUser(data);
-      reset();
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    await submitUser(data);
+    reset();
   };
 
   return (

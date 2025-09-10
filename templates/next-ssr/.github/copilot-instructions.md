@@ -95,10 +95,9 @@ src/
 // Server Component (default) - Next.js App Router optimized
 export default async function ServerPage() {
   // Use the established apiClient pattern for server-side data fetching
-  try {
-    const result = await dataService.getData();
-    // Note: For ISR with revalidation, configure at page level with:
-    // export const revalidate = 60; // 60-second revalidation
+  const result = await dataService.getData();
+  // Note: For ISR with revalidation, configure at page level with:
+  // export const revalidate = 60; // 60-second revalidation
   
   return (
     <div>
@@ -1618,12 +1617,8 @@ const UserForm = () => {
   });
 
   const onSubmit = async (data: UserFormData) => {
-    try {
-      await submitUser(data);
-      reset();
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    await submitUser(data);
+    reset();
   };
 
   return (

@@ -122,15 +122,9 @@ import { dashboardService } from "@/services/dashboardService";
 
 // For SPAs, prefer clientLoader for all data loading
 export async function clientLoader({}: Route.ClientLoaderArgs) {
-  // Client-side data fetching with error handling
-  try {
-    const data = await dashboardService.getData();
-    return { data };
-  } catch (error) {
-    // Handle errors gracefully in client-side context
-    console.error('Dashboard data loading failed:', error);
-    throw new Response('Failed to load dashboard data', { status: 500 });
-  }
+  // Client-side data fetching using apiClient pattern (handles errors automatically)
+  const data = await dashboardService.getData();
+  return { data };
 }
 
 // SPA-specific component without SSR concerns
@@ -1408,12 +1402,8 @@ const UserForm = () => {
   });
 
   const onSubmit = async (data: UserFormData) => {
-    try {
-      await submitUser(data);
-      reset();
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    await submitUser(data);
+    reset();
   };
 
   return (
@@ -1566,21 +1556,15 @@ import type { Route } from './+types';
 export async function clientAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
 
-  try {
-    await submitContactForm(formData);
+  await submitContactForm(formData);
 
-    // Use translation key for success message
-    toast({
-      title: 'ContactForm.submitSuccess',
-      type: 'success',
-    });
+  // Use translation key for success message
+  toast({
+    title: 'ContactForm.submitSuccess',
+    type: 'success',
+  });
 
-    return redirect('/contact/success');
-  } catch (error) {
-    return {
-      error: 'ContactForm.submitError',
-    };
-  }
+  return redirect('/contact/success');
 }
 
 export default function ContactPage({ actionData }: Route.ComponentProps) {

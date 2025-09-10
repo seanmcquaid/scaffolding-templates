@@ -129,23 +129,17 @@ export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
 
-  // Server-side data fetching with proper error handling
-  try {
-    const data = await dashboardService.getData(filter);
-    
-    return {
-      data,
-      filter,
-      meta: {
-        title: "Dashboard",
-        description: "View your dashboard analytics",
-      },
-    };
-  } catch (error) {
-    // Server-side error handling
-    console.error('Server-side data loading failed:', error);
-    throw new Response('Failed to load dashboard data', { status: 500 });
-  }
+  // Server-side data fetching using apiClient pattern (handles errors automatically)
+  const data = await dashboardService.getData(filter);
+  
+  return {
+    data,
+    filter,
+    meta: {
+      title: "Dashboard",
+      description: "View your dashboard analytics",
+    },
+  };
 }
 
 // Client-side data loading for navigation (hydration-aware)
@@ -160,14 +154,8 @@ export async function clientLoader({ request, serverLoader }: Route.ClientLoader
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
   
-  try {
-    const data = await dashboardService.getData(filter);
-    return { data, filter };
-  } catch (error) {
-    // Client-side error handling
-    console.error('Client-side data loading failed:', error);
-    throw new Response('Failed to load dashboard data', { status: 500 });
-  }
+  const data = await dashboardService.getData(filter);
+  return { data, filter };
 }
 
 // Meta tags for SEO (server-rendered)
@@ -1543,12 +1531,8 @@ const UserForm = () => {
   });
 
   const onSubmit = async (data: UserFormData) => {
-    try {
-      await submitUser(data);
-      reset();
-    } catch (error) {
-      console.error('Failed to submit:', error);
-    }
+    await submitUser(data);
+    reset();
   };
 
   return (
@@ -1710,18 +1694,10 @@ import type { Route } from './+types';
 export async function action({ request }: Route.ActionArgs) {
   const formData = await request.formData();
 
-  try {
-    await submitContactForm(formData);
+  await submitContactForm(formData);
 
-    // Redirect with success message
-    return redirect('/contact/success');
-  } catch (error) {
-    // Return error state for client-side translation
-    return json({
-      error: 'ContactForm.submitError',
-      values: Object.fromEntries(formData),
-    });
-  }
+  // Redirect with success message
+  return redirect('/contact/success');
 }
 
 export async function clientAction({ serverAction }: Route.ClientActionArgs) {
