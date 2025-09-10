@@ -1,15 +1,20 @@
-import { faker } from '@faker-js/faker';
+import { zocker } from 'zocker';
 import type Post from '@/types/Post';
+import { postSchema } from '@/types/Post';
+
+const postZocker = zocker(postSchema);
 
 export const generatePost = (id?: number): Post => {
-  return {
-    id: id ?? faker.number.int({ min: 1, max: 1000 }),
-    title: faker.lorem.sentence(),
-    body: faker.lorem.paragraphs(2),
-    userId: faker.number.int({ min: 1, max: 10 }),
-  };
+  const generated = postZocker.generate();
+  
+  // If a specific id is provided, use it
+  if (id !== undefined) {
+    return { ...generated, id };
+  }
+  
+  return generated;
 };
 
 export const generatePosts = (count = 5): Post[] => {
-  return faker.helpers.multiple(() => generatePost(), { count });
+  return postZocker.generateMany(count);
 };
