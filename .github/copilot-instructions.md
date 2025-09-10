@@ -504,53 +504,61 @@ const ThemeToggle = () => {
 };
 ```
 
-**Global State - Application-Wide State**:
+**Global State - Application-Wide State with Zustand**:
 ```tsx
-// Simple global store implementation
+import create from 'zustand';
+
 interface GlobalState {
   user: User | null;
   notifications: Notification[];
   isOnline: boolean;
+  setUser: (user: User | null) => void;
+  addNotification: (notification: Omit<Notification, 'id'>) => void;
 }
 
-const useGlobalStore = () => {
-  const [state, setState] = useState<GlobalState>({
-    user: null,
-    notifications: [],
-    isOnline: navigator.onLine,
-  });
-
-  const setUser = (user: User | null) => {
-    setState(prev => ({ ...prev, user }));
-  };
-
-  const addNotification = (notification: Omit<Notification, 'id'>) => {
+const useGlobalStore = create<GlobalState>((set) => ({
+  user: null,
+  notifications: [],
+  isOnline: navigator.onLine,
+  setUser: (user) => set(() => ({ user })),
+  addNotification: (notification) => {
     const newNotification = { ...notification, id: Date.now() };
-    setState(prev => ({
-      ...prev,
-      notifications: [...prev.notifications, newNotification],
+    set((state) => ({
+      notifications: [...state.notifications, newNotification],
     }));
 
     // Auto-remove after 5 seconds
     setTimeout(() => {
-      setState(prev => ({
-        ...prev,
-        notifications: prev.notifications.filter(n => n.id !== newNotification.id),
+      set((state) => ({
+        notifications: state.notifications.filter(
+          (n) => n.id !== newNotification.id
+        ),
       }));
     }, 5000);
-  };
+  },
+}));
 
-  // Listen for online/offline events
-  useEventListener('online', () => setState(prev => ({ ...prev, isOnline: true })));
-  useEventListener('offline', () => setState(prev => ({ ...prev, isOnline: false })));
+// Usage in components
+const Notifications = () => {
+  const { notifications, addNotification } = useGlobalStore();
 
-  return { state, setUser, addNotification };
+  return (
+    <div>
+      <button
+        onClick={() =>
+          addNotification({ message: 'New notification!', type: 'info' })
+        }
+      >
+        Add Notification
+      </button>
+      <ul>
+        {notifications.map((n) => (
+          <li key={n.id}>{n.message}</li>
+        ))}
+      </ul>
+    </div>
+  );
 };
-
-// For larger applications, consider:
-// - Redux Toolkit for complex state logic
-// - Zustand for simpler global state
-// - Jotai for atomic state management
 ```
 
 **Form State Management with React Hook Form**:
