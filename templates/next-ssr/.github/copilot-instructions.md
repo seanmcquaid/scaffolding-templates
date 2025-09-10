@@ -545,43 +545,186 @@ export function WelcomeMessage() {
 }
 ```
 
-## Testing Strategy
+## Next.js SSR Testing Patterns
 
-### Component Testing
+### Server Component Testing
 
 ```typescript
-import { render, screen } from '@/utils/testing/test-utils';
-import { FeatureCard } from '../FeatureCard';
+// components/__tests__/ServerDataComponent.test.tsx
+import { render, screen } from '@testing-library/react';
+import ServerDataComponent from '../ServerDataComponent';
 
-describe('FeatureCard', () => {
-  it('renders title and description', () => {
-    render(
-      <FeatureCard
-        title="Test Feature"
-        description="Test description"
-      />
-    );
+// Mock Next.js fetch for server components
+global.fetch = vi.fn();
 
-    expect(screen.getByRole('heading', { name: 'Test Feature' })).toBeInTheDocument();
-    expect(screen.getByText('Test description')).toBeInTheDocument();
+describe('ServerDataComponent', () => {
+  it('renders server-fetched data', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ title: 'Server Data', items: [] }),
+    } as Response);
+
+    const Component = await ServerDataComponent();
+    render(<div>{Component}</div>);
+
+    expect(screen.getByText('Server Data')).toBeInTheDocument();
+  });
+
+  it('handles server-side fetch errors', async () => {
+    vi.mocked(fetch).mockRejectedValueOnce(new Error('Fetch failed'));
+
+    await expect(ServerDataComponent()).rejects.toThrow('Fetch failed');
   });
 });
 ```
 
-### API Testing with MSW
+### Client Component Testing with Next.js Context
 
 ```typescript
-// mocks/handlers.ts
-import { http, HttpResponse } from 'msw';
+// components/__tests__/ClientInteractiveComponent.test.tsx
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import ClientInteractiveComponent from '../ClientInteractiveComponent';
 
-export const handlers = [
-  http.get('/api/features', () => {
-    return HttpResponse.json([
-      { id: '1', title: 'Feature 1' },
-      { id: '2', title: 'Feature 2' },
-    ]);
+// Mock Next.js router
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    refresh: vi.fn(),
   }),
-];
+  useSearchParams: () => new URLSearchParams('filter=all'),
+  usePathname: () => '/dashboard',
+}));
+
+describe('ClientInteractiveComponent', () => {
+  it('handles user interactions', async () => {
+    const user = userEvent.setup();
+    render(<ClientInteractiveComponent />);
+
+    await user.click(screen.getByRole('button', { name: 'Toggle' }));
+    
+    expect(screen.getByText('Toggled State')).toBeInTheDocument();
+  });
+
+  it('integrates with Next.js navigation', async () => {
+    const mockPush = vi.fn();
+    vi.mocked(useRouter).mockReturnValue({ push: mockPush });
+
+    const user = userEvent.setup();
+    render(<ClientInteractiveComponent />);
+
+    await user.click(screen.getByRole('button', { name: 'Navigate' }));
+    
+    expect(mockPush).toHaveBeenCalledWith('/new-page');
+  });
+});
+```
+
+### App Router Testing with Route Handlers
+
+```typescript
+// app/api/posts/__tests__/route.test.ts
+import { NextRequest } from 'next/server';
+import { GET, POST } from '../route';
+
+describe('/api/posts API Route', () => {
+  it('handles GET requests', async () => {
+    const request = new NextRequest('http://localhost:3000/api/posts');
+    const response = await GET(request);
+    
+    expect(response.status).toBe(200);
+    
+    const data = await response.json();
+    expect(data).toHaveProperty('posts');
+  });
+
+  it('handles POST requests with validation', async () => {
+    const request = new NextRequest('http://localhost:3000/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({ title: 'New Post', content: 'Content' }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const response = await POST(request);
+    
+    expect(response.status).toBe(201);
+    
+    const data = await response.json();
+    expect(data).toHaveProperty('id');
+  });
+
+  it('validates request data', async () => {
+    const request = new NextRequest('http://localhost:3000/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({ title: '' }), // Invalid data
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const response = await POST(request);
+    
+    expect(response.status).toBe(400);
+  });
+});
+```
+
+### Next.js E2E Testing with Playwright
+
+```typescript
+// e2e/nextjs-features.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Next.js App Router Features', () => {
+  test('should render server components immediately', async ({ page }) => {
+    await page.goto('/dashboard');
+    
+    // Server components should render without JavaScript
+    await page.addInitScript(() => {
+      window.addEventListener('beforeunload', () => {
+        throw new Error('JavaScript should not be required for server components');
+      });
+    });
+    
+    await expect(page.getByTestId('server-data')).toBeVisible();
+  });
+
+  test('should handle server actions', async ({ page }) => {
+    await page.goto('/contact');
+    
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('textarea[name="message"]', 'Test message');
+    
+    // Test server action submission
+    await page.click('button[type="submit"]');
+    
+    // Should show success message without JavaScript
+    await expect(page.getByText('Message sent successfully')).toBeVisible();
+  });
+
+  test('should optimize images with next/image', async ({ page }) => {
+    await page.goto('/gallery');
+    
+    // Check that images are optimized by Next.js
+    const images = page.locator('img');
+    await expect(images.first()).toHaveAttribute('srcset');
+    await expect(images.first()).toHaveAttribute('sizes');
+  });
+
+  test('should handle middleware redirects', async ({ page }) => {
+    // Test protected route middleware
+    await page.goto('/admin');
+    
+    // Should redirect to login if not authenticated
+    await expect(page).toHaveURL('/login');
+  });
+
+  test('should cache static pages correctly', async ({ page }) => {
+    const response = await page.goto('/about');
+    
+    // Check caching headers for static pages
+    expect(response?.headers()['cache-control']).toContain('public');
+  });
+});
 ```
 
 ## Performance Optimization

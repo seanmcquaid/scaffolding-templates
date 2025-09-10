@@ -583,17 +583,17 @@ export function SearchForm() {
 }
 ```
 
-## Testing SSR Applications
+## SSR-Specific Testing Patterns
 
-### Server-Side Testing
+### Server-Side Testing with Hydration
 
 ```typescript
 // routes/__tests__/dashboard.test.tsx
 import { createRequest } from '@react-router/dev/testing';
 import { loader } from '../dashboard';
 
-describe('Dashboard loader', () => {
-  it('loads dashboard data', async () => {
+describe('Dashboard Server-Side Tests', () => {
+  it('loads dashboard data on server', async () => {
     const request = createRequest('GET', '/dashboard');
     const response = await loader({ request, params: {}, context: {} });
 
@@ -601,41 +601,144 @@ describe('Dashboard loader', () => {
     expect(response.filter).toBe('all');
   });
 
-  it('handles filter parameter', async () => {
+  it('handles server-side filter parameter', async () => {
     const request = createRequest('GET', '/dashboard?filter=active');
     const response = await loader({ request, params: {}, context: {} });
 
     expect(response.filter).toBe('active');
   });
+
+  it('handles server-side errors gracefully', async () => {
+    // Mock service to throw error
+    vi.mocked(dashboardService.getData).mockRejectedValueOnce(
+      new Error('Server error')
+    );
+
+    const request = createRequest('GET', '/dashboard');
+    
+    await expect(
+      loader({ request, params: {}, context: {} })
+    ).rejects.toThrow('Server error');
+  });
 });
 ```
 
-### Component Testing with SSR
+### Component Testing with SSR Context
 
 ```typescript
-// Test component with server data
+// Test component with both server and client data
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import Dashboard from '../dashboard';
 
-const mockLoaderData = {
-  data: [{ id: 1, name: 'Test Item' }],
+const mockServerLoaderData = {
+  data: [{ id: 1, name: 'Server Item' }],
   filter: 'all',
 };
 
-describe('Dashboard', () => {
-  it('renders with server data', () => {
+const mockClientLoaderData = {
+  data: [{ id: 2, name: 'Client Item' }],
+  filter: 'active',
+};
+
+describe('Dashboard SSR Component', () => {
+  it('renders with server-side data', () => {
     const router = createMemoryRouter([
       {
         path: '/dashboard',
-        element: <Dashboard />,
-        loader: () => mockLoaderData,
+        element: <Dashboard loaderData={mockServerLoaderData} />,
       },
     ], { initialEntries: ['/dashboard'] });
 
     render(<RouterProvider router={router} />);
 
-    expect(screen.getByText('Test Item')).toBeInTheDocument();
+    expect(screen.getByText('Server Item')).toBeInTheDocument();
+  });
+
+  it('handles transition from server to client data', async () => {
+    // Test hydration and subsequent navigation
+    const router = createMemoryRouter([
+      {
+        path: '/dashboard',
+        element: <Dashboard loaderData={mockServerLoaderData} />,
+        loader: () => mockClientLoaderData,
+      },
+    ], { initialEntries: ['/dashboard'] });
+
+    const { rerender } = render(<RouterProvider router={router} />);
+    
+    // Initial server-side render
+    expect(screen.getByText('Server Item')).toBeInTheDocument();
+
+    // Navigate to trigger client-side loader
+    await router.navigate('/dashboard?filter=active');
+    rerender(<RouterProvider router={router} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Client Item')).toBeInTheDocument();
+    });
+  });
+});
+```
+
+### SSR-Specific E2E Testing
+
+```typescript
+// e2e/ssr-hydration.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('SSR Hydration and Navigation', () => {
+  test('should render server-side content immediately', async ({ page }) => {
+    // Disable JavaScript to test SSR-only rendering
+    await page.addInitScript(() => {
+      delete window.fetch;
+    });
+
+    await page.goto('/dashboard');
+    
+    // Content should be visible immediately (server-rendered)
+    await expect(page.getByText('Dashboard')).toBeVisible();
+    await expect(page.getByTestId('dashboard-content')).toBeVisible();
+  });
+
+  test('should hydrate and enable client-side features', async ({ page }) => {
+    await page.goto('/dashboard');
+    
+    // Wait for hydration
+    await expect(page.getByTestId('interactive-element')).toBeEnabled();
+    
+    // Test client-side navigation after hydration
+    await page.click('a[href="/profile"]');
+    await expect(page).toHaveURL('/profile');
+    
+    // Should be client-side navigation (fast)
+    await expect(page.getByText('Profile')).toBeVisible();
+  });
+
+  test('should handle form submissions with server actions', async ({ page }) => {
+    await page.goto('/contact');
+    
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('textarea[name="message"]', 'Test message');
+    
+    await page.click('button[type="submit"]');
+    
+    // Should redirect after server action
+    await expect(page).toHaveURL('/thank-you');
+    await expect(page.getByText('Thank you')).toBeVisible();
+  });
+
+  test('should handle JavaScript disabled gracefully', async ({ page }) => {
+    await page.context().addInitScript(() => {
+      Object.defineProperty(navigator, 'javaEnabled', { value: () => false });
+    });
+
+    await page.goto('/');
+    
+    // Basic navigation should work with full page reloads
+    await page.click('a[href="/about"]');
+    await expect(page).toHaveURL('/about');
+    await expect(page.getByText('About')).toBeVisible();
   });
 });
 ```

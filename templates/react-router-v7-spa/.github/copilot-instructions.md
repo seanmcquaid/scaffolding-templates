@@ -552,9 +552,9 @@ export const postsService = {
 };
 ```
 
-## Testing Patterns
+## SPA-Specific Testing Patterns
 
-### Component Testing
+### Component Testing with Client-Side Routing
 
 ```typescript
 // components/__tests__/Navigation.test.tsx
@@ -571,32 +571,103 @@ function renderWithRouter(initialEntries = ['/']) {
 }
 
 describe('Navigation', () => {
-  it('renders navigation links', () => {
+  it('renders navigation links correctly for SPA', () => {
     renderWithRouter();
 
     expect(screen.getByRole('link', { name: 'Home' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
   });
+
+  it('handles client-side navigation', async () => {
+    const user = userEvent.setup();
+    renderWithRouter(['/']);
+
+    await user.click(screen.getByRole('link', { name: 'About' }));
+    
+    // Should navigate without page reload
+    expect(window.location.pathname).toBe('/about');
+  });
 });
 ```
 
-### Route Testing
+### Client-Side Data Loading Testing
 
 ```typescript
-// routes/__tests__/index.test.tsx
-import { render, screen } from '@testing-library/react';
+// routes/__tests__/dashboard.test.tsx
+import { render, screen, waitFor } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
-import HomePage from '../index/index';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import DashboardPage from '../dashboard';
 
-describe('HomePage', () => {
-  it('renders welcome section', () => {
+describe('Dashboard Route - SPA Patterns', () => {
+  it('loads and displays dashboard data via clientLoader', async () => {
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
+
     const router = createMemoryRouter([
-      { path: '/', element: <HomePage /> },
-    ], { initialEntries: ['/'] });
+      { 
+        path: '/dashboard', 
+        element: <DashboardPage />,
+        loader: async () => ({ data: [{ id: 1, name: 'Test Item' }] })
+      },
+    ], { initialEntries: ['/dashboard'] });
 
-    render(<RouterProvider router={router} />);
+    render(
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    );
 
-    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Test Item')).toBeInTheDocument();
+    });
+  });
+
+  it('handles client-side navigation between dashboard filters', async () => {
+    const user = userEvent.setup();
+    // Test client-side filter changes without page reload
+    renderWithRouter(['/dashboard?filter=all']);
+
+    await user.selectOptions(screen.getByRole('combobox'), 'active');
+    
+    expect(window.location.search).toContain('filter=active');
+  });
+});
+```
+
+### SPA-Specific E2E Testing
+
+```typescript
+// e2e/spa-navigation.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('SPA Navigation Patterns', () => {
+  test('should handle client-side routing without page reloads', async ({ page }) => {
+    await page.goto('/');
+    
+    // Monitor for navigation events
+    let navigationOccurred = false;
+    page.on('framenavigated', () => {
+      navigationOccurred = true;
+    });
+
+    await page.click('a[href="/dashboard"]');
+    await expect(page).toHaveURL('/dashboard');
+    
+    // Should be client-side navigation (no full page reload)
+    expect(navigationOccurred).toBe(false);
+  });
+
+  test('should handle browser back/forward with SPA state', async ({ page }) => {
+    await page.goto('/dashboard?filter=all');
+    await page.click('a[href="/profile"]');
+    
+    await page.goBack();
+    await expect(page).toHaveURL('/dashboard?filter=all');
+    
+    // State should be preserved
+    await expect(page.locator('[data-testid="filter-select"]')).toHaveValue('all');
   });
 });
 ```

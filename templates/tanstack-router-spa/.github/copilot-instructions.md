@@ -697,9 +697,9 @@ const preloadDashboard = () => {
 - **Cache management**: Ensure preloaded data doesn't exceed memory limits
 - **Preload timing**: Use appropriate delays to avoid unnecessary preloading
 
-## Testing Patterns
+## TanStack Router Testing Patterns
 
-### Route Testing
+### Type-Safe Route Testing
 
 ```typescript
 // routes/__tests__/dashboard.test.tsx
@@ -708,8 +708,8 @@ import { QueryClient } from '@tanstack/react-query'
 import { render, screen } from '@testing-library/react'
 import { routeTree } from '@/routeTree.gen'
 
-describe('Dashboard Route', () => {
-  it('loads and displays dashboard data', async () => {
+describe('Dashboard Route with Type Safety', () => {
+  it('loads and displays dashboard data with search params', async () => {
     const queryClient = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     })
@@ -717,31 +717,204 @@ describe('Dashboard Route', () => {
     const router = createRouter({
       routeTree,
       context: { queryClient },
-      history: createMemoryHistory({ initialEntries: ['/dashboard'] }),
+      history: createMemoryHistory({ 
+        initialEntries: ['/dashboard?filter=active&page=2'] 
+      }),
     })
 
     render(<RouterProvider router={router} />)
 
+    // Test type-safe search params
     await screen.findByText('Dashboard')
-    expect(screen.getByText('Dashboard')).toBeInTheDocument()
+    expect(router.state.location.search).toEqual({
+      filter: 'active',
+      page: 2,
+    })
+  })
+
+  it('validates search params with Zod schema', async () => {
+    const router = createRouter({
+      routeTree,
+      context: { queryClient: new QueryClient() },
+      history: createMemoryHistory({ 
+        initialEntries: ['/dashboard?filter=invalid&page=-1'] 
+      }),
+    })
+
+    // Should fallback to defaults for invalid params
+    expect(router.state.location.search).toEqual({
+      filter: 'all', // Default value
+      page: 1,      // Default value
+    })
   })
 })
 ```
 
-### Navigation Testing
+### Navigation Testing with Type Safety
 
 ```typescript
-// Test navigation and search params
+// Test navigation and search params with full type safety
 import { fireEvent, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-it('updates search params when filter changes', async () => {
-  // ... setup router and render
+describe('Dashboard Navigation', () => {
+  it('updates search params with type safety', async () => {
+    const user = userEvent.setup();
+    const router = createTestRouter(['/dashboard']);
 
-  const filterSelect = screen.getByRole('combobox');
-  fireEvent.change(filterSelect, { target: { value: 'active' } });
+    render(<RouterProvider router={router} />);
 
-  await waitFor(() => {
-    expect(router.state.location.search).toEqual({ filter: 'active' });
+    const filterSelect = screen.getByRole('combobox');
+    await user.selectOptions(filterSelect, 'active');
+
+    await waitFor(() => {
+      expect(router.state.location.search).toEqual({
+        filter: 'active',
+        page: 1, // Should reset page when filter changes
+      });
+    });
+  });
+
+  it('handles complex search param updates', async () => {
+    const user = userEvent.setup();
+    const router = createTestRouter(['/dashboard']);
+
+    render(<RouterProvider router={router} />);
+
+    // Test multiple param updates
+    await user.type(screen.getByRole('textbox', { name: 'Search' }), 'test query');
+    await user.selectOptions(screen.getByRole('combobox', { name: 'Sort' }), 'date');
+
+    await waitFor(() => {
+      expect(router.state.location.search).toEqual({
+        filter: 'all',
+        page: 1,
+        search: 'test query',
+        sort: 'date',
+        direction: 'asc',
+      });
+    });
+  });
+});
+```
+
+### Loader and Error Testing
+
+```typescript
+// Test loaders with dependencies and error scenarios
+describe('Dashboard Loader Testing', () => {
+  it('calls loader with correct dependencies', async () => {
+    const mockLoader = vi.fn().mockResolvedValue({ data: [] });
+    const router = createRouter({
+      routeTree: createRouteTree({
+        '/dashboard': {
+          loader: mockLoader,
+          loaderDeps: ({ search }) => ({ search }),
+        },
+      }),
+      history: createMemoryHistory({ 
+        initialEntries: ['/dashboard?filter=active'] 
+      }),
+    });
+
+    await router.load();
+
+    expect(mockLoader).toHaveBeenCalledWith({
+      deps: { search: { filter: 'active', page: 1 } },
+      context: expect.any(Object),
+    });
+  });
+
+  it('handles loader errors with error boundaries', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation();
+    
+    const router = createRouter({
+      routeTree: createRouteTree({
+        '/dashboard': {
+          loader: () => { throw new Error('Loader failed'); },
+          errorComponent: ({ error }) => <div>Error: {error.message}</div>,
+        },
+      }),
+      history: createMemoryHistory({ initialEntries: ['/dashboard'] }),
+    });
+
+    render(<RouterProvider router={router} />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Error: Loader failed')).toBeInTheDocument();
+    });
+
+    consoleError.mockRestore();
+  });
+});
+```
+
+### TanStack Router E2E Testing
+
+```typescript
+// e2e/tanstack-router.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('TanStack Router SPA Features', () => {
+  test('should handle type-safe search params', async ({ page }) => {
+    await page.goto('/dashboard');
+    
+    // Test search param updates
+    await page.selectOption('[data-testid="filter-select"]', 'active');
+    await expect(page).toHaveURL('/dashboard?filter=active&page=1');
+    
+    // Test search input
+    await page.fill('[data-testid="search-input"]', 'test query');
+    await page.press('[data-testid="search-input"]', 'Enter');
+    await expect(page).toHaveURL(/search=test\+query/);
+  });
+
+  test('should preload routes on intent', async ({ page }) => {
+    await page.goto('/');
+    
+    // Monitor network requests
+    const preloadRequests = [];
+    page.on('request', (request) => {
+      if (request.url().includes('/dashboard')) {
+        preloadRequests.push(request);
+      }
+    });
+
+    // Hover over link to trigger preloading
+    await page.hover('a[href="/dashboard"]');
+    
+    // Wait a bit for preloading to occur
+    await page.waitForTimeout(300);
+    
+    expect(preloadRequests.length).toBeGreaterThan(0);
+  });
+
+  test('should handle lazy route loading', async ({ page }) => {
+    await page.goto('/');
+    
+    // Navigate to lazy route
+    await page.click('a[href="/dashboard/analytics"]');
+    
+    // Should show loading state first
+    await expect(page.getByText('Loading analytics...')).toBeVisible();
+    
+    // Then show loaded content
+    await expect(page.getByTestId('analytics-dashboard')).toBeVisible();
+  });
+
+  test('should maintain search state during navigation', async ({ page }) => {
+    await page.goto('/dashboard?filter=active&search=test');
+    
+    // Navigate to different route and back
+    await page.click('a[href="/profile"]');
+    await expect(page).toHaveURL('/profile');
+    
+    await page.goBack();
+    await expect(page).toHaveURL('/dashboard?filter=active&search=test');
+    
+    // State should be preserved
+    await expect(page.locator('[data-testid="filter-select"]')).toHaveValue('active');
+    await expect(page.locator('[data-testid="search-input"]')).toHaveValue('test');
   });
 });
 ```

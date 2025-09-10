@@ -111,16 +111,235 @@ src/
 - **Declaration merging**: Use declaration merging judiciously for extending third-party types
 - **Type guards**: Implement type guards for runtime type validation
 
-### Testing Strategy
+## Library Testing Strategy
+
+### API Testing for Consumers
 
 ```typescript
-// Example test structure
+// src/__tests__/api.test.ts
 import { describe, expect, it } from 'vitest';
-import { yourFunction } from '../yourFunction';
+import { utilityFunction, transformArray, LibraryError } from '../index';
 
-describe('yourFunction', () => {
-  it('should handle expected input correctly', () => {
-    expect(yourFunction('input')).toBe('expected');
+describe('Public API Tests', () => {
+  describe('utilityFunction', () => {
+    it('should transform string to uppercase', () => {
+      expect(utilityFunction('hello')).toBe('HELLO');
+      expect(utilityFunction('World')).toBe('WORLD');
+    });
+
+    it('should handle empty strings', () => {
+      expect(utilityFunction('')).toBe('');
+    });
+
+    it('should throw LibraryError for invalid input', () => {
+      expect(() => utilityFunction(null as any)).toThrow(LibraryError);
+      expect(() => utilityFunction(123 as any)).toThrow(LibraryError);
+      
+      try {
+        utilityFunction(null as any);
+      } catch (error) {
+        expect(error).toBeInstanceOf(LibraryError);
+        expect((error as LibraryError).code).toBe('INVALID_TYPE');
+      }
+    });
+  });
+
+  describe('transformArray', () => {
+    it('should transform array elements', () => {
+      const numbers = [1, 2, 3];
+      const doubled = transformArray(numbers, (n) => n * 2);
+      expect(doubled).toEqual([2, 4, 6]);
+    });
+
+    it('should work with string arrays', () => {
+      const strings = ['a', 'b', 'c'];
+      const uppercased = transformArray(strings, (s) => s.toUpperCase());
+      expect(uppercased).toEqual(['A', 'B', 'C']);
+    });
+
+    it('should handle empty arrays', () => {
+      expect(transformArray([], (x) => x)).toEqual([]);
+    });
+  });
+});
+```
+
+### TypeScript Consumer Testing
+
+```typescript
+// src/__tests__/typescript-consumer.test.ts
+import { describe, expect, it } from 'vitest';
+
+// Test that TypeScript types work correctly for consumers
+describe('TypeScript Consumer Tests', () => {
+  it('should provide correct type inference', () => {
+    const result = utilityFunction('test');
+    
+    // TypeScript should infer result as string
+    expectTypeOf(result).toEqualTypeOf<string>();
+  });
+
+  it('should enforce type constraints in transformArray', () => {
+    const numbers = [1, 2, 3];
+    const strings = ['a', 'b', 'c'];
+    
+    // Should accept valid types
+    transformArray(numbers, (n) => n * 2);
+    transformArray(strings, (s) => s.toUpperCase());
+    
+    // TypeScript should prevent invalid usage (these would be compile errors)
+    // transformArray([true, false], (b) => b); // Not string | number
+  });
+
+  it('should export proper error types', () => {
+    const error = new LibraryError('Test error', 'TEST_CODE');
+    
+    expectTypeOf(error).toEqualTypeOf<LibraryError>();
+    expectTypeOf(error.code).toEqualTypeOf<string | undefined>();
+    expectTypeOf(error.message).toEqualTypeOf<string>();
+  });
+});
+```
+
+### Module System Testing
+
+```typescript
+// src/__tests__/module-compatibility.test.ts
+import { describe, expect, it } from 'vitest';
+
+describe('Module System Compatibility', () => {
+  it('should work with ESM imports', async () => {
+    // Test dynamic ESM import
+    const { utilityFunction } = await import('../index');
+    expect(utilityFunction('test')).toBe('TEST');
+  });
+
+  it('should work with CommonJS require', async () => {
+    // Test CommonJS compatibility (in Node.js environment)
+    if (typeof require !== 'undefined') {
+      const lib = require('../index');
+      expect(lib.utilityFunction('test')).toBe('TEST');
+    }
+  });
+
+  it('should support tree shaking', () => {
+    // Import specific functions to test tree-shaking
+    import { utilityFunction } from '../index';
+    
+    expect(typeof utilityFunction).toBe('function');
+    
+    // This test ensures specific imports work
+    // Actual tree-shaking is tested by bundler analysis tools
+  });
+});
+```
+
+### Performance and Bundle Testing
+
+```typescript
+// src/__tests__/performance.test.ts
+import { describe, expect, it } from 'vitest';
+import { performance } from 'perf_hooks';
+
+describe('Performance Tests', () => {
+  it('should handle large arrays efficiently', () => {
+    const largeArray = Array.from({ length: 10000 }, (_, i) => i);
+    
+    const start = performance.now();
+    const result = transformArray(largeArray, (n) => n * 2);
+    const end = performance.now();
+    
+    expect(result).toHaveLength(10000);
+    expect(end - start).toBeLessThan(100); // Should complete in < 100ms
+  });
+
+  it('should have minimal memory footprint', () => {
+    const initialMemory = process.memoryUsage().heapUsed;
+    
+    // Perform operations
+    const results = Array.from({ length: 1000 }, (_, i) => 
+      utilityFunction(`test${i}`)
+    );
+    
+    const finalMemory = process.memoryUsage().heapUsed;
+    const memoryIncrease = finalMemory - initialMemory;
+    
+    expect(results).toHaveLength(1000);
+    expect(memoryIncrease).toBeLessThan(1024 * 1024); // < 1MB increase
+  });
+});
+```
+
+### Consumer Integration Testing
+
+```typescript
+// src/__tests__/consumer-integration.test.ts
+import { describe, expect, it } from 'vitest';
+import { execSync } from 'child_process';
+import { writeFileSync, mkdirSync, rmSync } from 'fs';
+import { join } from 'path';
+
+describe('Consumer Integration Tests', () => {
+  const testDir = join(__dirname, '../.test-consumer');
+
+  beforeEach(() => {
+    mkdirSync(testDir, { recursive: true });
+  });
+
+  afterEach(() => {
+    rmSync(testDir, { recursive: true, force: true });
+  });
+
+  it('should work in a TypeScript project', () => {
+    // Create a minimal TypeScript consumer project
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      name: 'test-consumer',
+      type: 'module',
+      dependencies: {
+        'typescript': '^5.0.0',
+      },
+    }));
+
+    writeFileSync(join(testDir, 'tsconfig.json'), JSON.stringify({
+      compilerOptions: {
+        target: 'ES2020',
+        module: 'ESNext',
+        moduleResolution: 'node',
+        strict: true,
+      },
+    }));
+
+    writeFileSync(join(testDir, 'test.ts'), `
+      import { utilityFunction } from '../src/index';
+      
+      const result = utilityFunction('hello');
+      console.log(result === 'HELLO' ? 'SUCCESS' : 'FAILED');
+    `);
+
+    // Compile and run the TypeScript
+    execSync('npx tsc test.ts --outDir ./dist', { cwd: testDir });
+    const output = execSync('node ./dist/test.js', { cwd: testDir, encoding: 'utf8' });
+    
+    expect(output.trim()).toBe('SUCCESS');
+  });
+
+  it('should work in a JavaScript project', () => {
+    // Create a minimal JavaScript consumer
+    writeFileSync(join(testDir, 'package.json'), JSON.stringify({
+      name: 'test-consumer-js',
+      type: 'module',
+    }));
+
+    writeFileSync(join(testDir, 'test.js'), `
+      import { utilityFunction } from '../src/index.js';
+      
+      const result = utilityFunction('hello');
+      console.log(result === 'HELLO' ? 'SUCCESS' : 'FAILED');
+    `);
+
+    const output = execSync('node test.js', { cwd: testDir, encoding: 'utf8' });
+    
+    expect(output.trim()).toBe('SUCCESS');
   });
 });
 ```
