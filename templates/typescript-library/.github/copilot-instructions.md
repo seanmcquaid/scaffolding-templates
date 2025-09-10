@@ -17,15 +17,15 @@ Your expertise includes:
 
 When working with this TypeScript library project, CoPilot should:
 
-1. **Library-First Mindset**: Focus on creating reusable, well-documented APIs that other developers will consume. Prioritize simplicity, type safety, and backward compatibility.
+1. **Library-First Mindset**: Focus on creating reusable, well-documented APIs that other developers will consume. Prioritize simplicity, type safety, backward compatibility, and excellent developer experience.
 
-2. **Dual Module Support**: Always consider both ESM and CJS consumers when making changes. Ensure exports work correctly in both module systems.
+2. **Dual Module Support**: Always consider both ESM and CJS consumers when making changes. Ensure exports work correctly in both module systems and test compatibility across different bundlers and Node.js versions.
 
-3. **Bundle Size Awareness**: Consider the impact of dependencies and code changes on bundle size. Prefer lightweight solutions and tree-shakeable code.
+3. **Bundle Size Awareness**: Consider the impact of dependencies and code changes on bundle size. Prefer lightweight solutions, tree-shakeable code, and zero-dependency approaches when possible.
 
-4. **API Stability**: Changes to public APIs should be carefully considered for breaking changes. Use deprecation warnings before removing functionality.
+4. **API Stability**: Changes to public APIs should be carefully considered for breaking changes. Use semantic versioning strictly, provide deprecation warnings before removing functionality, and maintain comprehensive changelogs.
 
-5. **Testing Strategy**: Focus on testing public APIs and edge cases. Ensure tests cover both TypeScript and JavaScript consumers.
+5. **Consumer Testing Strategy**: Focus on testing public APIs, edge cases, and consumption patterns. Ensure tests cover both TypeScript and JavaScript consumers, different module systems, and various bundler configurations.
 
 ## Purpose
 
@@ -68,14 +68,14 @@ src/
 - Follow semantic versioning principles
 - Maintain backward compatibility when possible
 
-#### API Design Best Practices
+### API Design Best Practices
 
-- **Minimal API surface**: Keep the public API as small and focused as possible
-- **Consistent naming**: Use consistent naming conventions across all exported functions and types
-- **Type-first design**: Design TypeScript types first, then implement functionality
-- **Backward compatibility**: Use deprecation warnings before removing functionality
-- **Documentation**: Provide comprehensive JSDoc comments for all public APIs
-- **Error handling**: Design consistent error handling patterns across the library
+- **Minimal API surface**: Keep the public API as small and focused as possible - every export adds maintenance burden
+- **Consistent naming**: Use consistent naming conventions across all exported functions and types (prefer verbs for functions, nouns for types)
+- **Type-first design**: Design TypeScript types first, then implement functionality to ensure type safety drives the API
+- **Backward compatibility**: Use deprecation warnings and proper semantic versioning before removing functionality
+- **Documentation excellence**: Provide comprehensive JSDoc comments for all public APIs with examples and parameter descriptions
+- **Error handling**: Design consistent error handling patterns across the library with custom error classes when appropriate
 
 ### Module Structure
 
@@ -234,16 +234,41 @@ pnpm release
 
 ## Common Patterns
 
-### Exporting Utilities
+### Exporting Utilities with Type Safety
 
 ```typescript
 // src/utils/index.ts
+/**
+ * Transforms a string to uppercase
+ * @param param - The input string to transform
+ * @returns The uppercase version of the input string
+ * @example
+ * ```typescript
+ * const result = utilityFunction("hello");
+ * console.log(result); // "HELLO"
+ * ```
+ */
 export const utilityFunction = (param: string): string => {
+  if (typeof param !== 'string') {
+    throw new LibraryError('Parameter must be a string', 'INVALID_TYPE');
+  }
   return param.toUpperCase();
 };
 
-// src/index.ts
-export * from './utils';
+// Advanced utility with generic constraints
+export const transformArray = <T extends string | number>(
+  items: T[],
+  transformer: (item: T) => T
+): T[] => {
+  return items.map(transformer);
+};
+
+// src/index.ts - Barrel export with explicit re-exports
+export { 
+  utilityFunction, 
+  transformArray,
+  type UtilityOptions // Export type separately for tree-shaking
+} from './utils';
 ```
 
 ### Type Definitions

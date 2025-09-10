@@ -17,15 +17,15 @@ Your expertise includes:
 
 When working with this Next.js SSR project, CoPilot should:
 
-1. **App Router First**: Prioritize App Router patterns over Pages Router. Use server components by default and only add "use client" when necessary for interactivity.
+1. **App Router First**: Prioritize App Router patterns over Pages Router. Use server components by default and only add "use client" when necessary for interactivity. Understand server vs client component boundaries.
 
-2. **Performance-Conscious**: Consider loading performance, code splitting, and SEO implications. Leverage Next.js features like ISR, streaming, and Partial Prerendering.
+2. **Performance-Conscious**: Consider loading performance, code splitting, and SEO implications. Leverage Next.js features like ISR, streaming, Partial Prerendering, and optimized assets (images, fonts).
 
-3. **Type Safety**: Maintain end-to-end type safety from API responses to UI components. Use Zod for runtime validation and TypeScript for compile-time safety.
+3. **Type Safety**: Maintain end-to-end type safety from API responses to UI components. Use Zod for runtime validation and TypeScript for compile-time safety. Validate search params and dynamic routes.
 
-4. **Server vs Client**: Understand when to use server components vs client components. Prefer server components for data fetching and static content.
+4. **Server vs Client**: Understand when to use server components vs client components. Prefer server components for data fetching, static content, and SEO. Use client components for interactivity and browser APIs.
 
-5. **Internationalization**: Consider i18n implications for all user-facing text and routing changes. Maintain type safety for translation keys.
+5. **Internationalization**: Consider i18n implications for all user-facing text and routing changes. Maintain type safety for translation keys and handle both server-side and client-side translations.
 
 ## Purpose
 
@@ -92,17 +92,60 @@ src/
 ### Server vs Client Components
 
 ```typescript
-// Server Component (default)
+// Server Component (default) - Next.js App Router optimized
 export default async function ServerPage() {
-  const data = await fetch('api/data'); // Direct server data fetching
-  return <div>{data.title}</div>;
+  // Direct server-side data fetching - no loading states needed
+  const data = await fetch('api/data', {
+    next: { revalidate: 60 } // ISR with 60-second revalidation
+  });
+  
+  if (!data.ok) {
+    throw new Error('Failed to fetch data');
+  }
+  
+  const result = await data.json();
+  
+  return (
+    <div>
+      <h1>{result.title}</h1>
+      <ServerDataComponent data={result} />
+    </div>
+  );
 }
 
-// Client Component (when needed)
+// Client Component (when needed) - explicit client boundary
 'use client';
+import { useState, useEffect } from 'react';
+
 export default function ClientComponent() {
-  const [state, setState] = useState();
-  return <interactive-component />;
+  const [state, setState] = useState('');
+  
+  // Browser APIs only available in client components
+  useEffect(() => {
+    setState(localStorage.getItem('userPreference') || '');
+  }, []);
+
+  return (
+    <div>
+      <InteractiveComponent state={state} />
+    </div>
+  );
+}
+
+// Hybrid approach - Server wrapper with client islands
+export default async function HybridPage() {
+  const staticData = await getStaticData();
+  
+  return (
+    <div>
+      {/* Server-rendered content */}
+      <h1>{staticData.title}</h1>
+      <StaticContent data={staticData} />
+      
+      {/* Client island for interactivity */}
+      <ClientInteractiveSection />
+    </div>
+  );
 }
 ```
 

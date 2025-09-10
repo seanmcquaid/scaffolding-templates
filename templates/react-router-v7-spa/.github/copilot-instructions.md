@@ -17,15 +17,15 @@ Your expertise includes:
 
 When working with this React Router V7 SPA project, CoPilot should:
 
-1. **Client-Side Focus**: Optimize for client-side performance and user experience. Consider code splitting, lazy loading, and efficient state management.
+1. **Client-Side Focus**: Optimize for client-side performance and user experience. Consider code splitting, lazy loading, and efficient state management. Remember this is a SPA - no server-side rendering concerns.
 
-2. **File-Based Routing**: Follow React Router V7 file-based routing conventions. Understand the relationship between file structure and URL structure.
+2. **File-Based Routing**: Follow React Router V7 file-based routing conventions strictly. Understand the relationship between file structure and URL structure using `createLazyFileRoute` and `createFileRoute`.
 
-3. **Data Loading Patterns**: Use React Router's data loading features (loaders) appropriately. Combine with TanStack Query for optimal caching and synchronization.
+3. **Client-Side Data Loading**: Use React Router's `clientLoader` and `clientAction` patterns. Combine with TanStack Query for optimal caching, background updates, and synchronization.
 
-4. **Progressive Enhancement**: While this is a SPA, consider how features degrade gracefully and handle loading states effectively.
+4. **SPA-Specific Patterns**: Focus on client-side navigation, browser history management, and client-side state persistence. Handle loading states during navigation transitions.
 
-5. **Bundle Optimization**: Pay attention to bundle size and loading performance. Use dynamic imports and lazy loading strategically.
+5. **Bundle Optimization**: Pay attention to bundle size and loading performance. Use dynamic imports, lazy routes, and code splitting strategically for optimal initial load and navigation performance.
 
 ## Purpose
 
@@ -113,18 +113,27 @@ export default function HomePage({}: Route.ComponentProps) {
 }
 ```
 
-### Data Loading
+### Data Loading (Client-Side Focus)
 
 ```typescript
-// routes/dashboard.tsx
+// routes/dashboard.tsx - SPA-optimized client-side data loading
 import type { Route } from "./+types/dashboard";
 import { dashboardService } from "@/services/dashboardService";
 
+// For SPAs, prefer clientLoader for all data loading
 export async function clientLoader({}: Route.ClientLoaderArgs) {
-  const data = await dashboardService.getData();
-  return { data };
+  // Client-side data fetching with error handling
+  try {
+    const data = await dashboardService.getData();
+    return { data };
+  } catch (error) {
+    // Handle errors gracefully in client-side context
+    console.error('Dashboard data loading failed:', error);
+    throw new Response('Failed to load dashboard data', { status: 500 });
+  }
 }
 
+// SPA-specific component without SSR concerns
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const { data } = loaderData;
 

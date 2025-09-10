@@ -17,15 +17,15 @@ Your expertise includes:
 
 When working with this React Router V7 SSR project, CoPilot should:
 
-1. **Full-Stack Awareness**: Consider both server-side and client-side implications of changes. Ensure code works correctly during SSR, hydration, and client-side navigation.
+1. **Full-Stack Awareness**: Consider both server-side and client-side implications of changes. Ensure code works correctly during SSR, hydration, and client-side navigation. Understand the dual execution environment.
 
-2. **Hydration Safety**: Avoid hydration mismatches by ensuring server-rendered content matches client expectations. Be careful with dynamic content and browser APIs.
+2. **Hydration Safety**: Avoid hydration mismatches by ensuring server-rendered content matches client expectations. Be careful with dynamic content, browser APIs, and state that differs between server and client.
 
-3. **Performance Optimization**: Leverage SSR for faster initial page loads while maintaining smooth client-side navigation. Consider streaming and progressive enhancement.
+3. **SSR Performance**: Leverage SSR for faster initial page loads while maintaining smooth client-side navigation. Consider streaming, progressive enhancement, and server-side data fetching strategies.
 
-4. **SEO and Accessibility**: Take advantage of SSR for better SEO and initial content delivery. Ensure proper meta tags and semantic HTML.
+4. **SEO and Accessibility**: Take advantage of SSR for better SEO, initial content delivery, and screen reader compatibility. Ensure proper meta tags, semantic HTML, and server-rendered content.
 
-5. **Data Loading Strategy**: Use React Router's loaders for server-side data fetching, combined with TanStack Query for client-side caching and updates.
+5. **Dual Data Loading Strategy**: Use React Router's `loader` for server-side data fetching and `clientLoader` for client-side navigation. Understand the interplay between server and client data loading patterns.
 
 ## Purpose
 
@@ -120,49 +120,67 @@ hydrateRoot(
 ### Data Loading (Server + Client)
 
 ```typescript
-// routes/dashboard.tsx
+// routes/dashboard.tsx - SSR-optimized dual data loading
 import type { Route } from "./+types/dashboard";
 import { dashboardService } from "@/services/dashboardService";
 
-// Server-side data loading
+// Server-side data loading for initial page render
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
 
-  const data = await dashboardService.getData(filter);
-
-  return {
-    data,
-    filter,
-    meta: {
-      title: "Dashboard",
-      description: "View your dashboard analytics",
-    },
-  };
+  // Server-side data fetching with proper error handling
+  try {
+    const data = await dashboardService.getData(filter);
+    
+    return {
+      data,
+      filter,
+      meta: {
+        title: "Dashboard",
+        description: "View your dashboard analytics",
+      },
+    };
+  } catch (error) {
+    // Server-side error handling
+    console.error('Server-side data loading failed:', error);
+    throw new Response('Failed to load dashboard data', { status: 500 });
+  }
 }
 
-// Client-side data loading (for navigation)
+// Client-side data loading for navigation (hydration-aware)
 export async function clientLoader({ request, serverLoader }: Route.ClientLoaderArgs) {
-  // Use server data on initial load, client data on navigation
+  // Check if we're on the server (SSR) or client (hydration/navigation)
   if (typeof document === "undefined") {
+    // Server-side: delegate to server loader
     return serverLoader();
   }
 
-  // Client-side navigation - fetch fresh data
+  // Client-side navigation: fetch fresh data with client optimizations
   const url = new URL(request.url);
   const filter = url.searchParams.get("filter") || "all";
-  const data = await dashboardService.getData(filter);
-
-  return { data, filter };
+  
+  try {
+    const data = await dashboardService.getData(filter);
+    return { data, filter };
+  } catch (error) {
+    // Client-side error handling
+    console.error('Client-side data loading failed:', error);
+    throw new Response('Failed to load dashboard data', { status: 500 });
+  }
 }
 
+// Meta tags for SEO (server-rendered)
 export function meta({ data }: Route.MetaArgs) {
   return [
     { title: data?.meta?.title || "Dashboard" },
     { name: "description", content: data?.meta?.description },
+    { property: "og:title", content: "Dashboard | Your App" },
+    { property: "og:description", content: "Access your personalized dashboard" },
   ];
 }
 
+// Component works in both SSR and client contexts
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const { data, filter } = loaderData;
 
