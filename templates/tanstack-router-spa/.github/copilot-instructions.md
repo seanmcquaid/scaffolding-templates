@@ -795,6 +795,442 @@ it('updates search params when filter changes', async () => {
 | Context                                           | Subtree state or a small amount of Global state |
 | Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State           |
 
+**HTTP Requests**: For managing state for HTTP requests:
+1. Use what's built into your framework (TanStack Router loaders for initial data)
+2. TanStack Query for client-side caching and real-time updates
+3. Redux Toolkit Query if using Redux Toolkit
+
+##### State Management Code Examples
+
+**URL State - Search Parameters with TanStack Router:**
+```tsx
+import { useNavigate, useSearch } from '@tanstack/react-router';
+
+// Using TanStack Router's type-safe search params
+const ProductSearch = () => {
+  const search = useSearch({ from: '/products' });
+  const navigate = useNavigate({ from: '/products' });
+  const [tempSearch, setTempSearch] = useState(search.query || '');
+
+  // Extract state from URL (type-safe)
+  const query = search.query || '';
+  const category = search.category || 'all';
+  const page = search.page || 1;
+
+  // Helper to update URL params (type-safe)
+  const updateParams = (updates: Partial<ProductSearch>) => {
+    navigate({
+      search: (prev) => ({
+        ...prev,
+        ...updates,
+        // Reset to page 1 when filters change
+        page: 'page' in updates ? updates.page : 1,
+      }),
+    });
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateParams({ query: tempSearch });
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSearch}>
+        <input
+          value={tempSearch}
+          onChange={(e) => setTempSearch(e.target.value)}
+          placeholder="Search..."
+        />
+        <button type="submit">Search</button>
+      </form>
+      
+      <select
+        value={category}
+        onChange={(e) => updateParams({ category: e.target.value })}
+      >
+        <option value="all">All Categories</option>
+        <option value="frontend">Frontend</option>
+        <option value="backend">Backend</option>
+      </select>
+    </div>
+  );
+};
+```
+
+**Web Storage - Type-Safe Persistence with i18n:**
+```tsx
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+interface UserPreferences {
+  theme: 'light' | 'dark' | 'auto';
+  language: 'en-US' | 'en-CA'; // Align with actual locale detection
+  notifications: boolean;
+}
+
+const UserSettings = () => {
+  const { t, i18n } = useAppTranslation();
+  
+  // localStorage for persistent preferences
+  const [preferences, setPreferences] = useLocalStorage<UserPreferences>(
+    'userPreferences',
+    { theme: 'light', language: 'en-US', notifications: true }
+  );
+
+  // sessionStorage for temporary data
+  const [sessionData, setSessionData] = useSessionStorage('sessionData', {
+    tabId: Math.random().toString(36).substr(2, 9),
+    startTime: new Date().toISOString(),
+  });
+
+  const updateTheme = (theme: UserPreferences['theme']) => {
+    setPreferences(prev => ({ ...prev, theme }));
+  };
+
+  const updateLanguage = (language: UserPreferences['language']) => {
+    setPreferences(prev => ({ ...prev, language }));
+    i18n.changeLanguage(language); // Update i18next language
+  };
+
+  return (
+    <div>
+      <h3>{t('Settings.title')}</h3>
+      <select
+        value={preferences.theme}
+        onChange={(e) => updateTheme(e.target.value as UserPreferences['theme'])}
+      >
+        <option value="light">{t('Settings.lightTheme')}</option>
+        <option value="dark">{t('Settings.darkTheme')}</option>
+        <option value="auto">{t('Settings.autoTheme')}</option>
+      </select>
+
+      <select
+        value={preferences.language}
+        onChange={(e) => updateLanguage(e.target.value as UserPreferences['language'])}
+      >
+        <option value="en-US">{t('Settings.englishUS')}</option>
+        <option value="en-CA">{t('Settings.englishCA')}</option>
+      </select>
+
+      <h3>{t('Settings.sessionInfo')}</h3>
+      <p>{t('Settings.tabId')}: {sessionData.tabId}</p>
+      <p>{t('Settings.sessionStarted')}: {sessionData.startTime}</p>
+    </div>
+  );
+};
+```
+
+**Local State - Component-Specific State with i18n:**
+```tsx
+import { useToggle, useCounter } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+const LocalStateExample = () => {
+  const { t } = useAppTranslation();
+  
+  // Simple boolean state
+  const [isVisible, toggleVisible] = useToggle(false);
+  
+  // Counter with built-in operations
+  const { count, increment, decrement, reset, setCount } = useCounter(0);
+
+  return (
+    <div>
+      {/* Toggle example */}
+      <button onClick={toggleVisible}>
+        {isVisible ? t('Common.hide') : t('Common.show')} {t('Common.content')}
+      </button>
+      {isVisible && <p>{t('LocalState.toggledContent')}</p>}
+
+      {/* Counter example */}
+      <div>
+        <span>{t('Common.count')}: {count}</span>
+        <button onClick={increment}>+</button>
+        <button onClick={decrement}>-</button>
+        <button onClick={reset}>{t('Common.reset')}</button>
+        <button onClick={() => setCount(10)}>{t('LocalState.setToTen')}</button>
+      </div>
+    </div>
+  );
+};
+```
+
+**Lifted State - Shared Between Components:**
+```tsx
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+const ShoppingCartContext = () => {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  return (
+    <div>
+      <ProductCatalog onAddToCart={addToCart} />
+      <CartSidebar items={cartItems} onRemove={removeFromCart} />
+      <CartSummary items={cartItems} />
+    </div>
+  );
+};
+```
+
+**Derived State - Computed Values:**
+```tsx
+import { useMemo } from 'react';
+
+const ShoppingCartSummary = ({ items }: { items: CartItem[] }) => {
+  // Compute derived values with useMemo
+  const summary = useMemo(() => {
+    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+    const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const averagePrice = totalItems > 0 ? totalPrice / totalItems : 0;
+    const mostExpensive = items.reduce((max, item) => 
+      item.price > max.price ? item : max, items[0]
+    );
+
+    return { totalItems, totalPrice, averagePrice, mostExpensive };
+  }, [items]);
+
+  return (
+    <div>
+      <p>Total Items: {summary.totalItems}</p>
+      <p>Total Price: ${summary.totalPrice.toFixed(2)}</p>
+      <p>Average Price: ${summary.averagePrice.toFixed(2)}</p>
+      {summary.mostExpensive && (
+        <p>Most Expensive: {summary.mostExpensive.name}</p>
+      )}
+    </div>
+  );
+};
+```
+
+**Refs - DOM Interaction and Non-Rendering Values:**
+```tsx
+import { useRef, useEffect } from 'react';
+import { usePrevious, useInterval } from 'usehooks-ts';
+
+const RefsExample = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [count, setCount] = useState(0);
+  const previousCount = usePrevious(count);
+
+  // Focus management
+  const focusInput = () => {
+    inputRef.current?.focus();
+  };
+
+  // Timer with cleanup
+  useInterval(() => {
+    setCount(c => c + 1);
+  }, 1000);
+
+  return (
+    <div>
+      <input ref={inputRef} placeholder="Click button to focus" />
+      <button onClick={focusInput}>Focus Input</button>
+      
+      <p>Current count: {count}</p>
+      <p>Previous count: {previousCount}</p>
+    </div>
+  );
+};
+```
+
+**Context - Subtree State Management with i18n:**
+```tsx
+import { createContext, useContext, ReactNode } from 'react';
+import { useLocalStorage } from 'usehooks-ts';
+import useAppTranslation from '@/hooks/useAppTranslation';
+
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [theme, setTheme] = useLocalStorage<'light' | 'dark'>('theme', 'light');
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <div className={theme === 'dark' ? 'dark' : ''}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
+};
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (context === undefined) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
+
+// Usage in components with proper i18n
+const ThemeToggle = () => {
+  const { t } = useAppTranslation();
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? t('Theme.switchToDark') : t('Theme.switchToLight')}
+    </button>
+  );
+};
+```
+
+**Global State - Application-Wide State with Zustand:**
+```tsx
+import { create } from 'zustand';
+
+interface GlobalState {
+  user: User | null;
+  notifications: Notification[];
+  isOnline: boolean;
+  setUser: (user: User | null) => void;
+  addNotification: (notification: Omit<Notification, 'id'>) => void;
+}
+
+const useGlobalStore = create<GlobalState>((set) => ({
+  user: null,
+  notifications: [],
+  isOnline: navigator.onLine,
+  setUser: (user) => set(() => ({ user })),
+  addNotification: (notification) => {
+    const newNotification = { ...notification, id: Date.now() };
+    set((state) => ({
+      notifications: [...state.notifications, newNotification],
+    }));
+
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      set((state) => ({
+        notifications: state.notifications.filter(
+          (n) => n.id !== newNotification.id
+        ),
+      }));
+    }, 5000);
+  },
+}));
+
+// Usage in components
+const Notifications = () => {
+  const { notifications, addNotification } = useGlobalStore();
+
+  return (
+    <div>
+      <button
+        onClick={() =>
+          addNotification({ message: 'New notification!', type: 'info' })
+        }
+      >
+        Add Notification
+      </button>
+      <ul>
+        {notifications.map((n) => (
+          <li key={n.id}>{n.message}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+```
+
+**Form State Management with React Hook Form:**
+```tsx
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const userSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Invalid email address'),
+  age: z.number().min(18, 'Must be at least 18 years old'),
+});
+
+type UserFormData = z.infer<typeof userSchema>;
+
+const UserForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<UserFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      age: 18,
+    },
+  });
+
+  const onSubmit = async (data: UserFormData) => {
+    try {
+      await submitUser(data);
+      reset();
+    } catch (error) {
+      console.error('Failed to submit:', error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        {...register('name')}
+        placeholder="Name"
+      />
+      {errors.name && <span>{errors.name.message}</span>}
+
+      <input
+        {...register('email')}
+        type="email"
+        placeholder="Email"
+      />
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <input
+        {...register('age', { valueAsNumber: true })}
+        type="number"
+        placeholder="Age"
+      />
+      {errors.age && <span>{errors.age.message}</span>}
+
+      <button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+    </form>
+  );
+};
+```
+
 ### Styling Best Practices
 
 - **Design system consistency**: Use consistent spacing, colors, and typography scales across all templates
