@@ -94,16 +94,11 @@ src/
 ```typescript
 // Server Component (default) - Next.js App Router optimized
 export default async function ServerPage() {
-  // Direct server-side data fetching - no loading states needed
-  const data = await fetch('api/data', {
-    next: { revalidate: 60 } // ISR with 60-second revalidation
-  });
-  
-  if (!data.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  
-  const result = await data.json();
+  // Use the established apiClient pattern for server-side data fetching
+  try {
+    const result = await dataService.getData();
+    // Note: For ISR with revalidation, configure at page level with:
+    // export const revalidate = 60; // 60-second revalidation
   
   return (
     <div>
@@ -201,8 +196,10 @@ export function ContactForm() {
 
 ### API Client Pattern
 
+The project uses a consistent apiClient pattern built on `ky` with automatic Zod validation, retry logic, and error handling. Always use this pattern instead of raw `fetch()` calls.
+
 ```typescript
-// services/createApiClient.ts
+// services/createApiClient.ts - Already implemented in the project
 import ky from 'ky';
 
 const createApiClient = (baseUrl: string) => {
@@ -214,14 +211,53 @@ const createApiClient = (baseUrl: string) => {
           // Auto-validate responses with Zod schemas
           if (options.validationSchema) {
             const data = await response.json();
-            return options.validationSchema.safeParse(data);
+            const validatedData = options.validationSchema.safeParse(data);
+            
+            if (!validatedData.success) {
+              return new Response(
+                JSON.stringify({ validationErrors: validatedData.error }),
+                { status: 422, statusText: 'API Validation Error' }
+              );
+            }
+            
+            return new Response(JSON.stringify(validatedData.data));
           }
           return response;
         },
       ],
+      beforeError: [
+        async error => {
+          try {
+            const response = await error.response.json();
+            error.responseData = response;
+            return error;
+          } catch {
+            return error;
+          }
+        },
+      ],
+    },
+    retry: {
+      limit: 2,
+      methods: ['get', 'put', 'head', 'delete', 'options', 'trace', 'post', 'patch'],
+      statusCodes: [401, 403, 500, 504],
     },
   });
 };
+
+// Service layer example - Follow this pattern for all API interactions
+import { dataSchema } from '@/types/Data';
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.example.com';
+const client = createApiClient(baseUrl);
+
+export const dataService = {
+  getData: () => 
+    client.get('data', { validationSchema: dataSchema }).json(),
+  
+  createData: (data: CreateDataRequest) =>
+    client.post('data', { json: data, validationSchema: dataSchema }).json(),
+} as const;
 ```
 
 ## Component Patterns
@@ -552,17 +588,23 @@ export function WelcomeMessage() {
 ```typescript
 // components/__tests__/ServerDataComponent.test.tsx
 import { render, screen } from '@testing-library/react';
+import { vi, describe, it, expect } from 'vitest';
 import ServerDataComponent from '../ServerDataComponent';
+import { dataService } from '@/services/dataService';
 
-// Mock Next.js fetch for server components
-global.fetch = vi.fn();
+// Mock the dataService instead of fetch
+vi.mock('@/services/dataService', () => ({
+  dataService: {
+    getData: vi.fn(),
+  },
+}));
 
 describe('ServerDataComponent', () => {
   it('renders server-fetched data', async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ title: 'Server Data', items: [] }),
-    } as Response);
+    vi.mocked(dataService.getData).mockResolvedValueOnce({
+      title: 'Server Data',
+      items: [],
+    });
 
     const Component = await ServerDataComponent();
     render(<div>{Component}</div>);
@@ -570,10 +612,12 @@ describe('ServerDataComponent', () => {
     expect(screen.getByText('Server Data')).toBeInTheDocument();
   });
 
-  it('handles server-side fetch errors', async () => {
-    vi.mocked(fetch).mockRejectedValueOnce(new Error('Fetch failed'));
+  it('handles server-side data service errors', async () => {
+    vi.mocked(dataService.getData).mockRejectedValueOnce(
+      new Error('Service failed')
+    );
 
-    await expect(ServerDataComponent()).rejects.toThrow('Fetch failed');
+    await expect(ServerDataComponent()).rejects.toThrow('Service failed');
   });
 });
 ```
@@ -1065,8 +1109,8 @@ export async function GET() {
     // Check database connection
     // await db.raw('SELECT 1');
     
-    // Check external services
-    // await fetch('https://external-api.com/health');
+    // Check external services using apiClient pattern
+    // await healthService.checkExternalHealth();
     
     return NextResponse.json({
       status: 'healthy',
