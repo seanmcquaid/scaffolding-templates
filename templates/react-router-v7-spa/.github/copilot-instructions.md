@@ -672,29 +672,202 @@ test.describe('SPA Navigation Patterns', () => {
 });
 ```
 
-## Performance Optimization
+## SPA Deployment Patterns
 
-### Code Splitting
+### Client-Side Rendering (CSR) Architecture
+
+```
+Domain -> DNS -> CDN -> WAF -> Static Hosting
+```
+
+- **CDN for Static Assets**: Cloudfront, Fastly, or Cloudflare for global distribution
+- **Static File Hosting**: S3, Netlify, Vercel, or GitHub Pages for SPA files
+- **Web Application Firewall**: Cloudflare, AWS WAF for security
+- **DNS Resolution**: Route53, Cloudflare DNS for domain management
+
+### Vite Build Optimization for SPAs
 
 ```typescript
-// Lazy load route components
-import { lazy } from 'react';
+// vite.config.ts - SPA-optimized build
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-const DashboardPage = lazy(() => import('./routes/dashboard'));
-
-// Route configuration with lazy loading
-route('dashboard', 'routes/dashboard.tsx', {
-  loader: () => import('./routes/dashboard.tsx').then(m => m.loader),
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    // Optimize for SPA deployment
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false, // Disable in production
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        // Optimize chunk splitting for SPAs
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router'],
+          query: ['@tanstack/react-query'],
+        },
+      },
+    },
+  },
+  // Enable gzip compression
+  server: {
+    middlewareMode: false,
+  },
 });
 ```
 
-### Optimization Strategies
+### Static Site Configuration
 
-- Use `React.memo` for expensive components
-- Implement virtual scrolling for large lists
-- Optimize bundle size with dynamic imports
-- Cache API responses with TanStack Query
-- Use service workers for offline functionality
+```nginx
+# nginx.conf for SPA deployment
+server {
+    listen 80;
+    server_name yourdomain.com;
+    root /var/www/html;
+    index index.html;
+
+    # Enable gzip compression
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+    gzip_min_length 1000;
+
+    # Cache static assets
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        add_header X-Content-Type-Options nosniff;
+    }
+
+    # SPA fallback - serve index.html for all routes
+    location / {
+        try_files $uri $uri/ /index.html;
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+        add_header Referrer-Policy strict-origin-when-cross-origin;
+    }
+
+    # Security headers
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:";
+}
+```
+
+### Netlify Deployment Configuration
+
+```toml
+# netlify.toml
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  PNPM_VERSION = "9"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+[headers]
+  for = "/assets/*"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+  for = "*.js"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+  for = "*.css"
+    [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+  for = "/"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+```
+
+### AWS S3 + CloudFront Deployment
+
+```yaml
+# aws-cloudformation-spa.yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'SPA deployment with S3 and CloudFront'
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${AWS::StackName}-spa-bucket'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !GetAtt S3Bucket.RegionalDomainName
+            Id: S3Origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${OAI}'
+        Enabled: true
+        DefaultRootObject: index.html
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # Managed-CachingOptimized
+```
+
+### SPA Performance Optimization
+
+```javascript
+// Performance monitoring for SPAs
+// src/utils/performance.ts
+export const initPerformanceMonitoring = () => {
+  // Core Web Vitals monitoring
+  if ('PerformanceObserver' in window) {
+    // Monitor LCP (Largest Contentful Paint)
+    new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      const lcpEntry = entries[entries.length - 1];
+      console.log('LCP:', lcpEntry.startTime);
+    }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+    // Monitor FID (First Input Delay)
+    new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        console.log('FID:', entry.processingStart - entry.startTime);
+      });
+    }).observe({ entryTypes: ['first-input'] });
+
+    // Monitor CLS (Cumulative Layout Shift)
+    new PerformanceObserver((list) => {
+      let clsValue = 0;
+      list.getEntries().forEach((entry) => {
+        clsValue += entry.value;
+      });
+      console.log('CLS:', clsValue);
+    }).observe({ entryTypes: ['layout-shift'] });
+  }
+};
+```
 
 ## Development Commands
 

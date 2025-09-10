@@ -429,27 +429,179 @@ pnpm release
 5. Update documentation if needed
 6. Add appropriate changeset
 
+## Library Publishing and Distribution
+
+### NPM Publishing Strategy
+
+```json
+// package.json - Optimized for library distribution
+{
+  "name": "@yourscope/library-name",
+  "version": "1.0.0",
+  "description": "A modern TypeScript library",
+  "keywords": ["typescript", "library", "esm", "cjs"],
+  "homepage": "https://github.com/yourorg/library-name#readme",
+  "bugs": "https://github.com/yourorg/library-name/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourorg/library-name.git"
+  },
+  "license": "MIT",
+  "author": "Your Name <email@example.com>",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
+```
+
+### Automated Publishing Workflow
+
+```yaml
+# .github/workflows/publish.yml
+name: Publish Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm check-types
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test:coverage
+
+      - name: Build
+        run: pnpm build
+
+      - name: Check exports
+        run: pnpm check-exports
+
+      - name: Check bundle size
+        run: pnpm bundlesize
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+
+  publish:
+    name: Publish to NPM
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build package
+        run: pnpm build
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm release
+          title: 'chore: release package'
+          commit: 'chore: release package'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
 ## Development Commands
 
 ### Core Development
 
 - `pnpm dev`: Watch mode development (if applicable)
-- `pnpm test`: Run test suite
+- `pnpm test`: Run test suite with coverage
 - `pnpm test:watch`: Run tests in watch mode
-- `pnpm test:coverage`: Generate coverage report
+- `pnpm test:environments`: Test in multiple environments
 
 ### Build & Quality
 
 - `pnpm build`: Build the library for production
+- `pnpm build:cdn`: Build UMD/ESM bundles for CDN
 - `pnpm lint`: Check code quality with ESLint
 - `pnpm lint:fix`: Auto-fix linting issues
 - `pnpm check-types`: Validate TypeScript types
+- `pnpm check-exports`: Validate package exports
 - `pnpm check-treeshaking`: Validate tree-shaking compatibility
+- `pnpm bundlesize`: Check bundle size limits
 
 ### Publishing
 
 - `pnpm changeset`: Add changeset for version management
 - `pnpm release`: Build and publish to npm
+- `pnpm docs`: Generate documentation
 
 ## Common Patterns
 

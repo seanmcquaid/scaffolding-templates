@@ -743,48 +743,260 @@ test.describe('SSR Hydration and Navigation', () => {
 });
 ```
 
-## Performance Optimization
+## SSR Deployment Patterns
 
-### Streaming SSR
+### Server-Side Rendering Architecture
 
-```typescript
-// Use streaming for better TTFB
-import { renderToReadableStream } from "react-dom/server";
-
-export default async function handleRequest(request: Request) {
-  const stream = await renderToReadableStream(
-    <RouterProvider router={router} />,
-    {
-      onError(error) {
-        console.error('Stream error:', error);
-      },
-    }
-  );
-
-  return new Response(stream, {
-    headers: { 'Content-Type': 'text/html' },
-  });
-}
+```
+Domain -> DNS -> CDN -> WAF -> Load Balancer -> Server Instances
 ```
 
-### Resource Preloading
+- **CDN for Static Assets**: Cloudfront, Fastly for asset delivery and edge caching
+- **Load Balancer**: ALB, ELB for distributing SSR requests across instances
+- **Server Instances**: Node.js servers running React Router V7 SSR (ECS, Kubernetes, EC2)
+- **Static Asset Hosting**: Separate CDN for built assets (JS, CSS, images)
+- **Database**: Connection pooling for server-side data fetching
+
+### Node.js Server Configuration
 
 ```typescript
-// Preload critical resources
-export function meta({ data }: Route.MetaArgs) {
-  return [
-    { title: data.title },
-    // Preload critical CSS
-    {
-      tagName: 'link',
-      rel: 'preload',
-      href: '/styles/critical.css',
-      as: 'style',
+// server.ts - Production SSR server setup
+import express from 'express';
+import compression from 'compression';
+import helmet from 'helmet';
+import { createRequestHandler } from '@react-router/express';
+
+const app = express();
+
+// Security and performance middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
     },
-    // Preload important images
-    { tagName: 'link', rel: 'preload', href: data.heroImage, as: 'image' },
-  ];
-}
+  },
+}));
+
+app.use(compression());
+
+// Serve static assets with long cache headers
+app.use('/assets', express.static('dist/assets', {
+  maxAge: '1y',
+  immutable: true,
+}));
+
+// Health check endpoint for load balancer
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Handle SSR requests
+app.use('*', createRequestHandler({
+  build: () => import('./dist/server/index.js'),
+  getLoadContext: () => ({
+    // Add server context (database connections, etc.)
+  }),
+}));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+```
+
+### Docker Configuration for SSR
+
+```dockerfile
+# Dockerfile
+FROM node:22-alpine as base
+RUN corepack enable
+WORKDIR /app
+
+# Install dependencies
+FROM base as deps
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+
+# Build application
+FROM base as build
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+RUN pnpm build
+
+# Production image
+FROM node:22-alpine as production
+RUN corepack enable
+WORKDIR /app
+
+# Install production dependencies only
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy built application
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/server.js ./
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+### Kubernetes Deployment
+
+```yaml
+# k8s-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-router-ssr
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: react-router-ssr
+  template:
+    metadata:
+      labels:
+        app: react-router-ssr
+    spec:
+      containers:
+      - name: app
+        image: your-registry/react-router-ssr:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: database-url
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-router-ssr-service
+spec:
+  selector:
+    app: react-router-ssr
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: LoadBalancer
+```
+
+### CDN Configuration for SSR Assets
+
+```javascript
+// cdn-config.js - CloudFront configuration for SSR
+const cdnConfig = {
+  origins: [
+    {
+      id: 'server-origin',
+      domainName: 'your-server.amazonaws.com',
+      customOriginConfig: {
+        httpPort: 80,
+        httpsPort: 443,
+        originProtocolPolicy: 'https-only',
+      },
+    },
+    {
+      id: 'assets-origin',
+      domainName: 'your-assets-bucket.s3.amazonaws.com',
+      s3OriginConfig: {
+        originAccessIdentity: 'origin-access-identity/cloudfront/ID',
+      },
+    },
+  ],
+  defaultCacheBehavior: {
+    targetOriginId: 'server-origin',
+    viewerProtocolPolicy: 'redirect-to-https',
+    cachePolicyId: '4135ea2d-6df8-44a3-9df3-4b5a84be39ad', // CachingOptimized
+    compress: true,
+  },
+  cacheBehaviors: [
+    {
+      pathPattern: '/assets/*',
+      targetOriginId: 'assets-origin',
+      viewerProtocolPolicy: 'redirect-to-https',
+      cachePolicyId: '83a3b5c4-7e2d-4f8a-9b6e-1c3d5f7a9b2c', // CachingOptimizedForUncompressedObjects
+      compress: true,
+      ttl: 31536000, // 1 year
+    },
+  ],
+};
+```
+
+### SSR Performance Monitoring
+
+```typescript
+// monitoring/ssr-metrics.ts
+import { Request, Response, NextFunction } from 'express';
+
+export const performanceMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  const start = Date.now();
+  
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    
+    // Log SSR performance metrics
+    console.log({
+      method: req.method,
+      url: req.url,
+      statusCode: res.statusCode,
+      duration,
+      userAgent: req.get('User-Agent'),
+      timestamp: new Date().toISOString(),
+    });
+    
+    // Alert on slow SSR responses
+    if (duration > 1000) {
+      console.warn(`Slow SSR response: ${req.url} took ${duration}ms`);
+    }
+  });
+  
+  next();
+};
+
+// Memory usage monitoring
+export const monitorMemoryUsage = () => {
+  setInterval(() => {
+    const usage = process.memoryUsage();
+    console.log({
+      rss: Math.round(usage.rss / 1024 / 1024),
+      heapTotal: Math.round(usage.heapTotal / 1024 / 1024),
+      heapUsed: Math.round(usage.heapUsed / 1024 / 1024),
+      external: Math.round(usage.external / 1024 / 1024),
+    });
+  }, 30000); // Every 30 seconds
+};
 ```
 
 ## Development Commands

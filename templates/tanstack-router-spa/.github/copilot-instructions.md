@@ -919,16 +919,260 @@ test.describe('TanStack Router SPA Features', () => {
 });
 ```
 
-## Development Commands
+## TanStack Router SPA Deployment
+
+### SPA Deployment Architecture
+
+```
+Domain -> DNS -> CDN -> WAF -> Static Hosting
+```
+
+- **CDN Optimization**: Cloudfront, Fastly with intelligent caching for type-safe routes
+- **Static Hosting**: Netlify, Vercel, S3 + CloudFront optimized for SPAs
+- **Route-Based Caching**: Different cache strategies for static vs dynamic routes
+- **Bundle Optimization**: Code splitting at route boundaries for optimal loading
+
+### Vite Build Configuration for TanStack Router
+
+```typescript
+// vite.config.ts - Optimized for TanStack Router
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { TanStackRouterVite } from '@tanstack/router-vite-plugin';
+
+export default defineConfig({
+  plugins: [
+    react(),
+    TanStackRouterVite({
+      // Optimize route generation for production
+      routesDirectory: './src/routes',
+      generatedRouteTree: './src/routeTree.gen.ts',
+      routeFileIgnorePrefix: '-',
+      quoteStyle: 'single',
+    }),
+  ],
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    minify: 'esbuild',
+    rollupOptions: {
+      output: {
+        // Route-based code splitting
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('@tanstack/router')) return 'router';
+            if (id.includes('@tanstack/react-query')) return 'query';
+            if (id.includes('react')) return 'react';
+            return 'vendor';
+          }
+          
+          // Split routes into separate chunks
+          if (id.includes('/routes/')) {
+            const routePath = id.split('/routes/')[1]?.split('.')[0];
+            return `route-${routePath?.replace(/[^a-zA-Z0-9]/g, '-')}`;
+          }
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['@tanstack/router', '@tanstack/react-query'],
+  },
+});
+```
+
+### Route-Based Caching Strategy
+
+```json
+// netlify.toml - Route-aware caching
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache route chunks
+[[headers]]
+  for = "/route-*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000" # 30 days
+
+# Cache main app bundle
+[[headers]]
+  for = "/index-*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=604800" # 7 days
+
+# No cache for HTML
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+```
+
+### CloudFront Distribution for TanStack Router
+
+```yaml
+# cloudfront-distribution.yaml
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - DomainName: !GetAtt S3Bucket.RegionalDomainName
+            Id: S3Origin
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${OAI}'
+        
+        # Default behavior for HTML files
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          Compress: true
+          CachePolicyId: 4135ea2d-6df8-44a3-9df3-4b5a84be39ad # CachingOptimized
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03 # SecurityHeaders
+        
+        # Optimized caching for route chunks
+        CacheBehaviors:
+          - PathPattern: "/route-*.js"
+            TargetOriginId: S3Origin
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            CachePolicyId: 83dab77f-78aa-4e83-b35b-45b55b2e5122 # CachingOptimizedLongTTL
+            
+          - PathPattern: "/assets/*"
+            TargetOriginId: S3Origin
+            ViewerProtocolPolicy: redirect-to-https
+            Compress: true
+            CachePolicyId: 83dab77f-78aa-4e83-b35b-45b55b2e5122 # CachingOptimizedLongTTL
+        
+        # SPA fallback
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+```
+
+### Performance Optimization Script
+
+```typescript
+// scripts/optimize-build.ts
+import { execSync } from 'child_process';
+import { readFileSync, writeFileSync, readdirSync } from 'fs';
+import { join } from 'path';
+
+const optimizeBuild = () => {
+  console.log('Starting TanStack Router build optimization...');
+  
+  // Build the application
+  execSync('pnpm build', { stdio: 'inherit' });
+  
+  // Analyze bundle sizes
+  const distPath = join(process.cwd(), 'dist');
+  const jsFiles = readdirSync(distPath).filter(file => file.endsWith('.js'));
+  
+  console.log('\nBundle Analysis:');
+  jsFiles.forEach(file => {
+    const filePath = join(distPath, file);
+    const stats = require('fs').statSync(filePath);
+    const sizeKB = Math.round(stats.size / 1024);
+    console.log(`${file}: ${sizeKB}KB`);
+    
+    // Warn about large route chunks
+    if (file.startsWith('route-') && sizeKB > 100) {
+      console.warn(`⚠️  Large route chunk detected: ${file} (${sizeKB}KB)`);
+    }
+  });
+  
+  // Generate route manifest for better caching
+  const routeManifest = {
+    routes: jsFiles.filter(f => f.startsWith('route-')),
+    vendor: jsFiles.filter(f => f.includes('vendor')),
+    generated: new Date().toISOString(),
+  };
+  
+  writeFileSync(
+    join(distPath, 'route-manifest.json'),
+    JSON.stringify(routeManifest, null, 2)
+  );
+  
+  console.log('\n✅ Build optimization complete!');
+};
+
+optimizeBuild();
+```
+
+### Route-Based Analytics
+
+```typescript
+// src/utils/analytics.ts
+import { useRouter } from '@tanstack/react-router';
+
+export const useRouteAnalytics = () => {
+  const router = useRouter();
+  
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const currentRoute = router.state.location.pathname;
+      const searchParams = router.state.location.search;
+      
+      // Track route changes with search params
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('config', 'GA_TRACKING_ID', {
+          page_title: document.title,
+          page_location: window.location.href,
+          custom_map: {
+            custom_route_params: JSON.stringify(searchParams),
+          },
+        });
+      }
+      
+      // Performance tracking
+      if ('performance' in window) {
+        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        if (navigation) {
+          console.log('Route change performance:', {
+            route: currentRoute,
+            loadTime: navigation.loadEventEnd - navigation.loadEventStart,
+            domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+          });
+        }
+      }
+    };
+    
+    // Listen for route changes
+    return router.subscribe('onLoad', handleRouteChange);
+  }, [router]);
+};
+```
+
+### Development Commands
 
 - `pnpm dev`: Start development server with router devtools
-- `pnpm build`: Build for production
+- `pnpm build`: Build for production with route optimization
 - `pnpm serve`: Preview production build
 - `pnpm test`: Run unit tests
 - `pnpm test:watch`: Run tests in watch mode
 - `pnpm playwright:run-e2e`: Run end-to-end tests
 - `pnpm typecheck`: Type check without emitting files
 - `pnpm lint`: Check code quality
+- `pnpm build:analyze`: Build with bundle analysis
 
 ## Best Practices
 
