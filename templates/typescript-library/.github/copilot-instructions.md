@@ -309,6 +309,73 @@ export class LibraryError extends Error {
 - **User feedback**: Actively seek and incorporate user feedback for API improvements
 - **Long-term support**: Plan for long-term maintenance and support lifecycle
 
+### State Management Considerations for React-Consumed Libraries
+
+While this TypeScript library template doesn't include state management (as it's not a React application), if your library will be consumed by React applications, consider the following state management integration patterns:
+
+#### State Management Hierarchy (from repository docs):
+
+| State Type | Use case |
+|------------|----------|
+| URL | Sharable app location |
+| Web storage | Persist between sessions, one browser |
+| Local state | Only one component needs the state |
+| Lifted state | Multiple related components need the state |
+| Derived state | State can be derived from existing state |
+| Refs | DOM Reference, state that isn't rendered |
+| Context | Subtree state or a small amount of Global state |
+| Global state (Redux Toolkit, Zustand, Jotai, etc) | A considerable amount of Global State |
+
+**HTTP Requests**: For managing state for HTTP requests:
+1. Use what's built into the consumer's framework (e.g., Next.js RSC, React Router loaders)
+2. TanStack Query for client-side caching
+3. Redux Toolkit Query if using Redux Toolkit
+
+#### Library Design Considerations for React Integration
+
+- **Stateless by default**: Design your library to be stateless and let consumers manage state
+- **Optional state integration**: Provide optional React hooks that integrate with popular state management solutions
+- **Type-safe APIs**: Export TypeScript types that work well with React state management patterns
+- **Framework agnostic core**: Keep core functionality framework-agnostic, with optional React-specific utilities
+- **State management examples**: Provide examples showing how to integrate your library with different state management solutions
+
+#### Example Library Structure for React Integration
+
+```typescript
+// Core library (framework agnostic)
+export class DataProcessor {
+  process(data: unknown): ProcessedData {
+    // Core logic here
+  }
+}
+
+// Optional React hooks (separate module)
+export function useDataProcessor(initialData?: unknown) {
+  const [data, setData] = useState(initialData);
+  const [processedData, setProcessedData] = useState<ProcessedData | null>(null);
+  
+  const processor = useMemo(() => new DataProcessor(), []);
+  
+  const processData = useCallback((newData: unknown) => {
+    setData(newData);
+    const result = processor.process(newData);
+    setProcessedData(result);
+    return result;
+  }, [processor]);
+  
+  return { data, processedData, processData };
+}
+
+// Types that work well with React state
+export interface LibraryState {
+  readonly data: unknown;
+  readonly processedData: ProcessedData | null;
+  readonly isProcessing: boolean;
+}
+```
+
+This approach allows your library to be consumed by any JavaScript/TypeScript project while providing optional React-specific utilities for React applications.
+
 ## Comprehensive Best Practices from Repository Documentation
 
 ### File Organization Best Practices
