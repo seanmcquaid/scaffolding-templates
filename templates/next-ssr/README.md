@@ -9,7 +9,7 @@ A modern, production-ready template for building server-side rendered applicatio
 - **⚡ Turbopack** - Ultra-fast bundler for lightning-quick development
 - **🌍 Internationalization** - Type-safe i18n with `useAppTranslation` hook and mandatory translations
 - **🔍 Type Safety** - Strict TypeScript configuration with comprehensive type checking
-- **🧪 Comprehensive Testing** - Vitest + Testing Library + MSW for mocking
+- **🧪 Comprehensive Testing** - Vitest + Testing Library + MSW for mocking + Playwright for E2E
 - **🎨 Modern Styling** - Tailwind CSS + shadcn/ui component library
 - **📊 State Management** - TanStack Query + React Hook Form + usehooks-ts
 - **📋 Code Quality** - ESLint + Prettier with pre-commit hooks via Husky
@@ -68,6 +68,8 @@ pnpm dev
 | `pnpm lint` | Lint source code |
 | `pnpm lint:fix` | Lint and auto-fix issues |
 | `pnpm bundlesize` | Check bundle size |
+| `pnpm playwright:run-integration` | Run integration tests |
+| `pnpm playwright:run-e2e` | Run end-to-end tests |
 
 ## 🌍 Internationalization
 
