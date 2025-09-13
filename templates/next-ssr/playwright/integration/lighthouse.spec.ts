@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { playAudit } from 'playwright-lighthouse';
 
+// eslint-disable-next-line playwright/no-skipped-test
 test.describe.skip('Lighthouse audits', () => {
   test('should pass lighthouse performance audit', async ({ page }) => {
     await page.goto('http://localhost:3000/');
