@@ -16,16 +16,44 @@ A modern, production-ready template for building single-page applications with R
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Automated Setup (Recommended)
 
-- Node.js >=22.12.0
-- pnpm (recommended package manager)
-
-### Installation
+Run the setup script to automatically configure everything:
 
 ```bash
+# Make the setup script executable and run it
+chmod +x setup.sh && ./setup.sh
+```
+
+This script will:
+
+- Install pnpm if not already available
+- Copy `.env.example` to `.env` for environment configuration
+- Validate environment variables and warn about example values
+- Install all dependencies
+- Install Playwright browsers for testing
+- Initialize MSW service worker for API mocking
+
+> **ℹ️ Note:** The `setup.sh` script will automatically install **git**, **nvm**, and **pnpm** if they are not already available on your system (macOS and Linux supported). You may still install them manually if you prefer.
+
+### Prerequisites (for Manual Setup)
+
+- **git** (version control)
+- **nvm** (Node Version Manager)
+- **Node.js** >=22.12.0
+- **pnpm** (recommended package manager)
+
+### Manual Installation
+
+```bash
+# Copy environment file
+cp .env.example .env
+
 # Install dependencies
 pnpm install
+
+# Install Playwright browsers
+pnpm exec playwright install
 
 # Start development server
 pnpm dev
@@ -51,19 +79,19 @@ pnpm dev
 
 ## 🛠️ Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `pnpm dev` | Start development server |
-| `pnpm build` | Build for production |
-| `pnpm start` | Preview production build |
-| `pnpm test` | Run unit tests |
-| `pnpm test:watch` | Run tests in watch mode |
-| `pnpm test:coverage` | Run tests with coverage |
-| `pnpm lint` | Lint source code |
-| `pnpm lint:fix` | Lint and auto-fix issues |
-| `pnpm bundlesize` | Check bundle size |
-| `pnpm playwright:run-integration` | Run integration tests |
-| `pnpm playwright:run-e2e` | Run end-to-end tests |
+| Script                            | Description              |
+| --------------------------------- | ------------------------ |
+| `pnpm dev`                        | Start development server |
+| `pnpm build`                      | Build for production     |
+| `pnpm start`                      | Preview production build |
+| `pnpm test`                       | Run unit tests           |
+| `pnpm test:watch`                 | Run tests in watch mode  |
+| `pnpm test:coverage`              | Run tests with coverage  |
+| `pnpm lint`                       | Lint source code         |
+| `pnpm lint:fix`                   | Lint and auto-fix issues |
+| `pnpm bundlesize`                 | Check bundle size        |
+| `pnpm playwright:run-integration` | Run integration tests    |
+| `pnpm playwright:run-e2e`         | Run end-to-end tests     |
 
 ## 🌍 Internationalization
 
@@ -97,18 +125,21 @@ const MyComponent = () => {
 The template implements a **3-tier testing approach**:
 
 ### 1. Unit Tests
+
 ```bash
 # Run unit tests for components, hooks, utilities
 pnpm test
 ```
 
 ### 2. Integration Tests
+
 ```bash
 # Test component interactions with mocked APIs using Playwright
 pnpm playwright:run-integration
 ```
 
 ### 3. End-to-End Tests
+
 ```bash
 # Test complete user flows with Playwright
 pnpm playwright:run-e2e
@@ -164,6 +195,7 @@ pnpm start
 ```
 
 The build is optimized for:
+
 - Code splitting and lazy loading
 - Bundle size optimization
 - Modern JavaScript features
