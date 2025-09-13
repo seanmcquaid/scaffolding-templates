@@ -8,6 +8,7 @@ test.describe('Lighthouse audits', () => {
     // Run Lighthouse audit
     const report = await playAudit({
       page,
+      port: 3000,
       thresholds: {
         performance: 75,
         accessibility: 90,
