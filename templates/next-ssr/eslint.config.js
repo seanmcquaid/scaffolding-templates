@@ -7,6 +7,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
+import playwright from 'eslint-plugin-playwright';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
@@ -26,7 +27,11 @@ export default [
   reactPlugin.configs.flat['jsx-runtime'],
   {
     ...vitest.configs.recommended,
-    files: ['app/**'],
+    files: ['src/**'],
+  },
+  {
+    ...playwright.configs['flat/recommended'],
+    files: ['playwright/**'],
   },
   {
     plugins: {
