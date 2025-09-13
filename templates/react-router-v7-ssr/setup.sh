@@ -2,11 +2,23 @@
 
 # React Router v7 SSR Template Setup Script
 # This script automates the initial setup process for the React Router v7 SSR template
+# 
+# Platform Support: macOS, major Linux distributions
+# Windows Support: Not supported - use WSL2 with Ubuntu instead
 
 set -e  # Exit on any error
 
 echo "🚀 Setting up React Router v7 SSR Template..."
 echo
+
+# Check for Windows (not supported)
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
+    echo "❌ Windows is not supported by this setup script."
+    echo "💡 Please use WSL2 with Ubuntu instead:"
+    echo "   https://docs.microsoft.com/en-us/windows/wsl/install"
+    exit 1
+fi
+
 # Install git if not available
 if ! command -v git &> /dev/null; then
     echo "📦 Installing git..."
@@ -42,24 +54,29 @@ fi
 if ! command -v nvm &> /dev/null; then
     echo "📦 Installing NVM..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install NVM. Please check your internet connection and try again."
+        exit 1
+    fi
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     echo "✅ NVM installed"
-            # Add nvm source to shell profile if not present
-            SHELL_PROFILE=""
-            if [ -n "$ZSH_VERSION" ]; then
-                SHELL_PROFILE="$HOME/.zshrc"
-            elif [ -n "$BASH_VERSION" ]; then
-                SHELL_PROFILE="$HOME/.bashrc"
-            else
-                SHELL_PROFILE="$HOME/.profile"
-            fi
-            if ! grep -q 'NVM_DIR' "$SHELL_PROFILE" 2>/dev/null; then
-                echo '\nexport NVM_DIR="$HOME/.nvm"' >> "$SHELL_PROFILE"
-                echo '[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"' >> "$SHELL_PROFILE"
-                echo "✅ Added nvm source to $SHELL_PROFILE"
-                echo "Please restart your terminal or run: source $SHELL_PROFILE"
-            fi
+    
+    # Add nvm source to shell profile if not present
+    SHELL_PROFILE=""
+    if [ -n "$ZSH_VERSION" ]; then
+        SHELL_PROFILE="$HOME/.zshrc"
+    elif [ -n "$BASH_VERSION" ]; then
+        SHELL_PROFILE="$HOME/.bashrc"
+    else
+        SHELL_PROFILE="$HOME/.profile"
+    fi
+    if ! grep -q 'NVM_DIR' "$SHELL_PROFILE" 2>/dev/null; then
+        echo '\nexport NVM_DIR="$HOME/.nvm"' >> "$SHELL_PROFILE"
+        echo '[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"' >> "$SHELL_PROFILE"
+        echo "✅ Added nvm source to $SHELL_PROFILE"
+        echo "Please restart your terminal or run: source $SHELL_PROFILE"
+    fi
 fi
 
 # Use nvm to install and use Node.js 22.12.0
@@ -70,13 +87,29 @@ REQUIRED_NODE_VERSION="22.12.0"
 if ! nvm ls "$REQUIRED_NODE_VERSION" &> /dev/null; then
      echo "📦 Installing Node.js $REQUIRED_NODE_VERSION with nvm..."
      nvm install $REQUIRED_NODE_VERSION
+     if [ $? -ne 0 ]; then
+         echo "❌ Failed to install Node.js $REQUIRED_NODE_VERSION with nvm."
+         echo "Please check your internet connection and try again."
+         exit 1
+     fi
 fi
+
+echo "📦 Switching to Node.js $REQUIRED_NODE_VERSION..."
 nvm use $REQUIRED_NODE_VERSION
+if [ $? -ne 0 ]; then
+    echo "❌ Failed to switch to Node.js $REQUIRED_NODE_VERSION."
+    echo "Please ensure Node.js $REQUIRED_NODE_VERSION is properly installed."
+    exit 1
+fi
 
 # Install pnpm if not available
 if ! command -v pnpm &> /dev/null; then
     echo "📦 Installing pnpm..."
     npm install -g pnpm
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to install pnpm. Please check your npm configuration and try again."
+        exit 1
+    fi
     echo "✅ pnpm installed"
 fi
 
@@ -98,6 +131,41 @@ echo "🔧 Setting up environment configuration..."
 if [ -f ".env.example" ] && [ ! -f ".env" ]; then
     cp .env.example .env
     echo "✅ Environment file created from .env.example"
+    
+    # Check for required environment variables and warn if they have example values
+    echo "🔍 Checking environment variables..."
+    MISSING_VARS=()
+    EXAMPLE_VARS=()
+    
+    # Read .env file and check for missing or example values
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        if [[ "$line" =~ ^[^#]*= ]]; then
+            VAR_NAME=$(echo "$line" | cut -d '=' -f1)
+            VAR_VALUE=$(echo "$line" | cut -d '=' -f2-)
+            
+            if [[ -z "$VAR_VALUE" ]]; then
+                MISSING_VARS+=("$VAR_NAME")
+            elif [[ "$VAR_VALUE" =~ ^(example|dev|test)$ ]] || [[ "$VAR_VALUE" == "false" && "$VAR_NAME" == "VITE_APP_MSW_ENABLED" ]]; then
+                EXAMPLE_VARS+=("$VAR_NAME=$VAR_VALUE")
+            fi
+        fi
+    done < .env
+    
+    if [[ ${#MISSING_VARS[@]} -gt 0 ]] || [[ ${#EXAMPLE_VARS[@]} -gt 0 ]]; then
+        echo "⚠️  Environment variables need attention:"
+        if [[ ${#MISSING_VARS[@]} -gt 0 ]]; then
+            echo "   Missing values: ${MISSING_VARS[*]}"
+        fi
+        if [[ ${#EXAMPLE_VARS[@]} -gt 0 ]]; then
+            echo "   Example/default values detected:"
+            for var in "${EXAMPLE_VARS[@]}"; do
+                echo "     - $var"
+            done
+        fi
+        echo "   Please update .env with appropriate values for your environment"
+    else
+        echo "✅ Environment variables look good"
+    fi
 elif [ -f ".env" ]; then
     echo "✅ Environment file already exists"
 else
@@ -108,16 +176,25 @@ echo
 # Install dependencies
 echo "📦 Installing dependencies..."
 pnpm install
+if [ $? -ne 0 ]; then
+    echo "❌ Failed to install dependencies. Please check your network connection and try again."
+    exit 1
+fi
 echo "✅ Dependencies installed"
 echo
 
-
 # Install Playwright browsers (if Playwright is present)
 if [ -f "playwright.config.ts" ] || [ -f "playwright.config.js" ]; then
-    if pnpm list --depth -1 | grep -q "@playwright/test"; then
+    if pnpm list --depth -1 2>/dev/null | grep -q "@playwright/test"; then
         echo "🎭 Installing Playwright browsers..."
         npx playwright install --with-deps
-        echo "✅ Playwright browsers installed"
+        if [ $? -ne 0 ]; then
+            echo "❌ Failed to install Playwright browsers. This may affect end-to-end testing."
+            echo "You can try running 'npx playwright install --with-deps' manually later."
+            echo "Continuing with setup..."
+        else
+            echo "✅ Playwright browsers installed"
+        fi
         echo
     fi
 fi
