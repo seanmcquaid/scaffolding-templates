@@ -44,7 +44,6 @@ This script will:
 
 - Install pnpm if not already available
 - Install all dependencies
-- Set up git hooks with Husky
 - Verify everything is working correctly
 
 ### Manual Installation

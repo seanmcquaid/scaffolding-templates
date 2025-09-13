@@ -48,9 +48,9 @@ This script will:
 
 - Install pnpm if not already available
 - Copy `.env.example` to `.env` for environment configuration
+- Validate environment variables and warn about example values
 - Install all dependencies
 - Install Playwright browsers for testing
-- Set up git hooks with Husky
 - Initialize MSW service worker for API mocking
 
 ### Manual Installation
