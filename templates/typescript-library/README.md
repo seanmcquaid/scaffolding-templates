@@ -1,3 +1,119 @@
 # TypeScript Library Template
 
-This template is a starting point for building a TypeScript library.
+A comprehensive, production-ready template for building and publishing TypeScript libraries with modern tooling and best practices.
+
+## ✨ Features
+
+- **📦 Dual Package Support** - ESM and CommonJS builds with proper `package.json` exports
+- **🔍 Type Safety** - Strict TypeScript configuration with comprehensive type checking
+- **🧪 Testing Suite** - Vitest with coverage reporting and circular dependency detection
+- **📋 Code Quality** - ESLint + Prettier with pre-commit hooks via Husky
+- **📈 Bundle Analysis** - Bundle size monitoring and tree-shaking validation
+- **🚀 Publishing** - Automated releases with Changesets and GitHub Actions
+- **⚡ Modern Tooling** - Built with tsdown for fast, optimized builds
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js >=22.12.0
+- pnpm (recommended package manager)
+
+### Installation
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development
+pnpm test:watch
+```
+
+## 📂 Project Structure
+
+```
+├── src/                    # Source code
+│   ├── index.ts           # Main entry point
+│   └── __tests__/         # Test files
+├── .changeset/           # Changesets for version management
+└── docs/                 # Documentation files
+```
+
+## 🛠️ Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `pnpm build` | Build the library for production |
+| `pnpm test` | Run all tests |
+| `pnpm test:watch` | Run tests in watch mode |
+| `pnpm test:coverage` | Run tests with coverage reporting |
+| `pnpm lint` | Lint source code |
+| `pnpm lint:fix` | Lint and auto-fix issues |
+| `pnpm check-types` | Validate TypeScript types and package exports |
+| `pnpm check-treeshaking` | Verify the bundle is tree-shakeable |
+| `pnpm bundlesize` | Check bundle size against limits |
+
+## 🔧 Development Workflow
+
+### Writing Code
+
+1. Add your library code in the `src/` directory
+2. Export public APIs through `src/index.ts`
+3. Write tests alongside your code using the `.test.ts` suffix
+
+### Testing
+
+The template uses **Vitest** for testing with:
+- Unit test support with jsdom environment
+- Coverage reporting with Istanbul
+- Circular dependency detection
+- Pre-commit test validation
+
+```bash
+# Run tests once
+pnpm test
+
+# Watch mode for development
+pnpm test:watch
+
+# Generate coverage report
+pnpm test:coverage
+```
+
+### Quality Assurance
+
+Before publishing, the template validates:
+
+- **Type Safety**: `pnpm check-types` - Validates exports with @arethetypeswrong/cli
+- **Tree Shaking**: `pnpm check-treeshaking` - Ensures bundle is tree-shakeable
+- **Bundle Size**: `pnpm bundlesize` - Monitors package size
+- **Circular Dependencies**: Detected automatically in tests
+- **Code Quality**: ESLint + Prettier enforcement
+
+## 📦 Publishing
+
+### Using Changesets (Recommended)
+
+1. **Create a changeset** for your changes:
+   ```bash
+   pnpm changeset
+   ```
+
+2. **Commit the changeset**:
+   ```bash
+   git add . && git commit -m "feat: add new feature"
+   ```
+
+3. **Release** (automated via GitHub Actions or manual):
+   ```bash
+   pnpm release
+   ```
+
+### GitHub Actions Setup
+
+For automated publishing, add these secrets to your GitHub repository:
+
+- `NPM_TOKEN` - Your npm publish token
+- `GITHUB_TOKEN` - Automatically available in GitHub Actions
+
+The template includes a complete CI/CD workflow for automated testing and publishing.
