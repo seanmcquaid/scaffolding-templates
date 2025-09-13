@@ -18,24 +18,7 @@ A modern, production-ready template for building single-page applications with T
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- **git** (version control)
-- **nvm** (Node Version Manager)
-- **Node.js** >=22.12.0
-- **pnpm** (recommended package manager)
-
-> **ℹ️ Note:** The `setup.sh` script will automatically install **git**, **nvm**, and **pnpm** if they are not already available on your system (macOS and Linux supported). You may still install them manually if you prefer.
-
-> **💡 Tip:** Use [NVM (Node Version Manager)](https://github.com/nvm-sh/nvm) to easily manage different Node.js versions:
->
-> ```bash
-> # Install and use Node.js 22
-> nvm install 22
-> nvm use 22
-> ```
-
-### Automated Setup
+### Automated Setup (Recommended)
 
 Run the setup script to automatically configure everything:
 
@@ -52,6 +35,15 @@ This script will:
 - Install all dependencies
 - Install Playwright browsers for testing
 - Initialize MSW service worker for API mocking
+
+> **ℹ️ Note:** The `setup.sh` script will automatically install **git**, **nvm**, and **pnpm** if they are not already available on your system (macOS and Linux supported). You may still install them manually if you prefer.
+
+### Prerequisites (for Manual Setup)
+
+- **git** (version control)
+- **nvm** (Node Version Manager)
+- **Node.js** >=22.12.0
+- **pnpm** (recommended package manager)
 
 ### Manual Installation
 
