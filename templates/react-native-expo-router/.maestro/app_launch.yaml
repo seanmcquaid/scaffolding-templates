@@ -1,0 +1,6 @@
+appId: ${APP_ID}
+---
+- launchApp
+- assertVisible: "Welcome!"
+- assertVisible: "Home"
+- assertVisible: "Explore"

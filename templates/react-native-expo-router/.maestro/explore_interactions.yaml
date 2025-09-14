@@ -1,0 +1,23 @@
+appId: ${APP_ID}
+---
+- launchApp
+- tapOn: "Explore"
+- assertVisible: "Explore"
+
+# Test collapsible interactions
+- tapOn: "File-based routing"
+- assertVisible: "This app has two screens"
+
+# Test external links (should open browser or in-app browser)
+- tapOn: "Learn more"
+- back
+
+# Test other collapsibles
+- tapOn: "Android"
+- assertVisible: "Try it on your phone"
+
+- tapOn: "iOS"
+- assertVisible: "Try it on your phone"
+
+- tapOn: "Web"
+- assertVisible: "Open this app in your web browser"
