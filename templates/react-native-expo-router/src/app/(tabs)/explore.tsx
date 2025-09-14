@@ -14,14 +14,22 @@ export default function ExploreScreen() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<IconSymbol size={310} color="#808080" name="chevron.left.forwardslash.chevron.right" style={styles.headerImage} />}>
+      headerImage={
+        <IconSymbol
+          size={310}
+          color="#808080"
+          name="chevron.left.forwardslash.chevron.right"
+          style={styles.headerImage}
+        />
+      }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">{t('explore.title')}</ThemedText>
       </ThemedView>
       <ThemedText>{t('explore.description')}</ThemedText>
       <Collapsible title={t('explore.fileStructure.title')}>
         <ThemedText>
-          {t('explore.fileStructure.description')} <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
+          {t('explore.fileStructure.description')}{' '}
+          <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
           {t('explore.fileStructure.configuration')}
         </ThemedText>
         <ExternalLink href="https://docs.expo.dev/router/introduction">
@@ -30,17 +38,20 @@ export default function ExploreScreen() {
       </Collapsible>
       <Collapsible title={t('explore.android.title')}>
         <ThemedText>
-          {t('explore.android.description')} <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
+          {t('explore.android.description')}{' '}
+          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
         </ThemedText>
       </Collapsible>
       <Collapsible title={t('explore.ios.title')}>
         <ThemedText>
-          {t('explore.ios.description')} <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
+          {t('explore.ios.description')}{' '}
+          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
         </ThemedText>
       </Collapsible>
       <Collapsible title={t('explore.web.title')}>
         <ThemedText>
-          {t('explore.web.description')} <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
+          {t('explore.web.description')}{' '}
+          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
         </ThemedText>
       </Collapsible>
     </ParallaxScrollView>
@@ -49,8 +60,8 @@ export default function ExploreScreen() {
 
 const styles = StyleSheet.create({
   headerImage: {
-    color: '#808080',
     bottom: -90,
+    color: '#808080',
     left: -35,
     position: 'absolute',
   },

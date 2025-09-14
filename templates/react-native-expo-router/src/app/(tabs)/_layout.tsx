@@ -6,8 +6,8 @@ import { Platform } from 'react-native';
 import { IconSymbol } from '@/src/components/ui/IconSymbol';
 import TabBarBackground from '@/src/components/ui/TabBarBackground';
 import { Colors } from '@/src/constants/Colors';
-import { useColorScheme } from '@/src/hooks/useColorScheme';
 import { useAppTranslation } from '@/src/hooks/useAppTranslation';
+import { useColorScheme } from '@/src/hooks/useColorScheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();

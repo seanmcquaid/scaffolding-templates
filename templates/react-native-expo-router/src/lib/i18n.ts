@@ -1,6 +1,6 @@
+import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import * as Localization from 'expo-localization';
 
 const resources = {
   en: {
@@ -13,15 +13,17 @@ const resources = {
         welcome: 'Welcome!',
         step1: {
           title: 'Step 1: Try it',
-          description: 'Edit src/app/(tabs)/index.tsx to see changes. Press cmd+d (iOS) or cmd+m (Android) to open developer tools.',
+          description:
+            'Edit src/app/(tabs)/index.tsx to see changes. Press cmd+d (iOS) or cmd+m (Android) to open developer tools.',
         },
         step2: {
           title: 'Step 2: Explore',
-          description: 'Tap the Explore tab to learn more about what\'s included in this starter app.',
+          description:
+            "Tap the Explore tab to learn more about what's included in this starter app.",
         },
         step3: {
           title: 'Step 3: Get a fresh start',
-          description: 'When you\'re ready, run npm run reset-project to get a fresh start.',
+          description: "When you're ready, run npm run reset-project to get a fresh start.",
         },
       },
       explore: {
@@ -43,12 +45,13 @@ const resources = {
         },
         web: {
           title: 'Web',
-          description: 'Open this app in your web browser by pressing w in the terminal running this project.',
+          description:
+            'Open this app in your web browser by pressing w in the terminal running this project.',
         },
       },
       notFound: {
         title: 'Oops!',
-        heading: 'This screen doesn\'t exist.',
+        heading: "This screen doesn't exist.",
         homeLink: 'Go to home screen!',
       },
     },

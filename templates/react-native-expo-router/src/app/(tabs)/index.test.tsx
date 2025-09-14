@@ -1,6 +1,7 @@
-import React from 'react';
-import { render } from '@testing-library/react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render } from '@testing-library/react-native';
+import React from 'react';
+
 import HomePage from './index';
 
 const createTestQueryClient = () =>
@@ -13,11 +14,7 @@ const createTestQueryClient = () =>
 
 const renderWithQueryClient = (component: React.ReactElement) => {
   const queryClient = createTestQueryClient();
-  return render(
-    <QueryClientProvider client={queryClient}>
-      {component}
-    </QueryClientProvider>
-  );
+  return render(<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>);
 };
 
 describe('HomePage', () => {

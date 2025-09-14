@@ -1,6 +1,6 @@
+import { PlatformPressable } from '@react-navigation/elements';
 import { impactAsync, ImpactFeedbackStyle } from 'expo-haptics';
 import { ComponentProps } from 'react';
-import { PlatformPressable } from '@react-navigation/elements';
 
 export function HapticTab(props: ComponentProps<typeof PlatformPressable>) {
   return (
