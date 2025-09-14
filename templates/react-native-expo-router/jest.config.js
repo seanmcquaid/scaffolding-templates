@@ -5,7 +5,7 @@ module.exports = {
   ...tsjPreset,
   preset: 'jest-expo',
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
-  testMatch: ['<rootDir>/tests/**/*.(test|spec).(ts|tsx|js)'],
+  testMatch: ['<rootDir>/src/**/*.(test|spec).(ts|tsx|js)'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

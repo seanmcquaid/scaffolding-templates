@@ -1,0 +1,8 @@
+appId: com.reactnativeexporouter.app
+---
+- launchApp
+- assertVisible: "Home"
+- tapOn: "Settings"
+- assertVisible: "Settings"
+- tapOn: "Home"
+- assertVisible: "Home"
