@@ -23,6 +23,7 @@ export function HelloWave() {
 
   return (
     <Animated.View style={animatedStyle}>
+      {/* eslint-disable-next-line react-native/no-raw-text */}
       <ThemedText style={styles.text}>👋</ThemedText>
     </Animated.View>
   );

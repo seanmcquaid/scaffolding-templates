@@ -3,7 +3,7 @@ import { TextInput, type TextInputProps } from 'react-native';
 
 import { cn } from '@/src/utils/styles';
 
-export interface InputProps extends TextInputProps {}
+export type InputProps = TextInputProps;
 
 const Input = React.forwardRef<TextInput, InputProps>(({ className, ...props }, ref) => {
   return (

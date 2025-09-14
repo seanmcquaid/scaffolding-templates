@@ -10,6 +10,7 @@ export function ExternalLink({ href, ...rest }: Props) {
     <Link
       target="_blank"
       {...rest}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       href={href as any}
       onPress={async (event) => {
         if (Platform.OS !== 'web') {

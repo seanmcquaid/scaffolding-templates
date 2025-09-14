@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-raw-text, i18next/no-literal-string */
 import { StyleSheet } from 'react-native';
 
 import { Collapsible } from '@/src/components/Collapsible';
@@ -17,7 +18,7 @@ export default function ExploreScreen() {
       headerImage={
         <IconSymbol
           size={310}
-          color="#808080"
+          color={headerImageColor}
           name="chevron.left.forwardslash.chevron.right"
           style={styles.headerImage}
         />
@@ -27,41 +28,38 @@ export default function ExploreScreen() {
       </ThemedView>
       <ThemedText>{t('explore.description')}</ThemedText>
       <Collapsible title={t('explore.fileStructure.title')}>
-        <ThemedText>
-          {t('explore.fileStructure.description')}{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          {t('explore.fileStructure.configuration')}
-        </ThemedText>
+        <ThemedText>{t('explore.fileStructure.description')} </ThemedText>
+        <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>
+        <ThemedText> {t('explore.fileStructure.configuration')}</ThemedText>
         <ExternalLink href="https://docs.expo.dev/router/introduction">
           <ThemedText type="link">{t('explore.fileStructure.learnMore')}</ThemedText>
         </ExternalLink>
       </Collapsible>
       <Collapsible title={t('explore.android.title')}>
-        <ThemedText>
-          {t('explore.android.description')}{' '}
-          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
-        </ThemedText>
+        <ThemedText>{t('explore.android.description')} </ThemedText>
+        <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>
+        <ThemedText>.</ThemedText>
       </Collapsible>
       <Collapsible title={t('explore.ios.title')}>
-        <ThemedText>
-          {t('explore.ios.description')}{' '}
-          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
-        </ThemedText>
+        <ThemedText>{t('explore.ios.description')} </ThemedText>
+        <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>
+        <ThemedText>.</ThemedText>
       </Collapsible>
       <Collapsible title={t('explore.web.title')}>
-        <ThemedText>
-          {t('explore.web.description')}{' '}
-          <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>.
-        </ThemedText>
+        <ThemedText>{t('explore.web.description')} </ThemedText>
+        <ThemedText type="defaultSemiBold">npx create-expo-app</ThemedText>
+        <ThemedText>.</ThemedText>
       </Collapsible>
     </ParallaxScrollView>
   );
 }
 
+const headerImageColor = '#808080';
+
 const styles = StyleSheet.create({
   headerImage: {
     bottom: -90,
-    color: '#808080',
+    color: headerImageColor,
     left: -35,
     position: 'absolute',
   },

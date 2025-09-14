@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-native';
+import { renderHook } from '@testing-library/react';
 
-import { useAppTranslation } from '@/src/hooks/useAppTranslation';
+import { useAppTranslation } from './useAppTranslation';
 
 describe('useAppTranslation', () => {
   it('returns translation function', () => {
