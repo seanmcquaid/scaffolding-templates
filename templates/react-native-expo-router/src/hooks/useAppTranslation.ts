@@ -13,6 +13,7 @@ type TranslationKey =
   | 'home.step2.description'
   | 'home.step3.title'
   | 'home.step3.description'
+  | 'home.step3.button'
   | 'explore.title'
   | 'explore.description'
   | 'explore.fileStructure.title'

@@ -1,13 +1,12 @@
-import { Text, type TextProps } from 'react-native';
+import { Text, type TextProps, StyleSheet } from 'react-native';
 
+import { Colors } from '@/src/constants/Colors';
 import { useThemeColor } from '@/src/hooks/useThemeColor';
-import { cn } from '@/src/utils/styles';
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
-  className?: string;
 };
 
 export function ThemedText({
@@ -15,7 +14,6 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = 'default',
-  className,
   ...rest
 }: ThemedTextProps) {
   const color = useThemeColor(
@@ -28,20 +26,44 @@ export function ThemedText({
     'text'
   );
 
-  const getTypeClasses = () => {
-    switch (type) {
-      case 'title':
-        return 'text-3xl font-bold leading-8';
-      case 'subtitle':
-        return 'text-xl font-bold';
-      case 'defaultSemiBold':
-        return 'text-base font-semibold leading-6';
-      case 'link':
-        return 'text-base leading-7 text-blue-600';
-      default:
-        return 'text-base leading-6';
-    }
-  };
-
-  return <Text style={[{ color }, style]} className={cn(getTypeClasses(), className)} {...rest} />;
+  return (
+    <Text
+      style={[
+        { color },
+        type === 'default' ? styles.default : undefined,
+        type === 'title' ? styles.title : undefined,
+        type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
+        type === 'subtitle' ? styles.subtitle : undefined,
+        type === 'link' ? styles.link : undefined,
+        style,
+      ]}
+      {...rest}
+    />
+  );
 }
+
+const styles = StyleSheet.create({
+  default: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  defaultSemiBold: {
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 24,
+  },
+  link: {
+    color: Colors.light.tint,
+    fontSize: 16,
+    lineHeight: 30,
+  },
+  subtitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    lineHeight: 32,
+  },
+});

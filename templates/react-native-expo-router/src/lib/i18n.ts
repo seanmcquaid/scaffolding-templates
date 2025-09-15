@@ -24,6 +24,7 @@ const resources = {
         step3: {
           title: 'Step 3: Get a fresh start',
           description: "When you're ready, run npm run reset-project to get a fresh start.",
+          button: 'Get Started',
         },
       },
       explore: {

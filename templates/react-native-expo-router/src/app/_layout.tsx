@@ -4,8 +4,11 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { PaperProvider } from 'react-native-paper';
 import 'react-native-reanimated/lib/reanimated2/js-reanimated';
-import '@/src/global.css';
+
+import { paperTheme } from '@/src/constants/PaperTheme';
+import { useColorScheme } from '@/src/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,6 +27,7 @@ export default function RootLayout() {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
   });
+  const colorScheme = useColorScheme();
 
   useEffect(() => {
     if (loaded) {
@@ -36,12 +40,14 @@ export default function RootLayout() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </QueryClientProvider>
+    <PaperProvider theme={paperTheme[colorScheme ?? 'light']}>
+      <QueryClientProvider client={queryClient}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+      </QueryClientProvider>
+    </PaperProvider>
   );
 }
