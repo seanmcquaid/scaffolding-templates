@@ -29,7 +29,7 @@ export const links: Route.LinksFunction = () => [
   { href: stylesheet, rel: 'stylesheet' },
 ];
 
-const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
+const clientLoggerMiddleware: Route.ClientMiddlewareFunction = async (
   { request },
   next,
 ) => {
@@ -46,9 +46,9 @@ const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
   console.log(`Navigated to ${request.url} (${duration}ms)`);
 };
 
-export const unstable_clientMiddleware = [clientLoggerMiddleware];
+export const clientMiddleware = [clientLoggerMiddleware];
 
-const serverLoggerMiddleware: Route.unstable_MiddlewareFunction = async (
+const serverLoggerMiddleware: Route.MiddlewareFunction = async (
   { request },
   next,
 ) => {
@@ -68,7 +68,7 @@ const serverLoggerMiddleware: Route.unstable_MiddlewareFunction = async (
   return res;
 };
 
-export const unstable_middleware = [serverLoggerMiddleware];
+export const middleware = [serverLoggerMiddleware];
 
 export async function loader({ request }: Route.LoaderArgs) {
   setAcceptLanguageHeaders(request);
