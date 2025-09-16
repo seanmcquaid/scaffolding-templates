@@ -2,6 +2,7 @@
   "name": "react-native-expo-router",
   "version": "0.0.0",
   "private": true,
+  "main": "index.js",
   "scripts": {
     "android": "expo start --android",
     "build": "expo build --local",
@@ -24,6 +25,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~4.0.1",
     "@expo/vector-icons": "^14.1.0",
     "@hookform/resolvers": "^5.2.1",
     "@react-native-async-storage/async-storage": "^2.2.0",
@@ -109,6 +111,8 @@
     "node": ">=22.12.0"
   },
   "overrides": {
-    "react-refresh": "~0.14.0"
+    "react-refresh": "~0.14.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   }
 }

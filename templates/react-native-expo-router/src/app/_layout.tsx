@@ -5,7 +5,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { PaperProvider } from 'react-native-paper';
-import 'react-native-reanimated/lib/reanimated2/js-reanimated';
 
 import { paperTheme } from '@/src/constants/PaperTheme';
 import { useColorScheme } from '@/src/hooks/useColorScheme';
