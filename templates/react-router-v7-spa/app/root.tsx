@@ -24,7 +24,7 @@ export const links: Route.LinksFunction = () => [
   { href: stylesheet, rel: 'stylesheet' },
 ];
 
-const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
+const clientLoggerMiddleware: Route.ClientMiddlewareFunction = async (
   { request },
   next,
 ) => {
@@ -41,7 +41,7 @@ const clientLoggerMiddleware: Route.unstable_ClientMiddlewareFunction = async (
   console.log(`Navigated to ${request.url} (${duration}ms)`);
 };
 
-export const unstable_clientMiddleware = [clientLoggerMiddleware];
+export const clientMiddleware = [clientLoggerMiddleware];
 
 export const Layout = ({ children }: PropsWithChildren) => {
   const navigation = useNavigation();
