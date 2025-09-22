@@ -6,8 +6,9 @@ This document explains the file organization and architecture decisions for the 
 
 ```
 expo-react-native/
-├── apps/                    # Applications
-├── packages/                # Shared packages
+├── app/                    # Expo Router pages (file-based routing)
+├── src/                    # Application source code
+├── assets/                 # Static assets
 ├── docs/                   # Documentation
 ├── .env.example           # Environment variables template
 ├── .gitignore            # Git ignore patterns
@@ -15,193 +16,267 @@ expo-react-native/
 ├── .lintstagedrc.json    # Lint-staged configuration
 ├── .nvmrc                # Node version specification
 ├── .prettierrc.json      # Prettier configuration
-├── eslint.config.js      # Root ESLint configuration
-├── package.json          # Root package configuration
-├── pnpm-workspace.yaml   # pnpm workspace configuration
+├── app.json              # Expo configuration
+├── bundlesize.config.json # Bundle size limits
+├── eslint.config.js      # ESLint configuration
+├── metro.config.js       # Metro bundler configuration
+├── package.json          # Dependencies and scripts
 ├── setup.sh              # Setup script
-└── turbo.json            # Turborepo configuration
+├── tsconfig.json         # TypeScript configuration
+└── vitest.config.ts      # Testing configuration
 ```
 
-## Apps Directory
+## App Directory (Expo Router)
 
-### apps/mobile/
-The main Expo React Native application with cross-platform support.
-
-```
-apps/mobile/
-├── app/                  # Expo Router pages (file-based routing)
-│   ├── (tabs)/          # Tab navigation group
-│   │   ├── _layout.tsx  # Tab layout configuration
-│   │   ├── index.tsx    # Home tab (/)
-│   │   └── explore.tsx  # Explore tab (/explore)
-│   ├── _layout.tsx      # Root layout
-│   └── +not-found.tsx   # 404 page
-├── src/                 # Application source code
-│   ├── components/      # App-specific components
-│   │   ├── app/        # Feature-specific components
-│   │   └── ui/         # Local UI components (rare)
-│   ├── hooks/          # Custom React hooks
-│   ├── i18n/           # Internationalization
-│   │   ├── locales/    # Translation files
-│   │   └── i18n.ts     # i18n configuration
-│   ├── services/       # API clients and external services
-│   ├── types/          # TypeScript type definitions
-│   ├── utils/          # Utility functions
-│   │   └── testing/    # Testing utilities
-│   └── constants/      # App constants
-├── assets/             # Static assets (images, fonts)
-├── app.json           # Expo configuration
-├── metro.config.js    # Metro bundler configuration
-├── package.json       # App dependencies and scripts
-├── tsconfig.json      # TypeScript configuration
-└── vitest.config.ts   # Testing configuration
-```
-
-## Packages Directory
-
-### packages/ui/
-Shared UI components library providing the design system.
+The `app/` directory uses Expo Router's file-based routing system:
 
 ```
-packages/ui/
-├── src/
-│   ├── Button.tsx       # Button component with variants
-│   ├── Text.tsx         # Typography component
-│   ├── View.tsx         # Layout component
-│   ├── Button.test.tsx  # Component tests
-│   └── index.ts         # Package exports
-├── package.json         # Package configuration
-├── eslint.config.js     # ESLint configuration
-├── vitest.config.ts     # Test configuration
-└── test-setup.ts        # Test environment setup
+app/
+├── (tabs)/               # Tab navigation group
+│   ├── _layout.tsx      # Tab layout configuration
+│   ├── index.tsx        # Home tab (/)
+│   └── explore.tsx      # Explore tab (/explore)
+├── _layout.tsx          # Root layout
+└── +not-found.tsx       # 404 page
+```
+
+**Key Features:**
+- File-based routing with automatic navigation
+- Nested layouts for complex navigation structures
+- Type-safe routing with TypeScript
+- Cross-platform support (iOS, Android, Web)
+
+## Source Directory
+
+The `src/` directory contains all application source code:
+
+```
+src/
+├── components/          # React components
+│   ├── app/            # Feature-specific components
+│   └── ui/             # Reusable UI components
+├── hooks/              # Custom React hooks
+├── i18n/               # Internationalization
+│   ├── locales/        # Translation files
+│   └── i18n.ts         # i18n configuration
+├── services/           # API clients and external services
+├── types/              # TypeScript type definitions
+├── utils/              # Utility functions
+│   └── testing/        # Testing utilities
+└── constants/          # App constants
+```
+
+### Components Directory
+
+#### `src/components/ui/`
+Reusable UI components that form the design system:
+
+```
+src/components/ui/
+├── Button.tsx           # Button component with variants
+├── Button.test.tsx      # Button component tests
+└── index.ts             # Component exports
 ```
 
 **Key Features:**
 - Variant-based styling system
 - TypeScript prop interfaces
-- Consistent spacing and typography
-- Cross-platform compatibility
 - Comprehensive test coverage
+- Cross-platform compatibility
 
-### packages/feature-home/
-Home feature domain logic and components.
+#### `src/components/app/`
+Feature-specific components with business logic:
 
 ```
-packages/feature-home/
-├── src/
-│   ├── HomeScreen.tsx   # Main home screen component
-│   └── index.ts         # Package exports
-├── package.json         # Package configuration
-├── eslint.config.js     # ESLint configuration
-├── vitest.config.ts     # Test configuration
-└── test-setup.ts        # Test environment setup
+src/components/app/
+├── HomeScreen.tsx       # Main home screen component
+├── HomeScreen.test.tsx  # Home screen tests
+└── index.ts             # Component exports
 ```
 
 **Key Features:**
-- Domain-driven design
-- Feature-specific business logic
+- Feature-focused components
 - Integration with UI components
 - Internationalization support
-- Isolated testing environment
+- Business logic encapsulation
 
-### packages/eslint-config/
-Shared ESLint configuration for all packages and apps.
+### Hooks Directory
+
+Custom React hooks for shared logic:
 
 ```
-packages/eslint-config/
-├── index.js             # ESLint configuration export
-└── package.json         # Package configuration
+src/hooks/
+└── useAppTranslation.tsx # i18n hook wrapper
 ```
 
-**Configuration Features:**
-- TypeScript support with strict rules
-- React Native specific rules
-- i18n validation (no hardcoded strings)
-- Import organization
-- Prettier integration
-- Testing framework support
+**Key Features:**
+- Reusable stateful logic
+- Type-safe implementations
+- Easy testing with renderHook
 
-## File Organization Principles
+### Internationalization (i18n)
 
-### Component Organization
-Components are organized by their scope and reusability:
+Complete i18n setup with type safety:
 
-1. **UI Components** (`packages/ui/`) - Highly reusable, presentational components
-2. **Feature Components** (`packages/feature-*/`) - Domain-specific components with business logic
-3. **App Components** (`apps/mobile/src/components/app/`) - App-specific implementations
+```
+src/i18n/
+├── locales/
+│   ├── en-US.json       # English (US) translations
+│   └── en-CA.json       # English (Canada) translations
+└── i18n.ts              # i18n configuration
+```
 
-### Directory Naming Conventions
+**Key Features:**
+- JSON-based translation files
+- Namespace organization (Common, HomeScreen, etc.)
+- Pluralization support
+- Runtime language switching
+
+### Services Directory
+
+API clients and external service integrations:
+
+```
+src/services/
+└── apiClient.ts         # HTTP client configuration
+```
+
+**Key Features:**
+- Centralized API configuration
+- Error handling and retry logic
+- Authentication integration
+- Type-safe request/response handling
+
+### Types Directory
+
+TypeScript type definitions:
+
+```
+src/types/
+└── index.ts             # Shared type definitions
+```
+
+**Key Features:**
+- Shared interface definitions
+- API response types
+- Component prop types
+- Domain model definitions
+
+### Constants Directory
+
+Application constants and configuration:
+
+```
+src/constants/
+└── index.ts             # App constants
+```
+
+**Key Features:**
+- Color schemes and design tokens
+- Configuration values
+- Environment-specific constants
+- Type-safe constant definitions
+
+### Utils Directory
+
+Utility functions and testing helpers:
+
+```
+src/utils/
+└── testing/
+    ├── setupTests.ts    # Test environment setup
+    └── reactNativeTestingLibraryUtils.tsx # Testing utilities
+```
+
+**Key Features:**
+- Test configuration and mocks
+- Custom render functions
+- Shared testing utilities
+- Mock implementations
+
+## Assets Directory
+
+Static assets for the application:
+
+```
+assets/
+├── icon.png             # App icon (1024x1024)
+├── adaptive-icon.png    # Android adaptive icon
+├── splash-icon.png      # Splash screen icon
+└── favicon.png          # Web favicon
+```
+
+**Key Features:**
+- Multiple icon formats for different platforms
+- Optimized for various screen densities
+- Platform-specific assets
+- Web compatibility
+
+## Configuration Files
+
+### Package Configuration
+- `package.json`: Dependencies, scripts, and project metadata
+- `tsconfig.json`: TypeScript compiler configuration
+- `metro.config.js`: Metro bundler configuration for React Native
+
+### Code Quality
+- `eslint.config.js`: ESLint rules and configuration
+- `.prettierrc.json`: Code formatting rules
+- `.lintstagedrc.json`: Pre-commit hook configuration
+
+### Development Tools
+- `vitest.config.ts`: Test runner configuration
+- `bundlesize.config.json`: Bundle size monitoring
+- `.nvmrc`: Node.js version specification
+
+### Expo Configuration
+- `app.json`: Expo project configuration
+- Platform-specific settings
+- Build and deployment configuration
+
+## File Naming Conventions
+
+### Components
 - **PascalCase**: Component files (`HomeScreen.tsx`, `Button.tsx`)
-- **camelCase**: Utility files (`apiClient.ts`, `useAppTranslation.tsx`)
-- **kebab-case**: Package directories (`feature-home`, `eslint-config`)
-- **lowercase**: Configuration files (`package.json`, `tsconfig.json`)
+- **Co-located tests**: `ComponentName.test.tsx`
+- **Index exports**: `index.ts` for clean imports
 
-### Import Path Organization
+### Utilities and Services
+- **camelCase**: Utility files (`apiClient.ts`, `useAppTranslation.tsx`)
+- **Descriptive names**: Clear purpose from filename
+- **Type definitions**: `.d.ts` for type-only files
+
+### Configuration
+- **lowercase**: Configuration files (`package.json`, `tsconfig.json`)
+- **Dotfiles**: Hidden configuration (`.prettierrc.json`, `.eslintrc.js`)
+
+## Import Path Organization
+
 TypeScript path mapping provides clean imports:
 
 ```typescript
-// Good: Absolute imports
-import { Button } from '@acme/ui';
-import { HomeScreen } from '@acme/feature-home';
+// Good: Absolute imports with path mapping
+import { Button } from '@/components/ui/Button';
+import { HomeScreen } from '@/components/app/HomeScreen';
 import { apiClient } from '@/services/apiClient';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 // Avoid: Relative imports for distant files
-import { HomeScreen } from '../../../packages/feature-home/src/HomeScreen';
+import { Button } from '../../components/ui/Button';
+import { apiClient } from '../../../services/apiClient';
 ```
 
 ## Testing Organization
 
 ### Test File Naming
-- **Unit tests**: `ComponentName.test.tsx`
-- **Integration tests**: `feature.integration.test.tsx`
-- **Test utilities**: `setupTests.ts`, `reactNativeTestingLibraryUtils.tsx`
+- **Co-located tests**: Next to source files (`Button.test.tsx`)
+- **Descriptive names**: Clear test purpose
+- **Consistent extensions**: `.test.tsx` for React components
 
-### Test Location Strategy
-- **Co-located**: Tests next to their source files
-- **Utilities**: Centralized in `src/utils/testing/`
-- **Configuration**: Package root level (`test-setup.ts`, `vitest.config.ts`)
-
-## Configuration Files
-
-### Package.json Structure
-Each package follows consistent script naming:
-- `build`: Build the package/app
-- `dev`: Start development server
-- `lint`: Run ESLint
-- `lint:fix`: Fix ESLint issues
-- `test`: Run tests
-- `test:watch`: Run tests in watch mode
-- `test:coverage`: Run tests with coverage
-
-### TypeScript Configuration
-- **Strict mode**: Enabled across all packages
-- **Path mapping**: Configured for clean imports
-- **Expo compatibility**: Using Expo's base configuration
-- **Monorepo support**: References between packages
-
-### Build Tool Configuration
-- **Turborepo**: Orchestrates builds across the monorepo
-- **Metro**: Configures React Native bundling
-- **Vitest**: Fast testing with ESM support
-- **ESLint**: Comprehensive code quality rules
-
-## Asset Organization
-
-### Static Assets
-```
-apps/mobile/assets/
-├── icon.png            # App icon (1024x1024)
-├── adaptive-icon.png   # Android adaptive icon
-├── splash-icon.png     # Splash screen icon
-└── favicon.png         # Web favicon
-```
-
-### Asset Best Practices
-- Use PNG for icons with transparency
-- Provide multiple resolutions for different screen densities
-- Optimize images for mobile performance
-- Follow platform-specific design guidelines
+### Test Utilities
+- **Centralized setup**: `src/utils/testing/setupTests.ts`
+- **Custom render functions**: Testing library wrappers
+- **Mock configurations**: Shared mocks for consistency
 
 ## Development Workflow Files
 
@@ -212,12 +287,12 @@ apps/mobile/assets/
 
 ### Environment Management
 - `.env.example`: Template for environment variables
-- `.nvmrc`: Specifies required Node.js version
-- Package.json engines: Enforces Node.js version requirements
+- Environment variable validation with Zod
+- Platform-specific configuration support
 
 This file structure promotes:
-- **Scalability**: Clear separation of concerns
-- **Maintainability**: Consistent organization patterns
-- **Developer Experience**: Intuitive navigation and tooling
-- **Code Quality**: Automated checks and standards
+- **Simplicity**: Clear, flat structure that's easy to navigate
+- **Scalability**: Organized by feature and responsibility
+- **Maintainability**: Consistent patterns and naming conventions
+- **Developer Experience**: Modern tooling and automated quality checks
 - **Cross-Platform**: Optimized for iOS, Android, and Web

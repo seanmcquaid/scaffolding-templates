@@ -1,6 +1,6 @@
 # Expo React Native Template
 
-A modern, production-ready template for building cross-platform mobile applications with Expo, featuring a monorepo architecture, TypeScript, comprehensive testing, and excellent developer experience.
+A modern, production-ready template for building cross-platform mobile applications with Expo, featuring TypeScript, comprehensive testing, and excellent developer experience.
 
 ## ✨ Features
 
@@ -11,18 +11,10 @@ A modern, production-ready template for building cross-platform mobile applicati
 - **Expo Router** - File-based routing with type safety
 
 ### Development Experience
-- **pnpm Workspaces** - Fast, efficient monorepo management
-- **Turborepo** - Build system with intelligent caching
 - **ESLint + Prettier** - Code quality and formatting
 - **Husky + lint-staged** - Pre-commit quality checks
 - **Vitest** - Fast unit testing with React Native Testing Library
-
-### Architecture
-- **Monorepo Structure** - Apps and shared packages
-- **Shared UI Components** - Reusable design system
-- **Feature-Based Architecture** - Domain-driven development
-- **Type-Safe i18n** - Internationalization with validation
-- **Environment Configuration** - Zod-validated environment variables
+- **Type-Safe i18n** - Internationalization with translation validation
 
 ### Mobile Features
 - **Cross-Platform** - iOS, Android, and Web support
@@ -49,9 +41,6 @@ cp .env.example .env
 pnpm install
 
 # Start development server
-pnpm dev:app
-
-# Or start all projects
 pnpm dev
 ```
 
@@ -65,44 +54,34 @@ chmod +x setup.sh
 ## 📂 Project Structure
 
 ```
-├── apps/
-│   └── mobile/                # Expo React Native app
-│       ├── app/              # Expo Router pages
-│       ├── src/              # Application source code
-│       │   ├── components/   # App-specific components
-│       │   ├── hooks/        # Custom React hooks
-│       │   ├── i18n/         # Internationalization
-│       │   ├── services/     # API clients
-│       │   ├── types/        # TypeScript definitions
-│       │   └── utils/        # Utility functions
-│       └── assets/           # Static assets
-├── packages/
-│   ├── ui/                   # Shared UI components
-│   ├── feature-home/         # Home feature package
-│   └── eslint-config/        # Shared ESLint configuration
-├── docs/                     # Project documentation
-└── turbo.json               # Turborepo configuration
+├── app/                    # Expo Router pages (file-based routing)
+├── src/                    # Application source code
+│   ├── components/         # Reusable components
+│   │   ├── app/           # Feature-specific components
+│   │   └── ui/            # UI/design system components
+│   ├── hooks/             # Custom React hooks
+│   ├── i18n/              # Internationalization setup
+│   ├── services/          # API clients and business logic
+│   ├── types/             # TypeScript type definitions
+│   ├── utils/             # Utility functions
+│   └── constants/         # App constants
+├── assets/                # Static assets
+├── docs/                  # Project documentation
+└── app.json              # Expo configuration
 ```
 
 ## 🛠️ Available Scripts
 
-### Root Level Scripts
-- `pnpm dev` - Start all development servers
-- `pnpm dev:app` - Start only the mobile app
-- `pnpm build` - Build all packages and apps
-- `pnpm build:app` - Build only the mobile app
-- `pnpm test` - Run all tests
-- `pnpm lint` - Lint all packages
-- `pnpm lint:fix` - Fix linting issues
-
-### Mobile App Scripts
 - `pnpm dev` - Start Expo development server
 - `pnpm ios` - Run on iOS simulator
 - `pnpm android` - Run on Android emulator
 - `pnpm web` - Run on web browser
 - `pnpm build` - Export production build
 - `pnpm test` - Run unit tests
+- `pnpm test:watch` - Run tests in watch mode
+- `pnpm test:coverage` - Run tests with coverage
 - `pnpm lint` - Lint source code
+- `pnpm lint:fix` - Fix linting issues
 
 ## 🌍 Internationalization
 
@@ -132,7 +111,7 @@ const MyComponent = () => {
 
 ## 🧪 Testing Strategy
 
-The template implements a comprehensive testing approach:
+The template implements comprehensive testing:
 
 ### Unit Tests
 - Component testing with React Native Testing Library
@@ -180,19 +159,16 @@ The template follows a hierarchical state management approach:
 ## 🎨 UI Components
 
 ### Design System
-The `@acme/ui` package provides reusable components:
+The template provides reusable components in `src/components/ui/`:
 
 - **Button** - Variants: primary, secondary, outline
-- **Text** - Typography variants: h1, h2, h3, body, caption  
-- **View** - Layout component with spacing utilities
 
 ### Usage Example
 ```tsx
-import { Button, Text, View } from '@acme/ui';
+import { Button } from '@/components/ui/Button';
 
 const MyScreen = () => (
-  <View padding="large">
-    <Text variant="h1">Welcome</Text>
+  <View>
     <Button 
       title="Get Started"
       variant="primary"
@@ -205,19 +181,19 @@ const MyScreen = () => (
 ## 🔧 Development Workflow
 
 ### Adding New Screens
-1. Create screen file in `apps/mobile/app/`
+1. Create screen file in `app/`
 2. Use Expo Router file-based routing conventions
 3. Add navigation and translations as needed
 
-### Creating Shared Components
-1. **UI Components** - Add to `packages/ui/src/`
-2. **Feature Components** - Add to `packages/feature-*/src/`
+### Creating Components
+1. **UI Components** - Add to `src/components/ui/`
+2. **Feature Components** - Add to `src/components/app/`
 3. Write tests alongside components
-4. Export from package index
+4. Use `useAppTranslation` for all user-facing text
 
 ### API Integration
-1. Define types in appropriate `types/` directory
-2. Create API clients in `services/`
+1. Define types in `src/types/`
+2. Create API clients in `src/services/`
 3. Use environment variables for configuration
 4. Add error handling and logging
 
@@ -226,7 +202,7 @@ const MyScreen = () => (
 ### Build Process
 ```bash
 # Build for production
-pnpm build:app
+pnpm build
 
 # Check bundle sizes
 pnpm bundlesize
@@ -265,7 +241,6 @@ export const clientEnv = clientEnvSchema.parse({
 - [React Native Documentation](https://reactnative.dev/)
 - [Expo Router Guide](https://docs.expo.dev/router/introduction/)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Turborepo Documentation](https://turbo.build/repo/docs)
 
 ## 🆘 Troubleshooting
 

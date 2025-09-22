@@ -225,7 +225,7 @@ show_next_steps() {
     echo
     echo "📱 Next steps:"
     echo "  1. Start the development server:"
-    echo "     pnpm dev:app"
+    echo "     pnpm dev"
     echo
     echo "  2. Open your app on different platforms:"
     echo "     • Press 'i' for iOS Simulator"
@@ -237,9 +237,9 @@ show_next_steps() {
     echo "     • Android: Install Android Studio"
     echo
     echo "📚 Useful commands:"
-    echo "  pnpm dev          - Start all development servers"
-    echo "  pnpm build        - Build all packages"
-    echo "  pnpm test         - Run all tests"
+    echo "  pnpm dev          - Start development server"
+    echo "  pnpm build        - Build for production"
+    echo "  pnpm test         - Run tests"
     echo "  pnpm lint         - Check code quality"
     echo
     echo "📖 Documentation:"

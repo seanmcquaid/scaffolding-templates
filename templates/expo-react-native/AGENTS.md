@@ -2,15 +2,16 @@
 
 ## Project Overview
 
-This is a modern Expo React Native template with monorepo architecture using pnpm workspaces and Turborepo. The template follows established patterns from the scaffolding-templates repository while being specifically optimized for cross-platform mobile development.
+This is a modern Expo React Native template designed as a monolith application for cross-platform mobile development. The template follows established patterns from the scaffolding-templates repository while being specifically optimized for React Native development with TypeScript, testing, and modern tooling.
 
 ## Architecture Patterns
 
-### Monorepo Structure
-- **apps/mobile** - Main Expo React Native application
-- **packages/ui** - Shared UI components library
-- **packages/feature-home** - Home feature domain logic
-- **packages/eslint-config** - Shared linting configuration
+### Monolith Structure
+The template uses a simple, clean monolith architecture:
+- **app/** - Expo Router pages (file-based routing)
+- **src/** - Application source code organized by feature
+- **assets/** - Static assets (images, icons, fonts)
+- Root-level configuration files
 
 ### Navigation Architecture
 Uses Expo Router (file-based routing) with:
@@ -20,18 +21,18 @@ Uses Expo Router (file-based routing) with:
 - Web compatibility
 
 ### Component Architecture
-- **UI Components** (`packages/ui`) - Reusable, presentational components
-- **Feature Components** (`packages/feature-*`) - Domain-specific logic and screens
-- **App Components** (`apps/mobile/src/components/app`) - App-specific implementations
+- **UI Components** (`src/components/ui/`) - Reusable, presentational components
+- **App Components** (`src/components/app/`) - Feature-specific components with business logic
+- Flat, easy-to-navigate structure without complex nesting
 
 ## Development Patterns
 
 ### File Organization Best Practices
 ```
-apps/mobile/src/
+src/
 ├── components/
-│   ├── app/          # App-specific components
-│   └── ui/           # Local UI components (rare, prefer packages/ui)
+│   ├── app/          # Feature-specific components
+│   └── ui/           # Reusable UI components
 ├── hooks/            # Custom React hooks
 ├── i18n/             # Internationalization setup
 ├── services/         # API clients and external services
@@ -42,7 +43,7 @@ apps/mobile/src/
 
 ### Component Development Standards
 
-#### UI Components (`packages/ui`)
+#### UI Components (`src/components/ui/`)
 ```typescript
 // Good: Prop-based styling with sensible defaults
 interface ButtonProps extends TouchableOpacityProps {
@@ -61,18 +62,18 @@ export const Button: React.FC<ButtonProps> = ({
 };
 ```
 
-#### Feature Components (`packages/feature-*`)
+#### App Components (`src/components/app/`)
 ```typescript
-// Good: Domain-focused components with translations
+// Good: Feature-focused components with translations
 import { useTranslation } from 'react-i18next';
-import { Button, Text, View } from '@acme/ui';
+import { Button } from '@/components/ui/Button';
 
 export const HomeScreen: React.FC = () => {
   const { t } = useTranslation();
   
   return (
-    <View padding="large">
-      <Text variant="h1">{t('HomeScreen.title')}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{t('HomeScreen.title')}</Text>
       <Button title={t('HomeScreen.getStarted')} onPress={handlePress} />
     </View>
   );
@@ -94,7 +95,7 @@ export const HomeScreen: React.FC = () => {
 ```typescript
 // Good: Test behavior, not implementation
 import { render, screen, fireEvent } from '../utils/testing/reactNativeTestingLibraryUtils';
-import { HomeScreen } from '@acme/feature-home';
+import { HomeScreen } from '@/components/app/HomeScreen';
 
 describe('HomeScreen', () => {
   it('displays welcome message', () => {
@@ -290,7 +291,7 @@ export const apiClient = ky.create({
   timeout: 10000,
   hooks: {
     beforeRequest: [
-      (request) => {
+      request => {
         // Add authentication headers
         const token = getAuthToken();
         if (token) {
@@ -360,25 +361,25 @@ All code is automatically:
 
 ## Development Workflow
 
-### Package Development
-When working on shared packages:
-1. Make changes in the package directory
-2. Test changes in the consuming app
-3. Update package version if needed
-4. Document any breaking changes
-
-### Monorepo Commands
+### Simple Structure Commands
 ```bash
-# Work on specific apps/packages
-pnpm dev:app              # Start only mobile app
-pnpm build:app            # Build only mobile app
-pnpm test packages/ui     # Test specific package
+# Start development
+pnpm dev
 
-# Global operations
-pnpm dev                  # Start all development servers
-pnpm build                # Build all apps and packages
-pnpm lint                 # Lint all code
-pnpm test                 # Run all tests
+# Run tests
+pnpm test
+
+# Build for production
+pnpm build
+
+# Lint code
+pnpm lint
 ```
 
-This template provides a solid foundation for scalable React Native development with modern tooling and best practices.
+### File Organization
+- Keep components small and focused
+- Use absolute imports with TypeScript path mapping
+- Co-locate tests with their components
+- Maintain consistent naming conventions
+
+This template provides a solid foundation for React Native development with modern tooling and best practices while maintaining a simple, understandable monolith architecture.
