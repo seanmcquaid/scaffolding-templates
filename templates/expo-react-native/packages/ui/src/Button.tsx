@@ -42,11 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
   ];
 
   return (
-    <TouchableOpacity
-      style={buttonStyles}
-      disabled={disabled}
-      {...props}
-    >
+    <TouchableOpacity style={buttonStyles} disabled={disabled} {...props}>
       <Text style={titleStyles}>{title}</Text>
     </TouchableOpacity>
   );

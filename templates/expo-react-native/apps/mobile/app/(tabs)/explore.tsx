@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
+import useAppTranslation from '../../src/hooks/useAppTranslation';
 
 export default function ExploreScreen() {
+  const { t } = useAppTranslation();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Explore</Text>
-      <Text style={styles.description}>
-        This is a placeholder for your explore screen content.
-      </Text>
+      <Text style={styles.title}>{t('ExploreScreen.title')}</Text>
+      <Text style={styles.description}>{t('ExploreScreen.description')}</Text>
     </View>
   );
 }

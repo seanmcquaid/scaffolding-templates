@@ -20,7 +20,7 @@ module.exports = [
       '.expo/**',
       '*.d.ts',
       '**/*.config.{js,ts}',
-      '**/coverage/**'
+      '**/coverage/**',
     ],
   },
   js.configs.recommended,
@@ -57,12 +57,12 @@ module.exports = [
       ...reactHooks.configs.recommended.rules,
       ...jsxA11y.configs.recommended.rules,
       ...i18next.configs.recommended.rules,
-      
+
       // General rules
       'no-console': 'warn',
       'no-debugger': 'error',
       'no-unused-vars': 'off', // Handled by TypeScript
-      
+
       // TypeScript rules
       '@typescript-eslint/no-unused-vars': [
         'error',
@@ -70,14 +70,13 @@ module.exports = [
       ],
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/prefer-const': 'error',
-      
+
       // React rules
       'react/react-in-jsx-scope': 'off', // Not needed with React 17+
       'react/prop-types': 'off', // Using TypeScript
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      
+
       // i18n rules
       'i18next/no-literal-string': [
         'error',
@@ -87,26 +86,19 @@ module.exports = [
           ignoreCallee: ['console.log', 'console.warn', 'console.error'],
         },
       ],
-      
+
       // Import rules
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           'newlines-between': 'never',
           alphabetize: {
             order: 'asc',
           },
         },
       ],
-      
+
       // Prettier rules
       'prettier/prettier': 'error',
     },

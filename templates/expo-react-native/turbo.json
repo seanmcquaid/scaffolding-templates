@@ -1,39 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "dangerouslyDisablePackageManagerCheck": true,
+  "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
       "outputs": [
         "dist/**",
         "build/**",
         "node_modules/.cache/metro/**"
       ]
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
-    "test": {
-      "dependsOn": ["^build"]
-    },
-    "test:coverage": {
-      "dependsOn": ["^build"],
-      "outputs": ["coverage/**"]
-    },
-    "test:watch": {
-      "cache": false,
-      "persistent": true
-    },
-    "bundlesize": {
-      "dependsOn": ["build"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    }
+    "lint": {},
+    "test": {}
   }
 }

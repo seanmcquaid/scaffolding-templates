@@ -7,7 +7,7 @@ vi.mock('react-native', async () => {
   return {
     ...RN,
     StyleSheet: {
-      create: (styles: any) => styles,
+      create: (styles: Record<string, unknown>) => styles,
     },
   };
 });

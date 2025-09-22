@@ -18,7 +18,8 @@ vi.mock('react-i18next', () => ({
 vi.mock('expo-router', () => ({
   Stack: ({ children }: { children: React.ReactNode }) => children,
   Tabs: ({ children }: { children: React.ReactNode }) => children,
-  Link: ({ children, ...props }: { children: React.ReactNode } & any) => children,
+  Link: ({ children, ..._props }: { children: React.ReactNode } & Record<string, unknown>) =>
+    children,
   useRouter: () => ({
     push: vi.fn(),
     back: vi.fn(),

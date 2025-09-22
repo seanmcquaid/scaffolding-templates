@@ -1,19 +1,19 @@
-import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { Button, Text, View } from '@acme/ui';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ScrollView, StyleSheet } from 'react-native';
 
 export const HomeScreen: React.FC = () => {
   const { t } = useTranslation();
 
   const handleGetStarted = () => {
     // Handle get started action
-    console.log('Get started pressed');
+    // TODO: Implement navigation
   };
 
   const handleLearnMore = () => {
     // Handle learn more action
-    console.log('Learn more pressed');
+    // TODO: Implement navigation
   };
 
   return (

@@ -9,7 +9,7 @@ export const apiClient = ky.create({
   },
   hooks: {
     beforeRequest: [
-      (request) => {
+      request => {
         // Add authentication headers if available
         const token = ''; // Get from async storage or context
         if (token) {

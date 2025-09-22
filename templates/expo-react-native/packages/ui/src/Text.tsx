@@ -19,12 +19,7 @@ export const Text: React.FC<TextProps> = ({
   children,
   ...props
 }) => {
-  const textStyles = [
-    styles.base,
-    styles[variant],
-    styles[color],
-    style,
-  ];
+  const textStyles = [styles.base, styles[variant], styles[color], style];
 
   return (
     <RNText style={textStyles} {...props}>
