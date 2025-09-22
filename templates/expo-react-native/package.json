@@ -1,0 +1,36 @@
+{
+  "name": "expo-react-native",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo build",
+    "build:app": "turbo build --filter=\"...{./apps/mobile}\"",
+    "bundlesize": "bundlesize",
+    "dev": "turbo dev",
+    "dev:app": "turbo dev --filter=\"{./apps/mobile}...\"",
+    "lint": "turbo lint --continue",
+    "lint:fix": "turbo lint:fix --continue",
+    "prepare": "is-ci || husky",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "test:watch": "turbo test:watch"
+  },
+  "devDependencies": {
+    "@expo/metro": "^0.1.1",
+    "eslint": "^9.34.0",
+    "husky": "^9.1.7",
+    "is-ci": "^4.1.0",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.6",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@10.12.4",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
