@@ -1,6 +1,6 @@
 import { Link, Stack } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
-import useAppTranslation from '../src/hooks/useAppTranslation';
+import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function NotFoundScreen() {
   const { t } = useAppTranslation();

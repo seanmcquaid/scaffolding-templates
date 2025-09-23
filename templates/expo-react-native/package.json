@@ -4,19 +4,19 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "android": "expo run:android",
-    "build": "expo export --output-dir ./build --platform all",
+    "android": "EXPO_ROUTER_APP_ROOT=src/app expo run:android",
+    "build": "EXPO_ROUTER_APP_ROOT=src/app expo export --output-dir ./build --platform all",
     "bundlesize": "bundlesize",
-    "dev": "expo start",
-    "ios": "expo run:ios",
+    "dev": "EXPO_ROUTER_APP_ROOT=src/app expo start",
+    "ios": "EXPO_ROUTER_APP_ROOT=src/app expo run:ios",
     "lint": "eslint --max-warnings=0 .",
     "lint:fix": "eslint . --fix",
     "prepare": "is-ci || husky",
-    "start": "expo start",
+    "start": "EXPO_ROUTER_APP_ROOT=src/app expo start",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "web": "expo start --web"
+    "web": "EXPO_ROUTER_APP_ROOT=src/app expo start --web"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.2",

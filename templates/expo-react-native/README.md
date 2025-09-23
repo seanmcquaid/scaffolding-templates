@@ -44,6 +44,8 @@ pnpm install
 pnpm dev
 ```
 
+**Note**: This template uses a custom app directory location (`src/app`) configured via the `EXPO_ROUTER_APP_ROOT` environment variable. All development scripts include this configuration automatically.
+
 ### Using Setup Script (Recommended)
 
 ```bash
@@ -54,8 +56,8 @@ chmod +x setup.sh
 ## 📂 Project Structure
 
 ```
-├── app/                    # Expo Router pages (file-based routing)
 ├── src/                    # Application source code
+│   ├── app/               # Expo Router pages (file-based routing)
 │   ├── components/         # Reusable components
 │   │   ├── app/           # Feature-specific components
 │   │   └── ui/            # UI/design system components

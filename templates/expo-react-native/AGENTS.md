@@ -8,10 +8,12 @@ This is a modern Expo React Native template designed as a monolith application f
 
 ### Monolith Structure
 The template uses a simple, clean monolith architecture:
-- **app/** - Expo Router pages (file-based routing)
+- **src/app/** - Expo Router pages (file-based routing)
 - **src/** - Application source code organized by feature
 - **assets/** - Static assets (images, icons, fonts)
 - Root-level configuration files
+
+**Note**: The app directory is located inside `src/app` using the `EXPO_ROUTER_APP_ROOT` environment variable configuration.
 
 ### Navigation Architecture
 Uses Expo Router (file-based routing) with:

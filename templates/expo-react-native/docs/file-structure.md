@@ -6,11 +6,18 @@ This document explains the file organization and architecture decisions for the 
 
 ```
 expo-react-native/
-├── app/                    # Expo Router pages (file-based routing)
 ├── src/                    # Application source code
-├── assets/                 # Static assets
-├── docs/                   # Documentation
-├── .env.example           # Environment variables template
+│   ├── app/               # Expo Router pages (file-based routing)
+│   ├── components/        # React components
+│   ├── hooks/             # Custom React hooks
+│   ├── i18n/              # Internationalization
+│   ├── services/          # API clients and external services
+│   ├── types/             # TypeScript type definitions
+│   ├── utils/             # Utility functions
+│   └── constants/         # App constants
+├── assets/                # Static assets
+├── docs/                  # Documentation
+├── .env.example          # Environment variables template
 ├── .gitignore            # Git ignore patterns
 ├── .husky/               # Git hooks
 ├── .lintstagedrc.json    # Lint-staged configuration
@@ -28,10 +35,10 @@ expo-react-native/
 
 ## App Directory (Expo Router)
 
-The `app/` directory uses Expo Router's file-based routing system:
+The `src/app/` directory uses Expo Router's file-based routing system:
 
 ```
-app/
+src/app/
 ├── (tabs)/               # Tab navigation group
 │   ├── _layout.tsx      # Tab layout configuration
 │   ├── index.tsx        # Home tab (/)
@@ -39,6 +46,8 @@ app/
 ├── _layout.tsx          # Root layout
 └── +not-found.tsx       # 404 page
 ```
+
+**Configuration**: The custom app directory location is configured using the `EXPO_ROUTER_APP_ROOT=src/app` environment variable, which is automatically included in all package.json scripts.
 
 **Key Features:**
 - File-based routing with automatic navigation
