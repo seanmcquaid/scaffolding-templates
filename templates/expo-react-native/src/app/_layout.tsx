@@ -1,6 +1,7 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
+import '@/i18n/i18n';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
