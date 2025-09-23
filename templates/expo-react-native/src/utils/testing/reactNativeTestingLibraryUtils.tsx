@@ -1,8 +1,5 @@
 import type { RenderResult } from '@testing-library/react-native';
-import {
-  render as rtlRender,
-  renderHook as rtlRenderHook,
-} from '@testing-library/react-native';
+import { render as rtlRender, renderHook as rtlRenderHook } from '@testing-library/react-native';
 import type { PropsWithChildren, ReactElement } from 'react';
 
 const Wrapper = ({ children }: PropsWithChildren) => <>{children}</>;

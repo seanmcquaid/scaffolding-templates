@@ -13,7 +13,7 @@ export const apiClient = ky.create({
         // Add authentication headers if available
         const token = ''; // Get from async storage or context
         if (token) {
-          request.headers.set('Authorization', `******;
+          request.headers.set('Authorization', `Bearer ${token}`);
         }
       },
     ],
