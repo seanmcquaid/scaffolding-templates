@@ -30,7 +30,7 @@ expo-react-native/
 ├── package.json          # Dependencies and scripts
 ├── setup.sh              # Setup script
 ├── tsconfig.json         # TypeScript configuration
-└── vitest.config.ts      # Testing configuration
+└── jest.config.js         # Testing configuration
 ```
 
 ## App Directory (Expo Router)
@@ -234,7 +234,7 @@ assets/
 - `.lintstagedrc.json`: Pre-commit hook configuration
 
 ### Development Tools
-- `vitest.config.ts`: Test runner configuration
+- `jest.config.js`: Test runner configuration
 - `bundlesize.config.json`: Bundle size monitoring
 - `.nvmrc`: Node.js version specification
 

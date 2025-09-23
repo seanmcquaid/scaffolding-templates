@@ -353,7 +353,7 @@ The template includes comprehensive ESLint rules for:
 All code is automatically:
 - Linted and formatted with ESLint/Prettier
 - Type-checked with TypeScript
-- Tested with Vitest (on relevant changes)
+- Tested with Jest (on relevant changes)
 
 ### Testing Standards
 - Unit tests for all components and hooks

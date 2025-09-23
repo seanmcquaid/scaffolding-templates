@@ -13,7 +13,7 @@ A modern, production-ready template for building cross-platform mobile applicati
 ### Development Experience
 - **ESLint + Prettier** - Code quality and formatting
 - **Husky + lint-staged** - Pre-commit quality checks
-- **Vitest** - Fast unit testing with React Native Testing Library
+- **Jest** - Fast unit testing with React Native Testing Library
 - **Type-Safe i18n** - Internationalization with translation validation
 
 ### Mobile Features
@@ -113,7 +113,7 @@ const MyComponent = () => {
 
 ## 🧪 Testing Strategy
 
-The template implements comprehensive testing:
+The template implements comprehensive testing with **Jest** and React Native Testing Library:
 
 ### Unit Tests
 - Component testing with React Native Testing Library

@@ -1,5 +1,3 @@
-import { describe, it, expect } from 'vitest';
-
 // Simple unit test to verify constants and utilities
 describe('Constants and Utilities', () => {
   it('can import basic constants', async () => {

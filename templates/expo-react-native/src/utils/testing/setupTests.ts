@@ -1,8 +1,7 @@
 import '@testing-library/jest-dom';
-import { vi } from 'vitest';
 
 // Mock react-i18next
-vi.mock('react-i18next', () => ({
+jest.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       i18n: {
@@ -14,30 +13,30 @@ vi.mock('react-i18next', () => ({
 }));
 
 // Mock expo-router
-vi.mock('expo-router', () => ({
+jest.mock('expo-router', () => ({
   Stack: ({ children }: { children: React.ReactNode }) => children,
   Tabs: ({ children }: { children: React.ReactNode }) => children,
   Link: ({ children, ..._props }: { children: React.ReactNode } & Record<string, unknown>) =>
     children,
   useRouter: () => ({
-    push: vi.fn(),
-    back: vi.fn(),
-    replace: vi.fn(),
+    push: jest.fn(),
+    back: jest.fn(),
+    replace: jest.fn(),
   }),
   useLocalSearchParams: () => ({}),
 }));
 
 // Mock expo modules
-vi.mock('expo-status-bar', () => ({
+jest.mock('expo-status-bar', () => ({
   StatusBar: () => null,
 }));
 
-vi.mock('@expo/vector-icons', () => ({
+jest.mock('@expo/vector-icons', () => ({
   Ionicons: () => null,
 }));
 
 // Mock react-native-gesture-handler
-vi.mock('react-native-gesture-handler', () => ({
+jest.mock('react-native-gesture-handler', () => ({
   GestureHandlerRootView: ({ children }: { children: React.ReactNode }) => children,
   PanGestureHandler: ({ children }: { children: React.ReactNode }) => children,
   TapGestureHandler: ({ children }: { children: React.ReactNode }) => children,
@@ -64,8 +63,8 @@ vi.mock('react-native-gesture-handler', () => ({
 }));
 
 // Mock react-native components
-vi.mock('react-native', async () => {
-  const RN = await vi.importActual('react-native');
+jest.mock('react-native', () => {
+  const RN = jest.requireActual('react-native');
   return {
     ...RN,
     useColorScheme: () => 'light',
