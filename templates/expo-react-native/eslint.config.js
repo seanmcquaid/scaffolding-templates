@@ -8,7 +8,6 @@ const prettierPlugin = require('eslint-plugin-prettier');
 const react = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
 const i18next = require('eslint-plugin-i18next');
-const vitest = require('@vitest/eslint-plugin');
 const globals = require('globals');
 
 module.exports = [
@@ -50,7 +49,6 @@ module.exports = [
       i18next: fixupPluginRules(i18next),
       prettier: prettierPlugin,
       '@typescript-eslint': fixupPluginRules(typescriptEslint.plugin),
-      vitest: fixupPluginRules(vitest),
     },
     rules: {
       ...react.configs.recommended.rules,
@@ -122,11 +120,12 @@ module.exports = [
   },
   {
     files: ['**/*.test.{js,jsx,ts,tsx}'],
-    plugins: {
-      vitest: fixupPluginRules(vitest),
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
     },
     rules: {
-      ...vitest.configs.recommended.rules,
       'i18next/no-literal-string': 'off',
     },
   },

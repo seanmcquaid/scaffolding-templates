@@ -6,9 +6,7 @@
     "scheme": "acme-expo-app",
     "main": "expo-router/entry",
     "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro"
     },
     "platforms": ["ios", "android", "web"],
     "orientation": "portrait",
