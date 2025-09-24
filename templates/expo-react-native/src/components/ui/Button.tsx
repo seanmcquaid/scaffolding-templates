@@ -10,7 +10,7 @@ import {
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'destructive';
   size?: 'small' | 'medium' | 'large';
   style?: ViewStyle;
   textStyle?: TextStyle;
@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#007AFF',
   },
+  destructive: {
+    backgroundColor: '#FF3B30',
+  },
   small: {
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -94,6 +97,9 @@ const styles = StyleSheet.create({
   },
   outlineText: {
     color: '#007AFF',
+  },
+  destructiveText: {
+    color: '#FFFFFF',
   },
   smallText: {
     fontSize: 14,
