@@ -1,10 +1,10 @@
-import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/ui/Button';
+import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import PageWrapper from '@/components/app/PageWrapper';
+import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
-import { getPostsQuery, postsQueryKeys } from '@/services/queries/posts';
 import postsService from '@/services/postsService';
+import { getPostsQuery, postsQueryKeys } from '@/services/queries/posts';
 
 export default function ReactQueryScreen() {
   const { t } = useAppTranslation();
@@ -25,48 +25,44 @@ export default function ReactQueryScreen() {
   });
 
   const handleDeletePost = (id: number) => {
-    Alert.alert(
-      t('ReactQueryPage.confirmDelete'),
-      t('ReactQueryPage.confirmDeleteMessage'),
-      [
-        {
-          text: t('Common.cancel'),
-          style: 'cancel',
-        },
-        {
-          text: t('ReactQueryPage.delete'),
-          style: 'destructive',
-          onPress: () => deletePost(id.toString()),
-        },
-      ]
-    );
+    Alert.alert(t('ReactQueryPage.confirmDelete'), t('ReactQueryPage.confirmDeleteMessage'), [
+      {
+        text: t('Common.cancel'),
+        style: 'cancel',
+      },
+      {
+        text: t('ReactQueryPage.delete'),
+        style: 'destructive',
+        onPress: () => deletePost(id.toString()),
+      },
+    ]);
   };
 
   return (
     <PageWrapper isLoading={isLoading} isError={isError}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{t('ReactQueryPage.title')}</Text>
-        
-        <Text style={styles.description}>
-          {t('ReactQueryPage.description')}
-        </Text>
+
+        <Text style={styles.description}>{t('ReactQueryPage.description')}</Text>
 
         <View style={styles.postsContainer}>
           {posts?.slice(0, 20).map(post => (
             <View key={post.id} style={styles.postCard}>
               <View style={styles.postHeader}>
                 <Text style={styles.postId}>#{post.id}</Text>
-                <Text style={styles.postUserId}>{t('ReactQueryPage.userId')}: {post.userId}</Text>
+                <Text style={styles.postUserId}>
+                  {t('ReactQueryPage.userId')}: {post.userId}
+                </Text>
               </View>
-              
+
               <Text style={styles.postTitle} numberOfLines={2}>
                 {post.title}
               </Text>
-              
+
               <Text style={styles.postBody} numberOfLines={3}>
                 {post.body}
               </Text>
-              
+
               <View style={styles.postActions}>
                 <Button
                   title={t('ReactQueryPage.view')}
@@ -74,11 +70,7 @@ export default function ReactQueryScreen() {
                   size="small"
                   style={styles.actionButton}
                   onPress={() => {
-                    Alert.alert(
-                      post.title,
-                      post.body,
-                      [{ text: t('Common.ok') }]
-                    );
+                    Alert.alert(post.title, post.body, [{ text: t('Common.ok') }]);
                   }}
                 />
                 <Button

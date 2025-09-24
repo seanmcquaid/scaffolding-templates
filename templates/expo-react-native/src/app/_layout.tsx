@@ -1,7 +1,7 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'react-native';
-import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from '@/services/queries/queryClient';
 import '@/i18n/i18n';
 

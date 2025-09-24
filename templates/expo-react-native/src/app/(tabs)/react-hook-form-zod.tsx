@@ -1,10 +1,10 @@
-import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, Controller } from 'react-hook-form';
+import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import { z } from 'zod';
+import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import PageWrapper from '@/components/app/PageWrapper';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 const formDataSchema = z
@@ -12,21 +12,30 @@ const formDataSchema = z
     username: z.string().email({
       message: 'Please enter a valid email',
     }),
-    password: z.string().min(3, {
-      message: 'Password must be at least 3 characters',
-    }).max(10, {
-      message: 'Password must be between 3 and 10 characters',
-    }),
-    confirmPassword: z.string().min(3, {
-      message: 'Password must be at least 3 characters',
-    }).max(10, {
-      message: 'Password must be between 3 and 10 characters',
-    }),
-    name: z.string().min(2, {
-      message: 'Name must be at least 2 characters',
-    }).max(50, {
-      message: 'Name must be less than 50 characters',
-    }),
+    password: z
+      .string()
+      .min(3, {
+        message: 'Password must be at least 3 characters',
+      })
+      .max(10, {
+        message: 'Password must be between 3 and 10 characters',
+      }),
+    confirmPassword: z
+      .string()
+      .min(3, {
+        message: 'Password must be at least 3 characters',
+      })
+      .max(10, {
+        message: 'Password must be between 3 and 10 characters',
+      }),
+    name: z
+      .string()
+      .min(2, {
+        message: 'Name must be at least 2 characters',
+      })
+      .max(50, {
+        message: 'Name must be less than 50 characters',
+      }),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
@@ -37,7 +46,7 @@ type FormData = z.infer<typeof formDataSchema>;
 
 export default function ReactHookFormZodScreen() {
   const { t } = useAppTranslation();
-  
+
   const {
     control,
     handleSubmit,
@@ -58,7 +67,7 @@ export default function ReactHookFormZodScreen() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       Alert.alert(
         t('ReactHookFormZodPage.success'),
         `${t('ReactHookFormZodPage.welcome')} ${data.name}!\n${t('ReactHookFormZodPage.email')}: ${data.username}`,
@@ -66,14 +75,11 @@ export default function ReactHookFormZodScreen() {
           {
             text: t('Common.ok'),
             onPress: () => reset(),
-          }
+          },
         ]
       );
-    } catch (error) {
-      Alert.alert(
-        t('Common.error'),
-        t('ReactHookFormZodPage.submitError')
-      );
+    } catch {
+      Alert.alert(t('Common.error'), t('ReactHookFormZodPage.submitError'));
     }
   };
 
@@ -81,10 +87,8 @@ export default function ReactHookFormZodScreen() {
     <PageWrapper>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{t('ReactHookFormZodPage.title')}</Text>
-        
-        <Text style={styles.description}>
-          {t('ReactHookFormZodPage.description')}
-        </Text>
+
+        <Text style={styles.description}>{t('ReactHookFormZodPage.description')}</Text>
 
         <View style={styles.form}>
           <Controller
@@ -157,12 +161,16 @@ export default function ReactHookFormZodScreen() {
 
           <View style={styles.buttonContainer}>
             <Button
-              title={isSubmitting ? t('ReactHookFormZodPage.submitting') : t('ReactHookFormZodPage.submit')}
+              title={
+                isSubmitting
+                  ? t('ReactHookFormZodPage.submitting')
+                  : t('ReactHookFormZodPage.submit')
+              }
               onPress={handleSubmit(onSubmit)}
               disabled={!isValid || isSubmitting}
               style={styles.submitButton}
             />
-            
+
             <Button
               title={t('ReactHookFormZodPage.reset')}
               onPress={() => reset()}
@@ -173,18 +181,10 @@ export default function ReactHookFormZodScreen() {
         </View>
 
         <View style={styles.validationInfo}>
-          <Text style={styles.validationTitle}>
-            {t('ReactHookFormZodPage.validationRules')}
-          </Text>
-          <Text style={styles.validationRule}>
-            • {t('ReactHookFormZodPage.nameRule')}
-          </Text>
-          <Text style={styles.validationRule}>
-            • {t('ReactHookFormZodPage.emailRule')}
-          </Text>
-          <Text style={styles.validationRule}>
-            • {t('ReactHookFormZodPage.passwordRule')}
-          </Text>
+          <Text style={styles.validationTitle}>{t('ReactHookFormZodPage.validationRules')}</Text>
+          <Text style={styles.validationRule}>• {t('ReactHookFormZodPage.nameRule')}</Text>
+          <Text style={styles.validationRule}>• {t('ReactHookFormZodPage.emailRule')}</Text>
+          <Text style={styles.validationRule}>• {t('ReactHookFormZodPage.passwordRule')}</Text>
           <Text style={styles.validationRule}>
             • {t('ReactHookFormZodPage.confirmPasswordRule')}
           </Text>

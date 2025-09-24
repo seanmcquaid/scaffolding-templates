@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
-import { Button } from '@/components/ui/Button';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import PageWrapper from '@/components/app/PageWrapper';
+import { Button } from '@/components/ui/Button';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function Home() {
@@ -15,10 +15,7 @@ export default function Home() {
 
         <View style={styles.navigation}>
           <Link href="/react-query" asChild>
-            <Button
-              title={t('HomePage.reactQuery')}
-              style={styles.navButton}
-            />
+            <Button title={t('HomePage.reactQuery')} style={styles.navButton} />
           </Link>
 
           <Link href="/react-hook-form-zod" asChild>
@@ -30,32 +27,28 @@ export default function Home() {
           </Link>
 
           <Link href="/kitchen-sink" asChild>
-            <Button
-              title={t('HomePage.kitchenSink')}
-              variant="outline"
-              style={styles.navButton}
-            />
+            <Button title={t('HomePage.kitchenSink')} variant="outline" style={styles.navButton} />
           </Link>
         </View>
 
         <View style={styles.featuresSection}>
           <Text style={styles.featuresTitle}>{t('HomePage.featuresTitle')}</Text>
-          
+
           <View style={styles.featureCard}>
             <Text style={styles.featureTitle}>{t('HomePage.expoRouterTitle')}</Text>
             <Text style={styles.featureDescription}>{t('HomePage.expoRouterDescription')}</Text>
           </View>
-          
+
           <View style={styles.featureCard}>
             <Text style={styles.featureTitle}>{t('HomePage.reactQueryTitle')}</Text>
             <Text style={styles.featureDescription}>{t('HomePage.reactQueryDescription')}</Text>
           </View>
-          
+
           <View style={styles.featureCard}>
             <Text style={styles.featureTitle}>{t('HomePage.formHandlingTitle')}</Text>
             <Text style={styles.featureDescription}>{t('HomePage.formHandlingDescription')}</Text>
           </View>
-          
+
           <View style={styles.featureCard}>
             <Text style={styles.featureTitle}>{t('HomePage.i18nTitle')}</Text>
             <Text style={styles.featureDescription}>{t('HomePage.i18nDescription')}</Text>

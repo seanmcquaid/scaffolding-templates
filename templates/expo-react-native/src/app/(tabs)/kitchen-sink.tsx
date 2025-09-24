@@ -1,17 +1,23 @@
-import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
-import { useLocalStorage, useToggle, useCounter, useDebounceValue, useCopyToClipboard } from 'usehooks-ts';
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
+import {
+  useLocalStorage,
+  useToggle,
+  useCounter,
+  useDebounceValue,
+  useCopyToClipboard,
+} from 'usehooks-ts';
+import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import PageWrapper from '@/components/app/PageWrapper';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { getPostsQuery } from '@/services/queries/posts';
 
 export default function KitchenSinkScreen() {
   const { t } = useAppTranslation();
   const { data: posts, isLoading, isError } = useQuery(getPostsQuery());
-  
+
   // usehooks-ts examples
   const [preferences, setPreferences] = useLocalStorage('user-preferences', {
     theme: 'light' as 'light' | 'dark',
@@ -20,10 +26,10 @@ export default function KitchenSinkScreen() {
 
   const [showAdvanced, toggleAdvanced] = useToggle(false);
   const { count, increment, decrement, reset } = useCounter(0);
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebounceValue(searchTerm, 300);
-  
+
   const [copiedText, copyToClipboard] = useCopyToClipboard();
 
   const handleCopyPostsCount = () => {
@@ -39,37 +45,35 @@ export default function KitchenSinkScreen() {
     }));
   };
 
-  const filteredPosts = posts?.filter(post =>
-    !debouncedSearchTerm ||
-    post.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-  ) || [];
+  const filteredPosts =
+    posts?.filter(
+      post =>
+        !debouncedSearchTerm || post.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+    ) || [];
 
   return (
     <PageWrapper isLoading={isLoading} isError={isError}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>{t('KitchenSinkPage.title')}</Text>
-        
+
         {/* usehooks-ts examples */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            {t('KitchenSinkPage.usehookstsExamples')}
-          </Text>
+          <Text style={styles.sectionTitle}>{t('KitchenSinkPage.usehookstsExamples')}</Text>
 
           {/* useLocalStorage + useToggle */}
           <View style={styles.subsection}>
-            <Text style={styles.subsectionTitle}>
-              {t('KitchenSinkPage.useLocalStorageToggle')}
-            </Text>
+            <Text style={styles.subsectionTitle}>{t('KitchenSinkPage.useLocalStorageToggle')}</Text>
             <Text style={styles.infoText}>
-              {t('KitchenSinkPage.currentTheme')}: {preferences.theme} | {' '}
-              {t('KitchenSinkPage.autoSave')}: {preferences.autoSave ? t('KitchenSinkPage.on') : t('KitchenSinkPage.off')}
+              {t('KitchenSinkPage.currentTheme')}: {preferences.theme} |{' '}
+              {t('KitchenSinkPage.autoSave')}:{' '}
+              {preferences.autoSave ? t('KitchenSinkPage.on') : t('KitchenSinkPage.off')}
             </Text>
-            
+
             <View style={styles.buttonRow}>
               <Button
                 title={`${t('KitchenSinkPage.switchTo')} ${
-                  preferences.theme === 'light' 
-                    ? t('KitchenSinkPage.darkTheme') 
+                  preferences.theme === 'light'
+                    ? t('KitchenSinkPage.darkTheme')
                     : t('KitchenSinkPage.lightTheme')
                 } ${t('KitchenSinkPage.theme')}`}
                 onPress={toggleTheme}
@@ -82,7 +86,7 @@ export default function KitchenSinkScreen() {
                 style={styles.button}
               />
             </View>
-            
+
             {showAdvanced && (
               <View style={styles.advancedSettings}>
                 <Button
@@ -101,30 +105,26 @@ export default function KitchenSinkScreen() {
 
           {/* useCounter */}
           <View style={styles.subsection}>
-            <Text style={styles.subsectionTitle}>
-              {t('KitchenSinkPage.useCounter')}
-            </Text>
+            <Text style={styles.subsectionTitle}>{t('KitchenSinkPage.useCounter')}</Text>
             <Text style={styles.infoText}>
               {t('KitchenSinkPage.count')}: {count}
             </Text>
             <View style={styles.buttonRow}>
               <Button title="+" onPress={increment} size="small" style={styles.counterButton} />
               <Button title="-" onPress={decrement} size="small" style={styles.counterButton} />
-              <Button 
-                title={t('KitchenSinkPage.reset')} 
-                onPress={reset} 
-                variant="outline" 
-                size="small" 
-                style={styles.counterButton} 
+              <Button
+                title={t('KitchenSinkPage.reset')}
+                onPress={reset}
+                variant="outline"
+                size="small"
+                style={styles.counterButton}
               />
             </View>
           </View>
 
           {/* useDebounceValue */}
           <View style={styles.subsection}>
-            <Text style={styles.subsectionTitle}>
-              {t('KitchenSinkPage.useDebounceValue')}
-            </Text>
+            <Text style={styles.subsectionTitle}>{t('KitchenSinkPage.useDebounceValue')}</Text>
             <Input
               label={t('KitchenSinkPage.searchPosts')}
               value={searchTerm}
@@ -132,16 +132,15 @@ export default function KitchenSinkScreen() {
               placeholder={t('KitchenSinkPage.typeToSearch')}
             />
             <Text style={styles.infoText}>
-              {t('KitchenSinkPage.debouncedValue')}: {debouncedSearchTerm ? `"${debouncedSearchTerm}"` : '""'}
+              {t('KitchenSinkPage.debouncedValue')}:{' '}
+              {debouncedSearchTerm ? `"${debouncedSearchTerm}"` : '""'}
               {debouncedSearchTerm && ` (${filteredPosts.length} ${t('KitchenSinkPage.matches')})`}
             </Text>
           </View>
 
           {/* useCopyToClipboard */}
           <View style={styles.subsection}>
-            <Text style={styles.subsectionTitle}>
-              {t('KitchenSinkPage.useCopyToClipboard')}
-            </Text>
+            <Text style={styles.subsectionTitle}>{t('KitchenSinkPage.useCopyToClipboard')}</Text>
             <View style={styles.buttonRow}>
               <Button
                 title={t('KitchenSinkPage.copyPostsCount')}
@@ -152,7 +151,7 @@ export default function KitchenSinkScreen() {
             </View>
             {copiedText && (
               <Text style={styles.successText}>
-                ✓ {t('KitchenSinkPage.copied')}: {copiedText}
+                {t('KitchenSinkPage.copied')}: {copiedText}
               </Text>
             )}
           </View>
@@ -163,10 +162,10 @@ export default function KitchenSinkScreen() {
           <Text style={styles.sectionTitle}>
             {t('KitchenSinkPage.posts')} ({posts?.length || 0})
           </Text>
-          
+
           {filteredPosts.length === 0 && debouncedSearchTerm ? (
             <Text style={styles.noResultsText}>
-              {t('KitchenSinkPage.noPostsFound')} "{debouncedSearchTerm}"
+              {t('KitchenSinkPage.noPostsFound')} {debouncedSearchTerm}
             </Text>
           ) : (
             <View style={styles.postsGrid}>
@@ -175,7 +174,7 @@ export default function KitchenSinkScreen() {
                   <Text style={styles.postTitle} numberOfLines={2}>
                     {post.title}
                   </Text>
-                  <Text style={styles.postId}>ID: {post.id}</Text>
+                  <Text style={styles.postId}>{post.id}</Text>
                 </View>
               ))}
             </View>

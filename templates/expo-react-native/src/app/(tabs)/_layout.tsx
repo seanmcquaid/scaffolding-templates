@@ -50,7 +50,11 @@ export default function TabLayout() {
         options={{
           title: t('Navigation.forms'),
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'document-text' : 'document-text-outline'} size={24} color={color} />
+            <Ionicons
+              name={focused ? 'document-text' : 'document-text-outline'}
+              size={24}
+              color={color}
+            />
           ),
         }}
       />

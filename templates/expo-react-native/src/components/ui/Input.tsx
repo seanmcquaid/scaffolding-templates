@@ -6,26 +6,12 @@ export interface InputProps extends TextInputProps {
   errorMessage?: string;
 }
 
-export const Input = ({
-  label,
-  errorMessage,
-  style,
-  ...props
-}: InputProps) => {
+export const Input = ({ label, errorMessage, style, ...props }: InputProps) => {
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <TextInput
-        style={[
-          styles.input,
-          errorMessage && styles.inputError,
-          style,
-        ]}
-        {...props}
-      />
-      {errorMessage && (
-        <Text style={styles.errorText}>{errorMessage}</Text>
-      )}
+      <TextInput style={[styles.input, errorMessage && styles.inputError, style]} {...props} />
+      {errorMessage && <Text style={styles.errorText}>{errorMessage}</Text>}
     </View>
   );
 };
