@@ -1,8 +1,8 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
+import * as Clipboard from 'expo-clipboard';
 import { useState, useCallback, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Clipboard from 'expo-clipboard';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -32,7 +32,7 @@ function useAsyncStorage<T>(key: string, initialValue: T) {
         setStoredValue(valueToStore);
         AsyncStorage.setItem(key, JSON.stringify(valueToStore));
       } catch (error) {
-        console.error('Error saving to AsyncStorage:', error);
+        console.error('Error saving to AsyncStorage:', error); // eslint-disable-line no-console
       }
     },
     [key, storedValue]
