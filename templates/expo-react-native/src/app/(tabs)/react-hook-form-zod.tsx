@@ -7,40 +7,35 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
-const formDataSchema = z
-  .object({
-    username: z.string().email({
-      message: 'Please enter a valid email',
+const formDataSchema = z.object({
+  username: z.email({
+    message: 'Please enter a valid email',
+  }),
+  password: z
+    .string()
+    .min(3, {
+      message: 'Password must be at least 3 characters',
+    })
+    .max(10, {
+      message: 'Password must be between 3 and 10 characters',
     }),
-    password: z
-      .string()
-      .min(3, {
-        message: 'Password must be at least 3 characters',
-      })
-      .max(10, {
-        message: 'Password must be between 3 and 10 characters',
-      }),
-    confirmPassword: z
-      .string()
-      .min(3, {
-        message: 'Password must be at least 3 characters',
-      })
-      .max(10, {
-        message: 'Password must be between 3 and 10 characters',
-      }),
-    name: z
-      .string()
-      .min(2, {
-        message: 'Name must be at least 2 characters',
-      })
-      .max(50, {
-        message: 'Name must be less than 50 characters',
-      }),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
+  confirmPassword: z
+    .string()
+    .min(3, {
+      message: 'Password must be at least 3 characters',
+    })
+    .max(10, {
+      message: 'Password must be between 3 and 10 characters',
+    }),
+  name: z
+    .string()
+    .min(2, {
+      message: 'Name must be at least 2 characters',
+    })
+    .max(50, {
+      message: 'Name must be less than 50 characters',
+    }),
+});
 
 type FormData = z.infer<typeof formDataSchema>;
 
@@ -54,7 +49,6 @@ export default function ReactHookFormZodScreen() {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(formDataSchema),
-    mode: 'onChange',
     defaultValues: {
       username: '',
       password: '',
