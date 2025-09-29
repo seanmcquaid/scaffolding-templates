@@ -1003,8 +1003,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       tsdown:
-        specifier: ^0.15.4
-        version: 0.15.4(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
+        specifier: ^0.15.5
+        version: 0.15.5(@arethetypeswrong/core@0.18.2)(typescript@5.9.2)
       typescript:
         specifier: ^5.9.2
         version: 5.9.2
@@ -4118,6 +4118,10 @@ packages:
 
   ansis@4.1.0:
     resolution: {integrity: sha512-BGcItUBWSMRgOCe+SVZJ+S7yTRG0eGt9cXAHev72yuGcY23hnLA7Bky5L/xLyPINoSN95geovfBkqoTlNZYa7w==}
+    engines: {node: '>=14'}
+
+  ansis@4.2.0:
+    resolution: {integrity: sha512-HqZ5rWlFjGiV0tDm3UxxgNRqsOTniqoKZu0pIAfh7TZQMGuZK+hH0drySty0si0QXj1ieop4+SkSfPZBPPkHig==}
     engines: {node: '>=14'}
 
   any-promise@1.3.0:
@@ -7260,8 +7264,8 @@ packages:
     resolution: {integrity: sha512-s+pyvQeIKIZ0dx5iJiQk1tPLJAWln39+MI5jtM8wnyws+G5azk+dMnMX0qfbqNetKKNgcWWOdi0sfm+FbQbgdQ==}
     engines: {node: '>=10.0.0'}
 
-  rolldown-plugin-dts@0.16.8:
-    resolution: {integrity: sha512-lsx7yrYA0ZXfARLEcPKgHIw8DX4fLQOhmMChgZbn5eFhqibY2Bav1+/Yn5WNm+ATtw+cefXYgEYO/7njeHsgAA==}
+  rolldown-plugin-dts@0.16.9:
+    resolution: {integrity: sha512-65fAQjQAAXW7j2V5/872r++jjjR2/Pur18/PQO/JgfJl3vKxapXO2KU1l5bUdRoFuuryF+23+Hfu0Cw3bhM97g==}
     engines: {node: '>=20.18.0'}
     peerDependencies:
       '@ts-macro/tsc': ^0.3.6
@@ -7804,8 +7808,8 @@ packages:
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
 
-  tsdown@0.15.4:
-    resolution: {integrity: sha512-aoFE8disBg8BgYcOgradr/5Yd+QDBRQ+6z8mXo/Ib7+GIaJwJsI5l/ppve05CZGcSDqwdhF4gdrA0HPHBtbBqA==}
+  tsdown@0.15.5:
+    resolution: {integrity: sha512-2UP5hDBVYGHnnQSIYtDxMDjePmut7EDpvW5E2kVnjpZ17JgiPvRJPHwk5Dm045bC75+q8yxAlw/CMIELymTWaw==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -12060,6 +12064,8 @@ snapshots:
 
   ansis@4.1.0: {}
 
+  ansis@4.2.0: {}
+
   any-promise@1.3.0: {}
 
   anymatch@3.1.3:
@@ -15393,7 +15399,7 @@ snapshots:
 
   robots-parser@3.0.1: {}
 
-  rolldown-plugin-dts@0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2):
+  rolldown-plugin-dts@0.16.9(rolldown@1.0.0-beta.40)(typescript@5.9.2):
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -15415,7 +15421,7 @@ snapshots:
     dependencies:
       '@oxc-project/types': 0.92.0
       '@rolldown/pluginutils': 1.0.0-beta.40
-      ansis: 4.1.0
+      ansis: 4.2.0
     optionalDependencies:
       '@rolldown/binding-android-arm64': 1.0.0-beta.40
       '@rolldown/binding-darwin-arm64': 1.0.0-beta.40
@@ -16052,9 +16058,9 @@ snapshots:
       minimist: 1.2.8
       strip-bom: 3.0.0
 
-  tsdown@0.15.4(@arethetypeswrong/core@0.18.2)(typescript@5.9.2):
+  tsdown@0.15.5(@arethetypeswrong/core@0.18.2)(typescript@5.9.2):
     dependencies:
-      ansis: 4.1.0
+      ansis: 4.2.0
       cac: 6.7.14
       chokidar: 4.0.3
       debug: 4.4.3
@@ -16062,7 +16068,7 @@ snapshots:
       empathic: 2.0.0
       hookable: 5.5.3
       rolldown: 1.0.0-beta.40
-      rolldown-plugin-dts: 0.16.8(rolldown@1.0.0-beta.40)(typescript@5.9.2)
+      rolldown-plugin-dts: 0.16.9(rolldown@1.0.0-beta.40)(typescript@5.9.2)
       semver: 7.7.2
       tinyexec: 1.0.1
       tinyglobby: 0.2.15
