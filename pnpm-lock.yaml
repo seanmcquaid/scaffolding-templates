@@ -545,8 +545,8 @@ importers:
         specifier: ^7.9.4
         version: 7.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       remix-i18next:
-        specifier: ^7.4.0
-        version: 7.4.0(i18next@25.6.0(typescript@5.9.3))(react-i18next@16.0.0(i18next@25.6.0(typescript@5.9.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(react-router@7.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
+        specifier: ^7.4.2
+        version: 7.4.2(i18next@25.6.0(typescript@5.9.3))(react-i18next@16.0.0(i18next@25.6.0(typescript@5.9.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(react-router@7.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
       tailwind-merge:
         specifier: ^3.3.1
         version: 3.3.1
@@ -7068,13 +7068,13 @@ packages:
     engines: {node: '>=16.6.0'}
     hasBin: true
 
-  remix-i18next@7.4.0:
-    resolution: {integrity: sha512-UcZxsRwxuNdOaMn2tG624NOM4WX26GYjMD9X0M9XhRUCXufz6TpwLiK6KVKsWOcPzqXh0fAXsgbrYKkkaSa70A==}
+  remix-i18next@7.4.2:
+    resolution: {integrity: sha512-k8IUyft4hXxJ6HNE+K2l29DXCvMywZJOC7jOw99Bb/Gh87i2umLiOGKV1Aiub6E+QflkTkd9/JgS2Jo5Ngw2VA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       i18next: ^24.0.0 || ^25.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-i18next: ^13.0.0 || ^14.0.0 || ^15.0.0
+      react-i18next: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
       react-router: ^7.0.0
 
   require-directory@2.1.1:
@@ -15062,7 +15062,7 @@ snapshots:
       fs-extra: 11.3.0
       minimatch: 10.0.1
 
-  remix-i18next@7.4.0(i18next@25.6.0(typescript@5.9.3))(react-i18next@16.0.0(i18next@25.6.0(typescript@5.9.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(react-router@7.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
+  remix-i18next@7.4.2(i18next@25.6.0(typescript@5.9.3))(react-i18next@16.0.0(i18next@25.6.0(typescript@5.9.3))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(react-router@7.9.4(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
       i18next: 25.6.0(typescript@5.9.3)
       react: 19.1.1
