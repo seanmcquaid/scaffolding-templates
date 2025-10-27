@@ -37,7 +37,6 @@ const viteConfig = defineViteConfig({
 const vitestConfig = defineVitestConfig({
   test: {
     coverage: {
-      all: true,
       exclude: [
         'app/utils/testing',
         'app/entry.client.tsx',
