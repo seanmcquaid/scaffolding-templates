@@ -1,7 +1,5 @@
-import withSvgr from 'next-plugin-svgr';
-
 /** @type {import('next').NextConfig} */
-const nextConfig = withSvgr({
+const nextConfig = {
   experimental: {
     reactCompiler: true,
   },
@@ -9,6 +7,6 @@ const nextConfig = withSvgr({
     icon: true,
     titleProp: true,
   },
-});
+};
 
 export default nextConfig;
