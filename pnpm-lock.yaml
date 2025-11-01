@@ -82,8 +82,8 @@ importers:
         specifier: ^1.4.1
         version: 1.4.1(eslint@9.38.0(jiti@2.6.1))
       '@eslint/js':
-        specifier: ^9.38.0
-        version: 9.38.0
+        specifier: ^9.39.0
+        version: 9.39.0
       '@msw/playwright':
         specifier: ^0.4.2
         version: 0.4.2(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))
@@ -311,8 +311,8 @@ importers:
         specifier: ^1.4.1
         version: 1.4.1(eslint@9.38.0(jiti@2.6.1))
       '@eslint/js':
-        specifier: ^9.38.0
-        version: 9.38.0
+        specifier: ^9.39.0
+        version: 9.39.0
       '@msw/playwright':
         specifier: ^0.4.2
         version: 0.4.2(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))
@@ -564,8 +564,8 @@ importers:
         specifier: ^1.4.1
         version: 1.4.1(eslint@9.38.0(jiti@2.6.1))
       '@eslint/js':
-        specifier: ^9.38.0
-        version: 9.38.0
+        specifier: ^9.39.0
+        version: 9.39.0
       '@msw/playwright':
         specifier: ^0.4.2
         version: 0.4.2(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))
@@ -796,8 +796,8 @@ importers:
         specifier: ^1.4.1
         version: 1.4.1(eslint@9.38.0(jiti@2.6.1))
       '@eslint/js':
-        specifier: ^9.38.0
-        version: 9.38.0
+        specifier: ^9.39.0
+        version: 9.39.0
       '@msw/playwright':
         specifier: ^0.4.2
         version: 0.4.2(msw@2.11.6(@types/node@24.9.1)(typescript@5.9.3))
@@ -955,8 +955,8 @@ importers:
         specifier: ^2.29.7
         version: 2.29.7(@types/node@24.9.2)
       '@eslint/js':
-        specifier: ^9.38.0
-        version: 9.38.0
+        specifier: ^9.39.0
+        version: 9.39.0
       '@vitest/coverage-v8':
         specifier: ^4.0.4
         version: 4.0.4(vitest@4.0.6(@types/node@24.9.2)(jiti@2.6.1)(jsdom@27.0.1)(lightningcss@1.30.2)(msw@2.11.6(@types/node@24.9.2)(typescript@5.9.3))(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
@@ -1641,6 +1641,10 @@ packages:
 
   '@eslint/js@9.38.0':
     resolution: {integrity: sha512-UZ1VpFvXf9J06YG9xQBdnzU+kthors6KjhMAl6f4gH4usHyh31rUf2DLGInT8RFYIReYXNSydgPY0V2LuWgl7A==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.39.0':
+    resolution: {integrity: sha512-BIhe0sW91JGPiaF1mOuPy5v8NflqfjIcDNpC+LbW9f609WVRX1rArrhi6Z2ymvrAry9jw+5POTj4t2t62o8Bmw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.7':
@@ -8617,6 +8621,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@9.38.0': {}
+
+  '@eslint/js@9.39.0': {}
 
   '@eslint/object-schema@2.1.7': {}
 
