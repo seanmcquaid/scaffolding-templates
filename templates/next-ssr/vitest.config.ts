@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
     pool: 'threads',
-    isolate: true,
+    isolate: false,
     coverage: {
       exclude: [
         'src/setupTests.ts',
