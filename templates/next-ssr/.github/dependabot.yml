@@ -80,6 +80,9 @@ updates:
           - 'lint-staged'
           - 'is-ci'
           - 'bundlesize2'
+      miscellaneous:
+        patterns:
+          - '*'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:

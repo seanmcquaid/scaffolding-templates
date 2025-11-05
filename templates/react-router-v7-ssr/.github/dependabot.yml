@@ -84,6 +84,9 @@ updates:
           - 'is-ci'
           - 'bundlesize2'
           - 'cross-env'
+      miscellaneous:
+        patterns:
+          - '*'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
