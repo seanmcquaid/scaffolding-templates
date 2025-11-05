@@ -7,9 +7,81 @@ updates:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      tanstack:
+        patterns:
+          - '@tanstack/*'
+      unit-testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'jsdom'
+          - 'zocker'
+          - 'cross-fetch'
+      browser-testing:
+        patterns:
+          - 'playwright'
+          - '@playwright/*'
+          - 'msw'
+          - '@msw/*'
+          - '@axe-core/*'
+          - 'playwright-lighthouse'
+          - 'lighthouse'
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - 'globals'
+      styling:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+      formatting:
+        patterns:
+          - 'prettier'
+          - 'prettier-plugin-*'
+      i18n:
+        patterns:
+          - 'i18next'
+          - 'i18next-*'
+          - 'react-i18next'
+      radix:
+        patterns:
+          - '@radix-ui/*'
+      build-tools:
+        patterns:
+          - 'vite'
+          - 'vite-*'
+          - '@vitejs/*'
+          - 'typescript'
+          - '@babel/*'
+          - 'dpdm'
+      form-handling:
+        patterns:
+          - 'react-hook-form'
+          - '@hookform/*'
+      dev-tools:
+        patterns:
+          - 'husky'
+          - 'lint-staged'
+          - 'is-ci'
+          - 'bundlesize2'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - '*'
