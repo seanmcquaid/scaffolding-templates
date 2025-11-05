@@ -51,6 +51,8 @@ updates:
         patterns:
           - 'tailwindcss'
           - '@tailwindcss/*'
+      formatting:
+        patterns:
           - 'prettier'
           - 'prettier-plugin-*'
       i18n:
