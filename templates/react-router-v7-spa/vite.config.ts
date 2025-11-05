@@ -36,6 +36,7 @@ const viteConfig = defineViteConfig({
 
 const vitestConfig = defineVitestConfig({
   test: {
+    pool: 'threads',
     coverage: {
       exclude: [
         'app/utils/testing',
@@ -52,7 +53,7 @@ const vitestConfig = defineVitestConfig({
       provider: 'istanbul',
       reporter: ['lcov'],
     },
-    environment: 'jsdom',
+    environment: 'happy-dom',
     exclude: ['playwright', 'node_modules'],
     globals: true,
     setupFiles: ['./app/utils/testing/setupTests.ts'],
