@@ -7,9 +7,87 @@ updates:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+          - 'babel-plugin-react-compiler'
+          - 'eslint-plugin-react*'
+      react-router:
+        patterns:
+          - 'react-router'
+          - '@react-router/*'
+          - 'react-router-devtools'
+          - 'remix-*'
+      tanstack:
+        patterns:
+          - '@tanstack/*'
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - 'playwright'
+          - '@playwright/*'
+          - '@testing-library/*'
+          - 'msw'
+          - '@msw/*'
+          - 'jsdom'
+          - '@axe-core/*'
+          - 'playwright-lighthouse'
+          - 'lighthouse'
+          - 'zocker'
+          - 'cross-fetch'
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - 'globals'
+      styling:
+        patterns:
+          - 'tailwindcss'
+          - '@tailwindcss/*'
+          - 'prettier'
+          - 'prettier-plugin-*'
+      i18n:
+        patterns:
+          - 'i18next'
+          - 'i18next-*'
+          - 'react-i18next'
+          - 'remix-i18next'
+      radix:
+        patterns:
+          - '@radix-ui/*'
+      build-tools:
+        patterns:
+          - 'vite'
+          - 'vite-*'
+          - '@vitejs/*'
+          - 'typescript'
+          - '@babel/*'
+          - 'dpdm'
+      form-handling:
+        patterns:
+          - 'react-hook-form'
+          - '@hookform/*'
+      dev-tools:
+        patterns:
+          - 'husky'
+          - 'lint-staged'
+          - 'is-ci'
+          - 'bundlesize2'
+          - 'cross-env'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - '*'

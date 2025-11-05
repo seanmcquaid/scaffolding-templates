@@ -7,9 +7,48 @@ updates:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - 'jsdom'
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - 'globals'
+      build-tools:
+        patterns:
+          - 'vite'
+          - 'typescript'
+          - 'tsdown'
+          - '@arethetypeswrong/*'
+          - 'agadoo'
+          - 'dpdm'
+      publishing:
+        patterns:
+          - '@changesets/*'
+      formatting:
+        patterns:
+          - 'prettier'
+          - 'eslint-config-prettier'
+          - 'eslint-plugin-prettier'
+      dev-tools:
+        patterns:
+          - 'husky'
+          - 'lint-staged'
+          - 'is-ci'
+          - 'bundlesize2'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
       interval: weekly
       day: tuesday
     open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - '*'
