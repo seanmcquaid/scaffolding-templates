@@ -6,6 +6,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   test: {
+    pool: 'threads',
     coverage: {
       exclude: [
         'src/setupTests.ts',

@@ -36,6 +36,7 @@ const viteConfig = defineViteConfig({
 
 const vitestConfig = defineVitestConfig({
   test: {
+    pool: 'threads',
     coverage: {
       exclude: [
         'app/utils/testing',

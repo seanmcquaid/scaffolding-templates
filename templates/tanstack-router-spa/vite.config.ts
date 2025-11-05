@@ -1,5 +1,5 @@
 import tailwindcss from '@tailwindcss/vite';
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import checker from 'vite-plugin-checker';
@@ -17,7 +17,7 @@ const viteConfig = defineViteConfig({
   plugins: [
     tailwindcss(),
     tsconfigPaths(),
-    TanStackRouterVite({
+    tanstackRouter({
       routeFileIgnorePattern: '.*\\.test\\.tsx',
     }),
     react(),
@@ -36,6 +36,7 @@ const viteConfig = defineViteConfig({
 
 const vitestConfig = defineVitestConfig({
   test: {
+    pool: 'threads',
     coverage: {
       exclude: [
         'src/utils/testing',
