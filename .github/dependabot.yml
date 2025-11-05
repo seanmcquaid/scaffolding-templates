@@ -7,9 +7,96 @@ updates:
       interval: weekly
     open-pull-requests-limit: 20
     groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+          - "babel-plugin-react-compiler"
+          - "eslint-plugin-react*"
+      next:
+        patterns:
+          - "next"
+          - "@next/*"
+          - "next-router-mock"
+      react-router:
+        patterns:
+          - "react-router"
+          - "@react-router/*"
+          - "react-router-devtools"
+          - "remix-*"
+      tanstack:
+        patterns:
+          - "@tanstack/*"
+      unit-testing:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "@testing-library/*"
+          - "jsdom"
+          - "zocker"
+          - "cross-fetch"
+      browser-testing:
+        patterns:
+          - "playwright"
+          - "@playwright/*"
+          - "msw"
+          - "@msw/*"
+          - "@axe-core/*"
+          - "playwright-lighthouse"
+          - "lighthouse"
+      eslint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "@eslint/*"
+          - "typescript-eslint"
+          - "globals"
+      styling:
+        patterns:
+          - "tailwindcss"
+          - "@tailwindcss/*"
+          - "postcss"
+      formatting:
+        patterns:
+          - "prettier"
+          - "prettier-plugin-*"
+      i18n:
+        patterns:
+          - "i18next"
+          - "i18next-*"
+          - "react-i18next"
+          - "remix-i18next"
+      radix:
+        patterns:
+          - "@radix-ui/*"
       build-tools:
         patterns:
+          - "vite"
+          - "vite-*"
+          - "@vitejs/*"
+          - "typescript"
+          - "@babel/*"
+          - "dpdm"
           - "turbo"
+          - "tsdown"
+          - "@arethetypeswrong/*"
+          - "agadoo"
+      form-handling:
+        patterns:
+          - "react-hook-form"
+          - "@hookform/*"
+      publishing:
+        patterns:
+          - "@changesets/*"
+      dev-tools:
+        patterns:
+          - "husky"
+          - "lint-staged"
+          - "is-ci"
+          - "bundlesize2"
+          - "cross-env"
   - package-ecosystem: github-actions
     directory: "/.github/workflows"
     schedule:

@@ -34,6 +34,7 @@ updates:
       formatting:
         patterns:
           - 'prettier'
+          - 'prettier-plugin-*'
       dev-tools:
         patterns:
           - 'husky'
