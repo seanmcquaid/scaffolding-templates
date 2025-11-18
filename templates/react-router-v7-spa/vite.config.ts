@@ -1,6 +1,5 @@
 import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
-import { reactRouterDevTools } from 'react-router-devtools';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import babel from 'vite-plugin-babel';
 import checker from 'vite-plugin-checker';
@@ -12,7 +11,6 @@ const viteConfig = defineViteConfig({
   plugins: [
     tailwindcss(),
     tsconfigPaths(),
-    reactRouterDevTools(),
     !process.env.VITEST && reactRouter(),
     babel({
       babelConfig: {
