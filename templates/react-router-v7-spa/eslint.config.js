@@ -72,6 +72,7 @@ export default [
       'playwright/missing-playwright-await': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error'],
       '@typescript-eslint/consistent-type-imports': 'error',
+      'vitest/no-conditional-expect': 'off',
       'no-relative-import-paths/no-relative-import-paths': [
         'warn',
         {
