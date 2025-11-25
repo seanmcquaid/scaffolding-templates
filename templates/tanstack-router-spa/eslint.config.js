@@ -13,6 +13,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
+import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default [
   js.configs.recommended,
@@ -36,6 +37,7 @@ export default [
       import: fixupPluginRules(importPlugin),
       'no-relative-import-paths': noRelativeImportPaths,
       'react-hooks': reactHooksPlugin,
+      'react-compiler': reactCompiler,
     },
     rules: {
       ...reactHooksPlugin.configs.recommended.rules,
@@ -79,6 +81,7 @@ export default [
           prefix: '@',
         },
       ],
+      'react-compiler/react-compiler': 'error',
     },
   },
 ];
