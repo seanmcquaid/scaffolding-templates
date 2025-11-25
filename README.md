@@ -46,6 +46,7 @@ chmod +x setup.sh
 3. **React Router V7 SSR** - Server-side rendered application using React Router v7  
 4. **Next SSR** - Next.js server-side rendered application with modern React patterns
 5. **TanStack Router SPA** - Single-page application using TanStack Router
+6. **Expo React Native** - Cross-platform mobile application using Expo and React Native
 
 Each template includes:
 - ✅ Automated setup script for quick start
