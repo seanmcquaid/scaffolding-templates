@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import React from 'react';
+import type React from 'react';
 
 // Mock i18next for tests
 jest.mock('react-i18next', () => ({
@@ -33,26 +33,31 @@ jest.mock('expo-router', () => ({
 
 // Mock react-native components and utilities
 jest.mock('react-native', () => {
-  const React = require('react');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const ReactMock = require('react');
   return {
     StyleSheet: {
-      create: (styles: any) => styles,
+      create: (styles: Record<string, unknown>) => styles,
     },
     Platform: {
-      select: (obj: any) => obj.default || obj.ios || obj.android,
+      select: (obj: Record<string, unknown>) => obj.default || obj.ios || obj.android,
     },
     useColorScheme: jest.fn(() => 'light'),
-    Text: ({ children, ...props }: any) => React.createElement('Text', props, children),
-    View: ({ children, ...props }: any) => React.createElement('View', props, children),
+    Text: ({ children, ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('Text', props, children),
+    View: ({ children, ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('View', props, children),
   };
 });
 
 // Mock @expo/vector-icons/MaterialIcons
 jest.mock('@expo/vector-icons/MaterialIcons', () => {
-  const React = require('react');
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const ReactMock = require('react');
   return {
     __esModule: true,
-    default: ({ children, ...props }: any) => React.createElement('MaterialIcons', props, children),
+    default: ({ children, ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('MaterialIcons', props, children),
   };
 });
 
@@ -65,7 +70,7 @@ jest.mock('ky', () => {
     delete: jest.fn(),
     patch: jest.fn(),
   }));
-  
+
   return {
     __esModule: true,
     default: {

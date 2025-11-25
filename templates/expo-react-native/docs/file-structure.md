@@ -6,17 +6,21 @@ This document explains the organization and purpose of files and directories in 
 
 ```
 expo-react-native/
-├── app/                    # Application routes (Expo Router)
+├── src/                    # Source code directory
+│   ├── app/               # Application routes (Expo Router)
+│   ├── components/        # Reusable React components
+│   ├── hooks/             # Custom React hooks
+│   ├── i18n/              # Internationalization configuration
+│   ├── services/          # API clients and business logic
+│   ├── __tests__/         # Test files
+│   ├── env.client.ts      # Environment variable validation
+│   └── jest-setup.ts      # Jest test setup
 ├── assets/                 # Static assets (images, fonts, etc.)
-├── components/             # Reusable React components
-├── hooks/                  # Custom React hooks
-├── i18n/                   # Internationalization configuration
-├── services/               # API clients and business logic
-├── __tests__/              # Test files
 ├── .env.example            # Environment variable template
 ├── .gitignore              # Git ignore rules
 ├── .nvmrc                  # Node version specification
 ├── app.json                # Expo configuration
+├── index.js                # Entry point
 ├── metro.config.js         # Metro bundler configuration
 ├── package.json            # Dependencies and scripts
 ├── setup.sh                # Automated setup script
@@ -25,12 +29,16 @@ expo-react-native/
 
 ## Directory Details
 
-### `/app`
+### `/src`
+
+All source code is contained within the `src` directory, following common project organization patterns.
+
+### `/src/app`
 
 Contains all application screens organized with Expo Router's file-based routing.
 
 ```
-app/
+src/app/
 ├── (tabs)/                 # Tab navigation group
 │   ├── _layout.tsx        # Tab navigator configuration
 │   ├── index.tsx          # Home screen (default route)
@@ -44,12 +52,12 @@ app/
 - `(tabs)/` - Route group for tab-based navigation
 - Screen files automatically become routes
 
-### `/components`
+### `/src/components`
 
 Reusable React Native components organized by purpose.
 
 ```
-components/
+src/components/
 ├── app/                    # Feature-specific components
 └── ui/                     # Generic UI components
     ├── ThemedText.tsx     # Themed text component
@@ -62,12 +70,12 @@ components/
 - **App components** - Feature-specific components with business logic
 - Co-locate tests with components when appropriate
 
-### `/hooks`
+### `/src/hooks`
 
 Custom React hooks for shared logic.
 
 ```
-hooks/
+src/hooks/
 ├── useAppTranslation.tsx   # Type-safe i18n hook
 ├── useColorScheme.ts       # Theme detection hook
 └── useThemeColor.ts        # Theme color management
@@ -78,12 +86,12 @@ hooks/
 - Keep hooks focused on single responsibility
 - Document complex hooks with JSDoc comments
 
-### `/i18n`
+### `/src/i18n`
 
 Internationalization setup and translation files.
 
 ```
-i18n/
+src/i18n/
 ├── locales/
 │   ├── en-US.ts           # English (US) translations
 │   └── en-CA.ts           # English (Canada) translations
@@ -104,12 +112,12 @@ export default {
 } as const;
 ```
 
-### `/services`
+### `/src/services`
 
 API clients, data fetching, and business logic.
 
 ```
-services/
+src/services/
 └── createApiClient.ts      # API client configuration
 ```
 
@@ -119,18 +127,18 @@ services/
 - Use TanStack Query for data fetching
 - Implement proper error handling
 
-### `/__tests__`
+### `/src/__tests__`
 
 Test files for components and utilities.
 
 ```
-__tests__/
+src/__tests__/
 └── ThemedText.test.tsx     # Component test example
 ```
 
 **Testing Approach:**
 - Co-locate tests with components when appropriate
-- Use React Native Testing Library
+- Use Jest with React Native mocks
 - Mock i18n in tests (returns translation keys)
 - Test component behavior, not implementation
 
@@ -143,7 +151,11 @@ Expo app configuration including:
 - Bundle identifiers
 - Icon and splash screen paths
 - Platform-specific settings
-- Expo plugins
+- Expo plugins (including expo-router root configuration)
+
+### `index.js`
+
+Entry point that loads the Expo Router application from `src/app`.
 
 ### `metro.config.js`
 
@@ -157,7 +169,7 @@ Metro bundler configuration for:
 
 TypeScript configuration with:
 - Strict type checking enabled
-- Path aliases (`@/*` for root imports)
+- Path aliases (`@/*` for `src/*` imports)
 - React Native specific settings
 - Compiler options
 
@@ -208,7 +220,7 @@ import useAppTranslation from '@/hooks/useAppTranslation';
 ```
 
 **Configured Aliases:**
-- `@/*` - Root directory
+- `@/*` - Maps to `src/*` directory
 
 ## Best Practices
 

@@ -19,7 +19,8 @@ export default {
     stepOneTitle: 'Step 1: Try it',
     stepOneDescription: 'Edit {{file}} to see changes. Press {{shortcut}} to open developer tools.',
     stepTwoTitle: 'Step 2: Explore',
-    stepTwoDescription: "Tap the Explore tab to learn more about what's included in this starter app.",
+    stepTwoDescription:
+      "Tap the Explore tab to learn more about what's included in this starter app.",
     stepThreeTitle: 'Step 3: Build your app',
     stepThreeDescription: "When you're ready, start building your amazing app!",
   },
