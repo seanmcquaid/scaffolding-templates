@@ -29,3 +29,32 @@ jest.mock('expo-router', () => ({
   }),
   useLocalSearchParams: () => ({}),
 }));
+
+// Mock react-native
+jest.mock('react-native', () => ({
+  StyleSheet: {
+    create: (styles: any) => styles,
+  },
+  Platform: {
+    select: (obj: any) => obj.default || obj.ios || obj.android,
+  },
+  useColorScheme: jest.fn(() => 'light'),
+}));
+
+// Mock ky
+jest.mock('ky', () => {
+  const mockCreate = jest.fn(() => ({
+    get: jest.fn(),
+    post: jest.fn(),
+    put: jest.fn(),
+    delete: jest.fn(),
+    patch: jest.fn(),
+  }));
+  
+  return {
+    __esModule: true,
+    default: {
+      create: mockCreate,
+    },
+  };
+});
