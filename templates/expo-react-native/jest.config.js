@@ -1,10 +1,13 @@
 module.exports = {
-  preset: 'jest-expo',
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './babel.config.js' }],
+  },
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
   ],
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/build/'],
+  testPathIgnorePatterns: ['/node_modules/', '/build/', '/.expo/'],
   collectCoverageFrom: [
     'app/**/*.{ts,tsx}',
     'components/**/*.{ts,tsx}',
@@ -17,4 +20,5 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
   },
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };
