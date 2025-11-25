@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import React from 'react';
 
 // Mock i18next for tests
 jest.mock('react-i18next', () => ({
@@ -30,16 +31,30 @@ jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({}),
 }));
 
-// Mock react-native
-jest.mock('react-native', () => ({
-  StyleSheet: {
-    create: (styles: any) => styles,
-  },
-  Platform: {
-    select: (obj: any) => obj.default || obj.ios || obj.android,
-  },
-  useColorScheme: jest.fn(() => 'light'),
-}));
+// Mock react-native components and utilities
+jest.mock('react-native', () => {
+  const React = require('react');
+  return {
+    StyleSheet: {
+      create: (styles: any) => styles,
+    },
+    Platform: {
+      select: (obj: any) => obj.default || obj.ios || obj.android,
+    },
+    useColorScheme: jest.fn(() => 'light'),
+    Text: ({ children, ...props }: any) => React.createElement('Text', props, children),
+    View: ({ children, ...props }: any) => React.createElement('View', props, children),
+  };
+});
+
+// Mock @expo/vector-icons/MaterialIcons
+jest.mock('@expo/vector-icons/MaterialIcons', () => {
+  const React = require('react');
+  return {
+    __esModule: true,
+    default: ({ children, ...props }: any) => React.createElement('MaterialIcons', props, children),
+  };
+});
 
 // Mock ky
 jest.mock('ky', () => {
