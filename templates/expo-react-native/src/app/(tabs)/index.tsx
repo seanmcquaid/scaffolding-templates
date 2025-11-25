@@ -1,6 +1,7 @@
-import { StyleSheet, Platform, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { ThemedText } from '@/components/ui/ThemedText';
 import { ThemedView } from '@/components/ui/ThemedView';
+import { LinkButton } from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 export default function HomeScreen() {
@@ -11,30 +12,19 @@ export default function HomeScreen() {
       <ThemedView style={styles.container}>
         <ThemedView style={styles.titleContainer}>
           <ThemedText type="title">{t('HomePage.title')}</ThemedText>
+          <ThemedText>{t('HomePage.subtitle')}</ThemedText>
         </ThemedView>
 
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">{t('HomePage.stepOneTitle')}</ThemedText>
-          <ThemedText>
-            {t('HomePage.stepOneDescription', {
-              file: 'app/(tabs)/index.tsx',
-              shortcut: Platform.select({
-                ios: 'cmd + d',
-                android: 'cmd + m',
-                default: 'F12',
-              }),
-            })}
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">{t('HomePage.stepTwoTitle')}</ThemedText>
-          <ThemedText>{t('HomePage.stepTwoDescription')}</ThemedText>
-        </ThemedView>
-
-        <ThemedView style={styles.stepContainer}>
-          <ThemedText type="subtitle">{t('HomePage.stepThreeTitle')}</ThemedText>
-          <ThemedText>{t('HomePage.stepThreeDescription')}</ThemedText>
+        <ThemedView style={styles.linksContainer}>
+          <LinkButton href="/react-query">
+            {t('HomePage.reactQuery')}
+          </LinkButton>
+          <LinkButton href="/react-hook-form-zod">
+            {t('HomePage.reactHookFormZod')}
+          </LinkButton>
+          <LinkButton href="/kitchen-sink">
+            {t('HomePage.kitchenSink')}
+          </LinkButton>
         </ThemedView>
       </ThemedView>
     </ScrollView>
@@ -48,9 +38,10 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     paddingVertical: 24,
-  },
-  stepContainer: {
     gap: 8,
-    marginBottom: 16,
+  },
+  linksContainer: {
+    gap: 12,
+    marginTop: 16,
   },
 });
