@@ -59,21 +59,24 @@ pnpm dev
 ## 📂 Project Structure
 
 ```
-├── app/                    # Application routes (Expo Router)
-│   ├── (tabs)/            # Tab navigation routes
-│   │   ├── index.tsx      # Home screen
-│   │   └── explore.tsx    # Explore screen
-│   ├── _layout.tsx        # Root layout with navigation
-│   └── modal.tsx          # Example modal screen
-├── components/            # Reusable components
-│   ├── app/              # Feature-specific components
-│   └── ui/               # UI/design system components
-├── hooks/                # Custom React hooks
-├── i18n/                 # Internationalization setup
-│   ├── locales/          # Translation files
-│   └── i18next.client.ts # i18n configuration
-├── services/             # API clients and business logic
-└── __tests__/            # Test files
+├── src/                    # Source code directory
+│   ├── app/               # Application routes (Expo Router)
+│   │   ├── (tabs)/        # Tab navigation routes
+│   │   │   ├── index.tsx  # Home screen
+│   │   │   └── explore.tsx # Explore screen
+│   │   ├── _layout.tsx    # Root layout with navigation
+│   │   └── modal.tsx      # Example modal screen
+│   ├── components/        # Reusable components
+│   │   ├── app/          # Feature-specific components
+│   │   └── ui/           # UI/design system components
+│   ├── hooks/            # Custom React hooks
+│   ├── i18n/             # Internationalization setup
+│   │   ├── locales/      # Translation files
+│   │   └── i18next.client.ts # i18n configuration
+│   ├── services/         # API clients and business logic
+│   └── __tests__/        # Test files
+├── assets/               # Static assets (images, fonts)
+└── index.js             # Entry point
 ```
 
 ## 🛠️ Available Scripts
@@ -269,21 +272,121 @@ All `EXPO_PUBLIC_*` variables are available in your app code.
 
 ## 🚨 Troubleshooting
 
-### Clear Cache
+### Dev Server Won't Start
 
-If you encounter issues, try clearing the cache:
+If the development server fails to start, try these steps:
 
+**1. Clear Cache and Restart:**
 ```bash
 npx expo start --clear
 ```
 
-### Reset Metro Bundler
+**2. Check Node Version:**
+```bash
+node --version  # Should be >=22.12.0
+```
 
+If needed, use nvm to switch:
+```bash
+nvm use 22
+```
+
+**3. Reinstall Dependencies:**
 ```bash
 rm -rf node_modules
 pnpm install
+```
+
+**4. Clear Expo Cache:**
+```bash
+rm -rf .expo
+rm -rf node_modules/.cache
 npx expo start --clear
 ```
+
+### Web Build Issues
+
+If `pnpm web` fails:
+
+**1. Ensure all dependencies are installed:**
+```bash
+pnpm install
+```
+
+**2. Check for missing assets:**
+- The template includes placeholder asset files in `assets/`
+- Replace `.placeholder` files with actual images before production
+- Missing assets will show warnings but won't prevent the app from running
+
+**3. Build for web explicitly:**
+```bash
+pnpm build
+```
+
+This creates a static export in the `./build` directory.
+
+### Port Already in Use
+
+If port 8081 is already in use:
+
+```bash
+# Find and kill the process
+lsof -ti:8081 | xargs kill -9
+
+# Or use a different port
+npx expo start --port 8082
+```
+
+### Metro Bundler Issues
+
+**Reset Metro Bundler:**
+```bash
+rm -rf node_modules
+rm -rf .expo
+pnpm install
+npx expo start --clear
+```
+
+**Check for conflicting Metro instances:**
+```bash
+ps aux | grep metro
+# Kill any stray metro processes
+```
+
+### iOS Simulator Issues
+
+**Reset Simulator:**
+```bash
+xcrun simctl erase all
+```
+
+### Android Emulator Issues
+
+**Restart ADB:**
+```bash
+adb kill-server
+adb start-server
+```
+
+### Common Errors
+
+**"Unable to resolve module"**
+- Clear cache: `npx expo start --clear`
+- Reinstall: `rm -rf node_modules && pnpm install`
+
+**"Metro bundler failed to start"**
+- Check if another metro instance is running
+- Clear watchman cache: `watchman watch-del-all` (if watchman is installed)
+
+**"CI mode" errors**
+- Ensure CI environment variable is not set incorrectly
+- Use `CI=false pnpm dev` to disable CI mode locally
+
+### Still Having Issues?
+
+1. Check the [Expo Documentation](https://docs.expo.dev/troubleshooting/overview/)
+2. Search [Expo Forums](https://forums.expo.dev/)
+3. Check [GitHub Issues](https://github.com/expo/expo/issues)
 
 ## 📄 License
 
