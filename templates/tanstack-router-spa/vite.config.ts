@@ -2,6 +2,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
+import babel from 'vite-plugin-babel';
 import checker from 'vite-plugin-checker';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -21,6 +22,13 @@ const viteConfig = defineViteConfig({
       routeFileIgnorePattern: '.*\\.test\\.tsx',
     }),
     react(),
+    babel({
+      babelConfig: {
+        plugins: ['babel-plugin-react-compiler'],
+        presets: ['@babel/preset-typescript'],
+      },
+      filter: /\.[jt]sx?$/,
+    }),
     svgr(),
     checker({ typescript: true }),
   ],
