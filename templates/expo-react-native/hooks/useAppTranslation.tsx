@@ -1,7 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import type enUS from '@/i18n/locales/en-US';
-
-type TranslationKeys = typeof enUS;
 
 const useAppTranslation = () => {
   const { t, i18n } = useTranslation();
