@@ -66,16 +66,15 @@ export default function KitchenSinkScreen() {
   };
 
   const toggleTheme = () => {
-    setPreferences(prev => ({
+    setPreferences((prev) => ({
       ...prev,
       theme: prev.theme === 'light' ? 'dark' : 'light',
     }));
   };
 
   const filteredPosts = posts?.filter(
-    post =>
-      !debouncedSearchTerm ||
-      post.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
+    (post) =>
+      !debouncedSearchTerm || post.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
   return (
@@ -100,9 +99,7 @@ export default function KitchenSinkScreen() {
               />
             )}
           />
-          <Button onPress={handleSubmit(onSubmit)}>
-            {t('KitchenSinkPage.submit')}
-          </Button>
+          <Button onPress={handleSubmit(onSubmit)}>{t('KitchenSinkPage.submit')}</Button>
         </View>
 
         {/* usehooks-ts examples */}
@@ -138,8 +135,8 @@ export default function KitchenSinkScreen() {
                   <ThemedText>{t('KitchenSinkPage.enableAutoSave')}</ThemedText>
                   <Switch
                     value={preferences.autoSave}
-                    onValueChange={value =>
-                      setPreferences(prev => ({ ...prev, autoSave: value }))
+                    onValueChange={(value) =>
+                      setPreferences((prev) => ({ ...prev, autoSave: value }))
                     }
                   />
                 </View>
@@ -178,16 +175,17 @@ export default function KitchenSinkScreen() {
             <ThemedText style={styles.infoText}>
               {t('KitchenSinkPage.debouncedValue')}:{' '}
               {debouncedSearchTerm ? `"${debouncedSearchTerm}"` : '""'}
-              {debouncedSearchTerm && ` (${filteredPosts?.length || 0} ${t('KitchenSinkPage.matches')})`}
+              {debouncedSearchTerm &&
+                ` (${filteredPosts?.length || 0} ${t('KitchenSinkPage.matches')})`}
             </ThemedText>
           </View>
 
           {/* useCopyToClipboard */}
           <View style={styles.subsection}>
-            <ThemedText type="defaultSemiBold">{t('KitchenSinkPage.useCopyToClipboard')}</ThemedText>
-            <Button onPress={handleCopyPostsCount}>
-              {t('KitchenSinkPage.copyPostsCount')}
-            </Button>
+            <ThemedText type="defaultSemiBold">
+              {t('KitchenSinkPage.useCopyToClipboard')}
+            </ThemedText>
+            <Button onPress={handleCopyPostsCount}>{t('KitchenSinkPage.copyPostsCount')}</Button>
           </View>
         </View>
 
@@ -197,9 +195,9 @@ export default function KitchenSinkScreen() {
             {t('KitchenSinkPage.posts')} ({posts?.length || 0})
           </ThemedText>
           <View style={styles.postsGrid}>
-            {filteredPosts?.slice(0, 10).map(post => (
+            {filteredPosts?.slice(0, 10).map((post) => (
               <View key={post.id} style={styles.postItem}>
-                <LinkButton href={`/react-query/${post.id}` as any} variant="outline">
+                <LinkButton href={`/react-query/${post.id}` as unknown as string} variant="outline">
                   {post.title.substring(0, 20)}...
                 </LinkButton>
               </View>

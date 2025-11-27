@@ -1,10 +1,4 @@
-import type { ReactNode } from 'react';
-import {
-  TextInput,
-  View,
-  StyleSheet,
-  type TextInputProps,
-} from 'react-native';
+import { TextInput, View, StyleSheet, type TextInputProps } from 'react-native';
 import { ThemedText } from './ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -13,28 +7,11 @@ export interface InputProps extends TextInputProps {
   errorMessage?: string;
 }
 
-export const Input = ({
-  label,
-  errorMessage,
-  style,
-  ...props
-}: InputProps) => {
-  const backgroundColor = useThemeColor(
-    { light: '#FFFFFF', dark: '#1C1C1E' },
-    'background',
-  );
-  const borderColor = useThemeColor(
-    { light: '#C6C6C8', dark: '#38383A' },
-    'border',
-  );
-  const textColor = useThemeColor(
-    { light: '#000000', dark: '#FFFFFF' },
-    'text',
-  );
-  const placeholderColor = useThemeColor(
-    { light: '#8E8E93', dark: '#8E8E93' },
-    'text',
-  );
+export const Input = ({ label, errorMessage, style, ...props }: InputProps) => {
+  const backgroundColor = useThemeColor({ light: '#FFFFFF', dark: '#1C1C1E' }, 'background');
+  const borderColor = useThemeColor({ light: '#C6C6C8', dark: '#38383A' }, 'border');
+  const textColor = useThemeColor({ light: '#000000', dark: '#FFFFFF' }, 'text');
+  const placeholderColor = useThemeColor({ light: '#8E8E93', dark: '#8E8E93' }, 'text');
 
   return (
     <View style={styles.container}>
@@ -52,9 +29,7 @@ export const Input = ({
         placeholderTextColor={placeholderColor}
         {...props}
       />
-      {errorMessage && (
-        <ThemedText style={styles.error}>{errorMessage}</ThemedText>
-      )}
+      {errorMessage && <ThemedText style={styles.error}>{errorMessage}</ThemedText>}
     </View>
   );
 };

@@ -16,15 +16,9 @@ export default function HomeScreen() {
         </ThemedView>
 
         <ThemedView style={styles.linksContainer}>
-          <LinkButton href="/react-query">
-            {t('HomePage.reactQuery')}
-          </LinkButton>
-          <LinkButton href="/react-hook-form-zod">
-            {t('HomePage.reactHookFormZod')}
-          </LinkButton>
-          <LinkButton href="/kitchen-sink">
-            {t('HomePage.kitchenSink')}
-          </LinkButton>
+          <LinkButton href="/react-query">{t('HomePage.reactQuery')}</LinkButton>
+          <LinkButton href="/react-hook-form-zod">{t('HomePage.reactHookFormZod')}</LinkButton>
+          <LinkButton href="/kitchen-sink">{t('HomePage.kitchenSink')}</LinkButton>
         </ThemedView>
       </ThemedView>
     </ScrollView>

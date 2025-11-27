@@ -9,12 +9,8 @@ const client = createApiClient(baseUrl);
 
 const postsService = {
   deletePost: (id: string) => client.delete(`posts/${id}`),
-  getPost: (id: string) =>
-    client.get(`posts/${id}`, { validationSchema: postSchema }).json<Post>(),
-  getPosts: () =>
-    client
-      .get('posts', { validationSchema: z.array(postSchema) })
-      .json<Post[]>(),
+  getPost: (id: string) => client.get(`posts/${id}`, { validationSchema: postSchema }).json<Post>(),
+  getPosts: () => client.get('posts', { validationSchema: z.array(postSchema) }).json<Post[]>(),
 } as const;
 
 export default postsService;

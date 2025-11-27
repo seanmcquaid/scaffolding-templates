@@ -46,11 +46,9 @@ export default function ReactQueryScreen() {
         </ThemedView>
 
         <View style={styles.postsContainer}>
-          {data?.slice(0, 10).map(post => (
+          {data?.slice(0, 10).map((post) => (
             <View key={post.id} style={styles.postItem}>
-              <ThemedText style={styles.postTitle}>
-                {post.title.substring(0, 30)}...
-              </ThemedText>
+              <ThemedText style={styles.postTitle}>{post.title.substring(0, 30)}...</ThemedText>
               <View style={styles.buttonContainer}>
                 <Button
                   variant="destructive"
@@ -60,10 +58,7 @@ export default function ReactQueryScreen() {
                 >
                   {t('ReactQueryPage.delete')}
                 </Button>
-                <LinkButton
-                  href={`/react-query/${post.id}` as any}
-                  variant="default"
-                >
+                <LinkButton href={`/react-query/${post.id}` as unknown as string} variant="default">
                   {t('ReactQueryPage.view')}
                 </LinkButton>
               </View>

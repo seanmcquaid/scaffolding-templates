@@ -1,9 +1,5 @@
 import type { ReactNode } from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  type TouchableOpacityProps,
-} from 'react-native';
+import { TouchableOpacity, StyleSheet, type TouchableOpacityProps } from 'react-native';
 import { ThemedText } from './ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -27,7 +23,7 @@ export const Button = ({
         : variant === 'outline'
           ? { light: '#FFFFFF', dark: '#1C1C1E' }
           : { light: '#E5E5EA', dark: '#3A3A3C' },
-    'background',
+    'background'
   );
 
   const textColor = useThemeColor(
@@ -36,14 +32,14 @@ export const Button = ({
       : variant === 'outline'
         ? { light: '#007AFF', dark: '#0A84FF' }
         : { light: '#000000', dark: '#FFFFFF' },
-    'text',
+    'text'
   );
 
   const borderColor = useThemeColor(
     variant === 'outline'
       ? { light: '#C6C6C8', dark: '#38383A' }
       : { light: 'transparent', dark: 'transparent' },
-    'border',
+    'border'
   );
 
   return (

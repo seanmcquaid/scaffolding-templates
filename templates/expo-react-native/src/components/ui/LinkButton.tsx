@@ -11,19 +11,14 @@ export interface LinkButtonProps extends Omit<TouchableOpacityProps, 'style'> {
   variant?: 'default' | 'secondary' | 'outline';
 }
 
-export const LinkButton = ({
-  href,
-  children,
-  variant = 'default',
-  ...props
-}: LinkButtonProps) => {
+export const LinkButton = ({ href, children, variant = 'default', ...props }: LinkButtonProps) => {
   const backgroundColor = useThemeColor(
     variant === 'default'
       ? { light: '#007AFF', dark: '#0A84FF' }
       : variant === 'outline'
         ? { light: '#FFFFFF', dark: '#1C1C1E' }
         : { light: '#E5E5EA', dark: '#3A3A3C' },
-    'background',
+    'background'
   );
 
   const textColor = useThemeColor(
@@ -32,14 +27,14 @@ export const LinkButton = ({
       : variant === 'outline'
         ? { light: '#007AFF', dark: '#0A84FF' }
         : { light: '#000000', dark: '#FFFFFF' },
-    'text',
+    'text'
   );
 
   const borderColor = useThemeColor(
     variant === 'outline'
       ? { light: '#C6C6C8', dark: '#38383A' }
       : { light: 'transparent', dark: 'transparent' },
-    'border',
+    'border'
   );
 
   return (
@@ -55,9 +50,7 @@ export const LinkButton = ({
       ]}
       {...props}
     >
-      <ThemedText style={[styles.linkButtonText, { color: textColor }]}>
-        {children}
-      </ThemedText>
+      <ThemedText style={[styles.linkButtonText, { color: textColor }]}>{children}</ThemedText>
     </Link>
   );
 };

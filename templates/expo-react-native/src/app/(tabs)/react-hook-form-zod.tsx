@@ -19,7 +19,7 @@ const formDataSchema = z
       message: 'Password must be between 3 and 10 characters',
     }),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
