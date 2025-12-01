@@ -136,8 +136,8 @@ importers:
         specifier: ~19.2.7
         version: 19.2.7
       babel-jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@babel/core@7.28.5)
+        specifier: ^30.2.0
+        version: 30.2.0(@babel/core@7.28.5)
       babel-preset-expo:
         specifier: ^54.0.7
         version: 54.0.7(@babel/core@7.28.5)(@babel/runtime@7.28.4)(expo@54.0.25)(react-refresh@0.14.2)
@@ -11717,7 +11717,7 @@ snapshots:
       camelcase: 5.3.1
       find-up: 4.1.0
       get-package-type: 0.1.0
-      js-yaml: 3.14.1
+      js-yaml: 3.14.2
       resolve-from: 5.0.0
 
   '@istanbuljs/schema@0.1.3': {}
