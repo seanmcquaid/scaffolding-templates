@@ -2,8 +2,7 @@ import type * as React from 'react';
 
 import { cn } from '@/utils/styles';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
 }
