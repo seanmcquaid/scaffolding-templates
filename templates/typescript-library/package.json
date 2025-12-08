@@ -7,18 +7,11 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
-    }
+    ".": "./dist/index.js"
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.mts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "/dist"
   ],
@@ -27,7 +20,7 @@
     "bundlesize": "bundlesize",
     "changeset": "changeset",
     "check-treeshaking": "agadoo dist/index.js",
-    "check-types": "npm pack && attw --pack",
+    "check-types": "npm pack && attw --pack --ignore-rules cjs-resolves-to-esm",
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "prepare": "is-ci || husky",
@@ -54,10 +47,10 @@
     "is-ci": "^4.1.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
-    "tsdown": "^0.16.8",
+    "tsdown": "^0.17.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.1",
-    "vite": "^7.2.6",
+    "vite": "^7.2.7",
     "vitest": "^4.0.15"
   },
   "packageManager": "pnpm@10.12.4",
