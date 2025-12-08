@@ -52,7 +52,7 @@ importers:
         version: 3.0.11(expo@54.0.25)(react-native-web@0.21.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
       expo-router:
         specifier: ~6.0.3
-        version: 6.0.15(edb6bf0881d0a6c4d85a72dc4216096e)
+        version: 6.0.15(d31713dc14ca10a3360398c660c526c6)
       expo-splash-screen:
         specifier: ~31.0.12
         version: 31.0.12(expo@54.0.25)
@@ -90,8 +90,8 @@ importers:
         specifier: 0.82.1
         version: 0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1)
       react-native-reanimated:
-        specifier: ~4.1.0
-        version: 4.1.5(@babel/core@7.28.5)(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
+        specifier: ~4.2.0
+        version: 4.2.0(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
       react-native-web:
         specifier: ~0.21.0
         version: 0.21.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -8501,13 +8501,12 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-reanimated@4.1.5:
-    resolution: {integrity: sha512-UA6VUbxwhRjEw2gSNrvhkusUq3upfD3Cv+AnB07V+kC8kpvwRVI+ivwY95ePbWNFkFpP+Y2Sdw1WHpHWEV+P2Q==}
+  react-native-reanimated@4.2.0:
+    resolution: {integrity: sha512-frhu5b8/m/VvaMWz48V8RxcsXnE3hrlErQ5chr21MzAeDCpY4X14sQjvm+jvu3aOI+7Cz2atdRpyhhIuqxVaXg==}
     peerDependencies:
-      '@babel/core': ^7.0.0-0
       react: '*'
       react-native: '*'
-      react-native-worklets: '>=0.5.0'
+      react-native-worklets: '>=0.7.0'
 
   react-native-safe-area-context@5.6.2:
     resolution: {integrity: sha512-4XGqMNj5qjUTYywJqpdWZ9IG8jgkS3h06sfVjfw5yZQZfWnRFXczi0GnYyFyCc2EBps/qFmoCH8fez//WumdVg==}
@@ -11413,7 +11412,7 @@ snapshots:
       wrap-ansi: 7.0.0
       ws: 8.18.3
     optionalDependencies:
-      expo-router: 6.0.15(edb6bf0881d0a6c4d85a72dc4216096e)
+      expo-router: 6.0.15(d31713dc14ca10a3360398c660c526c6)
       react-native: 0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1)
     transitivePeerDependencies:
       - '@modelcontextprotocol/sdk'
@@ -16027,7 +16026,7 @@ snapshots:
       react: 19.2.1
       react-native: 0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1)
 
-  expo-router@6.0.15(edb6bf0881d0a6c4d85a72dc4216096e):
+  expo-router@6.0.15(d31713dc14ca10a3360398c660c526c6):
     dependencies:
       '@expo/metro-runtime': 6.1.2(expo@54.0.25)(react-dom@19.2.1(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
       '@expo/schema-utils': 0.1.7
@@ -16062,7 +16061,7 @@ snapshots:
     optionalDependencies:
       '@testing-library/react-native': 13.3.3(jest@30.2.0(@types/node@24.10.1)(babel-plugin-macros@3.1.0))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react-test-renderer@19.1.0(react@19.2.1))(react@19.2.1)
       react-dom: 19.2.1(react@19.2.1)
-      react-native-reanimated: 4.1.5(@babel/core@7.28.5)(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
+      react-native-reanimated: 4.2.0(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
       react-native-web: 0.21.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       react-server-dom-webpack: 19.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(webpack@5.99.9)
     transitivePeerDependencies:
@@ -19028,14 +19027,13 @@ snapshots:
       react: 19.2.1
       react-native: 0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1)
 
-  react-native-reanimated@4.1.5(@babel/core@7.28.5)(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1):
+  react-native-reanimated@4.2.0(react-native-worklets@0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1))(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1):
     dependencies:
-      '@babel/core': 7.28.5
       react: 19.2.1
       react-native: 0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1)
       react-native-is-edge-to-edge: 1.2.1(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
       react-native-worklets: 0.6.1(@babel/core@7.28.5)(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)
-      semver: 7.7.2
+      semver: 7.7.3
 
   react-native-safe-area-context@5.6.2(react-native@0.82.1(@babel/core@7.28.5)(@types/react@19.2.7)(react@19.2.1))(react@19.2.1):
     dependencies:
