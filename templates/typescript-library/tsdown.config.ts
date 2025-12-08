@@ -5,5 +5,4 @@ export default defineConfig({
   entry: ['src/**/*', '!src/**/*.test.ts', '!src/**/*.test.tsx'],
   unbundle: true,
   platform: 'neutral',
-  format: ['cjs', 'esm'],
 });
