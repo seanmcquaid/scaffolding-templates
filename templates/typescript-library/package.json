@@ -20,7 +20,7 @@
     "bundlesize": "bundlesize",
     "changeset": "changeset",
     "check-treeshaking": "agadoo dist/index.js",
-    "check-types": "npm pack && attw --pack",
+    "check-types": "npm pack && attw --pack --ignore-rules cjs-resolves-to-esm",
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "prepare": "is-ci || husky",
