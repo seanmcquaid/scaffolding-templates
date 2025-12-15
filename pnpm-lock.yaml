@@ -99,8 +99,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.1.13
-        version: 4.1.13
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@eslint/compat':
         specifier: ^2.0.0
@@ -262,8 +262,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.1.13
-        version: 4.1.13
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.0
@@ -423,7 +423,7 @@ importers:
         version: 4.0.15(@opentelemetry/api@1.9.0)(@types/node@25.0.2)(happy-dom@20.0.11)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.30.2)(msw@2.12.4(@types/node@25.0.2)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
-        version: 3.0.0(zod@4.1.13)
+        version: 3.0.0(zod@4.2.0)
 
   templates/react-router-v7-spa:
     dependencies:
@@ -491,8 +491,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.1.13
-        version: 4.1.13
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.0
@@ -664,7 +664,7 @@ importers:
         version: 4.0.15(@opentelemetry/api@1.9.0)(@types/node@25.0.2)(happy-dom@20.0.11)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.30.2)(msw@2.12.4(@types/node@25.0.2)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
-        version: 3.0.0(zod@4.1.13)
+        version: 3.0.0(zod@4.2.0)
 
   templates/react-router-v7-ssr:
     dependencies:
@@ -741,8 +741,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.1.13
-        version: 4.1.13
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.0
@@ -914,7 +914,7 @@ importers:
         version: 4.0.15(@opentelemetry/api@1.9.0)(@types/node@25.0.2)(happy-dom@20.0.11)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.30.2)(msw@2.12.4(@types/node@25.0.2)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
-        version: 3.0.0(zod@4.1.13)
+        version: 3.0.0(zod@4.2.0)
 
   templates/tanstack-router-spa:
     dependencies:
@@ -970,8 +970,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react@19.2.3)
       zod:
-        specifier: ^4.1.13
-        version: 4.1.13
+        specifier: ^4.2.0
+        version: 4.2.0
     devDependencies:
       '@axe-core/playwright':
         specifier: ^4.11.0
@@ -1140,7 +1140,7 @@ importers:
         version: 4.0.15(@opentelemetry/api@1.9.0)(@types/node@25.0.2)(happy-dom@20.0.11)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.30.2)(msw@2.12.4(@types/node@25.0.2)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
-        version: 3.0.0(zod@4.1.13)
+        version: 3.0.0(zod@4.2.0)
 
   templates/typescript-library:
     devDependencies:
@@ -10194,8 +10194,8 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.1.13:
-    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
+  zod@4.2.0:
+    resolution: {integrity: sha512-Bd5fw9wlIhtqCCxotZgdTOMwGm1a0u75wARVEY9HMs1X17trvA/lMi4+MGK5EUfYkXVTbX8UDiDKW4OgzHVUZw==}
 
 snapshots:
 
@@ -15710,8 +15710,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.2(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.1.13
-      zod-validation-error: 4.0.2(zod@4.1.13)
+      zod: 4.2.0
+      zod-validation-error: 4.0.2(zod@4.2.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -20766,20 +20766,20 @@ snapshots:
   zimmerframe@1.1.4:
     optional: true
 
-  zocker@3.0.0(zod@4.1.13):
+  zocker@3.0.0(zod@4.2.0):
     dependencies:
       '@faker-js/faker': 10.0.0
       randexp: 0.5.3
-      zod: 4.1.13
+      zod: 4.2.0
 
   zod-validation-error@3.5.2(zod@3.25.76):
     dependencies:
       zod: 3.25.76
 
-  zod-validation-error@4.0.2(zod@4.1.13):
+  zod-validation-error@4.0.2(zod@4.2.0):
     dependencies:
-      zod: 4.1.13
+      zod: 4.2.0
 
   zod@3.25.76: {}
 
-  zod@4.1.13: {}
+  zod@4.2.0: {}
