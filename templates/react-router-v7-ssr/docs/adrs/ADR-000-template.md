@@ -65,10 +65,3 @@ This decision was made because:
 1. Reason 1
 2. Reason 2
 3. Reason 3
-
-### Implementation Notes
-
-Optional: Include any important implementation details, migration paths, or considerations.
-
-- Note 1
-- Note 2
