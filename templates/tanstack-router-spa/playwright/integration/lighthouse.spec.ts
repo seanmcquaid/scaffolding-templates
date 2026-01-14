@@ -7,6 +7,7 @@ test.describe('Lighthouse tests', () => {
     ({ browserName }) => browserName !== 'chromium',
     'Lighthouse only supports Chromium',
   );
+
   // eslint-disable-next-line playwright/expect-expect
   test('Home', async ({ playwright }) => {
     const browser = await playwright['chromium'].launch({
