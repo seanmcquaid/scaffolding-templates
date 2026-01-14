@@ -1,6 +1,32 @@
 # Custom Agents for Scaffolding Templates
 
-This directory contains custom GitHub Copilot agents that follow the Software Development Life Cycle (SDLC) and provide specialized expertise for each template in the repository.
+This directory contains the **base set of custom GitHub Copilot agents** that follow the Software Development Life Cycle (SDLC). These agents provide general development lifecycle expertise that applies across all templates.
+
+## Repository Structure
+
+The custom agents are organized into two locations:
+
+### 1. Root Agents (This Directory)
+**Location**: `/.github/agents/`
+
+Base SDLC agents that work across all templates:
+- Requirements Analysis
+- Design & Architecture  
+- Implementation
+- Testing
+- Deployment
+- Maintenance
+
+### 2. Template-Specific Agents
+**Location**: `/templates/[template-name]/.github/agents/`
+
+Each template has its own specialized agent:
+- `typescript-library` - TypeScript library development specialist
+- `next-ssr` - Next.js SSR specialist
+- `react-router-v7-spa` - React Router v7 SPA specialist
+- `react-router-v7-ssr` - React Router v7 SSR specialist
+- `tanstack-router-spa` - TanStack Router specialist
+- `expo-react-native` - Expo React Native specialist
 
 ## Overview
 
@@ -84,39 +110,29 @@ Handles ongoing maintenance, bug fixes, and improvements.
 
 ## Template-Specific Agents
 
-These agents provide specialized knowledge for each template:
+Each template has its own specialized agent located in `/templates/[template-name]/.github/agents/`. These agents provide deep expertise for their specific framework and are available when working within that template.
 
-### TypeScript Library Specialist
-**File**: `typescript-library-specialist.agent.md`
+### Available Template Agents
 
-Expert in TypeScript library development with dual ESM/CJS exports.
+1. **TypeScript Library Specialist** (`/templates/typescript-library/.github/agents/`)
+   - Library API design, dual ESM/CJS exports, NPM publishing
 
-**Use for:**
-- Library API design
-- Package configuration
-- Tree-shaking optimization
-- NPM publishing workflow
-- Type definition management
+2. **Next.js SSR Specialist** (`/templates/next-ssr/.github/agents/`)
+   - App Router, Server Components, Server Actions, SEO
 
-### Next.js SSR Specialist
-**File**: `nextjs-ssr-specialist.agent.md`
+3. **React Router v7 SPA Specialist** (`/templates/react-router-v7-spa/.github/agents/`)
+   - Client-side routing, TanStack Query, URL state management
 
-Expert in Next.js App Router with Server Components and Server Actions.
+4. **React Router v7 SSR Specialist** (`/templates/react-router-v7-ssr/.github/agents/`)
+   - SSR loaders, server actions, hydration strategies
 
-**Use for:**
-- Server Component architecture
-- Server Actions for mutations
-- Metadata management for SEO
-- Caching strategies
-- Streaming with Suspense
+5. **TanStack Router SPA Specialist** (`/templates/tanstack-router-spa/.github/agents/`)
+   - Type-safe routing, search parameter validation
 
-### React Router v7 SPA Specialist
-**File**: `react-router-spa-specialist.agent.md`
+6. **Expo React Native Specialist** (`/templates/expo-react-native/.github/agents/`)
+   - Cross-platform mobile, Expo SDK, native modules
 
-Expert in React Router v7 single-page applications.
-
-**Use for:**
-- Client-side routing
+To use a template-specific agent, navigate to the template directory or select it when the agent dropdown shows available agents for your workspace.
 - TanStack Query integration
 - URL state management
 - Code splitting strategies
@@ -164,7 +180,9 @@ Expert in Expo and React Native for cross-platform mobile development.
 
 1. Navigate to the [Agents tab](https://github.com/copilot/agents)
 2. Select your repository from the dropdown
-3. Choose the appropriate agent for your task
+3. Choose the appropriate agent for your task:
+   - **Base SDLC agents** for general development tasks
+   - **Template-specific agents** when working within a specific template
 4. Provide your requirements or task description
 5. The agent will work with the repository following its specialized expertise
 
@@ -172,20 +190,27 @@ Expert in Expo and React Native for cross-platform mobile development.
 
 1. Open GitHub Copilot Chat
 2. Click the agents dropdown
-3. Select the custom agent you need
+3. Select the custom agent you need:
+   - Open the root directory to see **base SDLC agents**
+   - Open a template directory to see **template-specific agents**
 4. Start a conversation with the agent about your task
 
 ### When to Use Which Agent
 
-**Starting a New Feature:**
-1. Start with **Requirements Analysis Agent** to understand and document requirements
-2. Use **Design & Architecture Agent** to create the design
-3. Have **Implementation Engineer Agent** write the code
-4. Use **Testing Specialist Agent** to create tests
-5. Employ **Deployment Engineer Agent** for deployment setup
+**Starting a New Feature in a Template:**
+1. Start with **Requirements Analysis Agent** (base) to document requirements
+2. Use **Design & Architecture Agent** (base) to create the design
+3. Switch to the **Template-Specific Agent** for implementation guidance
+4. Use **Implementation Engineer Agent** (base) or template agent to write code
+5. Use **Testing Specialist Agent** (base) to create tests
+6. Employ **Deployment Engineer Agent** (base) for deployment setup
 
 **Working on Template-Specific Code:**
-- Use the corresponding template specialist agent (e.g., **Next.js SSR Specialist** for Next.js work)
+- Use the corresponding **template specialist agent** for framework-specific guidance
+- Example: Use `nextjs-ssr-specialist` when working in `/templates/next-ssr/`
+
+**General Development Tasks:**
+- Use **base SDLC agents** for cross-template concerns
 
 **Fixing Bugs:**
 - Use **Maintenance Engineer Agent** for investigation and fixes
@@ -199,11 +224,13 @@ Expert in Expo and React Native for cross-platform mobile development.
 
 ## Best Practices
 
-1. **Combine Agents**: Use SDLC agents in sequence for complete features
-2. **Context Matters**: Provide clear context about what you're working on
-3. **Template Awareness**: Always mention which template you're working with
-4. **Reference Documentation**: Agents will automatically reference AGENTS.md files
-5. **Iterative Approach**: Use agents iteratively - requirements → design → implementation → testing → deployment
+1. **Combine Agents**: Use base SDLC agents in sequence, then template agents for specifics
+2. **Context Matters**: Provide clear context about which template you're working with
+3. **Location-Based Selection**: 
+   - Work from root for base agents
+   - Work from template directory for template-specific agents
+4. **Reference Documentation**: Agents automatically reference AGENTS.md files
+5. **Iterative Approach**: requirements → design → template-specific implementation → testing → deployment
 
 ## Agent Capabilities
 
