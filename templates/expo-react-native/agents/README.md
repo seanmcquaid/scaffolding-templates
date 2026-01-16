@@ -1,6 +1,6 @@
 # Expo React Native Template - Custom Agent
 
-This directory contains a custom GitHub Copilot agent specialized for the Expo React Native template.
+This directory contains a custom agent specialized for the Expo React Native template, compatible with GitHub Copilot, Claude, Cursor, and other AI assistants.
 
 ## Agent
 
@@ -20,11 +20,10 @@ Expert in Expo and React Native for cross-platform mobile development.
 
 ## Using This Agent
 
-### In Your IDE
-1. Open this template in your IDE
-2. Open GitHub Copilot Chat
-3. Select `expo-react-native-specialist` from the agents dropdown
-4. Ask questions or request help specific to Expo React Native development
+### In Your IDE or AI Tool
+1. Open this template in your IDE or AI tool (GitHub Copilot, Claude, Cursor, etc.)
+2. Reference the `expo-react-native-specialist` agent
+3. Ask questions or request help specific to Expo React Native development
 
 ### On GitHub.com
 1. Navigate to https://github.com/copilot/agents
@@ -34,7 +33,7 @@ Expert in Expo and React Native for cross-platform mobile development.
 
 ## Base SDLC Agents
 
-For general development lifecycle tasks, use the base agents in the root `.github/agents/` directory:
+For general development lifecycle tasks, use the base agents in the root `/agents/` directory:
 - Requirements Analysis
 - Design & Architecture
 - Implementation

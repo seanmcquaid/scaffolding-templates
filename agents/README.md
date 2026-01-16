@@ -1,13 +1,13 @@
 # Custom Agents for Scaffolding Templates
 
-This directory contains the **base set of custom GitHub Copilot agents** that follow the Software Development Life Cycle (SDLC). These agents provide general development lifecycle expertise that applies across all templates.
+This directory contains the **base set of custom agents** that follow the Software Development Life Cycle (SDLC). These agents provide general development lifecycle expertise that applies across all templates and are compatible with GitHub Copilot, Claude, Cursor, and other AI assistants.
 
 ## Repository Structure
 
 The custom agents are organized into two locations:
 
 ### 1. Root Agents (This Directory)
-**Location**: `/.github/agents/`
+**Location**: `/agents/`
 
 Base SDLC agents that work across all templates:
 - Requirements Analysis
@@ -18,7 +18,7 @@ Base SDLC agents that work across all templates:
 - Maintenance
 
 ### 2. Template-Specific Agents
-**Location**: `/templates/[template-name]/.github/agents/`
+**Location**: `/templates/[template-name]/agents/`
 
 Each template has its own specialized agent:
 - `typescript-library` - TypeScript library development specialist
@@ -31,6 +31,8 @@ Each template has its own specialized agent:
 ## Overview
 
 Custom agents are specialized AI assistants with tailored expertise for specific development tasks. They have access to the repository's AGENTS.md documentation and are designed to maintain consistency across all templates while respecting framework-specific best practices.
+
+**Cross-Tool Compatibility**: These agents are stored in the `/agents/` directory (not `.github/agents/`) to ensure they can be referenced by multiple AI tools including GitHub Copilot, Claude, Cursor, and others.
 
 ## SDLC Phase Agents
 

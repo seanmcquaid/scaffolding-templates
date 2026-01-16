@@ -1,6 +1,6 @@
 # TanStack Router SPA Template - Custom Agent
 
-This directory contains a custom GitHub Copilot agent specialized for the TanStack Router SPA template.
+This directory contains a custom agent specialized for the TanStack Router SPA template, compatible with GitHub Copilot, Claude, Cursor, and other AI assistants.
 
 ## Agent
 
@@ -20,11 +20,10 @@ Expert in TanStack Router for type-safe single-page applications with file-based
 
 ## Using This Agent
 
-### In Your IDE
-1. Open this template in your IDE
-2. Open GitHub Copilot Chat
-3. Select `tanstack-router-spa-specialist` from the agents dropdown
-4. Ask questions or request help specific to TanStack Router development
+### In Your IDE or AI Tool
+1. Open this template in your IDE or AI tool (GitHub Copilot, Claude, Cursor, etc.)
+2. Reference the `tanstack-router-spa-specialist` agent
+3. Ask questions or request help specific to TanStack Router development
 
 ### On GitHub.com
 1. Navigate to https://github.com/copilot/agents
@@ -34,7 +33,7 @@ Expert in TanStack Router for type-safe single-page applications with file-based
 
 ## Base SDLC Agents
 
-For general development lifecycle tasks, use the base agents in the root `.github/agents/` directory:
+For general development lifecycle tasks, use the base agents in the root `/agents/` directory:
 - Requirements Analysis
 - Design & Architecture
 - Implementation

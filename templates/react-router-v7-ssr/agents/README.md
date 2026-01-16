@@ -1,6 +1,6 @@
 # React Router v7 SSR Template - Custom Agent
 
-This directory contains a custom GitHub Copilot agent specialized for the React Router v7 SSR template.
+This directory contains a custom agent specialized for the React Router v7 SSR template, compatible with GitHub Copilot, Claude, Cursor, and other AI assistants.
 
 ## Agent
 
@@ -21,11 +21,10 @@ Expert in React Router v7 with server-side rendering, loaders, actions, and full
 
 ## Using This Agent
 
-### In Your IDE
-1. Open this template in your IDE
-2. Open GitHub Copilot Chat
-3. Select `react-router-ssr-specialist` from the agents dropdown
-4. Ask questions or request help specific to React Router v7 SSR development
+### In Your IDE or AI Tool
+1. Open this template in your IDE or AI tool (GitHub Copilot, Claude, Cursor, etc.)
+2. Reference the `react-router-ssr-specialist` agent
+3. Ask questions or request help specific to React Router v7 SSR development
 
 ### On GitHub.com
 1. Navigate to https://github.com/copilot/agents
@@ -35,7 +34,7 @@ Expert in React Router v7 with server-side rendering, loaders, actions, and full
 
 ## Base SDLC Agents
 
-For general development lifecycle tasks, use the base agents in the root `.github/agents/` directory:
+For general development lifecycle tasks, use the base agents in the root `/agents/` directory:
 - Requirements Analysis
 - Design & Architecture
 - Implementation
