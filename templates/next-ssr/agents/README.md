@@ -1,6 +1,6 @@
 # Custom Agents
 
-This directory contains a comprehensive set of custom agents compatible with GitHub Copilot, Claude, Cursor, and other AI assistants. All agents are available in each template to ensure self-contained functionality when templates are cloned individually.
+This directory contains custom agents compatible with GitHub Copilot, Claude, Cursor, and other AI assistants. This template includes all SDLC phase agents plus the Next.js SSR specialist for complete self-contained functionality.
 
 ## Available Agents
 
@@ -38,39 +38,16 @@ General-purpose agents covering the complete software development lifecycle:
    - Manages dependency updates
    - Performs refactoring and code improvements
 
-### Template Specialist Agents (6)
+### Template Specialist Agent (1)
 
-Framework-specific experts for different project types:
+Framework-specific expert for this template:
 
-1. **TypeScript Library Specialist** (`typescript-library-specialist.agent.md`)
-   - Dual ESM/CJS exports, tree-shaking optimization
-   - NPM publishing workflow with Changesets
-   - Type definition management
-
-2. **Next.js SSR Specialist** (`nextjs-ssr-specialist.agent.md`)
-   - App Router, Server Components, Server Actions
+1. **Next.js SSR Specialist** (`nextjs-ssr-specialist.agent.md`)
+   - App Router with Server and Client Components
+   - Server Actions for mutations
    - Metadata management for SEO
-   - Streaming with Suspense
-
-3. **React Router v7 SPA Specialist** (`react-router-spa-specialist.agent.md`)
-   - Client-side routing patterns
-   - TanStack Query integration
-   - Progressive enhancement
-
-4. **React Router v7 SSR Specialist** (`react-router-ssr-specialist.agent.md`)
-   - Server-side rendering with loaders and actions
-   - Hydration strategies
-   - Full-stack React patterns
-
-5. **TanStack Router SPA Specialist** (`tanstack-router-spa-specialist.agent.md`)
-   - Type-safe routing with generated types
-   - Search parameter validation with Zod
-   - Route-based code splitting
-
-6. **Expo React Native Specialist** (`expo-react-native-specialist.agent.md`)
-   - Cross-platform mobile development
-   - Native module integration
-   - EAS Build and deployment
+   - Streaming with React Suspense
+   - Image and Font optimization
 
 ## Using These Agents
 
@@ -91,12 +68,7 @@ Framework-specific experts for different project types:
 - Use SDLC phase agents (requirements, design, implementation, testing, deployment, maintenance)
 
 **For framework-specific questions:**
-- Use the template specialist agent that matches your framework
-- All specialist agents are available in every template for cross-reference
-
-**For learning and comparison:**
-- Reference other template specialists to understand different approaches
-- Compare patterns across frameworks
+- Use the Next.js SSR specialist agent for this template
 
 ## Agent Capabilities
 
@@ -106,11 +78,11 @@ Each agent:
 - Has appropriate tool access (read/search/edit/create/bash)
 - Maintains consistency while respecting framework-specific conventions
 
-## Self-Contained Templates
+## Self-Contained Template
 
-All agents are duplicated in each template to ensure that when you clone a single template:
-- You have access to all SDLC phase agents
-- You have access to all framework specialists for learning/comparison
+This template includes all necessary agents to ensure that when you clone it:
+- You have access to all 6 SDLC phase agents
+- You have the Next.js SSR specialist agent
 - The template is fully self-contained and functional
 
 ## Template Documentation
