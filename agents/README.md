@@ -9,12 +9,12 @@ All agents are duplicated in two locations for maximum flexibility:
 ### 1. Root Agents (This Directory)
 **Location**: `/agents/`
 
-All 12 agents (6 SDLC + 6 template specialists) available for repository-wide access.
+All 14 agents (8 SDLC + 6 template specialists) available for repository-wide access.
 
 ### 2. Template Agents (Self-Contained)
 **Location**: `/templates/[template-name]/agents/`
 
-Each template contains **all 12 agents** to ensure templates are self-contained when cloned individually.
+Each template contains **9 agents** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
 
 ## Why Duplicate Agents?
 
@@ -32,7 +32,7 @@ Custom agents are specialized AI assistants with tailored expertise for specific
 
 ## SDLC Phase Agents
 
-These agents cover the complete software development lifecycle:
+These 8 agents cover the complete software development lifecycle:
 
 ### 1. Requirements Analysis Agent
 **File**: `requirements-analyst.agent.md`
@@ -46,8 +46,8 @@ Translates user requirements into clear, actionable technical specifications tha
 - Defining acceptance criteria
 - Identifying dependencies and risks
 
-### 2. Design & Architecture Agent
-**File**: `design-architect.agent.md`
+### 2. Software Architect
+**File**: `software-architect.agent.md`
 
 Creates scalable, maintainable architectures following modern best practices.
 
@@ -70,8 +70,20 @@ Writes production-ready code following established patterns and best practices.
 - Ensuring TypeScript type safety
 - Implementing i18n requirements
 
-### 4. Testing Specialist Agent
-**File**: `testing-specialist.agent.md`
+### 4. UI/UX Designer
+**File**: `ui-ux-designer.agent.md`
+
+Designs intuitive user interfaces and experiences with focus on accessibility and usability.
+
+**Use for:**
+- User interface design
+- Wireframing and prototyping
+- Accessibility compliance (WCAG 2.1 AA)
+- Design system maintenance
+- Component design specifications
+
+### 5. Quality Analyst
+**File**: `quality-analyst.agent.md`
 
 Creates comprehensive tests following the three-tier testing strategy.
 
@@ -82,7 +94,7 @@ Creates comprehensive tests following the three-tier testing strategy.
 - Test coverage improvement
 - Testing strategy implementation
 
-### 5. Deployment Engineer Agent
+### 6. Deployment Engineer
 **File**: `deployment-engineer.agent.md`
 
 Handles deployment, infrastructure, and DevOps concerns.
@@ -94,7 +106,7 @@ Handles deployment, infrastructure, and DevOps concerns.
 - Environment variable management
 - Performance monitoring
 
-### 6. Maintenance Engineer Agent
+### 7. Maintenance Engineer
 **File**: `maintenance-engineer.agent.md`
 
 Handles ongoing maintenance, bug fixes, and improvements.
@@ -105,6 +117,18 @@ Handles ongoing maintenance, bug fixes, and improvements.
 - Code refactoring
 - Technical debt management
 - Security updates
+
+### 8. Production Support Engineer
+**File**: `production-support-engineer.agent.md`
+
+Handles production issues, monitoring, incident response, and operational excellence.
+
+**Use for:**
+- Incident response and resolution
+- Production monitoring setup
+- Log analysis and debugging
+- Performance optimization
+- System reliability improvements
 
 ## Template-Specific Agents
 
@@ -196,12 +220,14 @@ Expert in Expo and React Native for cross-platform mobile development.
 ### When to Use Which Agent
 
 **Starting a New Feature in a Template:**
-1. Start with **Requirements Analysis Agent** (base) to document requirements
-2. Use **Design & Architecture Agent** (base) to create the design
-3. Switch to the **Template-Specific Agent** for implementation guidance
-4. Use **Implementation Engineer Agent** (base) or template agent to write code
-5. Use **Testing Specialist Agent** (base) to create tests
-6. Employ **Deployment Engineer Agent** (base) for deployment setup
+1. Start with **Requirements Analysis Agent** to document requirements
+2. Use **UI/UX Designer** to design the user interface
+3. Use **Software Architect** to create the technical design
+4. Switch to the **Template-Specific Agent** for implementation guidance
+5. Use **Implementation Engineer Agent** or template agent to write code
+6. Use **Quality Analyst** to create tests
+7. Employ **Deployment Engineer** for deployment setup
+8. Use **Production Support Engineer** to set up monitoring
 
 **Working on Template-Specific Code:**
 - Use the corresponding **template specialist agent** for framework-specific guidance
@@ -211,14 +237,20 @@ Expert in Expo and React Native for cross-platform mobile development.
 - Use **base SDLC agents** for cross-template concerns
 
 **Fixing Bugs:**
-- Use **Maintenance Engineer Agent** for investigation and fixes
+- Use **Maintenance Engineer** for investigation and fixes
+- Use **Production Support Engineer** for production incidents
 
 **Improving Test Coverage:**
-- Use **Testing Specialist Agent** specifically
+- Use **Quality Analyst** specifically
 
 **Optimizing Performance:**
-- Use **Deployment Engineer Agent** for infrastructure and build optimization
+- Use **Deployment Engineer** for infrastructure and build optimization
+- Use **Production Support Engineer** for production performance issues
 - Use template specialists for code-level optimizations
+
+**Designing User Interfaces:**
+- Use **UI/UX Designer** for wireframes, prototypes, and interface design
+- Collaborate with **Software Architect** for technical feasibility
 
 ## Best Practices
 

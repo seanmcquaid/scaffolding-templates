@@ -4,7 +4,7 @@ This directory contains custom agents compatible with GitHub Copilot, Claude, Cu
 
 ## Available Agents
 
-### SDLC Phase Agents (6)
+### SDLC Phase Agents (8)
 
 General-purpose agents covering the complete software development lifecycle:
 
@@ -13,7 +13,7 @@ General-purpose agents covering the complete software development lifecycle:
    - Creates user stories, acceptance criteria, and technical requirements
    - Identifies constraints, dependencies, and risks
 
-2. **Design & Architecture Agent** (`design-architect.agent.md`)
+2. **Software Architect** (`software-architect.agent.md`)
    - Creates architectural designs and technical specifications
    - Writes Architecture Decision Records (ADRs)
    - Designs scalable, maintainable system architectures
@@ -23,7 +23,7 @@ General-purpose agents covering the complete software development lifecycle:
    - Implements features with proper error handling and validation
    - Follows template-specific conventions and best practices
 
-4. **Testing Specialist Agent** (`testing-specialist.agent.md`)
+4. **Quality Analyst** (`quality-analyst.agent.md`)
    - Creates comprehensive test suites (unit, integration, e2e)
    - Implements three-tier testing approach
    - Ensures test quality and coverage
@@ -34,6 +34,16 @@ General-purpose agents covering the complete software development lifecycle:
    - Implements monitoring and observability
 
 6. **Maintenance Engineer Agent** (`maintenance-engineer.agent.md`)
+
+7. **UI/UX Designer** (`ui-ux-designer.agent.md`)
+   - Designs intuitive user interfaces and experiences
+   - Creates wireframes, prototypes, and design specifications
+   - Ensures accessibility (WCAG 2.1 AA) and usability
+
+8. **Production Support Engineer** (`production-support-engineer.agent.md`)
+   - Handles production issues and incident response
+   - Implements monitoring and alerting systems
+   - Optimizes system reliability and performance
    - Handles bug fixes and debugging
    - Manages dependency updates
    - Performs refactoring and code improvements
@@ -81,7 +91,7 @@ Each agent:
 ## Self-Contained Template
 
 This template includes all necessary agents to ensure that when you clone it:
-- You have access to all 6 SDLC phase agents
+- You have access to all 8 SDLC phase agents
 - You have the Expo React Native specialist agent
 - The template is fully self-contained and functional
 
