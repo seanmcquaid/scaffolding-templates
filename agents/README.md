@@ -1,32 +1,28 @@
 # Custom Agents for Scaffolding Templates
 
-This directory contains the **base set of custom agents** that follow the Software Development Life Cycle (SDLC). These agents provide general development lifecycle expertise that applies across all templates and are compatible with GitHub Copilot, Claude, Cursor, and other AI assistants.
+This directory contains a comprehensive set of custom agents compatible with GitHub Copilot, Claude, Cursor, and other AI assistants. All agents are available at both the repository root and within each template to ensure self-contained functionality.
 
 ## Repository Structure
 
-The custom agents are organized into two locations:
+All agents are duplicated in two locations for maximum flexibility:
 
 ### 1. Root Agents (This Directory)
 **Location**: `/agents/`
 
-Base SDLC agents that work across all templates:
-- Requirements Analysis
-- Design & Architecture  
-- Implementation
-- Testing
-- Deployment
-- Maintenance
+All 12 agents (6 SDLC + 6 template specialists) available for repository-wide access.
 
-### 2. Template-Specific Agents
+### 2. Template Agents (Self-Contained)
 **Location**: `/templates/[template-name]/agents/`
 
-Each template has its own specialized agent:
-- `typescript-library` - TypeScript library development specialist
-- `next-ssr` - Next.js SSR specialist
-- `react-router-v7-spa` - React Router v7 SPA specialist
-- `react-router-v7-ssr` - React Router v7 SSR specialist
-- `tanstack-router-spa` - TanStack Router specialist
-- `expo-react-native` - Expo React Native specialist
+Each template contains **all 12 agents** to ensure templates are self-contained when cloned individually.
+
+## Why Duplicate Agents?
+
+Templates are designed to be cloned individually. By including all agents in each template:
+- **Self-contained**: Each template has everything needed to work independently
+- **Cross-reference**: Developers can learn from other framework patterns
+- **Complete lifecycle**: All SDLC phase agents available in every template
+- **No dependencies**: No need to reference parent repository
 
 ## Overview
 
