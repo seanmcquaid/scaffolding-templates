@@ -1,0 +1,129 @@
+name: AI Code Review & Agent Tagging
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  ai-code-review:
+    runs-on: ubuntu-latest
+    name: AI Code Review & Agent Tagging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Analyze Changed Files
+        id: analyze
+        run: |
+          # Run analysis script
+          RESULT=$(./scripts/analyze-changed-files.sh "origin/${{ github.base_ref }}" "${{ github.sha }}")
+          
+          # Extract values from JSON output
+          CHANGED_FILES=$(echo "$RESULT" | jq -r '.changed_files | join("\n")')
+          TEMPLATES=$(echo "$RESULT" | jq -r '.templates | join(" ")')
+          
+          # Set outputs
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "templates=$TEMPLATES" >> $GITHUB_OUTPUT
+
+      - name: Determine Relevant Agents
+        id: agents
+        run: |
+          # Run agent determination script
+          TEMPLATES="${{ steps.analyze.outputs.templates }}"
+          RESULT=$(echo "${{ steps.analyze.outputs.changed_files }}" | ./scripts/determine-agents.sh - "$TEMPLATES")
+          
+          # Extract agents from JSON output
+          AGENTS=$(echo "$RESULT" | jq -r '.agents | join(" ")')
+          
+          echo "agents=$AGENTS" >> $GITHUB_OUTPUT
+          echo "Relevant agents: $AGENTS"
+
+      - name: Generate AI Review Context
+        id: context
+        run: |
+          CONTEXT="## AI Code Review Context
+          
+          **PR Title**: ${{ github.event.pull_request.title }}
+          **Branch**: ${{ github.head_ref }}
+          **Author**: ${{ github.event.pull_request.user.login }}
+          
+          **Affected Templates**:
+          ${{ steps.analyze.outputs.templates }}
+          
+          **Relevant Agents**:
+          ${{ steps.agents.outputs.agents }}
+          
+          **Changed Files**:
+          \`\`\`
+          ${{ steps.analyze.outputs.changed_files }}
+          \`\`\`
+          
+          **Review Guidelines**:
+          - Follow AGENTS.md patterns and best practices
+          - Check for template consistency
+          - Verify TypeScript type safety
+          - Ensure i18n requirements are met
+          - Validate test coverage
+          - Check for security vulnerabilities
+          
+          **Next Steps**:
+          1. Review the changes using plan mode approach
+          2. Tagged agents should provide specialized feedback
+          3. Address any issues before merge
+          "
+          
+          echo "context<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTEXT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post AI Review Comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const context = `${{ steps.context.outputs.context }}`;
+            
+            // Post initial review comment
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🤖 **AI Code Review & Agent Tagging**\n\n${context}\n\n---\n\n*This is an automated analysis. Tagged agents will provide specialized review.*`
+            });
+
+      - name: Add Labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const templates = '${{ steps.analyze.outputs.templates }}'.trim().split(/\s+/).filter(Boolean);
+            const labels = ['ai-review'];
+            
+            // Add template-specific labels
+            templates.forEach(template => {
+              labels.push(`template:${template}`);
+            });
+            
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: labels
+            });
