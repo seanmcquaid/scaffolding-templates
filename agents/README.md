@@ -295,6 +295,7 @@ If you encounter issues or have suggestions for improving these agents:
 
 ## Additional Resources
 
+- **[Custom Agents Guide](/docs/custom-agents-guide.md)** - Comprehensive guide to using custom sub-agents with platform-specific usage instructions, best practices, advanced patterns, and real-world examples
 - [GitHub Copilot Custom Agents Documentation](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents)
 - Repository `/AGENTS.md` - Overall repository guidelines
 - Template-specific `AGENTS.md` files - Framework-specific patterns

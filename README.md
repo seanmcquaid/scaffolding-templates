@@ -4,6 +4,22 @@ Throughout my years of working in web development, I have found myself using the
 
 These templates are meant to be a starting point for new projects and are not meant to be a one-size-fits-all solution. I have created these templates to fit my needs and preferences, but I am always open to suggestions and improvements. If you have any suggestions or improvements, please feel free to open an issue on the repo!
 
+## 🤖 AI Agent Skills
+
+This repository includes **14 standardized agent skills** compatible with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents. These skills provide specialized expertise for:
+
+- **8 SDLC Phase Skills**: Requirements analysis, architecture, implementation, UI/UX, testing, deployment, maintenance, and production support
+- **6 Template-Specific Skills**: TypeScript libraries, Next.js SSR, React Router (SPA & SSR), TanStack Router, and Expo React Native
+
+**Quick Install:**
+```bash
+npx skills add seanmcquaid/scaffolding-templates --all -a github-copilot
+```
+
+👉 [Learn more about skills](./skills/README.md)
+
+**Note**: Skills are stored in `/skills/` for cross-tool compatibility with multiple AI agents, not just GitHub Copilot.
+
 ## Platform Support
 
 ### Supported Platforms
@@ -54,7 +70,31 @@ Each template includes:
 - ✅ Type-safe development with TypeScript
 - ✅ Environment configuration with validation
 - ✅ Comprehensive documentation
+- ✅ Custom AI agents for GitHub Copilot, Claude, and Cursor
 - ✅ AI-powered development workflows
+
+## AI-Assisted Development
+
+This repository includes **two complementary AI assistance systems**:
+
+### Skills (Standard Format)
+Following [agentskills.io](https://agentskills.io) specification for broad platform compatibility:
+- **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
+- **Location**: `/skills/` directory with `SKILL.md` files
+- **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
+- **Documentation**: [Skills README](skills/README.md)
+
+### Custom Agents (Enhanced Format)
+Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
+- **14 Agents**: 8 SDLC phase agents + 6 template specialist agents
+- **Location**: `/agents/` directory with `.agent.md` files
+- **Support**: GitHub Copilot, Claude Desktop, Cursor IDE
+- **Documentation**: [Custom Agents Guide](docs/custom-agents-guide.md) (includes Quick Start)
+
+### Understanding the Difference
+- **[Skills vs Agents Guide](docs/ai-skills-vs-agents.md)** - Understand which to use and when
+
+Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.
 
 ## AI-Powered Development Workflows
 
