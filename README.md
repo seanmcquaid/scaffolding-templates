@@ -63,10 +63,10 @@ This repository uses automated AI workflows to maintain code quality and acceler
 - 🤖 **Automated Code Reviews** - AI agents automatically review PRs and tag relevant specialists
 - 🔍 **Proactive Concept Discovery** - Weekly scans for new technologies and best practices
 - 🧪 **Test Coverage Analysis** - Automated identification of test coverage gaps
+- 🛠️ **Runnable Scripts** - All workflows use scripts that can be run locally for testing
 
-**Quick Start**: [AI Workflows Guide](/docs/ai-workflows/quick-start.md)
+**Documentation**: [Complete AI Workflows Guide](/docs/ai-workflows.md)
 
-**Learn More**: 
-- [Full AI Workflows Documentation](/docs/ai-workflows/README.md)
-- [Usage Examples](/docs/ai-workflows/examples.md)
-- [Custom Agents Guide](/agents/README.md)
+**Scripts**: [AI Workflow Scripts](/scripts/README.md)
+
+**Agents**: [Custom Agents Guide](/agents/README.md)

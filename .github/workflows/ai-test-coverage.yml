@@ -36,34 +36,15 @@ jobs:
         id: coverage
         continue-on-error: true
         run: |
-          echo "Running test coverage for all templates..."
+          # Run coverage analysis script
+          ./scripts/run-coverage-analysis.sh coverage-reports
           
-          TEMPLATES="typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native"
-          
-          mkdir -p coverage-reports
-          
+          # Extract coverage summary
           COVERAGE_SUMMARY=""
-          
-          for TEMPLATE in $TEMPLATES; do
-            echo "Analyzing coverage for $TEMPLATE..."
-            
-            if [ -d "templates/$TEMPLATE" ]; then
-              cd "templates/$TEMPLATE"
-              
-              # Run tests with coverage
-              if pnpm test:coverage 2>&1 | tee ../../coverage-reports/$TEMPLATE.log; then
-                echo "✓ Coverage generated for $TEMPLATE"
-                
-                # Extract coverage summary if available
-                if [ -f "coverage/coverage-summary.json" ]; then
-                  TOTAL=$(jq -r '.total' coverage/coverage-summary.json 2>/dev/null || echo "{}")
-                  COVERAGE_SUMMARY="$COVERAGE_SUMMARY\n$TEMPLATE: $TOTAL"
-                fi
-              else
-                echo "✗ Coverage generation failed for $TEMPLATE"
-              fi
-              
-              cd ../..
+          for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native; do
+            if [ -f "templates/$TEMPLATE/coverage/coverage-summary.json" ]; then
+              TOTAL=$(jq -r '.total' "templates/$TEMPLATE/coverage/coverage-summary.json" 2>/dev/null || echo "{}")
+              COVERAGE_SUMMARY="$COVERAGE_SUMMARY\n$TEMPLATE: $TOTAL"
             fi
           done
           
@@ -74,33 +55,8 @@ jobs:
       - name: Identify Coverage Gaps
         id: gaps
         run: |
-          GAPS=""
-          THRESHOLD=${{ env.MIN_COVERAGE_THRESHOLD }}
-          
-          for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native; do
-            if [ -f "templates/$TEMPLATE/coverage/coverage-summary.json" ]; then
-              COVERAGE_FILE="templates/$TEMPLATE/coverage/coverage-summary.json"
-              
-              # Extract coverage percentages
-              LINE_PCT=$(jq -r '.total.lines.pct' "$COVERAGE_FILE" 2>/dev/null || echo "0")
-              BRANCH_PCT=$(jq -r '.total.branches.pct' "$COVERAGE_FILE" 2>/dev/null || echo "0")
-              FUNC_PCT=$(jq -r '.total.functions.pct' "$COVERAGE_FILE" 2>/dev/null || echo "0")
-              STMT_PCT=$(jq -r '.total.statements.pct' "$COVERAGE_FILE" 2>/dev/null || echo "0")
-              
-              # Check if any metric is below threshold
-              if (( $(echo "$LINE_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-                GAPS="$GAPS\n$TEMPLATE: Line coverage ${LINE_PCT}% (target: ${THRESHOLD}%)"
-              fi
-              if (( $(echo "$BRANCH_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-                GAPS="$GAPS\n$TEMPLATE: Branch coverage ${BRANCH_PCT}% (target: ${THRESHOLD}%)"
-              fi
-              if (( $(echo "$FUNC_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-                GAPS="$GAPS\n$TEMPLATE: Function coverage ${FUNC_PCT}% (target: ${THRESHOLD}%)"
-              fi
-            else
-              GAPS="$GAPS\n$TEMPLATE: Coverage report not generated"
-            fi
-          done
+          # Run coverage gaps script and capture output
+          GAPS=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} | grep -E "^[a-z-]+: " || echo "")
           
           echo "gaps<<EOF" >> $GITHUB_OUTPUT
           echo -e "$GAPS" >> $GITHUB_OUTPUT
@@ -109,36 +65,8 @@ jobs:
       - name: Identify Missing Test Types
         id: missing-tests
         run: |
-          MISSING=""
-          
-          for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native; do
-            TEMPLATE_PATH="templates/$TEMPLATE"
-            
-            if [ -d "$TEMPLATE_PATH" ]; then
-              echo "Checking test types for $TEMPLATE..."
-              
-              # Check for unit tests
-              UNIT_TESTS=$(find "$TEMPLATE_PATH" -type f -name "*.test.ts*" -o -name "*.spec.ts*" | wc -l)
-              
-              # Check for integration tests
-              INTEGRATION_TESTS=$(find "$TEMPLATE_PATH" -type f -path "*/integration/*" -name "*.test.ts*" | wc -l)
-              
-              # Check for e2e tests
-              E2E_TESTS=$(find "$TEMPLATE_PATH" -type f -path "*/__e2e__/*" -o -path "*/e2e/*" | grep -E '\.(test|spec)\.' | wc -l)
-              
-              if [ "$UNIT_TESTS" -eq 0 ]; then
-                MISSING="$MISSING\n$TEMPLATE: Missing unit tests"
-              fi
-              
-              if [ "$INTEGRATION_TESTS" -eq 0 ]; then
-                MISSING="$MISSING\n$TEMPLATE: Missing integration tests"
-              fi
-              
-              if [ "$E2E_TESTS" -eq 0 ]; then
-                MISSING="$MISSING\n$TEMPLATE: Consider adding e2e tests"
-              fi
-            fi
-          done
+          # Run missing tests script and capture output
+          MISSING=$(./scripts/identify-missing-tests.sh | grep -E "^[a-z-]+: " || echo "")
           
           echo "missing<<EOF" >> $GITHUB_OUTPUT
           echo -e "$MISSING" >> $GITHUB_OUTPUT
@@ -243,7 +171,7 @@ jobs:
               
               ---
               *This issue was automatically generated by AI test coverage analysis workflow.*
-              *See [\`/docs/ai-workflows/README.md\`](/docs/ai-workflows/README.md) for details.*
+              *See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
               `;
               
               // Check if similar issue already exists
@@ -300,5 +228,5 @@ jobs:
               3. Use template specialist agents for framework-specific patterns
               4. Validate coverage improvements with \`pnpm test:coverage\`
               `)
-              .addLink('View AI Workflows Documentation', '/docs/ai-workflows/README.md')
+              .addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
               .write();

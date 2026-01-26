@@ -28,81 +28,29 @@ jobs:
       - name: Analyze Changed Files
         id: analyze
         run: |
-          echo "Analyzing changed files in PR..."
+          # Run analysis script
+          RESULT=$(./scripts/analyze-changed-files.sh "origin/${{ github.base_ref }}" "${{ github.sha }}")
           
-          # Get list of changed files
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }})
+          # Extract values from JSON output
+          CHANGED_FILES=$(echo "$RESULT" | jq -r '.changed_files | join("\n")')
+          TEMPLATES=$(echo "$RESULT" | jq -r '.templates | join(" ")')
+          
+          # Set outputs
           echo "changed_files<<EOF" >> $GITHUB_OUTPUT
           echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
-          # Determine affected templates
-          TEMPLATES=""
-          if echo "$CHANGED_FILES" | grep -q "templates/typescript-library/"; then
-            TEMPLATES="$TEMPLATES typescript-library"
-          fi
-          if echo "$CHANGED_FILES" | grep -q "templates/next-ssr/"; then
-            TEMPLATES="$TEMPLATES next-ssr"
-          fi
-          if echo "$CHANGED_FILES" | grep -q "templates/react-router-v7-spa/"; then
-            TEMPLATES="$TEMPLATES react-router-v7-spa"
-          fi
-          if echo "$CHANGED_FILES" | grep -q "templates/react-router-v7-ssr/"; then
-            TEMPLATES="$TEMPLATES react-router-v7-ssr"
-          fi
-          if echo "$CHANGED_FILES" | grep -q "templates/tanstack-router-spa/"; then
-            TEMPLATES="$TEMPLATES tanstack-router-spa"
-          fi
-          if echo "$CHANGED_FILES" | grep -q "templates/expo-react-native/"; then
-            TEMPLATES="$TEMPLATES expo-react-native"
-          fi
-          
           echo "templates=$TEMPLATES" >> $GITHUB_OUTPUT
-          echo "Affected templates: $TEMPLATES"
 
       - name: Determine Relevant Agents
         id: agents
         run: |
-          CHANGED_FILES="${{ steps.analyze.outputs.changed_files }}"
-          AGENTS=""
-          
-          # SDLC Phase Agents
-          if echo "$CHANGED_FILES" | grep -qE '\.(test|spec)\.(ts|tsx|js|jsx)$'; then
-            AGENTS="$AGENTS @quality-analyst"
-          fi
-          
-          if echo "$CHANGED_FILES" | grep -qE '(README|\.md)$'; then
-            AGENTS="$AGENTS @ui-ux-designer"
-          fi
-          
-          if echo "$CHANGED_FILES" | grep -qE '(package\.json|pnpm-lock\.yaml|\.github/workflows)'; then
-            AGENTS="$AGENTS @deployment-engineer"
-          fi
-          
-          if echo "$CHANGED_FILES" | grep -qE '\.(ts|tsx|js|jsx)$' && ! echo "$CHANGED_FILES" | grep -qE '\.(test|spec)\.(ts|tsx|js|jsx)$'; then
-            AGENTS="$AGENTS @implementation-engineer"
-          fi
-          
-          # Template Specialist Agents
+          # Run agent determination script
           TEMPLATES="${{ steps.analyze.outputs.templates }}"
-          if echo "$TEMPLATES" | grep -q "typescript-library"; then
-            AGENTS="$AGENTS @typescript-library-specialist"
-          fi
-          if echo "$TEMPLATES" | grep -q "next-ssr"; then
-            AGENTS="$AGENTS @nextjs-ssr-specialist"
-          fi
-          if echo "$TEMPLATES" | grep -q "react-router-v7-spa"; then
-            AGENTS="$AGENTS @react-router-spa-specialist"
-          fi
-          if echo "$TEMPLATES" | grep -q "react-router-v7-ssr"; then
-            AGENTS="$AGENTS @react-router-ssr-specialist"
-          fi
-          if echo "$TEMPLATES" | grep -q "tanstack-router-spa"; then
-            AGENTS="$AGENTS @tanstack-router-spa-specialist"
-          fi
-          if echo "$TEMPLATES" | grep -q "expo-react-native"; then
-            AGENTS="$AGENTS @expo-react-native-specialist"
-          fi
+          RESULT=$(echo "${{ steps.analyze.outputs.changed_files }}" | ./scripts/determine-agents.sh - "$TEMPLATES")
+          
+          # Extract agents from JSON output
+          AGENTS=$(echo "$RESULT" | jq -r '.agents | join(" ")')
           
           echo "agents=$AGENTS" >> $GITHUB_OUTPUT
           echo "Relevant agents: $AGENTS"
