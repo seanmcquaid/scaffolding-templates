@@ -54,3 +54,19 @@ Each template includes:
 - ✅ Type-safe development with TypeScript
 - ✅ Environment configuration with validation
 - ✅ Comprehensive documentation
+- ✅ AI-powered development workflows
+
+## AI-Powered Development Workflows
+
+This repository uses automated AI workflows to maintain code quality and accelerate development:
+
+- 🤖 **Automated Code Reviews** - AI agents automatically review PRs and tag relevant specialists
+- 🔍 **Proactive Concept Discovery** - Weekly scans for new technologies and best practices
+- 🧪 **Test Coverage Analysis** - Automated identification of test coverage gaps
+
+**Quick Start**: [AI Workflows Guide](/docs/ai-workflows/quick-start.md)
+
+**Learn More**: 
+- [Full AI Workflows Documentation](/docs/ai-workflows/README.md)
+- [Usage Examples](/docs/ai-workflows/examples.md)
+- [Custom Agents Guide](/agents/README.md)

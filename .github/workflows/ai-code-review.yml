@@ -1,0 +1,181 @@
+name: AI Code Review & Agent Tagging
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  ai-code-review:
+    runs-on: ubuntu-latest
+    name: AI Code Review & Agent Tagging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Analyze Changed Files
+        id: analyze
+        run: |
+          echo "Analyzing changed files in PR..."
+          
+          # Get list of changed files
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...${{ github.sha }})
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED_FILES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          # Determine affected templates
+          TEMPLATES=""
+          if echo "$CHANGED_FILES" | grep -q "templates/typescript-library/"; then
+            TEMPLATES="$TEMPLATES typescript-library"
+          fi
+          if echo "$CHANGED_FILES" | grep -q "templates/next-ssr/"; then
+            TEMPLATES="$TEMPLATES next-ssr"
+          fi
+          if echo "$CHANGED_FILES" | grep -q "templates/react-router-v7-spa/"; then
+            TEMPLATES="$TEMPLATES react-router-v7-spa"
+          fi
+          if echo "$CHANGED_FILES" | grep -q "templates/react-router-v7-ssr/"; then
+            TEMPLATES="$TEMPLATES react-router-v7-ssr"
+          fi
+          if echo "$CHANGED_FILES" | grep -q "templates/tanstack-router-spa/"; then
+            TEMPLATES="$TEMPLATES tanstack-router-spa"
+          fi
+          if echo "$CHANGED_FILES" | grep -q "templates/expo-react-native/"; then
+            TEMPLATES="$TEMPLATES expo-react-native"
+          fi
+          
+          echo "templates=$TEMPLATES" >> $GITHUB_OUTPUT
+          echo "Affected templates: $TEMPLATES"
+
+      - name: Determine Relevant Agents
+        id: agents
+        run: |
+          CHANGED_FILES="${{ steps.analyze.outputs.changed_files }}"
+          AGENTS=""
+          
+          # SDLC Phase Agents
+          if echo "$CHANGED_FILES" | grep -qE '\.(test|spec)\.(ts|tsx|js|jsx)$'; then
+            AGENTS="$AGENTS @quality-analyst"
+          fi
+          
+          if echo "$CHANGED_FILES" | grep -qE '(README|\.md)$'; then
+            AGENTS="$AGENTS @ui-ux-designer"
+          fi
+          
+          if echo "$CHANGED_FILES" | grep -qE '(package\.json|pnpm-lock\.yaml|\.github/workflows)'; then
+            AGENTS="$AGENTS @deployment-engineer"
+          fi
+          
+          if echo "$CHANGED_FILES" | grep -qE '\.(ts|tsx|js|jsx)$' && ! echo "$CHANGED_FILES" | grep -qE '\.(test|spec)\.(ts|tsx|js|jsx)$'; then
+            AGENTS="$AGENTS @implementation-engineer"
+          fi
+          
+          # Template Specialist Agents
+          TEMPLATES="${{ steps.analyze.outputs.templates }}"
+          if echo "$TEMPLATES" | grep -q "typescript-library"; then
+            AGENTS="$AGENTS @typescript-library-specialist"
+          fi
+          if echo "$TEMPLATES" | grep -q "next-ssr"; then
+            AGENTS="$AGENTS @nextjs-ssr-specialist"
+          fi
+          if echo "$TEMPLATES" | grep -q "react-router-v7-spa"; then
+            AGENTS="$AGENTS @react-router-spa-specialist"
+          fi
+          if echo "$TEMPLATES" | grep -q "react-router-v7-ssr"; then
+            AGENTS="$AGENTS @react-router-ssr-specialist"
+          fi
+          if echo "$TEMPLATES" | grep -q "tanstack-router-spa"; then
+            AGENTS="$AGENTS @tanstack-router-spa-specialist"
+          fi
+          if echo "$TEMPLATES" | grep -q "expo-react-native"; then
+            AGENTS="$AGENTS @expo-react-native-specialist"
+          fi
+          
+          echo "agents=$AGENTS" >> $GITHUB_OUTPUT
+          echo "Relevant agents: $AGENTS"
+
+      - name: Generate AI Review Context
+        id: context
+        run: |
+          CONTEXT="## AI Code Review Context
+          
+          **PR Title**: ${{ github.event.pull_request.title }}
+          **Branch**: ${{ github.head_ref }}
+          **Author**: ${{ github.event.pull_request.user.login }}
+          
+          **Affected Templates**:
+          ${{ steps.analyze.outputs.templates }}
+          
+          **Relevant Agents**:
+          ${{ steps.agents.outputs.agents }}
+          
+          **Changed Files**:
+          \`\`\`
+          ${{ steps.analyze.outputs.changed_files }}
+          \`\`\`
+          
+          **Review Guidelines**:
+          - Follow AGENTS.md patterns and best practices
+          - Check for template consistency
+          - Verify TypeScript type safety
+          - Ensure i18n requirements are met
+          - Validate test coverage
+          - Check for security vulnerabilities
+          
+          **Next Steps**:
+          1. Review the changes using plan mode approach
+          2. Tagged agents should provide specialized feedback
+          3. Address any issues before merge
+          "
+          
+          echo "context<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTEXT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post AI Review Comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const context = `${{ steps.context.outputs.context }}`;
+            
+            // Post initial review comment
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🤖 **AI Code Review & Agent Tagging**\n\n${context}\n\n---\n\n*This is an automated analysis. Tagged agents will provide specialized review.*`
+            });
+
+      - name: Add Labels
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const templates = '${{ steps.analyze.outputs.templates }}'.trim().split(/\s+/).filter(Boolean);
+            const labels = ['ai-review'];
+            
+            // Add template-specific labels
+            templates.forEach(template => {
+              labels.push(`template:${template}`);
+            });
+            
+            await github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: labels
+            });
