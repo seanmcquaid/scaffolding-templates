@@ -4,6 +4,20 @@ Throughout my years of working in web development, I have found myself using the
 
 These templates are meant to be a starting point for new projects and are not meant to be a one-size-fits-all solution. I have created these templates to fit my needs and preferences, but I am always open to suggestions and improvements. If you have any suggestions or improvements, please feel free to open an issue on the repo!
 
+## 🤖 AI Agent Skills
+
+This repository includes **14 standardized agent skills** compatible with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents. These skills provide specialized expertise for:
+
+- **8 SDLC Phase Skills**: Requirements analysis, architecture, implementation, UI/UX, testing, deployment, maintenance, and production support
+- **6 Template-Specific Skills**: TypeScript libraries, Next.js SSR, React Router (SPA & SSR), TanStack Router, and Expo React Native
+
+**Quick Install:**
+```bash
+npx skills add seanmcquaid/scaffolding-templates --all -a github-copilot
+```
+
+👉 [Learn more about skills](./.github/skills/README.md)
+
 ## Platform Support
 
 ### Supported Platforms
