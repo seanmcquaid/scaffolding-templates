@@ -4,6 +4,26 @@ This directory contains scripts used by the AI workflow automation system. These
 
 ## Available Scripts
 
+### Issue Processing Scripts
+
+#### `analyze-issue.sh`
+Analyzes a GitHub issue and suggests Ralph workflow approach with agent routing.
+
+**Usage:**
+```bash
+./scripts/analyze-issue.sh <issue-number>
+```
+
+**Example:**
+```bash
+# Analyze issue #123
+./scripts/analyze-issue.sh 123
+```
+
+**Output:** Classification, suggested agents, suggested labels, and Ralph workflow plan
+
+**Prerequisites:** Requires GitHub CLI (`gh`) to be installed and authenticated.
+
 ### Code Review Scripts
 
 #### `analyze-changed-files.sh`

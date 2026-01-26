@@ -1,0 +1,342 @@
+name: AI Issue Processing (Ralph Workflow)
+on:
+  schedule:
+    # Run every day at 8:00 AM UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  MAX_ISSUES_PER_RUN: 10
+
+jobs:
+  process-issues:
+    runs-on: ubuntu-latest
+    name: Process Outstanding Issues with Ralph Workflow
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Fetch Outstanding Issues
+        id: fetch-issues
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Fetch open issues that haven't been processed by Ralph workflow yet
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: ${{ env.MAX_ISSUES_PER_RUN }},
+              sort: 'created',
+              direction: 'asc',
+              labels: '' // No label filter - process all open issues
+            });
+            
+            // Filter out issues that already have ralph-processed label
+            const unprocessedIssues = issues.data.filter(issue => 
+              !issue.labels.some(label => label.name === 'ralph-processed') &&
+              !issue.pull_request // Exclude pull requests
+            );
+            
+            console.log(`Found ${unprocessedIssues.length} unprocessed issues`);
+            
+            // Store issue data for processing
+            const issueData = unprocessedIssues.map(issue => ({
+              number: issue.number,
+              title: issue.title,
+              body: issue.body || '',
+              labels: issue.labels.map(l => l.name),
+              author: issue.user.login,
+              created_at: issue.created_at
+            }));
+            
+            return issueData;
+
+      - name: Process Issues with Ralph Workflow
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = ${{ steps.fetch-issues.outputs.result }};
+            
+            if (!issues || issues.length === 0) {
+              console.log('No issues to process');
+              return;
+            }
+            
+            console.log(`Processing ${issues.length} issues...`);
+            
+            for (const issue of issues) {
+              console.log(`\nProcessing issue #${issue.number}: ${issue.title}`);
+              
+              // PLAN MODE: Analyze the issue
+              let analysis = '';
+              let suggestedAgents = [];
+              let suggestedLabels = [];
+              let nextSteps = '';
+              
+              // Determine issue type and relevant agents
+              const title = issue.title.toLowerCase();
+              const body = issue.body.toLowerCase();
+              const content = `${title} ${body}`;
+              
+              // Bug-related
+              if (content.includes('bug') || content.includes('error') || content.includes('fix')) {
+                analysis = 'This appears to be a bug report or fix request.';
+                suggestedAgents.push('@maintenance-engineer');
+                suggestedLabels.push('bug');
+                nextSteps = `
+            1. **Investigation** (Use @maintenance-engineer):
+               - Reproduce the issue
+               - Identify root cause
+               - Determine affected templates/components
+            
+            2. **Implementation** (Use template specialist if needed):
+               - Create fix following template patterns
+               - Add regression tests
+               - Verify fix across affected areas
+            
+            3. **Validation** (Use @quality-analyst):
+               - Review test coverage for the fix
+               - Ensure no side effects
+               - Validate fix resolves the issue
+                `;
+              }
+              // Feature request
+              else if (content.includes('feature') || content.includes('enhancement') || content.includes('add')) {
+                analysis = 'This appears to be a feature request or enhancement.';
+                suggestedAgents.push('@requirements-analyst', '@software-architect');
+                suggestedLabels.push('enhancement');
+                nextSteps = `
+            1. **Requirements Analysis** (Use @requirements-analyst):
+               - Clarify requirements and scope
+               - Define acceptance criteria
+               - Identify affected templates
+               - Assess complexity and effort
+            
+            2. **Design Phase** (Use @software-architect):
+               - Create architectural design
+               - Define implementation approach
+               - Consider cross-template consistency
+               - Create ADR if significant change
+            
+            3. **Implementation Phase** (Use template specialists):
+               - Implement feature following design
+               - Maintain template consistency
+               - Add comprehensive tests
+               - Update documentation
+                `;
+              }
+              // Test-related
+              else if (content.includes('test') || content.includes('coverage')) {
+                analysis = 'This appears to be related to testing or test coverage.';
+                suggestedAgents.push('@quality-analyst');
+                suggestedLabels.push('testing');
+                nextSteps = `
+            1. **Analysis** (Use @quality-analyst):
+               - Review current test coverage
+               - Identify specific gaps
+               - Plan test cases needed
+            
+            2. **Implementation** (Use @quality-analyst + template specialist):
+               - Write tests following template patterns
+               - Ensure proper test isolation
+               - Verify coverage improvements
+            
+            3. **Validation**:
+               - Run \`pnpm test:coverage\` locally
+               - Verify coverage meets threshold
+               - Ensure tests are stable
+                `;
+              }
+              // Documentation
+              else if (content.includes('doc') || content.includes('documentation') || content.includes('readme')) {
+                analysis = 'This appears to be related to documentation.';
+                suggestedAgents.push('@ui-ux-designer');
+                suggestedLabels.push('documentation');
+                nextSteps = `
+            1. **Content Planning** (Use @ui-ux-designer):
+               - Identify documentation needs
+               - Plan content structure
+               - Ensure clarity and completeness
+            
+            2. **Implementation**:
+               - Write clear, concise documentation
+               - Add examples where helpful
+               - Maintain consistency with existing docs
+            
+            3. **Review**:
+               - Verify technical accuracy
+               - Check for clarity
+               - Ensure proper formatting
+                `;
+              }
+              // Template-specific
+              else {
+                // Check for template mentions
+                const templates = [];
+                if (content.includes('typescript-library') || content.includes('ts library')) {
+                  templates.push('typescript-library');
+                  suggestedAgents.push('@typescript-library-specialist');
+                }
+                if (content.includes('next') || content.includes('nextjs')) {
+                  templates.push('next-ssr');
+                  suggestedAgents.push('@nextjs-ssr-specialist');
+                }
+                if (content.includes('react-router') && (content.includes('spa') || content.includes('single'))) {
+                  templates.push('react-router-v7-spa');
+                  suggestedAgents.push('@react-router-spa-specialist');
+                }
+                if (content.includes('react-router') && (content.includes('ssr') || content.includes('server'))) {
+                  templates.push('react-router-v7-ssr');
+                  suggestedAgents.push('@react-router-ssr-specialist');
+                }
+                if (content.includes('tanstack') || content.includes('tanstack router')) {
+                  templates.push('tanstack-router-spa');
+                  suggestedAgents.push('@tanstack-router-spa-specialist');
+                }
+                if (content.includes('expo') || content.includes('react-native') || content.includes('mobile')) {
+                  templates.push('expo-react-native');
+                  suggestedAgents.push('@expo-react-native-specialist');
+                }
+                
+                if (templates.length > 0) {
+                  analysis = `This appears to be related to the following template(s): ${templates.join(', ')}.`;
+                  templates.forEach(t => suggestedLabels.push(`template:${t}`));
+                } else {
+                  analysis = 'This issue requires further analysis to determine the appropriate approach.';
+                  suggestedAgents.push('@requirements-analyst');
+                }
+                
+                nextSteps = `
+            1. **Analysis Phase** (Use @requirements-analyst):
+               - Understand the request in detail
+               - Define clear requirements
+               - Identify affected templates/components
+            
+            2. **Planning Phase** (Use @software-architect if architectural change):
+               - Design the solution approach
+               - Consider consistency across templates
+               - Plan implementation steps
+            
+            3. **Implementation Phase** (Use appropriate specialists):
+               - Follow template-specific patterns
+               - Maintain code quality standards
+               - Add necessary tests
+               - Update documentation
+                `;
+              }
+              
+              // Always add implementation engineer for code changes
+              if (!suggestedAgents.includes('@implementation-engineer') && 
+                  (suggestedLabels.includes('enhancement') || suggestedLabels.includes('bug'))) {
+                suggestedAgents.push('@implementation-engineer');
+              }
+              
+              // Create Ralph workflow comment
+              const ralphComment = `## 🤖 Ralph Workflow Analysis
+              
+**Automated Analysis Date**: ${new Date().toISOString().split('T')[0]}
+
+### Issue Classification
+
+${analysis}
+
+### Suggested Agents
+
+${suggestedAgents.join(', ')}
+
+### Ralph Workflow: Plan → Execute → Review → Iterate
+
+Following the "Ralph is a loop" methodology, here's the recommended approach:
+
+${nextSteps}
+
+### Key Principles
+
+✅ **Always start in plan mode** - Understand before implementing
+✅ **Use specialized agents** - Route to domain experts
+✅ **Iterate based on feedback** - Review and refine
+✅ **Maintain consistency** - Follow template patterns
+
+### Additional Resources
+
+- [AI Workflows Documentation](/docs/ai-workflows.md)
+- [Custom Agents Guide](/agents/README.md)
+- [Repository Guidelines](/AGENTS.md)
+
+---
+*This analysis was automatically generated by the Ralph Workflow. Please review and adjust as needed.*
+*To reprocess this issue, remove the \`ralph-processed\` label and wait for the next scheduled run.*
+              `;
+              
+              try {
+                // Post the Ralph workflow comment
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  body: ralphComment
+                });
+                
+                // Add suggested labels
+                if (suggestedLabels.length > 0) {
+                  // Get existing labels
+                  const existingLabels = issue.labels || [];
+                  const newLabels = [...new Set([...existingLabels, ...suggestedLabels, 'ralph-processed'])];
+                  
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    labels: newLabels
+                  });
+                }
+                
+                console.log(`✓ Processed issue #${issue.number}`);
+              } catch (error) {
+                console.error(`✗ Failed to process issue #${issue.number}:`, error.message);
+              }
+            }
+
+      - name: Create Summary Report
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = ${{ steps.fetch-issues.outputs.result }};
+            const processedCount = issues ? issues.length : 0;
+            
+            core.summary
+              .addHeading('🤖 Ralph Workflow - Issue Processing Report')
+              .addHeading(`Date: ${new Date().toISOString().split('T')[0]}`, 3)
+              .addHeading('Summary', 3)
+              .addRaw(`Processed ${processedCount} outstanding issue(s) with Ralph workflow analysis.`)
+              .addHeading('What is Ralph Workflow?', 3)
+              .addRaw(`
+              Ralph workflow follows the "plan → execute → review → iterate" methodology:
+              
+              1. **Plan Mode First**: Analyze and understand before acting
+              2. **Agent Routing**: Direct issues to specialized agents
+              3. **Structured Approach**: Provide clear next steps
+              4. **Iterative Process**: Review and refine based on feedback
+              `)
+              .addHeading('Next Steps', 3)
+              .addRaw(`
+              1. Review issues with new \`ralph-processed\` label
+              2. Follow the suggested Ralph workflow for each issue
+              3. Tag relevant agents for specialized guidance
+              4. Execute in plan mode: analyze → design → implement → test
+              `)
+              .addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
+              .write();

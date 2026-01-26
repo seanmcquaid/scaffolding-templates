@@ -102,12 +102,16 @@ Workflows are configured in `.github/workflows/`:
 1. **ai-code-review.yml** - Runs on every PR
 2. **ai-concept-discovery.yml** - Runs weekly (Monday 9 AM UTC)
 3. **ai-test-coverage.yml** - Runs weekly (Monday 10 AM UTC)
+4. **ai-issue-processing.yml** - Runs daily (8 AM UTC)
 
 #### Running Scripts Locally
 
 All workflow logic is extracted to scripts in `/scripts/`:
 
 ```bash
+# Analyze a GitHub issue
+./scripts/analyze-issue.sh 123
+
 # Test code review logic
 ./scripts/analyze-changed-files.sh main HEAD
 ./scripts/determine-agents.sh
@@ -246,6 +250,46 @@ The "Ralph is a loop" concept from [AI Hero](https://www.aihero.dev/tips-for-ai-
 - `scripts/identify-coverage-gaps.sh`
 - `scripts/identify-missing-tests.sh`
 
+### 4. AI Issue Processing (Ralph Workflow)
+
+**Trigger:** Daily (8:00 AM UTC) + manual
+
+**Purpose:** Process outstanding GitHub issues using Ralph workflow methodology
+
+**Process:**
+1. Fetch open issues without `ralph-processed` label
+2. Analyze issue content and context
+3. Classify issue type (bug, feature, test, documentation)
+4. Determine affected templates and components
+5. Suggest relevant agents for the issue
+6. Generate structured Ralph workflow plan
+7. Post analysis comment with plan → execute → review → iterate approach
+8. Add `ralph-processed` label and suggested labels
+
+**Issue Classification:**
+- **Bug Reports** → @maintenance-engineer + template specialists
+- **Feature Requests** → @requirements-analyst + @software-architect
+- **Testing** → @quality-analyst + template specialists
+- **Documentation** → @ui-ux-designer
+- **Template-specific** → Relevant template specialist
+
+**Output:**
+- Ralph workflow analysis comment on each issue
+- Suggested agents tagged for specialized guidance
+- Labels applied (`ralph-processed`, issue type, template labels)
+- Structured next steps following plan-first methodology
+- Daily summary report
+
+**Scripts Used:**
+- `scripts/analyze-issue.sh` (for local analysis)
+
+**Key Features:**
+- Applies "plan → execute → review → iterate" methodology to all issues
+- Routes issues to specialized agents automatically
+- Provides structured approach for contributors
+- Can be run manually on-demand
+- Reprocessing: Remove `ralph-processed` label to reanalyze
+
 ---
 
 ## Scripts
@@ -256,6 +300,7 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
+| `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |
 | `determine-agents.sh` | Find relevant agents | `./scripts/determine-agents.sh [files] [templates]` |
 | `analyze-templates.sh` | Check dependencies | `./scripts/analyze-templates.sh` |
@@ -472,6 +517,7 @@ Each phase builds on the previous, following the plan-execute-review-iterate loo
 | AI Code Review | PR events | On-demand | Review changes, tag agents |
 | Concept Discovery | Scheduled | Weekly (Mon 9 AM UTC) | Find new opportunities |
 | Test Coverage | Scheduled | Weekly (Mon 10 AM UTC) | Identify coverage gaps |
+| Issue Processing | Scheduled | Daily (8 AM UTC) | Process issues with Ralph workflow |
 
 ### Data Flow
 
