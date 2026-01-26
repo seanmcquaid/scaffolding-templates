@@ -56,8 +56,17 @@ Each template includes:
 - ✅ Comprehensive documentation
 - ✅ Custom AI agents for GitHub Copilot, Claude, and Cursor
 
-## Documentation
+## AI-Assisted Development
 
-- **[Custom Agents Guide](docs/custom-agents-guide.md)** - Comprehensive guide to using custom sub-agents with GitHub Copilot, Claude, and Cursor for AI-assisted development
+This repository includes custom AI agents for GitHub Copilot, Claude, and Cursor:
+
+- **[Quick Start Guide](docs/QUICK_START.md)** - Get started with custom agents in 5 minutes! 🚀
+- **[Custom Agents Guide](docs/custom-agents-guide.md)** - Comprehensive guide with platform-specific usage, workflows, and examples
 - **[AGENTS.md](AGENTS.md)** - Repository-wide coding patterns and best practices
 - **Template-Specific Docs** - Each template has its own `AGENTS.md` and `/docs` directory
+
+### Available Custom Agents
+
+**8 SDLC Phase Agents:** Requirements Analyst, Software Architect, Implementation Engineer, Quality Analyst, UI/UX Designer, Deployment Engineer, Maintenance Engineer, Production Support Engineer
+
+**6 Template Specialists:** Next.js SSR, React Router SPA, React Router SSR, TanStack Router, TypeScript Library, Expo React Native
