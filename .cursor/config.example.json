@@ -1,0 +1,208 @@
+{
+  "$schema": "https://cursor.sh/schemas/config.json",
+  "description": "Example Cursor configuration for scaffolding-templates custom agents",
+  
+  "agents": {
+    "autoDiscover": true,
+    "directories": [
+      "./agents",
+      "./templates/*/agents"
+    ],
+    "priorityByDirectory": {
+      "templates/next-ssr": [
+        "nextjs-ssr-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ],
+      "templates/react-router-v7-spa": [
+        "react-router-spa-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ],
+      "templates/react-router-v7-ssr": [
+        "react-router-ssr-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ],
+      "templates/tanstack-router-spa": [
+        "tanstack-router-spa-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ],
+      "templates/typescript-library": [
+        "typescript-library-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ],
+      "templates/expo-react-native": [
+        "expo-react-native-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ]
+    },
+    "contextReferences": {
+      "always": [
+        "./AGENTS.md"
+      ],
+      "byDirectory": {
+        "templates/next-ssr": [
+          "./templates/next-ssr/README.md",
+          "./templates/next-ssr/docs/**/*.md"
+        ],
+        "templates/react-router-v7-spa": [
+          "./templates/react-router-v7-spa/README.md",
+          "./templates/react-router-v7-spa/docs/**/*.md"
+        ],
+        "templates/react-router-v7-ssr": [
+          "./templates/react-router-v7-ssr/README.md",
+          "./templates/react-router-v7-ssr/docs/**/*.md"
+        ],
+        "templates/tanstack-router-spa": [
+          "./templates/tanstack-router-spa/README.md",
+          "./templates/tanstack-router-spa/docs/**/*.md"
+        ],
+        "templates/typescript-library": [
+          "./templates/typescript-library/README.md",
+          "./templates/typescript-library/docs/**/*.md"
+        ],
+        "templates/expo-react-native": [
+          "./templates/expo-react-native/README.md",
+          "./templates/expo-react-native/docs/**/*.md"
+        ]
+      }
+    }
+  },
+
+  "composer": {
+    "enabled": true,
+    "defaultAgent": null,
+    "showAgentSelector": true,
+    "agentSuggestions": true,
+    "maxFilesPerEdit": 10,
+    "confirmBeforeApply": true
+  },
+
+  "chat": {
+    "enabled": true,
+    "suggestAgents": true,
+    "agentPrefix": "@",
+    "showAgentHelp": true,
+    "contextWindow": 16000
+  },
+
+  "agentBehavior": {
+    "followRepositoryPatterns": true,
+    "respectAGENTSmd": true,
+    "templateAware": true,
+    "verbosity": "balanced"
+  },
+
+  "workflows": {
+    "featureDevelopment": {
+      "enabled": true,
+      "sequence": [
+        "requirements-analyst",
+        "ui-ux-designer",
+        "software-architect",
+        "[template-specialist]",
+        "implementation-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "bugFix": {
+      "enabled": true,
+      "sequence": [
+        "production-support-engineer",
+        "maintenance-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "refactoring": {
+      "enabled": true,
+      "sequence": [
+        "software-architect",
+        "maintenance-engineer",
+        "quality-analyst"
+      ]
+    }
+  },
+
+  "fileTypeAgents": {
+    "*.tsx": [
+      "implementation-engineer",
+      "ui-ux-designer"
+    ],
+    "*.ts": [
+      "implementation-engineer",
+      "software-architect"
+    ],
+    "*.test.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "*.spec.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "*.e2e.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "package.json": [
+      "deployment-engineer",
+      "maintenance-engineer"
+    ],
+    "*.md": [
+      "requirements-analyst",
+      "software-architect"
+    ],
+    ".github/workflows/*.{yml,yaml}": [
+      "deployment-engineer"
+    ],
+    "Dockerfile": [
+      "deployment-engineer"
+    ],
+    "*.config.{ts,js}": [
+      "deployment-engineer",
+      "software-architect"
+    ]
+  },
+
+  "shortcuts": {
+    "requirements": {
+      "description": "Analyze requirements",
+      "agent": "requirements-analyst",
+      "prompt": "Analyze the following requirements and create a detailed technical specification:"
+    },
+    "architecture": {
+      "description": "Design architecture",
+      "agent": "software-architect",
+      "prompt": "Design the architecture for the following feature based on repository patterns:"
+    },
+    "implement": {
+      "description": "Implement feature",
+      "agent": "implementation-engineer",
+      "prompt": "Implement the following feature following repository best practices:"
+    },
+    "test": {
+      "description": "Create tests",
+      "agent": "quality-analyst",
+      "prompt": "Create comprehensive tests for:"
+    },
+    "fix": {
+      "description": "Fix bug",
+      "agent": "maintenance-engineer",
+      "prompt": "Investigate and fix the following bug:"
+    },
+    "deploy": {
+      "description": "Deploy changes",
+      "agent": "deployment-engineer",
+      "prompt": "Set up deployment for:"
+    }
+  },
+
+  "debug": {
+    "logAgentSelection": false,
+    "logAgentDiscovery": false,
+    "logContextResolution": false
+  }
+}
