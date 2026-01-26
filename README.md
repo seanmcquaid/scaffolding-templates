@@ -16,7 +16,9 @@ This repository includes **14 standardized agent skills** compatible with GitHub
 npx skills add seanmcquaid/scaffolding-templates --all -a github-copilot
 ```
 
-👉 [Learn more about skills](./.github/skills/README.md)
+👉 [Learn more about skills](./skills/README.md)
+
+**Note**: Skills are stored in `/skills/` for cross-tool compatibility with multiple AI agents, not just GitHub Copilot.
 
 ## Platform Support
 

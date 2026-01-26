@@ -1,6 +1,28 @@
 # Shared Skills for Scaffolding Templates
 
-This directory contains standardized agent skills following the [Agent Skills specification](https://agentskills.io). These skills work with GitHub Copilot and other AI coding agents that support the skills format.
+This directory contains standardized agent skills following the [Agent Skills specification](https://agentskills.io). These skills work with GitHub Copilot and 20+ other AI coding agents that support the skills format.
+
+## Repository Structure
+
+All skills are available in two locations for maximum flexibility:
+
+### 1. Root Skills (This Directory)
+**Location**: `/skills/`
+
+All 14 skills (8 SDLC + 6 template specialists) available for repository-wide access.
+
+### 2. Template Skills (Self-Contained)
+**Location**: `/templates/[template-name]/skills/`
+
+Each template contains **9 skills** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
+
+## Why Duplicate Skills?
+
+Templates are designed to be cloned individually. By including all skills in each template:
+- **Self-contained**: Each template has everything needed to work independently
+- **Cross-reference**: Developers can learn from other framework patterns
+- **Complete lifecycle**: All SDLC phase skills available in every template
+- **No dependencies**: No need to reference parent repository
 
 ## What are Agent Skills?
 
@@ -68,11 +90,23 @@ You can also copy skills manually:
 
 ```bash
 # Project-level (committed with your project)
-cp -r .github/skills/* /path/to/your/project/.github/skills/
+cp -r skills/* /path/to/your/project/skills/
 
-# Global (available across all projects)
-cp -r .github/skills/* ~/.copilot/skills/
+# For GitHub Copilot specifically
+cp -r skills/* /path/to/your/project/.github/skills/
+
+# Global (available across all projects, varies by agent)
+# GitHub Copilot
+cp -r skills/* ~/.copilot/skills/
+
+# Claude Code
+cp -r skills/* ~/.claude/skills/
+
+# Cursor
+cp -r skills/* ~/.cursor/skills/
 ```
+
+**Note**: Skills are stored in `/skills/` (not `.github/skills/`) for cross-tool compatibility. Most agents support discovering skills from the root `skills/` directory. Only GitHub Copilot specifically requires `.github/skills/`, so you may need to create a symlink or copy for that agent.
 
 ## Usage
 
