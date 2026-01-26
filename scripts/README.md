@@ -2,6 +2,112 @@
 
 This directory contains scripts used by the AI workflow automation system. These scripts can be run locally for testing and development.
 
+## Ralph - Local Workflow Orchestrator
+
+**`ralph`** is a command-line tool that brings the "Ralph is a loop" methodology to local development, allowing you to work with AI workflows without relying on GitHub Issues.
+
+### Quick Start
+
+```bash
+# Create a plan for a task
+./scripts/ralph plan "Add authentication to next-ssr template"
+
+# Execute the plan
+./scripts/ralph execute auth-next-ssr.md
+
+# Review your work
+./scripts/ralph review auth-next-ssr.md
+
+# Iterate based on feedback
+./scripts/ralph iterate auth-next-ssr.md
+
+# Check all active plans
+./scripts/ralph status
+```
+
+### Ralph Commands
+
+| Command | Description |
+|---------|-------------|
+| `ralph plan <task>` | Create a structured plan for a task with agent suggestions |
+| `ralph execute <plan>` | Mark plan as executing and guide implementation |
+| `ralph review <plan>` | Review completed work against validation checklist |
+| `ralph iterate <plan>` | Update plan based on review feedback |
+| `ralph status` | Show all active plans with their status |
+| `ralph show <plan>` | Display a plan file with syntax highlighting |
+
+### How Ralph Works Locally
+
+**Ralph stores plans in `.ralph/` directory** (automatically added to `.gitignore`):
+- Each task gets a markdown file with structured plan
+- Plans track: task type, affected templates, suggested agents, progress
+- Supports full Ralph cycle: Plan → Execute → Review → Iterate
+
+**Key Features:**
+- ✅ Works entirely offline (no GitHub required)
+- ✅ Automatic task classification (bug, feature, test, docs)
+- ✅ Template detection (next-ssr, react-router-v7-spa, etc.)
+- ✅ Agent suggestions based on task type
+- ✅ Structured breakdown with checklists
+- ✅ Progress tracking and history
+- ✅ Integration with existing patterns
+
+**Example Plan Structure:**
+```markdown
+# Ralph Plan: Add authentication to next-ssr template
+
+**Status:** Planning
+**Type:** feature
+**Affected Templates:** next-ssr
+
+## Suggested Agents
+@requirements-analyst @software-architect @nextjs-ssr-specialist
+
+## Ralph Workflow: Plan → Execute → Review → Iterate
+
+### Phase 1: PLAN
+- [ ] Understand requirements
+- [ ] Design architecture
+- [ ] Plan implementation steps
+
+### Phase 2: EXECUTE
+- [ ] Implement changes
+- [ ] Add tests
+- [ ] Update documentation
+
+### Phase 3: REVIEW
+- [ ] All tests pass
+- [ ] Linting passes
+- [ ] Changes follow patterns
+
+### Phase 4: ITERATE
+(Add refinements based on review)
+```
+
+### Ralph vs GitHub Issues
+
+| Aspect | Ralph (Local) | GitHub Issues |
+|--------|---------------|---------------|
+| **Setup** | No setup required | Requires repository access |
+| **Privacy** | Fully local, no external data | Stored in GitHub |
+| **Workflow** | Manual progression through phases | Automated with GitHub Actions |
+| **Collaboration** | Local only | Team-wide visibility |
+| **Best For** | Individual work, experimentation | Team projects, tracking |
+
+**Use Ralph when:**
+- Working on experimental features
+- Want to plan before creating issues
+- Need privacy for sensitive work
+- Prefer local-first workflow
+
+**Use GitHub Issues when:**
+- Collaborating with team
+- Want automated agent routing
+- Need progress tracking across team
+- Want integration with CI/CD
+
+---
+
 ## Available Scripts
 
 ### Issue Processing Scripts

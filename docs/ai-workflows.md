@@ -49,6 +49,44 @@ The AI workflow automation system implements automated, continuous improvement c
 
 ## Quick Start
 
+### Using Ralph Locally (No GitHub Required)
+
+**Ralph** is a local workflow orchestrator that implements the "Ralph is a loop" methodology without requiring GitHub Issues:
+
+```bash
+# Create a plan for your task
+./scripts/ralph plan "Add authentication to next-ssr template"
+
+# Execute the plan step by step
+./scripts/ralph execute auth-next-ssr.md
+
+# Review your work
+./scripts/ralph review auth-next-ssr.md
+
+# Iterate if needed
+./scripts/ralph iterate auth-next-ssr.md
+
+# Check all plans
+./scripts/ralph status
+```
+
+**Features:**
+- ✅ Fully local (no GitHub needed)
+- ✅ Automatic task classification and agent suggestions
+- ✅ Structured breakdown with checklists
+- ✅ Template detection (next-ssr, react-router-v7-spa, etc.)
+- ✅ Progress tracking in markdown files (stored in `.ralph/`)
+
+**When to use Ralph locally:**
+- Individual work or experimentation
+- Planning before creating GitHub issues
+- Privacy-sensitive work
+- Local-first workflow preference
+
+See `/scripts/README.md` for complete Ralph documentation.
+
+---
+
 ### For Contributors
 
 #### 1. Understanding AI Code Reviews
@@ -155,6 +193,74 @@ The "Ralph is a loop" concept from [AI Hero](https://www.aihero.dev/tips-for-ai-
 │       iterate based on feedback          │
 └─────────────────────────────────────────┘
 ```
+
+### Ralph: Local vs GitHub
+
+The Ralph methodology works in **two modes** to fit different workflows:
+
+#### Local Mode (`./scripts/ralph`)
+
+**Best for:**
+- Individual work and experimentation
+- Privacy-sensitive features
+- Quick prototyping
+- Learning and exploration
+- Planning before creating issues
+
+**How it works:**
+- Stores plans locally in `.ralph/` directory
+- Markdown-based tracking
+- Manual progression through phases
+- Fully offline operation
+- Personal task management
+
+**Workflow:**
+```bash
+ralph plan "task"     # Create structured plan
+ralph execute "plan"  # Start implementation
+ralph review "plan"   # Validate work
+ralph iterate "plan"  # Refine based on feedback
+```
+
+#### GitHub Issues Mode (Automated)
+
+**Best for:**
+- Team collaboration
+- Public tracking
+- Automated agent routing
+- CI/CD integration
+- Cross-team visibility
+
+**How it works:**
+- GitHub Actions workflows process issues
+- Automated classification and agent tagging
+- Team-wide progress tracking
+- Integration with PR reviews
+- Scheduled proactive analysis
+
+**Workflow:**
+```
+1. Create GitHub issue → Auto-classified by AI
+2. AI adds agents and labels → Team notified
+3. Contributor implements → Tests run in CI
+4. AI reviews PR → Suggests improvements
+5. Iterate → Process repeats
+```
+
+### Choosing Your Approach
+
+| Need | Use Local Ralph | Use GitHub Issues |
+|------|-----------------|-------------------|
+| Experiment with idea | ✅ | ❌ |
+| Team collaboration | ❌ | ✅ |
+| Privacy required | ✅ | ❌ |
+| Automated workflows | ❌ | ✅ |
+| Quick prototyping | ✅ | ❌ |
+| Progress tracking | Local only | Team-wide |
+| Agent routing | Manual reference | Automatic |
+| CI/CD integration | ❌ | ✅ |
+
+**Pro Tip:** Start with local Ralph to plan, then create GitHub issue when ready to collaborate!
 
 ---
 
@@ -301,6 +407,7 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
+| `ralph` | **Local workflow orchestrator** | `./scripts/ralph plan "<task>"` |
 | `classify-issue.sh` | Classify issue for workflow | `./scripts/classify-issue.sh "<title>" "<body>"` |
 | `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |

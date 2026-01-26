@@ -1,0 +1,544 @@
+#!/bin/bash
+set -e
+
+# Ralph - Local AI workflow orchestrator
+# Implements the "Ralph is a loop" methodology for local development
+# 
+# Usage: 
+#   ralph plan <task-description>     - Create a plan for a task
+#   ralph execute <plan-file>         - Execute a plan step by step
+#   ralph review <plan-file>          - Review progress and suggest iterations
+#   ralph iterate <plan-file>         - Update plan based on review
+#   ralph status                      - Show all active plans
+#   ralph show <plan-file>            - Show plan details
+#
+# Plans are stored in .ralph/ directory (added to .gitignore)
+
+RALPH_DIR=".ralph"
+COMMAND="${1:-}"
+TASK="${2:-}"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Ensure ralph directory exists
+mkdir -p "$RALPH_DIR"
+
+# Ensure .gitignore includes .ralph
+if [ -f ".gitignore" ]; then
+  if ! grep -q "^\.ralph/$" .gitignore 2>/dev/null; then
+    echo ".ralph/" >> .gitignore
+  fi
+fi
+
+show_usage() {
+  cat << EOF
+${CYAN}Ralph - Local AI Workflow Orchestrator${NC}
+
+${YELLOW}Usage:${NC}
+  ralph plan <task-description>     Create a plan for a task
+  ralph execute <plan-file>         Execute a plan step by step
+  ralph review <plan-file>          Review progress and suggest iterations
+  ralph iterate <plan-file>         Update plan based on review
+  ralph status                      Show all active plans
+  ralph show <plan-file>            Show plan details
+
+${YELLOW}Examples:${NC}
+  # Start a new task
+  ralph plan "Add authentication to next-ssr template"
+  
+  # Execute the plan
+  ralph execute auth-next-ssr.md
+  
+  # Review progress
+  ralph review auth-next-ssr.md
+  
+  # Iterate on the plan
+  ralph iterate auth-next-ssr.md
+  
+  # Check all plans
+  ralph status
+
+${YELLOW}Philosophy:${NC}
+  Ralph follows the "Plan → Execute → Review → Iterate" cycle.
+  Always start in plan mode before implementing.
+
+${YELLOW}Plan Files:${NC}
+  Plans are stored in ${BLUE}.ralph/${NC} directory as markdown files.
+  They track task breakdown, progress, and iteration history.
+
+EOF
+}
+
+create_plan() {
+  local task="$1"
+  
+  if [ -z "$task" ]; then
+    echo -e "${RED}Error: Task description is required${NC}"
+    echo "Usage: ralph plan <task-description>"
+    exit 1
+  fi
+  
+  # Generate filename from task description
+  local filename=$(echo "$task" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50)
+  local plan_file="$RALPH_DIR/${filename}.md"
+  
+  if [ -f "$plan_file" ]; then
+    echo -e "${YELLOW}Plan already exists: $plan_file${NC}"
+    echo -e "${YELLOW}Use 'ralph show $filename.md' to view or 'ralph iterate $filename.md' to update${NC}"
+    exit 1
+  fi
+  
+  echo -e "${CYAN}Creating plan for: ${NC}$task"
+  echo -e "${CYAN}Plan file: ${NC}$plan_file"
+  echo ""
+  
+  # Analyze the task and suggest breakdown
+  local task_type="general"
+  local suggested_agents=""
+  local templates=""
+  
+  # Detect task type
+  if echo "$task" | grep -qiE "(bug|fix|error|broken)"; then
+    task_type="bug"
+    suggested_agents="@maintenance-engineer"
+  elif echo "$task" | grep -qiE "(test|coverage|spec)"; then
+    task_type="test"
+    suggested_agents="@quality-analyst"
+  elif echo "$task" | grep -qiE "(feature|add|implement|new)"; then
+    task_type="feature"
+    suggested_agents="@requirements-analyst @software-architect @implementation-engineer"
+  elif echo "$task" | grep -qiE "(doc|documentation|readme)"; then
+    task_type="documentation"
+    suggested_agents="@ui-ux-designer"
+  fi
+  
+  # Detect affected templates
+  if echo "$task" | grep -qiE "(next|nextjs)"; then
+    templates="$templates next-ssr"
+    suggested_agents="$suggested_agents @nextjs-ssr-specialist"
+  fi
+  if echo "$task" | grep -qiE "react-router.*(spa|single)"; then
+    templates="$templates react-router-v7-spa"
+    suggested_agents="$suggested_agents @react-router-spa-specialist"
+  fi
+  if echo "$task" | grep -qiE "react-router.*(ssr|server)"; then
+    templates="$templates react-router-v7-ssr"
+    suggested_agents="$suggested_agents @react-router-ssr-specialist"
+  fi
+  if echo "$task" | grep -qiE "(tanstack|tanstack router)"; then
+    templates="$templates tanstack-router-spa"
+    suggested_agents="$suggested_agents @tanstack-router-spa-specialist"
+  fi
+  if echo "$task" | grep -qiE "(typescript-library|ts library)"; then
+    templates="$templates typescript-library"
+    suggested_agents="$suggested_agents @typescript-library-specialist"
+  fi
+  if echo "$task" | grep -qiE "(expo|react-native|mobile)"; then
+    templates="$templates expo-react-native"
+    suggested_agents="$suggested_agents @expo-react-native-specialist"
+  fi
+  
+  # Create plan file
+  cat > "$plan_file" << EOF
+# Ralph Plan: $task
+
+**Created:** $(date '+%Y-%m-%d %H:%M:%S')
+**Status:** Planning
+**Type:** $task_type
+**Affected Templates:** ${templates:-all}
+
+## Task Description
+
+$task
+
+## Suggested Agents
+
+${suggested_agents:-@requirements-analyst}
+
+## Ralph Workflow: Plan → Execute → Review → Iterate
+
+### Phase 1: PLAN (Current)
+
+#### Analysis
+- [ ] Understand requirements in detail
+- [ ] Identify affected files and templates
+- [ ] Consider edge cases and constraints
+- [ ] Review existing patterns in codebase
+
+#### Task Breakdown
+EOF
+
+  # Add task-specific breakdown
+  case $task_type in
+    bug)
+      cat >> "$plan_file" << EOF
+- [ ] Reproduce the issue
+- [ ] Identify root cause
+- [ ] Determine affected areas
+- [ ] Plan fix approach
+- [ ] Consider regression tests
+EOF
+      ;;
+    test)
+      cat >> "$plan_file" << EOF
+- [ ] Review current test coverage
+- [ ] Identify specific gaps
+- [ ] Plan test cases needed
+- [ ] Determine test types (unit/integration/e2e)
+- [ ] Consider edge cases to test
+EOF
+      ;;
+    feature)
+      cat >> "$plan_file" << EOF
+- [ ] Clarify requirements and scope
+- [ ] Define acceptance criteria
+- [ ] Design architecture approach
+- [ ] Identify impacted components
+- [ ] Plan implementation steps
+- [ ] Consider cross-template consistency
+- [ ] Plan tests and documentation
+EOF
+      ;;
+    documentation)
+      cat >> "$plan_file" << EOF
+- [ ] Identify documentation needs
+- [ ] Plan content structure
+- [ ] Review existing docs for consistency
+- [ ] Gather technical details
+- [ ] Plan examples and code samples
+EOF
+      ;;
+    *)
+      cat >> "$plan_file" << EOF
+- [ ] Break down task into subtasks
+- [ ] Estimate complexity
+- [ ] Identify dependencies
+- [ ] Plan validation approach
+EOF
+      ;;
+  esac
+
+  cat >> "$plan_file" << EOF
+
+### Phase 2: EXECUTE
+
+*Move to this phase after planning is complete*
+
+#### Implementation Steps
+- [ ] Set up development environment
+- [ ] Implement planned changes
+- [ ] Follow template-specific patterns
+- [ ] Add tests as you go
+- [ ] Update documentation
+
+#### Progress Notes
+
+(Add notes as you work)
+
+### Phase 3: REVIEW
+
+*Move to this phase after implementation*
+
+#### Validation Checklist
+- [ ] All tests pass (\`pnpm test\`)
+- [ ] Linting passes (\`pnpm lint\`)
+- [ ] Build succeeds (\`pnpm build\`)
+- [ ] Changes follow template patterns
+- [ ] Documentation is updated
+- [ ] No unintended side effects
+
+#### Review Notes
+
+(Add observations and findings)
+
+### Phase 4: ITERATE
+
+*Based on review, identify improvements*
+
+#### Iteration Points
+
+(Add items that need refinement)
+
+---
+
+## History
+
+- $(date '+%Y-%m-%d %H:%M:%S') - Plan created
+
+## Notes
+
+(Add any additional notes or context)
+EOF
+
+  echo -e "${GREEN}✓ Plan created: $plan_file${NC}"
+  echo ""
+  echo -e "${YELLOW}Next steps:${NC}"
+  echo "1. Review and refine the plan: ${BLUE}ralph show $filename.md${NC}"
+  echo "2. Execute the plan: ${BLUE}ralph execute $filename.md${NC}"
+  echo "3. Track your progress in the markdown file"
+  echo ""
+  echo -e "${CYAN}Opening plan file...${NC}"
+  
+  # Try to open with default editor
+  if [ -n "${EDITOR:-}" ]; then
+    $EDITOR "$plan_file"
+  elif command -v code >/dev/null 2>&1; then
+    code "$plan_file"
+  elif command -v vim >/dev/null 2>&1; then
+    vim "$plan_file"
+  else
+    cat "$plan_file"
+  fi
+}
+
+show_status() {
+  echo -e "${CYAN}Ralph Plans Status${NC}"
+  echo ""
+  
+  if [ ! -d "$RALPH_DIR" ] || [ -z "$(ls -A $RALPH_DIR 2>/dev/null)" ]; then
+    echo -e "${YELLOW}No active plans found.${NC}"
+    echo ""
+    echo "Create a new plan with: ${BLUE}ralph plan <task-description>${NC}"
+    return
+  fi
+  
+  local count=0
+  for plan in "$RALPH_DIR"/*.md; do
+    if [ -f "$plan" ]; then
+      count=$((count + 1))
+      local filename=$(basename "$plan")
+      local status=$(grep "^\*\*Status:\*\*" "$plan" | sed 's/\*\*Status:\*\* //')
+      local created=$(grep "^\*\*Created:\*\*" "$plan" | sed 's/\*\*Created:\*\* //')
+      local task=$(head -1 "$plan" | sed 's/# Ralph Plan: //')
+      
+      echo -e "${GREEN}$count.${NC} ${BLUE}$filename${NC}"
+      echo -e "   Task: $task"
+      echo -e "   Status: ${YELLOW}$status${NC}"
+      echo -e "   Created: $created"
+      echo ""
+    fi
+  done
+  
+  if [ $count -eq 0 ]; then
+    echo -e "${YELLOW}No active plans found.${NC}"
+  else
+    echo -e "${CYAN}Total plans: $count${NC}"
+  fi
+}
+
+show_plan() {
+  local plan_file="$1"
+  
+  if [ -z "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file is required${NC}"
+    echo "Usage: ralph show <plan-file>"
+    exit 1
+  fi
+  
+  # Add .ralph/ prefix if not present
+  if [[ ! "$plan_file" =~ ^\.ralph/ ]]; then
+    plan_file="$RALPH_DIR/$plan_file"
+  fi
+  
+  if [ ! -f "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file not found: $plan_file${NC}"
+    echo ""
+    echo "Available plans:"
+    show_status
+    exit 1
+  fi
+  
+  # Display with colors if possible
+  if command -v bat >/dev/null 2>&1; then
+    bat --style=plain --paging=never "$plan_file"
+  elif command -v mdcat >/dev/null 2>&1; then
+    mdcat "$plan_file"
+  else
+    cat "$plan_file"
+  fi
+}
+
+execute_plan() {
+  local plan_file="$1"
+  
+  if [ -z "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file is required${NC}"
+    echo "Usage: ralph execute <plan-file>"
+    exit 1
+  fi
+  
+  # Add .ralph/ prefix if not present
+  if [[ ! "$plan_file" =~ ^\.ralph/ ]]; then
+    plan_file="$RALPH_DIR/$plan_file"
+  fi
+  
+  if [ ! -f "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file not found: $plan_file${NC}"
+    exit 1
+  fi
+  
+  echo -e "${CYAN}Executing plan: $plan_file${NC}"
+  echo ""
+  
+  # Update status
+  sed -i.bak 's/\*\*Status:\*\* .*/\*\*Status:\*\* Executing/' "$plan_file"
+  rm -f "$plan_file.bak"
+  
+  # Add history entry
+  echo "- $(date '+%Y-%m-%d %H:%M:%S') - Execution started" >> "$plan_file"
+  
+  echo -e "${GREEN}✓ Plan status updated to 'Executing'${NC}"
+  echo ""
+  echo -e "${YELLOW}Now implement the planned changes:${NC}"
+  echo "1. Follow the implementation steps in the plan"
+  echo "2. Check off items as you complete them"
+  echo "3. Add progress notes in the plan file"
+  echo ""
+  echo -e "${CYAN}When done, review your work:${NC}"
+  echo "${BLUE}ralph review $(basename $plan_file)${NC}"
+  echo ""
+  
+  # Open the plan file
+  if [ -n "${EDITOR:-}" ]; then
+    $EDITOR "$plan_file"
+  elif command -v code >/dev/null 2>&1; then
+    code "$plan_file"
+  fi
+}
+
+review_plan() {
+  local plan_file="$1"
+  
+  if [ -z "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file is required${NC}"
+    echo "Usage: ralph review <plan-file>"
+    exit 1
+  fi
+  
+  # Add .ralph/ prefix if not present
+  if [[ ! "$plan_file" =~ ^\.ralph/ ]]; then
+    plan_file="$RALPH_DIR/$plan_file"
+  fi
+  
+  if [ ! -f "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file not found: $plan_file${NC}"
+    exit 1
+  fi
+  
+  echo -e "${CYAN}Reviewing plan: $plan_file${NC}"
+  echo ""
+  
+  # Update status
+  sed -i.bak 's/\*\*Status:\*\* .*/\*\*Status:\*\* Reviewing/' "$plan_file"
+  rm -f "$plan_file.bak"
+  
+  # Add history entry
+  echo "- $(date '+%Y-%m-%d %H:%M:%S') - Review started" >> "$plan_file"
+  
+  echo -e "${YELLOW}Review Checklist:${NC}"
+  echo ""
+  echo "Run the following commands and check results:"
+  echo ""
+  echo -e "  ${BLUE}pnpm test${NC}          # Run all tests"
+  echo -e "  ${BLUE}pnpm lint${NC}          # Check code quality"
+  echo -e "  ${BLUE}pnpm build${NC}         # Verify build succeeds"
+  echo ""
+  echo "Then add review notes to the plan file."
+  echo ""
+  echo -e "${CYAN}After review, either:${NC}"
+  echo "  - Complete if satisfied: Update status to 'Complete' in plan"
+  echo "  - Iterate if improvements needed: ${BLUE}ralph iterate $(basename $plan_file)${NC}"
+  echo ""
+  
+  # Open the plan file
+  if [ -n "${EDITOR:-}" ]; then
+    $EDITOR "$plan_file"
+  elif command -v code >/dev/null 2>&1; then
+    code "$plan_file"
+  fi
+}
+
+iterate_plan() {
+  local plan_file="$1"
+  
+  if [ -z "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file is required${NC}"
+    echo "Usage: ralph iterate <plan-file>"
+    exit 1
+  fi
+  
+  # Add .ralph/ prefix if not present
+  if [[ ! "$plan_file" =~ ^\.ralph/ ]]; then
+    plan_file="$RALPH_DIR/$plan_file"
+  fi
+  
+  if [ ! -f "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file not found: $plan_file${NC}"
+    exit 1
+  fi
+  
+  echo -e "${CYAN}Iterating on plan: $plan_file${NC}"
+  echo ""
+  
+  # Update status
+  sed -i.bak 's/\*\*Status:\*\* .*/\*\*Status:\*\* Iterating/' "$plan_file"
+  rm -f "$plan_file.bak"
+  
+  # Add history entry
+  echo "- $(date '+%Y-%m-%d %H:%M:%S') - Iteration started" >> "$plan_file"
+  
+  echo -e "${GREEN}✓ Plan status updated to 'Iterating'${NC}"
+  echo ""
+  echo -e "${YELLOW}Based on your review, update the plan with:${NC}"
+  echo "1. New tasks identified"
+  echo "2. Refinements needed"
+  echo "3. Issues to address"
+  echo ""
+  echo -e "${CYAN}After updating, execute again:${NC}"
+  echo "${BLUE}ralph execute $(basename $plan_file)${NC}"
+  echo ""
+  
+  # Open the plan file
+  if [ -n "${EDITOR:-}" ]; then
+    $EDITOR "$plan_file"
+  elif command -v code >/dev/null 2>&1; then
+    code "$plan_file"
+  fi
+}
+
+# Main command router
+case "$COMMAND" in
+  plan)
+    create_plan "$TASK"
+    ;;
+  execute)
+    execute_plan "$TASK"
+    ;;
+  review)
+    review_plan "$TASK"
+    ;;
+  iterate)
+    iterate_plan "$TASK"
+    ;;
+  status)
+    show_status
+    ;;
+  show)
+    show_plan "$TASK"
+    ;;
+  ""|help|--help|-h)
+    show_usage
+    ;;
+  *)
+    echo -e "${RED}Error: Unknown command: $COMMAND${NC}"
+    echo ""
+    show_usage
+    exit 1
+    ;;
+esac

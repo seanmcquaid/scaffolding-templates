@@ -60,9 +60,28 @@ Each template includes:
 
 This repository uses automated AI workflows to maintain code quality and accelerate development:
 
+### Local Development with Ralph
+
+Work with AI workflows locally without GitHub:
+
+```bash
+# Create a structured plan for your task
+./scripts/ralph plan "Add authentication to next-ssr"
+
+# Execute, review, and iterate through the plan
+./scripts/ralph execute auth-next-ssr.md
+./scripts/ralph review auth-next-ssr.md
+./scripts/ralph iterate auth-next-ssr.md
+```
+
+**Features:** Task classification, agent suggestions, template detection, progress tracking
+
+### Automated GitHub Workflows
+
 - 🤖 **Automated Code Reviews** - AI agents automatically review PRs and tag relevant specialists
 - 🔍 **Proactive Concept Discovery** - Weekly scans for new technologies and best practices
 - 🧪 **Test Coverage Analysis** - Automated identification of test coverage gaps
+- 📋 **Issue Processing** - Daily Ralph workflow analysis of open issues
 - 🛠️ **Runnable Scripts** - All workflows use scripts that can be run locally for testing
 
 **Documentation**: [Complete AI Workflows Guide](/docs/ai-workflows.md)
