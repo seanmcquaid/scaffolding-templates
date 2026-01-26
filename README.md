@@ -70,3 +70,27 @@ Each template includes:
 - ✅ Type-safe development with TypeScript
 - ✅ Environment configuration with validation
 - ✅ Comprehensive documentation
+- ✅ Custom AI agents for GitHub Copilot, Claude, and Cursor
+
+## AI-Assisted Development
+
+This repository includes **two complementary AI assistance systems**:
+
+### Skills (Standard Format)
+Following [agentskills.io](https://agentskills.io) specification for broad platform compatibility:
+- **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
+- **Location**: `/skills/` directory with `SKILL.md` files
+- **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
+- **Documentation**: [Skills README](skills/README.md)
+
+### Custom Agents (Enhanced Format)
+Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
+- **14 Agents**: 8 SDLC phase agents + 6 template specialist agents
+- **Location**: `/agents/` directory with `.agent.md` files
+- **Support**: GitHub Copilot, Claude Desktop, Cursor IDE
+- **Documentation**: [Custom Agents Guide](docs/custom-agents-guide.md) (includes Quick Start)
+
+### Understanding the Difference
+- **[Skills vs Agents Guide](docs/ai-skills-vs-agents.md)** - Understand which to use and when
+
+Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.
