@@ -1,0 +1,333 @@
+{
+  "$schema": "https://claude.ai/schemas/project-config.json",
+  "name": "Scaffolding Templates Development",
+  "description": "Custom agent-driven development for modern web scaffolding templates",
+  
+  "instructions": {
+    "systemPrompt": "You are working with a scaffolding templates repository that uses custom sub-agents for specialized development tasks. When the user references an agent file (e.g., 'act as the Requirements Analyst'), you should adopt that agent's persona completely, following their defined processes and expertise.\n\nKey principles:\n1. Adopt the agent's role and perspective fully\n2. Follow the agent's defined workflow and processes\n3. Reference repository patterns from AGENTS.md\n4. Maintain consistency with template conventions\n5. Provide specific, actionable guidance\n6. Use the agent's quality checklist\n\nRepository context:\n- 14 custom agents (8 SDLC + 6 framework specialists)\n- 6 project templates (Next.js, React Router, TanStack Router, TypeScript Library, Expo)\n- Package manager: pnpm\n- Testing: Vitest, Playwright, Testing Library, MSW\n- Styling: Tailwind CSS, shadcn/ui\n- Type safety: TypeScript with strict configuration\n- i18n: i18next with type-safe translations",
+    
+    "agentAdoptionProtocol": "When acting as an agent:\n1. Read and internalize the agent definition from the referenced .agent.md file\n2. Adopt the agent's expertise and perspective\n3. Follow the agent's defined process steps\n4. Apply the agent's quality checklist\n5. Reference repository patterns and documentation\n6. Maintain the agent's voice and focus area\n7. Provide actionable, specific recommendations\n8. Stay within the agent's scope and responsibilities",
+    
+    "repositoryPatterns": "Follow patterns defined in AGENTS.md:\n- Package management: pnpm workspace\n- Node.js version: >=22.12.0\n- Code quality: ESLint, Prettier, TypeScript strict\n- Testing strategy: 3-tier (unit, integration, E2E)\n- State management hierarchy: URL → localStorage → local → lifted → derived → refs → context → global\n- HTTP requests: TanStack Query for client-side caching\n- Form state: React Hook Form (never manual)\n- i18n: All user-facing text must be translated\n- Styling: Tailwind CSS utility-first\n- Performance: Bundle size monitoring, code splitting",
+    
+    "workflowGuidance": "Common agent workflows:\n\n**Feature Development:**\n1. requirements-analyst → Create specification\n2. ui-ux-designer → Design interface\n3. software-architect → Design architecture\n4. [template-specialist] → Framework guidance\n5. implementation-engineer → Implement code\n6. quality-analyst → Create tests\n7. deployment-engineer → Setup deployment\n\n**Bug Fix:**\n1. production-support-engineer → Investigate (if production)\n   OR maintenance-engineer → Investigate (if development)\n2. maintenance-engineer → Implement fix\n3. quality-analyst → Add regression tests\n4. deployment-engineer → Deploy fix\n\n**Refactoring:**\n1. software-architect → Review architecture\n2. maintenance-engineer → Implement refactoring\n3. quality-analyst → Verify no regression"
+  },
+
+  "knowledge": {
+    "coreDocuments": [
+      {
+        "path": "AGENTS.md",
+        "description": "Repository-wide development patterns and guidelines",
+        "priority": "high",
+        "alwaysInclude": true
+      },
+      {
+        "path": "README.md",
+        "description": "Repository overview and structure",
+        "priority": "high",
+        "alwaysInclude": true
+      },
+      {
+        "path": "docs/custom-agents-guide.md",
+        "description": "Comprehensive guide to using custom agents",
+        "priority": "high",
+        "alwaysInclude": true
+      }
+    ],
+    
+    "sdlcAgents": [
+      {
+        "path": "agents/requirements-analyst.agent.md",
+        "role": "Requirements Analysis",
+        "description": "Analyzes requirements and creates technical specifications",
+        "useCases": ["feature requests", "user stories", "acceptance criteria"]
+      },
+      {
+        "path": "agents/software-architect.agent.md",
+        "role": "Architecture Design",
+        "description": "Designs system architecture and creates ADRs",
+        "useCases": ["architecture design", "component structure", "technology selection"]
+      },
+      {
+        "path": "agents/implementation-engineer.agent.md",
+        "role": "Feature Implementation",
+        "description": "Implements features following best practices",
+        "useCases": ["coding features", "TypeScript development", "code quality"]
+      },
+      {
+        "path": "agents/ui-ux-designer.agent.md",
+        "role": "UI/UX Design",
+        "description": "Designs interfaces with accessibility focus",
+        "useCases": ["interface design", "wireframes", "design systems", "accessibility"]
+      },
+      {
+        "path": "agents/quality-analyst.agent.md",
+        "role": "Testing & QA",
+        "description": "Creates comprehensive test suites",
+        "useCases": ["unit tests", "integration tests", "E2E tests", "test strategy"]
+      },
+      {
+        "path": "agents/deployment-engineer.agent.md",
+        "role": "Deployment & DevOps",
+        "description": "Sets up CI/CD and optimizes builds",
+        "useCases": ["CI/CD pipelines", "build optimization", "monitoring"]
+      },
+      {
+        "path": "agents/maintenance-engineer.agent.md",
+        "role": "Maintenance & Refactoring",
+        "description": "Fixes bugs and improves code quality",
+        "useCases": ["bug fixes", "refactoring", "dependency updates", "technical debt"]
+      },
+      {
+        "path": "agents/production-support-engineer.agent.md",
+        "role": "Production Support",
+        "description": "Handles production incidents and monitoring",
+        "useCases": ["incident response", "log analysis", "production debugging"]
+      }
+    ],
+    
+    "frameworkSpecialists": [
+      {
+        "path": "agents/typescript-library-specialist.agent.md",
+        "framework": "TypeScript Library",
+        "description": "Expert in TypeScript library development and publishing",
+        "useCases": ["library APIs", "dual exports", "NPM publishing"]
+      },
+      {
+        "path": "agents/nextjs-ssr-specialist.agent.md",
+        "framework": "Next.js",
+        "description": "Expert in Next.js App Router and Server Components",
+        "useCases": ["Server Components", "Server Actions", "streaming", "caching"]
+      },
+      {
+        "path": "agents/react-router-spa-specialist.agent.md",
+        "framework": "React Router v7 (SPA)",
+        "description": "Expert in React Router client-side routing",
+        "useCases": ["client routing", "code splitting", "progressive enhancement"]
+      },
+      {
+        "path": "agents/react-router-ssr-specialist.agent.md",
+        "framework": "React Router v7 (SSR)",
+        "description": "Expert in React Router server-side rendering",
+        "useCases": ["SSR loaders", "hydration", "SEO optimization"]
+      },
+      {
+        "path": "agents/tanstack-router-spa-specialist.agent.md",
+        "framework": "TanStack Router",
+        "description": "Expert in TanStack Router type-safe routing",
+        "useCases": ["type-safe routing", "search params", "route generation"]
+      },
+      {
+        "path": "agents/expo-react-native-specialist.agent.md",
+        "framework": "Expo React Native",
+        "description": "Expert in Expo and React Native development",
+        "useCases": ["Expo Router", "native modules", "EAS Build", "mobile performance"]
+      }
+    ],
+
+    "templateSpecific": {
+      "next-ssr": {
+        "basePath": "templates/next-ssr",
+        "documents": [
+          "templates/next-ssr/README.md",
+          "templates/next-ssr/agents/nextjs-ssr-specialist.agent.md"
+        ],
+        "primaryAgent": "nextjs-ssr-specialist",
+        "patterns": ["App Router", "Server Components", "Server Actions", "streaming"]
+      },
+      "react-router-v7-spa": {
+        "basePath": "templates/react-router-v7-spa",
+        "documents": [
+          "templates/react-router-v7-spa/README.md",
+          "templates/react-router-v7-spa/agents/react-router-spa-specialist.agent.md"
+        ],
+        "primaryAgent": "react-router-spa-specialist",
+        "patterns": ["client routing", "TanStack Query", "code splitting"]
+      },
+      "react-router-v7-ssr": {
+        "basePath": "templates/react-router-v7-ssr",
+        "documents": [
+          "templates/react-router-v7-ssr/README.md",
+          "templates/react-router-v7-ssr/agents/react-router-ssr-specialist.agent.md"
+        ],
+        "primaryAgent": "react-router-ssr-specialist",
+        "patterns": ["SSR loaders", "server actions", "hydration"]
+      },
+      "tanstack-router-spa": {
+        "basePath": "templates/tanstack-router-spa",
+        "documents": [
+          "templates/tanstack-router-spa/README.md",
+          "templates/tanstack-router-spa/agents/tanstack-router-spa-specialist.agent.md"
+        ],
+        "primaryAgent": "tanstack-router-spa-specialist",
+        "patterns": ["type-safe routing", "search params", "route generation"]
+      },
+      "typescript-library": {
+        "basePath": "templates/typescript-library",
+        "documents": [
+          "templates/typescript-library/README.md",
+          "templates/typescript-library/agents/typescript-library-specialist.agent.md"
+        ],
+        "primaryAgent": "typescript-library-specialist",
+        "patterns": ["dual exports", "library APIs", "NPM publishing"]
+      },
+      "expo-react-native": {
+        "basePath": "templates/expo-react-native",
+        "documents": [
+          "templates/expo-react-native/README.md",
+          "templates/expo-react-native/agents/expo-react-native-specialist.agent.md"
+        ],
+        "primaryAgent": "expo-react-native-specialist",
+        "patterns": ["Expo Router", "native modules", "EAS Build"]
+      }
+    }
+  },
+
+  "contextManagement": {
+    "defaultContext": [
+      "AGENTS.md",
+      "README.md"
+    ],
+    "contextByTask": {
+      "requirements": [
+        "agents/requirements-analyst.agent.md"
+      ],
+      "architecture": [
+        "agents/software-architect.agent.md",
+        "AGENTS.md"
+      ],
+      "implementation": [
+        "agents/implementation-engineer.agent.md",
+        "[template-specialist].agent.md"
+      ],
+      "testing": [
+        "agents/quality-analyst.agent.md"
+      ],
+      "deployment": [
+        "agents/deployment-engineer.agent.md"
+      ],
+      "bugfix": [
+        "agents/maintenance-engineer.agent.md",
+        "agents/production-support-engineer.agent.md"
+      ]
+    }
+  },
+
+  "shortcuts": {
+    "requirementsAnalysis": {
+      "description": "Analyze requirements for a feature",
+      "prompt": "Act as the Requirements Analyst (agents/requirements-analyst.agent.md). Analyze the following feature request and create a detailed technical specification with functional requirements, non-functional requirements, acceptance criteria, and risks:\n\n{input}",
+      "suggestedAgent": "requirements-analyst"
+    },
+    "architectureDesign": {
+      "description": "Design system architecture",
+      "prompt": "Act as the Software Architect (agents/software-architect.agent.md). Design the architecture for the following feature based on repository patterns in AGENTS.md. Include component breakdown, data flow, technology recommendations, and create an ADR:\n\n{input}",
+      "suggestedAgent": "software-architect"
+    },
+    "implementFeature": {
+      "description": "Implement a feature",
+      "prompt": "Act as the Implementation Engineer (agents/implementation-engineer.agent.md). Implement the following feature following repository best practices, TypeScript strict types, and proper error handling:\n\n{input}",
+      "suggestedAgent": "implementation-engineer"
+    },
+    "createTests": {
+      "description": "Create test suite",
+      "prompt": "Act as the Quality Analyst (agents/quality-analyst.agent.md). Create a comprehensive test suite including unit tests, integration tests with MSW, and E2E tests with Playwright for:\n\n{input}",
+      "suggestedAgent": "quality-analyst"
+    },
+    "fixBug": {
+      "description": "Investigate and fix a bug",
+      "prompt": "Act as the Maintenance Engineer (agents/maintenance-engineer.agent.md). Investigate and fix the following bug, including root cause analysis and prevention measures:\n\n{input}",
+      "suggestedAgent": "maintenance-engineer"
+    },
+    "reviewCode": {
+      "description": "Review code against patterns",
+      "prompt": "Act as the Software Architect (agents/software-architect.agent.md). Review the following code against repository patterns in AGENTS.md. Identify pattern violations, improvement opportunities, and architecture concerns:\n\n{input}",
+      "suggestedAgent": "software-architect"
+    }
+  },
+
+  "bestPractices": {
+    "agentUsage": [
+      "Always reference the specific agent file path when asking Claude to adopt a persona",
+      "Provide clear context including template name, current files, and constraints",
+      "Chain agents sequentially - complete one agent's work before moving to the next",
+      "When switching agents, explicitly state the new agent role and provide handoff context",
+      "Reference previous agent outputs when chaining workflows",
+      "Use template specialists for framework-specific questions",
+      "Use SDLC agents for general best practices and cross-framework patterns",
+      "Keep agent focus narrow - don't ask one agent to do another's job"
+    ],
+    "contextProvision": [
+      "Include relevant template README when working on a specific template",
+      "Reference AGENTS.md for repository-wide patterns",
+      "Provide existing code when asking for reviews or improvements",
+      "Specify constraints (performance, compatibility, accessibility)",
+      "Include error messages and logs when debugging",
+      "Share user requirements or acceptance criteria for features"
+    ],
+    "qualityAssurance": [
+      "Always create tests after implementation",
+      "Follow the 3-tier testing strategy (unit, integration, E2E)",
+      "Ensure all user-facing text is translated (i18next)",
+      "Verify TypeScript strict mode compliance",
+      "Check bundle size impact",
+      "Validate accessibility (WCAG 2.1 AA)",
+      "Review against ESLint and Prettier rules"
+    ]
+  },
+
+  "examples": {
+    "featureDevelopment": {
+      "title": "Complete Feature Development Workflow",
+      "conversation": "I need to add a user notification system to the next-ssr template.\n\nStage 1 - Requirements:\nAct as Requirements Analyst (agents/requirements-analyst.agent.md)\nCreate specification for real-time notification system with push notifications, notification center, and notification preferences.\n\n[Wait for requirements]\n\nStage 2 - Architecture:\nAct as Software Architect (agents/software-architect.agent.md)\nDesign architecture based on requirements above. Consider Next.js patterns.\n\n[Wait for architecture]\n\nStage 3 - Implementation:\nAct as Next.js SSR Specialist (agents/nextjs-ssr-specialist.agent.md)\nImplement notification system using Server Components, Client Components, and Server Actions.\n\n[Wait for implementation]\n\nStage 4 - Testing:\nAct as Quality Analyst (agents/quality-analyst.agent.md)\nCreate comprehensive test suite for notification system."
+    },
+    "bugFix": {
+      "title": "Production Bug Investigation and Fix",
+      "conversation": "Production issue: Dashboard fails to load on mobile Safari\n\nError: 'Chunk load failed' on iOS devices with slow connections\n\nStage 1 - Investigation:\nAct as Production Support Engineer (agents/production-support-engineer.agent.md)\nAnalyze this production issue. Consider network conditions, mobile-specific factors.\n\n[Wait for analysis]\n\nStage 2 - Fix:\nAct as Maintenance Engineer (agents/maintenance-engineer.agent.md)\nImplement fix based on analysis above. Include error boundaries and fallbacks.\n\n[Wait for fix]\n\nStage 3 - Testing:\nAct as Quality Analyst (agents/quality-analyst.agent.md)\nCreate regression tests for mobile network scenarios."
+    },
+    "codeReview": {
+      "title": "Architecture Review",
+      "conversation": "Review my authentication implementation:\n\nFile: app/auth/login/page.tsx\n[code here]\n\nFile: services/authService.ts\n[code here]\n\nAct as Software Architect (agents/software-architect.agent.md)\n\nReview against:\n1. AGENTS.md patterns\n2. Next.js best practices\n3. Security considerations\n4. State management approach\n\nProvide specific recommendations with priority levels."
+    }
+  },
+
+  "troubleshooting": {
+    "agentContextLoss": {
+      "issue": "Agent loses context or switches personas mid-conversation",
+      "solutions": [
+        "Reaffirm agent role: 'Remember, you are acting as the Quality Analyst...'",
+        "Reference agent file again: 'As defined in agents/quality-analyst.agent.md...'",
+        "Start fresh conversation branch for different agent",
+        "Create separate project for each major template",
+        "Keep agent role visible in conversation (e.g., add to notes)"
+      ]
+    },
+    "genericResponses": {
+      "issue": "Responses don't match repository patterns",
+      "solutions": [
+        "Upload AGENTS.md to conversation or project knowledge",
+        "Provide specific pattern examples from codebase",
+        "Reference exact sections in documentation",
+        "Include template README for template-specific patterns",
+        "Correct deviations and ask for revision"
+      ]
+    },
+    "fileAccess": {
+      "issue": "Can't access agent files",
+      "solutions": [
+        "Upload agent files directly to conversation",
+        "Add to Claude Project knowledge base",
+        "Copy agent definition inline in prompt",
+        "Use Claude Desktop file references (@filename)",
+        "Create artifact with agent definitions"
+      ]
+    }
+  },
+
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-01",
+    "maintainer": "scaffolding-templates team",
+    "repository": "https://github.com/your-org/scaffolding-templates"
+  }
+}
