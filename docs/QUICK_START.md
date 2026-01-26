@@ -1,6 +1,17 @@
-# Quick Start Guide for Custom Agents
+# Quick Start Guide for AI-Assisted Development
 
-Get started with custom AI agents in under 5 minutes!
+Get started with AI assistance in under 5 minutes!
+
+## Two Options Available
+
+This repository provides **two complementary AI assistance systems**:
+
+1. **Skills** - Standard [agentskills.io](https://agentskills.io) format (broad compatibility)
+2. **Agents** - Custom format with enhanced features (Copilot, Claude, Cursor)
+
+**Both cover the same 14 areas**: Requirements, Architecture, Implementation, Testing, UI/UX, Deployment, Maintenance, Production Support, and 6 framework specialists.
+
+👉 **New to this?** Start with **Agents** for detailed guidance. See [Skills vs Agents](SKILLS_VS_AGENTS.md) to understand the difference.
 
 ## What Are Custom Agents?
 

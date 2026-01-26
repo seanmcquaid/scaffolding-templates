@@ -74,15 +74,23 @@ Each template includes:
 
 ## AI-Assisted Development
 
-This repository includes custom AI agents for GitHub Copilot, Claude, and Cursor:
+This repository includes **two complementary AI assistance systems**:
 
-- **[Quick Start Guide](docs/QUICK_START.md)** - Get started with custom agents in 5 minutes! 🚀
-- **[Custom Agents Guide](docs/custom-agents-guide.md)** - Comprehensive guide with platform-specific usage, workflows, and examples
-- **[AGENTS.md](AGENTS.md)** - Repository-wide coding patterns and best practices
-- **Template-Specific Docs** - Each template has its own `AGENTS.md` and `/docs` directory
+### Skills (Standard Format)
+Following [agentskills.io](https://agentskills.io) specification for broad platform compatibility:
+- **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
+- **Location**: `/skills/` directory with `SKILL.md` files
+- **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
+- **Documentation**: [Skills README](skills/README.md)
 
-### Available Custom Agents
+### Custom Agents (Enhanced Format)
+Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
+- **14 Agents**: 8 SDLC phase agents + 6 template specialist agents
+- **Location**: `/agents/` directory with `.agent.md` files
+- **Support**: GitHub Copilot, Claude Desktop, Cursor IDE
+- **Documentation**: [Quick Start](docs/QUICK_START.md) | [Full Guide](docs/custom-agents-guide.md)
 
-**8 SDLC Phase Agents:** Requirements Analyst, Software Architect, Implementation Engineer, Quality Analyst, UI/UX Designer, Deployment Engineer, Maintenance Engineer, Production Support Engineer
+### Understanding the Difference
+- **[Skills vs Agents Guide](docs/SKILLS_VS_AGENTS.md)** - Understand which to use and when
 
-**6 Template Specialists:** Next.js SSR, React Router SPA, React Router SSR, TanStack Router, TypeScript Library, Expo React Native
+Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.

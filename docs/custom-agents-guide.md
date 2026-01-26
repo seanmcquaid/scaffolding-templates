@@ -2,6 +2,17 @@
 
 A comprehensive guide to using custom sub-agents with GitHub Copilot, Claude, and Cursor for efficient, specialized development workflows.
 
+## Important Note: Skills vs Agents
+
+This repository provides **two AI assistance systems**:
+
+- **Skills** (`/skills/`) - Standard [agentskills.io](https://agentskills.io) format for broad platform compatibility
+- **Agents** (`/agents/`) - Custom enhanced format optimized for Copilot, Claude, and Cursor
+
+**This guide covers the Agents system.** For Skills documentation, see [`/skills/README.md`](../skills/README.md). To understand which to use, see [Skills vs Agents Guide](SKILLS_VS_AGENTS.md).
+
+Both systems cover the same 14 functional areas with similar guidance. Use Skills for standardized portability or Agents for platform-specific enhancements.
+
 ## Table of Contents
 
 1. [Overview](#overview)
