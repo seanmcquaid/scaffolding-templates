@@ -51,29 +51,29 @@ The AI workflow automation system implements automated, continuous improvement c
 
 ### Using Ralph Locally (No GitHub Required)
 
-**Ralph** is a simple bash script (`./scripts/ralph`) that implements the "Ralph is a loop" methodology without requiring GitHub Issues. It's just a regular shell script - no installation or CLI tool needed:
+**Ralph** is a simple bash script (`./scripts/ralph.sh`) that implements the "Ralph is a loop" methodology without requiring GitHub Issues. It's just a regular shell script - no installation or CLI tool needed:
 
 ```bash
 # Create a local plan (git-ignored, personal)
-./scripts/ralph plan "Add authentication to next-ssr template"
+./scripts/ralph.sh plan "Add authentication to next-ssr template"
 
 # Or create a shared plan (committed, accessible to team/agents)
-./scripts/ralph plan "Refactor routing system" --shared
+./scripts/ralph.sh plan "Refactor routing system" --shared
 
 # Execute the plan
-./scripts/ralph execute auth-next-ssr.md
+./scripts/ralph.sh execute auth-next-ssr.md
 
 # Review your work
-./scripts/ralph review auth-next-ssr.md
+./scripts/ralph.sh review auth-next-ssr.md
 
 # Iterate based on feedback
-./scripts/ralph iterate auth-next-ssr.md
+./scripts/ralph.sh iterate auth-next-ssr.md
 
 # Share a local plan with the team
-./scripts/ralph share auth-next-ssr.md
+./scripts/ralph.sh share auth-next-ssr.md
 
 # Check all plans
-./scripts/ralph status --shared
+./scripts/ralph.sh status --shared
 ```
 
 **Features:**
@@ -211,7 +211,7 @@ The "Ralph is a loop" concept from [AI Hero](https://www.aihero.dev/tips-for-ai-
 
 The Ralph methodology works in **two modes** to fit different workflows:
 
-#### Local Mode (`./scripts/ralph`)
+#### Local Mode (`./scripts/ralph.sh`)
 
 **Best for:**
 - Individual work and experimentation
@@ -229,10 +229,10 @@ The Ralph methodology works in **two modes** to fit different workflows:
 
 **Workflow:**
 ```bash
-ralph plan "task"     # Create structured plan
-ralph execute "plan"  # Start implementation
-ralph review "plan"   # Validate work
-ralph iterate "plan"  # Refine based on feedback
+ralph.sh plan "task"     # Create structured plan
+ralph.sh execute "plan"  # Start implementation
+ralph.sh review "plan"   # Validate work
+ralph.sh iterate "plan"  # Refine based on feedback
 ```
 
 #### GitHub Issues Mode (Automated)
@@ -420,7 +420,7 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `ralph` | **Local workflow orchestrator** | `./scripts/ralph plan "<task>"` |
+| `ralph` | **Local workflow orchestrator** | `./scripts/ralph.sh plan "<task>"` |
 | `classify-issue.sh` | Classify issue for workflow | `./scripts/classify-issue.sh "<title>" "<body>"` |
 | `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |

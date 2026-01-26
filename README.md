@@ -62,16 +62,16 @@ This repository uses automated AI workflows to maintain code quality and acceler
 
 ### Local Development with Ralph
 
-**Ralph** is a simple bash script (`./scripts/ralph`) for working with AI workflows locally - no CLI tools or installation required:
+**Ralph** is a simple bash script (`./scripts/ralph.sh`) for working with AI workflows locally - no CLI tools or installation required:
 
 ```bash
 # Create a structured plan for your task
-./scripts/ralph plan "Add authentication to next-ssr"
+./scripts/ralph.sh plan "Add authentication to next-ssr"
 
 # Execute, review, and iterate through the plan
-./scripts/ralph execute auth-next-ssr.md
-./scripts/ralph review auth-next-ssr.md
-./scripts/ralph iterate auth-next-ssr.md
+./scripts/ralph.sh execute auth-next-ssr.md
+./scripts/ralph.sh review auth-next-ssr.md
+./scripts/ralph.sh iterate auth-next-ssr.md
 ```
 
 **It's just a script:** No dependencies, no installation - runs with standard bash and git. Copy it to any project.

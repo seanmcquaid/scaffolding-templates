@@ -7,8 +7,8 @@ This directory contains scripts used by the AI workflow automation system. These
 **`ralph`** is a bash script (not a separate CLI tool - just a regular shell script) that brings the "Ralph is a loop" methodology to local development, allowing you to work with AI workflows without relying on GitHub Issues.
 
 **What it is:**
-- ✅ A single bash script file in `/scripts/ralph`
-- ✅ Executable directly (`./scripts/ralph plan "task"`)
+- ✅ A single bash script file in `/scripts/ralph.sh`
+- ✅ Executable directly (`./scripts/ralph.sh plan "task"`)
 - ✅ No installation or dependencies required (uses standard bash/git)
 - ✅ Can be copied to any project
 
@@ -21,31 +21,31 @@ This directory contains scripts used by the AI workflow automation system. These
 
 ```bash
 # Create a plan for a task
-./scripts/ralph plan "Add authentication to next-ssr template"
+./scripts/ralph.sh plan "Add authentication to next-ssr template"
 
 # Execute the plan
-./scripts/ralph execute auth-next-ssr.md
+./scripts/ralph.sh execute auth-next-ssr.md
 
 # Review your work
-./scripts/ralph review auth-next-ssr.md
+./scripts/ralph.sh review auth-next-ssr.md
 
 # Iterate based on feedback
-./scripts/ralph iterate auth-next-ssr.md
+./scripts/ralph.sh iterate auth-next-ssr.md
 
 # Check all active plans
-./scripts/ralph status
+./scripts/ralph.sh status
 ```
 
 ### Ralph Commands
 
 | Command | Description |
 |---------|-------------|
-| `ralph plan <task>` | Create a structured plan for a task with agent suggestions |
-| `ralph execute <plan>` | Mark plan as executing and guide implementation |
-| `ralph review <plan>` | Review completed work against validation checklist |
-| `ralph iterate <plan>` | Update plan based on review feedback |
-| `ralph status` | Show all active plans with their status |
-| `ralph show <plan>` | Display a plan file with syntax highlighting |
+| `ralph.sh plan <task>` | Create a structured plan for a task with agent suggestions |
+| `ralph.sh execute <plan>` | Mark plan as executing and guide implementation |
+| `ralph.sh review <plan>` | Review completed work against validation checklist |
+| `ralph.sh iterate <plan>` | Update plan based on review feedback |
+| `ralph.sh status` | Show all active plans with their status |
+| `ralph.sh show <plan>` | Display a plan file with syntax highlighting |
 
 ### How Ralph Works Locally
 

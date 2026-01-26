@@ -2,7 +2,7 @@
 
 This directory contains Ralph workflow plans that are committed to git for team collaboration and distributed agent access.
 
-> **Note:** Ralph is just a simple bash script at `./scripts/ralph` - not a CLI tool or package. No installation required, just run the script directly.
+> **Note:** Ralph is just a simple bash script at `./scripts/ralph.sh` - not a CLI tool or package. No installation required, just run the script directly.
 
 ## Purpose
 
@@ -19,11 +19,11 @@ While the `.ralph/` directory is git-ignored for personal/local planning, `.ralp
 
 ```bash
 # Option 1: Create plan directly in shared directory
-./scripts/ralph plan "Implement authentication system" --shared
+./scripts/ralph.sh plan "Implement authentication system" --shared
 
 # Option 2: Create locally first, then share
-./scripts/ralph plan "Test new feature"
-./scripts/ralph share test-new-feature.md
+./scripts/ralph.sh plan "Test new feature"
+./scripts/ralph.sh share test-new-feature.md
 ```
 
 ### Working with Shared Plans
@@ -32,23 +32,23 @@ All ralph commands automatically work with plans in either directory:
 
 ```bash
 # View shared plan
-./scripts/ralph show auth-system.md
+./scripts/ralph.sh show auth-system.md
 
 # Execute shared plan
-./scripts/ralph execute auth-system.md
+./scripts/ralph.sh execute auth-system.md
 
 # Review shared plan
-./scripts/ralph review auth-system.md
+./scripts/ralph.sh review auth-system.md
 
 # View all plans (local and shared)
-./scripts/ralph status --shared
+./scripts/ralph.sh status --shared
 ```
 
 ## Distributed Agent Workflow
 
 When using shared plans with distributed AI agents:
 
-1. **Create Plan** - Use `ralph plan` with `--shared` flag
+1. **Create Plan** - Use `ralph.sh plan` with `--shared` flag
 2. **Commit to Git** - Plan is committed and available to all agents
 3. **Agent Access** - Agents can read `.ralph-shared/*.md` files to understand context
 4. **Collaborative Execution** - Multiple agents/developers work on different aspects
@@ -151,10 +151,10 @@ See detailed implementation plan: `.ralph-shared/feature-name.md`
 
 ```bash
 # 1. Developer creates local plan
-./scripts/ralph plan "Add React 19 support"
+./scripts/ralph.sh plan "Add React 19 support"
 
 # 2. After validation, promote to shared
-./scripts/ralph share add-react-19-support.md
+./scripts/ralph.sh share add-react-19-support.md
 
 # 3. Architect agent reviews and adds design notes
 # (Agent reads plan from git, adds design section)
@@ -163,7 +163,7 @@ git pull
 git push
 
 # 4. Implementation engineer executes plan
-./scripts/ralph execute add-react-19-support.md
+./scripts/ralph.sh execute add-react-19-support.md
 # Makes progress, updates checklist
 git add .ralph-shared/add-react-19-support.md
 git commit -m "Update React 19 plan - core migration complete"
