@@ -54,28 +54,35 @@ The AI workflow automation system implements automated, continuous improvement c
 **Ralph** is a local workflow orchestrator that implements the "Ralph is a loop" methodology without requiring GitHub Issues:
 
 ```bash
-# Create a plan for your task
+# Create a local plan (git-ignored, personal)
 ./scripts/ralph plan "Add authentication to next-ssr template"
 
-# Execute the plan step by step
+# Or create a shared plan (committed, accessible to team/agents)
+./scripts/ralph plan "Refactor routing system" --shared
+
+# Execute the plan
 ./scripts/ralph execute auth-next-ssr.md
 
 # Review your work
 ./scripts/ralph review auth-next-ssr.md
 
-# Iterate if needed
+# Iterate based on feedback
 ./scripts/ralph iterate auth-next-ssr.md
 
+# Share a local plan with the team
+./scripts/ralph share auth-next-ssr.md
+
 # Check all plans
-./scripts/ralph status
+./scripts/ralph status --shared
 ```
 
 **Features:**
-- ✅ Fully local (no GitHub needed)
+- ✅ Fully local (no GitHub needed) or shared for team collaboration
 - ✅ Automatic task classification and agent suggestions
 - ✅ Structured breakdown with checklists
 - ✅ Template detection (next-ssr, react-router-v7-spa, etc.)
-- ✅ Progress tracking in markdown files (stored in `.ralph/`)
+- ✅ Progress tracking in markdown files
+- ✅ Support for distributed AI agents via shared plans
 
 **When to use Ralph locally:**
 - Individual work or experimentation
@@ -83,7 +90,13 @@ The AI workflow automation system implements automated, continuous improvement c
 - Privacy-sensitive work
 - Local-first workflow preference
 
-See `/scripts/README.md` for complete Ralph documentation.
+**When to use shared Ralph plans:**
+- Team collaboration needed
+- Distributed AI agents require access to plans
+- Formal planning that should be tracked in git
+- Complex tasks requiring multiple agents
+
+See `/scripts/README.md` for complete Ralph documentation and `.ralph-shared/README.md` for team collaboration details.
 
 ---
 

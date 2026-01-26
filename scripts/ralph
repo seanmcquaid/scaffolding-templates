@@ -5,18 +5,28 @@ set -e
 # Implements the "Ralph is a loop" methodology for local development
 # 
 # Usage: 
-#   ralph plan <task-description>     - Create a plan for a task
-#   ralph execute <plan-file>         - Execute a plan step by step
-#   ralph review <plan-file>          - Review progress and suggest iterations
-#   ralph iterate <plan-file>         - Update plan based on review
-#   ralph status                      - Show all active plans
-#   ralph show <plan-file>            - Show plan details
+#   ralph plan <task-description> [--shared]  - Create a plan for a task
+#   ralph execute <plan-file>                 - Execute a plan step by step
+#   ralph review <plan-file>                  - Review progress and suggest iterations
+#   ralph iterate <plan-file>                 - Update plan based on review
+#   ralph status [--shared]                   - Show all active plans
+#   ralph show <plan-file>                    - Show plan details
+#   ralph share <plan-file>                   - Move local plan to shared location
 #
-# Plans are stored in .ralph/ directory (added to .gitignore)
+# Plans are stored in .ralph/ (local, git-ignored) or .ralph-shared/ (team, committed)
 
 RALPH_DIR=".ralph"
+RALPH_SHARED_DIR=".ralph-shared"
 COMMAND="${1:-}"
 TASK="${2:-}"
+SHARED_MODE=false
+
+# Check for --shared flag
+for arg in "$@"; do
+  if [ "$arg" = "--shared" ]; then
+    SHARED_MODE=true
+  fi
+done
 
 # Colors for output
 RED='\033[0;31m'
@@ -26,10 +36,11 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Ensure ralph directory exists
+# Ensure ralph directories exist
 mkdir -p "$RALPH_DIR"
+mkdir -p "$RALPH_SHARED_DIR"
 
-# Ensure .gitignore includes .ralph
+# Ensure .gitignore includes .ralph (but NOT .ralph-shared)
 if [ -f ".gitignore" ]; then
   if ! grep -q "^\.ralph/$" .gitignore 2>/dev/null; then
     echo ".ralph/" >> .gitignore
@@ -41,36 +52,41 @@ show_usage() {
 ${CYAN}Ralph - Local AI Workflow Orchestrator${NC}
 
 ${YELLOW}Usage:${NC}
-  ralph plan <task-description>     Create a plan for a task
-  ralph execute <plan-file>         Execute a plan step by step
-  ralph review <plan-file>          Review progress and suggest iterations
-  ralph iterate <plan-file>         Update plan based on review
-  ralph status                      Show all active plans
-  ralph show <plan-file>            Show plan details
+  ralph plan <task-description> [--shared]  Create a plan for a task
+  ralph execute <plan-file>                 Execute a plan step by step
+  ralph review <plan-file>                  Review progress and suggest iterations
+  ralph iterate <plan-file>                 Update plan based on review
+  ralph status [--shared]                   Show all active plans
+  ralph show <plan-file>                    Show plan details
+  ralph share <plan-file>                   Move local plan to shared location
 
 ${YELLOW}Examples:${NC}
-  # Start a new task
+  # Start a new local task (private, not committed)
   ralph plan "Add authentication to next-ssr template"
+  
+  # Start a new shared task (committed for team collaboration)
+  ralph plan "Refactor routing system" --shared
+  
+  # Share an existing local plan with the team
+  ralph share test-new-feature.md
   
   # Execute the plan
   ralph execute auth-next-ssr.md
   
-  # Review progress
-  ralph review auth-next-ssr.md
-  
-  # Iterate on the plan
-  ralph iterate auth-next-ssr.md
-  
-  # Check all plans
-  ralph status
+  # View all plans (local and shared)
+  ralph status --shared
 
 ${YELLOW}Philosophy:${NC}
   Ralph follows the "Plan → Execute → Review → Iterate" cycle.
   Always start in plan mode before implementing.
 
-${YELLOW}Plan Files:${NC}
-  Plans are stored in ${BLUE}.ralph/${NC} directory as markdown files.
-  They track task breakdown, progress, and iteration history.
+${YELLOW}Plan Storage:${NC}
+  ${BLUE}.ralph/${NC}        - Local plans (git-ignored, personal)
+  ${BLUE}.ralph-shared/${NC} - Shared plans (committed, team-accessible)
+  
+${YELLOW}When to use local vs shared:${NC}
+  Local:  Experiments, WIP, personal planning
+  Shared: Team collaboration, distributed agents, formal planning
 
 EOF
 }
@@ -78,15 +94,27 @@ EOF
 create_plan() {
   local task="$1"
   
+  # Remove --shared flag from task if present
+  task=$(echo "$task" | sed 's/--shared//g' | xargs)
+  
   if [ -z "$task" ]; then
     echo -e "${RED}Error: Task description is required${NC}"
-    echo "Usage: ralph plan <task-description>"
+    echo "Usage: ralph plan <task-description> [--shared]"
     exit 1
+  fi
+  
+  # Determine target directory
+  local target_dir="$RALPH_DIR"
+  if [ "$SHARED_MODE" = true ]; then
+    target_dir="$RALPH_SHARED_DIR"
+    echo -e "${CYAN}Creating SHARED plan (will be committed to git)${NC}"
+  else
+    echo -e "${CYAN}Creating LOCAL plan (git-ignored, personal)${NC}"
   fi
   
   # Generate filename from task description
   local filename=$(echo "$task" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50)
-  local plan_file="$RALPH_DIR/${filename}.md"
+  local plan_file="$target_dir/${filename}.md"
   
   if [ -f "$plan_file" ]; then
     echo -e "${YELLOW}Plan already exists: $plan_file${NC}"
@@ -512,6 +540,65 @@ iterate_plan() {
   fi
 }
 
+share_plan() {
+  local plan_file="$1"
+  
+  if [ -z "$plan_file" ]; then
+    echo -e "${RED}Error: Plan file is required${NC}"
+    echo "Usage: ralph share <plan-file>"
+    exit 1
+  fi
+  
+  # Check if file exists in local directory
+  local local_plan="$RALPH_DIR/$plan_file"
+  if [[ ! "$plan_file" =~ ^\.ralph/ ]]; then
+    if [ ! -f "$local_plan" ]; then
+      echo -e "${RED}Error: Local plan not found: $local_plan${NC}"
+      echo ""
+      echo "Available local plans:"
+      ls -1 "$RALPH_DIR"/*.md 2>/dev/null || echo "  (none)"
+      exit 1
+    fi
+  else
+    local_plan="$plan_file"
+  fi
+  
+  if [ ! -f "$local_plan" ]; then
+    echo -e "${RED}Error: Plan file not found: $local_plan${NC}"
+    exit 1
+  fi
+  
+  local filename=$(basename "$local_plan")
+  local shared_plan="$RALPH_SHARED_DIR/$filename"
+  
+  if [ -f "$shared_plan" ]; then
+    echo -e "${YELLOW}Shared plan already exists: $shared_plan${NC}"
+    echo -e "${YELLOW}Overwrite? (y/n)${NC}"
+    read -r response
+    if [[ ! "$response" =~ ^[Yy]$ ]]; then
+      echo "Operation cancelled"
+      exit 0
+    fi
+  fi
+  
+  echo -e "${CYAN}Moving plan to shared location...${NC}"
+  cp "$local_plan" "$shared_plan"
+  echo -e "${GREEN}✓ Plan copied to: $shared_plan${NC}"
+  echo ""
+  
+  echo -e "${YELLOW}Next steps:${NC}"
+  echo "1. Review the plan: ${BLUE}ralph show $filename${NC}"
+  echo "2. Commit to git:"
+  echo -e "   ${BLUE}git add $shared_plan${NC}"
+  echo -e "   ${BLUE}git commit -m \"Add shared plan: $filename\"${NC}"
+  echo -e "   ${BLUE}git push${NC}"
+  echo ""
+  echo "3. Optionally remove local copy:"
+  echo -e "   ${BLUE}rm $local_plan${NC}"
+  echo ""
+  echo -e "${CYAN}The shared plan is now accessible to all team members and distributed agents.${NC}"
+}
+
 # Main command router
 case "$COMMAND" in
   plan)
@@ -531,6 +618,9 @@ case "$COMMAND" in
     ;;
   show)
     show_plan "$TASK"
+    ;;
+  share)
+    share_plan "$TASK"
     ;;
   ""|help|--help|-h)
     show_usage
