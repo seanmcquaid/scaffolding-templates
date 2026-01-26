@@ -54,3 +54,10 @@ Each template includes:
 - ✅ Type-safe development with TypeScript
 - ✅ Environment configuration with validation
 - ✅ Comprehensive documentation
+- ✅ Custom AI agents for GitHub Copilot, Claude, and Cursor
+
+## Documentation
+
+- **[Custom Agents Guide](docs/custom-agents-guide.md)** - Comprehensive guide to using custom sub-agents with GitHub Copilot, Claude, and Cursor for AI-assisted development
+- **[AGENTS.md](AGENTS.md)** - Repository-wide coding patterns and best practices
+- **Template-Specific Docs** - Each template has its own `AGENTS.md` and `/docs` directory
