@@ -281,6 +281,7 @@ The "Ralph is a loop" concept from [AI Hero](https://www.aihero.dev/tips-for-ai-
 - Daily summary report
 
 **Scripts Used:**
+- `scripts/classify-issue.sh` (for workflow classification)
 - `scripts/analyze-issue.sh` (for local analysis)
 
 **Key Features:**
@@ -300,6 +301,7 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
+| `classify-issue.sh` | Classify issue for workflow | `./scripts/classify-issue.sh "<title>" "<body>"` |
 | `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |
 | `determine-agents.sh` | Find relevant agents | `./scripts/determine-agents.sh [files] [templates]` |

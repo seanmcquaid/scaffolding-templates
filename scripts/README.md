@@ -6,6 +6,24 @@ This directory contains scripts used by the AI workflow automation system. These
 
 ### Issue Processing Scripts
 
+#### `classify-issue.sh`
+Classifies a GitHub issue and determines agents, labels, and next steps for Ralph workflow.
+
+**Usage:**
+```bash
+./scripts/classify-issue.sh <issue-title> <issue-body>
+```
+
+**Example:**
+```bash
+# Classify an issue
+./scripts/classify-issue.sh "Bug in next-ssr template" "Authentication flow is broken"
+```
+
+**Output:** JSON with classification, suggested agents, suggested labels, and Ralph workflow next steps
+
+**Prerequisites:** `jq` for JSON processing
+
 #### `analyze-issue.sh`
 Analyzes a GitHub issue and suggests Ralph workflow approach with agent routing.
 
@@ -180,6 +198,16 @@ sudo dnf install jq bc
 
 ## Running Scripts Locally
 
+### Testing Issue Processing
+
+```bash
+# 1. Classify an issue (requires title and body)
+./scripts/classify-issue.sh "Bug in authentication" "Users cannot log in"
+
+# 2. Analyze an existing GitHub issue (requires gh CLI)
+./scripts/analyze-issue.sh 123
+```
+
 ### Testing Code Review Logic
 
 ```bash
@@ -220,6 +248,7 @@ These scripts are called by the GitHub Actions workflows:
 - `.github/workflows/ai-code-review.yml` uses `analyze-changed-files.sh` and `determine-agents.sh`
 - `.github/workflows/ai-concept-discovery.yml` uses `analyze-templates.sh` and `identify-concepts.sh`
 - `.github/workflows/ai-test-coverage.yml` uses `run-coverage-analysis.sh`, `identify-coverage-gaps.sh`, and `identify-missing-tests.sh`
+- `.github/workflows/ai-issue-processing.yml` uses `classify-issue.sh`
 
 ## Troubleshooting
 

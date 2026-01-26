@@ -67,6 +67,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const { execSync } = require('child_process');
             const issues = ${{ steps.fetch-issues.outputs.result }};
             
             if (!issues || issues.length === 0) {
@@ -79,169 +80,27 @@ jobs:
             for (const issue of issues) {
               console.log(`\nProcessing issue #${issue.number}: ${issue.title}`);
               
-              // PLAN MODE: Analyze the issue
-              let analysis = '';
-              let suggestedAgents = [];
-              let suggestedLabels = [];
-              let nextSteps = '';
+              // Use classify-issue.sh script to analyze the issue
+              const title = issue.title.replace(/'/g, "'\\''");
+              const body = (issue.body || '').replace(/'/g, "'\\''");
               
-              // Determine issue type and relevant agents
-              const title = issue.title.toLowerCase();
-              const body = issue.body.toLowerCase();
-              const content = `${title} ${body}`;
-              
-              // Bug-related
-              if (content.includes('bug') || content.includes('error') || content.includes('fix')) {
-                analysis = 'This appears to be a bug report or fix request.';
-                suggestedAgents.push('@maintenance-engineer');
-                suggestedLabels.push('bug');
-                nextSteps = `
-            1. **Investigation** (Use @maintenance-engineer):
-               - Reproduce the issue
-               - Identify root cause
-               - Determine affected templates/components
-            
-            2. **Implementation** (Use template specialist if needed):
-               - Create fix following template patterns
-               - Add regression tests
-               - Verify fix across affected areas
-            
-            3. **Validation** (Use @quality-analyst):
-               - Review test coverage for the fix
-               - Ensure no side effects
-               - Validate fix resolves the issue
-                `;
-              }
-              // Feature request
-              else if (content.includes('feature') || content.includes('enhancement') || content.includes('add')) {
-                analysis = 'This appears to be a feature request or enhancement.';
-                suggestedAgents.push('@requirements-analyst', '@software-architect');
-                suggestedLabels.push('enhancement');
-                nextSteps = `
-            1. **Requirements Analysis** (Use @requirements-analyst):
-               - Clarify requirements and scope
-               - Define acceptance criteria
-               - Identify affected templates
-               - Assess complexity and effort
-            
-            2. **Design Phase** (Use @software-architect):
-               - Create architectural design
-               - Define implementation approach
-               - Consider cross-template consistency
-               - Create ADR if significant change
-            
-            3. **Implementation Phase** (Use template specialists):
-               - Implement feature following design
-               - Maintain template consistency
-               - Add comprehensive tests
-               - Update documentation
-                `;
-              }
-              // Test-related
-              else if (content.includes('test') || content.includes('coverage')) {
-                analysis = 'This appears to be related to testing or test coverage.';
-                suggestedAgents.push('@quality-analyst');
-                suggestedLabels.push('testing');
-                nextSteps = `
-            1. **Analysis** (Use @quality-analyst):
-               - Review current test coverage
-               - Identify specific gaps
-               - Plan test cases needed
-            
-            2. **Implementation** (Use @quality-analyst + template specialist):
-               - Write tests following template patterns
-               - Ensure proper test isolation
-               - Verify coverage improvements
-            
-            3. **Validation**:
-               - Run \`pnpm test:coverage\` locally
-               - Verify coverage meets threshold
-               - Ensure tests are stable
-                `;
-              }
-              // Documentation
-              else if (content.includes('doc') || content.includes('documentation') || content.includes('readme')) {
-                analysis = 'This appears to be related to documentation.';
-                suggestedAgents.push('@ui-ux-designer');
-                suggestedLabels.push('documentation');
-                nextSteps = `
-            1. **Content Planning** (Use @ui-ux-designer):
-               - Identify documentation needs
-               - Plan content structure
-               - Ensure clarity and completeness
-            
-            2. **Implementation**:
-               - Write clear, concise documentation
-               - Add examples where helpful
-               - Maintain consistency with existing docs
-            
-            3. **Review**:
-               - Verify technical accuracy
-               - Check for clarity
-               - Ensure proper formatting
-                `;
-              }
-              // Template-specific
-              else {
-                // Check for template mentions
-                const templates = [];
-                if (content.includes('typescript-library') || content.includes('ts library')) {
-                  templates.push('typescript-library');
-                  suggestedAgents.push('@typescript-library-specialist');
-                }
-                if (content.includes('next') || content.includes('nextjs')) {
-                  templates.push('next-ssr');
-                  suggestedAgents.push('@nextjs-ssr-specialist');
-                }
-                if (content.includes('react-router') && (content.includes('spa') || content.includes('single'))) {
-                  templates.push('react-router-v7-spa');
-                  suggestedAgents.push('@react-router-spa-specialist');
-                }
-                if (content.includes('react-router') && (content.includes('ssr') || content.includes('server'))) {
-                  templates.push('react-router-v7-ssr');
-                  suggestedAgents.push('@react-router-ssr-specialist');
-                }
-                if (content.includes('tanstack') || content.includes('tanstack router')) {
-                  templates.push('tanstack-router-spa');
-                  suggestedAgents.push('@tanstack-router-spa-specialist');
-                }
-                if (content.includes('expo') || content.includes('react-native') || content.includes('mobile')) {
-                  templates.push('expo-react-native');
-                  suggestedAgents.push('@expo-react-native-specialist');
-                }
-                
-                if (templates.length > 0) {
-                  analysis = `This appears to be related to the following template(s): ${templates.join(', ')}.`;
-                  templates.forEach(t => suggestedLabels.push(`template:${t}`));
-                } else {
-                  analysis = 'This issue requires further analysis to determine the appropriate approach.';
-                  suggestedAgents.push('@requirements-analyst');
-                }
-                
-                nextSteps = `
-            1. **Analysis Phase** (Use @requirements-analyst):
-               - Understand the request in detail
-               - Define clear requirements
-               - Identify affected templates/components
-            
-            2. **Planning Phase** (Use @software-architect if architectural change):
-               - Design the solution approach
-               - Consider consistency across templates
-               - Plan implementation steps
-            
-            3. **Implementation Phase** (Use appropriate specialists):
-               - Follow template-specific patterns
-               - Maintain code quality standards
-               - Add necessary tests
-               - Update documentation
-                `;
+              let classification;
+              try {
+                const result = execSync(
+                  `./scripts/classify-issue.sh '${title}' '${body}'`,
+                  { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024 }
+                );
+                classification = JSON.parse(result);
+              } catch (error) {
+                console.error(`Failed to classify issue #${issue.number}:`, error.message);
+                continue;
               }
               
-              // Always add implementation engineer for code changes
-              if (!suggestedAgents.includes('@implementation-engineer') && 
-                  (suggestedLabels.includes('enhancement') || suggestedLabels.includes('bug'))) {
-                suggestedAgents.push('@implementation-engineer');
-              }
+              const analysis = classification.analysis.trim();
+              const suggestedAgents = classification.agents || [];
+              const suggestedLabels = classification.labels || [];
+              const nextSteps = classification.next_steps.trim();
+              const nextSteps = classification.next_steps.trim();
               
               // Create Ralph workflow comment
               const ralphComment = `## 🤖 Ralph Workflow Analysis
