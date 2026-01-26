@@ -4,7 +4,18 @@ This directory contains scripts used by the AI workflow automation system. These
 
 ## Ralph - Local Workflow Orchestrator
 
-**`ralph`** is a command-line tool that brings the "Ralph is a loop" methodology to local development, allowing you to work with AI workflows without relying on GitHub Issues.
+**`ralph`** is a bash script (not a separate CLI tool - just a regular shell script) that brings the "Ralph is a loop" methodology to local development, allowing you to work with AI workflows without relying on GitHub Issues.
+
+**What it is:**
+- ✅ A single bash script file in `/scripts/ralph`
+- ✅ Executable directly (`./scripts/ralph plan "task"`)
+- ✅ No installation or dependencies required (uses standard bash/git)
+- ✅ Can be copied to any project
+
+**What it's NOT:**
+- ❌ Not a separate CLI tool or package
+- ❌ Not a complex application
+- ❌ Not requiring npm install or special setup
 
 ### Quick Start
 

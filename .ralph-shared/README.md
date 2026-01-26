@@ -2,6 +2,8 @@
 
 This directory contains Ralph workflow plans that are committed to git for team collaboration and distributed agent access.
 
+> **Note:** Ralph is just a simple bash script at `./scripts/ralph` - not a CLI tool or package. No installation required, just run the script directly.
+
 ## Purpose
 
 While the `.ralph/` directory is git-ignored for personal/local planning, `.ralph-shared/` enables:

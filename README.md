@@ -62,7 +62,7 @@ This repository uses automated AI workflows to maintain code quality and acceler
 
 ### Local Development with Ralph
 
-Work with AI workflows locally without GitHub:
+**Ralph** is a simple bash script (`./scripts/ralph`) for working with AI workflows locally - no CLI tools or installation required:
 
 ```bash
 # Create a structured plan for your task
@@ -74,7 +74,9 @@ Work with AI workflows locally without GitHub:
 ./scripts/ralph iterate auth-next-ssr.md
 ```
 
-**Features:** Task classification, agent suggestions, template detection, progress tracking
+**It's just a script:** No dependencies, no installation - runs with standard bash and git. Copy it to any project.
+
+**Features:** Task classification, agent suggestions, template detection, progress tracking, local or shared team plans
 
 ### Automated GitHub Workflows
 

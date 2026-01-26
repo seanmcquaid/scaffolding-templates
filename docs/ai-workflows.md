@@ -51,7 +51,7 @@ The AI workflow automation system implements automated, continuous improvement c
 
 ### Using Ralph Locally (No GitHub Required)
 
-**Ralph** is a local workflow orchestrator that implements the "Ralph is a loop" methodology without requiring GitHub Issues:
+**Ralph** is a simple bash script (`./scripts/ralph`) that implements the "Ralph is a loop" methodology without requiring GitHub Issues. It's just a regular shell script - no installation or CLI tool needed:
 
 ```bash
 # Create a local plan (git-ignored, personal)

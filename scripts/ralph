@@ -1,8 +1,16 @@
 #!/bin/bash
 set -e
 
-# Ralph - Local AI workflow orchestrator
-# Implements the "Ralph is a loop" methodology for local development
+# Ralph - Local AI Workflow Orchestrator
+#
+# This is a simple bash script (not a CLI tool or package) that implements
+# the "Ralph is a loop" methodology for local development workflows.
+#
+# NO INSTALLATION REQUIRED - Just run this script directly:
+#   ./scripts/ralph plan "your task"
+#
+# Copy this script to any project to use Ralph workflows locally.
+# Only dependencies: bash and git (standard on most systems)
 # 
 # Usage: 
 #   ralph plan <task-description> [--shared]  - Create a plan for a task
@@ -14,6 +22,11 @@ set -e
 #   ralph share <plan-file>                   - Move local plan to shared location
 #
 # Plans are stored in .ralph/ (local, git-ignored) or .ralph-shared/ (team, committed)
+#
+# For full documentation, see:
+#   - /scripts/README.md - Ralph command reference
+#   - /docs/ai-workflows.md - Complete AI workflows guide
+#   - /.ralph-shared/README.md - Team collaboration guide
 
 RALPH_DIR=".ralph"
 RALPH_SHARED_DIR=".ralph-shared"
