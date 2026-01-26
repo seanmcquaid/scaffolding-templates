@@ -1,0 +1,126 @@
+{
+  "$schema": "https://cursor.sh/schemas/config.json",
+  "description": "Cursor configuration for TypeScript Library template",
+  "agents": {
+    "autoDiscover": true,
+    "directories": [
+      "./agents"
+    ],
+    "priorityByDirectory": {
+      ".": [
+        "typescript-library-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ]
+    },
+    "contextReferences": {
+      "always": [
+        "../../AGENTS.md",
+        "./README.md"
+      ],
+      "byDirectory": {
+        ".": [
+          "./README.md",
+          "./docs/**/*.md"
+        ]
+      }
+    }
+  },
+  "composer": {
+    "enabled": true,
+    "defaultAgent": "typescript-library-specialist",
+    "showAgentSelector": true,
+    "agentSuggestions": true,
+    "maxFilesPerEdit": 10,
+    "confirmBeforeApply": true
+  },
+  "chat": {
+    "enabled": true,
+    "suggestAgents": true,
+    "agentPrefix": "@",
+    "showAgentHelp": true,
+    "contextWindow": 16000
+  },
+  "agentBehavior": {
+    "followRepositoryPatterns": true,
+    "respectAGENTSmd": true,
+    "templateAware": true,
+    "verbosity": "balanced",
+    "primaryFramework": "typescript-library"
+  },
+  "workflows": {
+    "featureDevelopment": {
+      "enabled": true,
+      "sequence": [
+        "requirements-analyst",
+        "ui-ux-designer",
+        "software-architect",
+        "typescript-library-specialist",
+        "implementation-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "bugFix": {
+      "enabled": true,
+      "sequence": [
+        "production-support-engineer",
+        "maintenance-engineer",
+        "quality-analyst"
+      ]
+    }
+  },
+  "fileTypeAgents": {
+    "*.tsx": [
+      "typescript-library-specialist",
+      "implementation-engineer"
+    ],
+    "*.ts": [
+      "implementation-engineer",
+      "software-architect"
+    ],
+    "*.test.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "*.spec.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "package.json": [
+      "deployment-engineer",
+      "maintenance-engineer"
+    ],
+    "*.config.{ts,js}": [
+      "deployment-engineer",
+      "software-architect"
+    ],
+    "tsup.config.ts": [
+      "typescript-library-specialist",
+      "deployment-engineer"
+    ],
+    "index.ts": [
+      "typescript-library-specialist"
+    ]
+  },
+  "shortcuts": {
+    "implement": {
+      "description": "Implement feature",
+      "agent": "typescript-library-specialist",
+      "prompt": "Implement the following feature:"
+    },
+    "test": {
+      "description": "Create tests",
+      "agent": "quality-analyst",
+      "prompt": "Create comprehensive tests for:"
+    },
+    "architecture": {
+      "description": "Design architecture",
+      "agent": "software-architect",
+      "prompt": "Design architecture for:"
+    }
+  },
+  "debug": {
+    "logAgentSelection": false,
+    "logAgentDiscovery": false,
+    "logContextResolution": false
+  }
+}

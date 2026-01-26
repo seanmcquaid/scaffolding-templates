@@ -1,0 +1,132 @@
+{
+  "$schema": "https://cursor.sh/schemas/config.json",
+  "description": "Cursor configuration for Next.js template",
+  "agents": {
+    "autoDiscover": true,
+    "directories": [
+      "./agents"
+    ],
+    "priorityByDirectory": {
+      ".": [
+        "nextjs-ssr-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ]
+    },
+    "contextReferences": {
+      "always": [
+        "../../AGENTS.md",
+        "./README.md"
+      ],
+      "byDirectory": {
+        ".": [
+          "./README.md",
+          "./docs/**/*.md"
+        ]
+      }
+    }
+  },
+  "composer": {
+    "enabled": true,
+    "defaultAgent": "nextjs-ssr-specialist",
+    "showAgentSelector": true,
+    "agentSuggestions": true,
+    "maxFilesPerEdit": 10,
+    "confirmBeforeApply": true
+  },
+  "chat": {
+    "enabled": true,
+    "suggestAgents": true,
+    "agentPrefix": "@",
+    "showAgentHelp": true,
+    "contextWindow": 16000
+  },
+  "agentBehavior": {
+    "followRepositoryPatterns": true,
+    "respectAGENTSmd": true,
+    "templateAware": true,
+    "verbosity": "balanced",
+    "primaryFramework": "next-ssr"
+  },
+  "workflows": {
+    "featureDevelopment": {
+      "enabled": true,
+      "sequence": [
+        "requirements-analyst",
+        "ui-ux-designer",
+        "software-architect",
+        "nextjs-ssr-specialist",
+        "implementation-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "bugFix": {
+      "enabled": true,
+      "sequence": [
+        "production-support-engineer",
+        "maintenance-engineer",
+        "quality-analyst"
+      ]
+    }
+  },
+  "fileTypeAgents": {
+    "*.tsx": [
+      "nextjs-ssr-specialist",
+      "implementation-engineer"
+    ],
+    "*.ts": [
+      "implementation-engineer",
+      "software-architect"
+    ],
+    "*.test.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "*.spec.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "package.json": [
+      "deployment-engineer",
+      "maintenance-engineer"
+    ],
+    "*.config.{ts,js}": [
+      "deployment-engineer",
+      "software-architect"
+    ],
+    "page.tsx": [
+      "nextjs-ssr-specialist"
+    ],
+    "layout.tsx": [
+      "nextjs-ssr-specialist"
+    ],
+    "route.ts": [
+      "nextjs-ssr-specialist"
+    ],
+    "next.config.{ts,js}": [
+      "nextjs-ssr-specialist",
+      "deployment-engineer"
+    ]
+  },
+  "shortcuts": {
+    "implement": {
+      "description": "Implement feature",
+      "agent": "nextjs-ssr-specialist",
+      "prompt": "Implement the following feature:"
+    },
+    "test": {
+      "description": "Create tests",
+      "agent": "quality-analyst",
+      "prompt": "Create comprehensive tests for:"
+    },
+    "architecture": {
+      "description": "Design architecture",
+      "agent": "software-architect",
+      "prompt": "Design architecture for:"
+    }
+  },
+  "debug": {
+    "logAgentSelection": false,
+    "logAgentDiscovery": false,
+    "logContextResolution": false
+  }
+}

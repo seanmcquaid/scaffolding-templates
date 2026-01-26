@@ -1,0 +1,145 @@
+{
+  "$schema": "https://cursor.sh/schemas/config.json",
+  "description": "Cursor configuration for Expo React Native template",
+  
+  "agents": {
+    "autoDiscover": true,
+    "directories": [
+      "./agents"
+    ],
+    "priorityByDirectory": {
+      ".": [
+        "expo-react-native-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ]
+    },
+    "contextReferences": {
+      "always": [
+        "../../AGENTS.md",
+        "./README.md"
+      ],
+      "byDirectory": {
+        ".": [
+          "./README.md",
+          "./docs/**/*.md",
+          "./app.json",
+          "./eas.json"
+        ]
+      }
+    }
+  },
+
+  "composer": {
+    "enabled": true,
+    "defaultAgent": "expo-react-native-specialist",
+    "showAgentSelector": true,
+    "agentSuggestions": true,
+    "maxFilesPerEdit": 10,
+    "confirmBeforeApply": true
+  },
+
+  "chat": {
+    "enabled": true,
+    "suggestAgents": true,
+    "agentPrefix": "@",
+    "showAgentHelp": true,
+    "contextWindow": 16000
+  },
+
+  "agentBehavior": {
+    "followRepositoryPatterns": true,
+    "respectAGENTSmd": true,
+    "templateAware": true,
+    "verbosity": "balanced",
+    "primaryFramework": "expo-react-native"
+  },
+
+  "workflows": {
+    "featureDevelopment": {
+      "enabled": true,
+      "sequence": [
+        "requirements-analyst",
+        "ui-ux-designer",
+        "software-architect",
+        "expo-react-native-specialist",
+        "implementation-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "bugFix": {
+      "enabled": true,
+      "sequence": [
+        "production-support-engineer",
+        "maintenance-engineer",
+        "quality-analyst"
+      ]
+    },
+    "nativeIntegration": {
+      "enabled": true,
+      "sequence": [
+        "expo-react-native-specialist",
+        "implementation-engineer",
+        "quality-analyst"
+      ]
+    }
+  },
+
+  "fileTypeAgents": {
+    "*.tsx": [
+      "expo-react-native-specialist",
+      "implementation-engineer"
+    ],
+    "*.ts": [
+      "implementation-engineer",
+      "software-architect"
+    ],
+    "*.test.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "app.json": [
+      "expo-react-native-specialist",
+      "deployment-engineer"
+    ],
+    "eas.json": [
+      "deployment-engineer"
+    ],
+    "app.config.{ts,js}": [
+      "expo-react-native-specialist"
+    ],
+    "metro.config.js": [
+      "expo-react-native-specialist",
+      "deployment-engineer"
+    ]
+  },
+
+  "shortcuts": {
+    "implement": {
+      "description": "Implement mobile feature",
+      "agent": "expo-react-native-specialist",
+      "prompt": "Implement the following mobile feature for iOS and Android:"
+    },
+    "nativeModule": {
+      "description": "Integrate native module",
+      "agent": "expo-react-native-specialist",
+      "prompt": "Guide me through integrating this native module with config plugin:"
+    },
+    "test": {
+      "description": "Create mobile tests",
+      "agent": "quality-analyst",
+      "prompt": "Create tests for this mobile component including platform-specific scenarios:"
+    },
+    "build": {
+      "description": "Configure EAS Build",
+      "agent": "deployment-engineer",
+      "prompt": "Set up EAS Build configuration for:"
+    }
+  },
+
+  "debug": {
+    "logAgentSelection": false,
+    "logAgentDiscovery": false,
+    "logContextResolution": false
+  }
+}

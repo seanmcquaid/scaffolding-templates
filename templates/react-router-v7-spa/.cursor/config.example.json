@@ -1,0 +1,125 @@
+{
+  "$schema": "https://cursor.sh/schemas/config.json",
+  "description": "Cursor configuration for React Router v7 SPA template",
+  "agents": {
+    "autoDiscover": true,
+    "directories": [
+      "./agents"
+    ],
+    "priorityByDirectory": {
+      ".": [
+        "react-router-spa-specialist",
+        "implementation-engineer",
+        "software-architect"
+      ]
+    },
+    "contextReferences": {
+      "always": [
+        "../../AGENTS.md",
+        "./README.md"
+      ],
+      "byDirectory": {
+        ".": [
+          "./README.md",
+          "./docs/**/*.md"
+        ]
+      }
+    }
+  },
+  "composer": {
+    "enabled": true,
+    "defaultAgent": "react-router-spa-specialist",
+    "showAgentSelector": true,
+    "agentSuggestions": true,
+    "maxFilesPerEdit": 10,
+    "confirmBeforeApply": true
+  },
+  "chat": {
+    "enabled": true,
+    "suggestAgents": true,
+    "agentPrefix": "@",
+    "showAgentHelp": true,
+    "contextWindow": 16000
+  },
+  "agentBehavior": {
+    "followRepositoryPatterns": true,
+    "respectAGENTSmd": true,
+    "templateAware": true,
+    "verbosity": "balanced",
+    "primaryFramework": "react-router-v7-spa"
+  },
+  "workflows": {
+    "featureDevelopment": {
+      "enabled": true,
+      "sequence": [
+        "requirements-analyst",
+        "ui-ux-designer",
+        "software-architect",
+        "react-router-spa-specialist",
+        "implementation-engineer",
+        "quality-analyst",
+        "deployment-engineer"
+      ]
+    },
+    "bugFix": {
+      "enabled": true,
+      "sequence": [
+        "production-support-engineer",
+        "maintenance-engineer",
+        "quality-analyst"
+      ]
+    }
+  },
+  "fileTypeAgents": {
+    "*.tsx": [
+      "react-router-spa-specialist",
+      "implementation-engineer"
+    ],
+    "*.ts": [
+      "implementation-engineer",
+      "software-architect"
+    ],
+    "*.test.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "*.spec.{ts,tsx}": [
+      "quality-analyst"
+    ],
+    "package.json": [
+      "deployment-engineer",
+      "maintenance-engineer"
+    ],
+    "*.config.{ts,js}": [
+      "deployment-engineer",
+      "software-architect"
+    ],
+    "*.route.tsx": [
+      "react-router-spa-specialist"
+    ],
+    "routes.ts": [
+      "react-router-spa-specialist"
+    ]
+  },
+  "shortcuts": {
+    "implement": {
+      "description": "Implement feature",
+      "agent": "react-router-spa-specialist",
+      "prompt": "Implement the following feature:"
+    },
+    "test": {
+      "description": "Create tests",
+      "agent": "quality-analyst",
+      "prompt": "Create comprehensive tests for:"
+    },
+    "architecture": {
+      "description": "Design architecture",
+      "agent": "software-architect",
+      "prompt": "Design architecture for:"
+    }
+  },
+  "debug": {
+    "logAgentSelection": false,
+    "logAgentDiscovery": false,
+    "logContextResolution": false
+  }
+}
