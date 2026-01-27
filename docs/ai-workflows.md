@@ -23,12 +23,12 @@ The AI workflow automation system implements automated, continuous improvement c
 
 ### Key Features
 
-✅ **Automated code reviews** with intelligent agent tagging
+✅ **Automated @copilot tagging** on every PR
 ✅ **Proactive concept discovery** (weekly ecosystem scans)
 ✅ **Test coverage monitoring** (80% threshold)
 ✅ **Integration with 14 custom agents** (8 SDLC phase + 6 template specialists)
 ✅ **"Ralph is a loop" methodology** - Plan first, execute, review, iterate
-✅ **Runnable scripts** for local testing
+✅ **Runnable scripts** for local analysis and testing
 
 ### Benefits
 
@@ -104,19 +104,24 @@ See `/scripts/README.md` for complete Ralph documentation and `.ralph-shared/REA
 
 #### 1. Understanding AI Code Reviews
 
-When you open a pull request, an AI agent automatically:
-- Analyzes your changes
-- Tags relevant specialist agents
-- Posts initial review comments
-- Adds appropriate labels
+When you open a pull request, @copilot is automatically tagged to review your changes.
 
 **What you should do:**
-1. Read the AI-generated review carefully
-2. Address legitimate concerns in your code
-3. Reply to comments if you disagree
-4. Tag specific agents for specialized feedback
+1. Wait for @copilot's review
+2. Address any concerns raised in the review
+3. Reply to comments if you disagree or need clarification
+4. For specialized feedback, you can manually tag specific agents
 
-**Example:**
+**Optional - Run analysis locally before submitting:**
+```bash
+# Analyze your changes
+./scripts/analyze-changed-files.sh main HEAD
+
+# See which agents might be relevant
+./scripts/determine-agents.sh
+```
+
+**Example of tagging additional agents:**
 ```
 @quality-analyst Can you review the test coverage for this component?
 @react-router-spa-specialist Does this follow the template's patterns?
@@ -279,34 +284,22 @@ ralph.sh iterate "plan"  # Refine based on feedback
 
 ## Workflows
 
-### 1. AI Code Review & Agent Tagging
+### 1. AI Code Review
 
 **Trigger:** Pull request events (opened, synchronize, reopened)
 
-**Purpose:** Automatically review changes and tag appropriate agents
+**Purpose:** Automatically tag @copilot for code review on every PR
 
 **Process:**
-1. Analyze changed files to determine affected templates
-2. Tag relevant template specialist agents
-3. Tag appropriate SDLC phase agents (quality analyst, architect, etc.)
-4. Generate initial code review using quality standards
-5. Post review comments and tag agents for follow-up
-
-**File Types Detected:**
-- Test files → @quality-analyst
-- Documentation → @ui-ux-designer
-- Dependencies/CI → @deployment-engineer
-- Source code → @implementation-engineer
-- Template-specific → Template specialist
+1. Detects when a PR is opened or updated
+2. Posts a comment tagging @copilot for review
 
 **Output:**
-- GitHub comment on PR
-- Labels applied to PR (`ai-review`, `template:*`)
-- Agent tags for review
+- GitHub comment tagging @copilot
 
-**Scripts Used:**
-- `scripts/analyze-changed-files.sh`
-- `scripts/determine-agents.sh`
+**Note:** This workflow is intentionally simple - it just ensures @copilot is always tagged for review. For detailed analysis, contributors can use the scripts locally:
+- `scripts/analyze-changed-files.sh` - Analyze what changed
+- `scripts/determine-agents.sh` - Identify relevant agents
 
 ### 2. AI Concept Discovery
 
