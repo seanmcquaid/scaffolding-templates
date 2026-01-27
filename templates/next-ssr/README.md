@@ -108,18 +108,26 @@ pnpm dev
 
 ### AI Workflows (Ralph)
 
-Ralph is an autonomous AI agent loop that runs coding tools (Amp or Claude Code) to complete tasks defined in `prd.json`.
+Ralph is an autonomous AI agent loop that runs coding tools (Amp, Claude Code, GitHub Copilot, or Cursor) to complete tasks defined in `prd.json`.
 
-| Script           | Description                                          |
-| ---------------- | ---------------------------------------------------- |
-| `pnpm ralph`     | Run Ralph with default settings (Amp, 10 iterations) |
-| `pnpm ralph:amp` | Run Ralph with Amp                                   |
-| `pnpm ralph:claude` | Run Ralph with Claude Code                        |
+| Script              | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `pnpm ralph`        | Run Ralph with default settings (Amp, 10 iterations) |
+| `pnpm ralph:amp`    | Run Ralph with Amp                                   |
+| `pnpm ralph:claude` | Run Ralph with Claude Code                           |
+| `pnpm ralph:copilot`| Run Ralph with GitHub Copilot (manual mode)          |
+| `pnpm ralph:cursor` | Run Ralph with Cursor (manual mode)                  |
 
 **Usage:**
-1. Create a `prd.json` file in the template root (see `scripts/prd.json.example`)
+1. Create a `prd.json` file in the template root (see `scripts/ralph/prd.json.example`)
 2. Run `pnpm ralph` or `pnpm ralph 20` for more iterations
 3. Ralph will autonomously complete user stories defined in the PRD
+
+**Tool-Specific Prompts:**
+- Amp: `scripts/ralph/prompt.md`
+- Claude Code: `scripts/ralph/CLAUDE.md`
+- GitHub Copilot: `scripts/ralph/COPILOT.md`
+- Cursor: `scripts/ralph/CURSOR.md`
 
 > See [OSS Ralph Documentation](https://github.com/snarktank/ralph) for more information.
 

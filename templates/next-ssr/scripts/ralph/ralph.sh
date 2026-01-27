@@ -1,6 +1,6 @@
 #!/bin/bash
 # Ralph Wiggum - Long-running AI agent loop
-# Usage: ./ralph.sh [--tool amp|claude] [max_iterations]
+# Usage: ./ralph.sh [--tool amp|claude|copilot|cursor] [max_iterations]
 
 set -e
 
@@ -29,15 +29,16 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validate tool choice
-if [[ "$TOOL" != "amp" && "$TOOL" != "claude" ]]; then
-  echo "Error: Invalid tool '$TOOL'. Must be 'amp' or 'claude'."
+if [[ "$TOOL" != "amp" && "$TOOL" != "claude" && "$TOOL" != "copilot" && "$TOOL" != "cursor" ]]; then
+  echo "Error: Invalid tool '$TOOL'. Must be 'amp', 'claude', 'copilot', or 'cursor'."
   exit 1
 fi
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PRD_FILE="$SCRIPT_DIR/prd.json"
-PROGRESS_FILE="$SCRIPT_DIR/progress.txt"
-ARCHIVE_DIR="$SCRIPT_DIR/archive"
-LAST_BRANCH_FILE="$SCRIPT_DIR/.last-branch"
+PRD_FILE="$SCRIPT_DIR/../../prd.json"
+PROGRESS_FILE="$SCRIPT_DIR/../../progress.txt"
+ARCHIVE_DIR="$SCRIPT_DIR/../../archive"
+LAST_BRANCH_FILE="$SCRIPT_DIR/../../.last-branch"
 
 # Archive previous run if branch changed
 if [ -f "$PRD_FILE" ] && [ -f "$LAST_BRANCH_FILE" ]; then
@@ -88,12 +89,36 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "==============================================================="
 
   # Run the selected tool with the ralph prompt
-  if [[ "$TOOL" == "amp" ]]; then
-    OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | amp --dangerously-allow-all 2>&1 | tee /dev/stderr) || true
-  else
-    # Claude Code: use --dangerously-skip-permissions for autonomous operation, --print for output
-    OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
-  fi
+  case "$TOOL" in
+    amp)
+      OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | amp --dangerously-allow-all 2>&1 | tee /dev/stderr) || true
+      ;;
+    claude)
+      OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
+      ;;
+    copilot)
+      echo "📝 For GitHub Copilot integration:"
+      echo "   1. Open the project in your IDE with GitHub Copilot"
+      echo "   2. Use the prompt in: $SCRIPT_DIR/COPILOT.md"
+      echo "   3. Ask Copilot to implement the next user story from prd.json"
+      echo ""
+      echo "⚠️  Manual mode: Review prd.json and implement the next story with Copilot assistance"
+      echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
+      read -r
+      OUTPUT=""
+      ;;
+    cursor)
+      echo "�� For Cursor integration:"
+      echo "   1. Open the project in Cursor"
+      echo "   2. Use the prompt in: $SCRIPT_DIR/CURSOR.md"
+      echo "   3. Ask Cursor to implement the next user story from prd.json"
+      echo ""
+      echo "⚠️  Manual mode: Review prd.json and implement the next story with Cursor assistance"
+      echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
+      read -r
+      OUTPUT=""
+      ;;
+  esac
   
   # Check for completion signal
   if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
