@@ -60,17 +60,46 @@ pnpm test:watch
 
 ## 🛠️ Available Scripts
 
+### Development
+
+| Script       | Description                      |
+| ------------ | -------------------------------- |
+| `pnpm build` | Build the library for production |
+
+### Testing & Quality
+
 | Script                   | Description                                   |
 | ------------------------ | --------------------------------------------- |
-| `pnpm build`             | Build the library for production              |
 | `pnpm test`              | Run all tests                                 |
 | `pnpm test:watch`        | Run tests in watch mode                       |
 | `pnpm test:coverage`     | Run tests with coverage reporting             |
 | `pnpm lint`              | Lint source code                              |
 | `pnpm lint:fix`          | Lint and auto-fix issues                      |
+| `pnpm typecheck`         | Check TypeScript types                        |
 | `pnpm check-types`       | Validate TypeScript types and package exports |
 | `pnpm check-treeshaking` | Verify the bundle is tree-shakeable           |
 | `pnpm bundlesize`        | Check bundle size against limits              |
+
+### Publishing
+
+| Script          | Description                                    |
+| --------------- | ---------------------------------------------- |
+| `pnpm changeset`| Create a changeset for version management      |
+| `pnpm release`  | Build and publish package to npm               |
+
+### AI Workflows (Ralph)
+
+| Script               | Description                                  |
+| -------------------- | -------------------------------------------- |
+| `pnpm ralph:plan`    | Create a plan for a task                     |
+| `pnpm ralph:execute` | Execute a plan step by step                  |
+| `pnpm ralph:review`  | Review progress and suggest iterations       |
+| `pnpm ralph:iterate` | Update plan based on review                  |
+| `pnpm ralph:status`  | Show all active plans                        |
+| `pnpm ralph:show`    | Show plan details                            |
+| `pnpm ralph:share`   | Move local plan to shared location           |
+
+> See [AI Workflows Documentation](./docs/ai-workflows.md) for more information on Ralph.
 
 ## 🔧 Development Workflow
 

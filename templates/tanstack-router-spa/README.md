@@ -85,20 +85,42 @@ pnpm dev
 
 ## 🛠️ Available Scripts
 
-| Script                            | Description               |
-| --------------------------------- | ------------------------- |
-| `pnpm dev`                        | Start development server  |
-| `pnpm build`                      | Build for production      |
-| `pnpm serve`                      | Preview production build  |
-| `pnpm test`                       | Run unit tests            |
-| `pnpm test:watch`                 | Run tests in watch mode   |
-| `pnpm test:coverage`              | Run tests with coverage   |
-| `pnpm lint`                       | Lint source code          |
-| `pnpm lint:fix`                   | Lint and auto-fix issues  |
-| `pnpm bundlesize`                 | Check bundle size         |
-| `pnpm playwright:run-integration` | Run integration tests     |
-| `pnpm playwright:run-e2e`         | Run end-to-end tests      |
-| `pnpm playwright:ui`              | Run Playwright in UI mode |
+### Development
+
+| Script       | Description              |
+| ------------ | ------------------------ |
+| `pnpm dev`   | Start development server |
+| `pnpm build` | Build for production     |
+| `pnpm serve` | Preview production build |
+
+### Testing & Quality
+
+| Script                            | Description                  |
+| --------------------------------- | ---------------------------- |
+| `pnpm test`                       | Run unit tests               |
+| `pnpm test:watch`                 | Run tests in watch mode      |
+| `pnpm test:coverage`              | Run tests with coverage      |
+| `pnpm playwright:run-integration` | Run integration tests        |
+| `pnpm playwright:run-e2e`         | Run end-to-end tests         |
+| `pnpm playwright:ui`              | Run Playwright in UI mode    |
+| `pnpm lint`                       | Lint source code             |
+| `pnpm lint:fix`                   | Lint and auto-fix issues     |
+| `pnpm typecheck`                  | Check TypeScript types       |
+| `pnpm bundlesize`                 | Check bundle size            |
+
+### AI Workflows (Ralph)
+
+| Script               | Description                                  |
+| -------------------- | -------------------------------------------- |
+| `pnpm ralph:plan`    | Create a plan for a task                     |
+| `pnpm ralph:execute` | Execute a plan step by step                  |
+| `pnpm ralph:review`  | Review progress and suggest iterations       |
+| `pnpm ralph:iterate` | Update plan based on review                  |
+| `pnpm ralph:status`  | Show all active plans                        |
+| `pnpm ralph:show`    | Show plan details                            |
+| `pnpm ralph:share`   | Move local plan to shared location           |
+
+> See [AI Workflows Documentation](./docs/ai-workflows.md) for more information on Ralph.
 
 ## 🌍 Internationalization
 

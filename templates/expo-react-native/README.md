@@ -81,19 +81,42 @@ pnpm dev
 
 ## 🛠️ Available Scripts
 
-| Script                   | Description                      |
-| ------------------------ | -------------------------------- |
-| `pnpm dev`              | Start Expo development server     |
-| `pnpm ios`              | Run on iOS simulator              |
-| `pnpm android`          | Run on Android emulator           |
-| `pnpm web`              | Run in web browser                |
-| `pnpm build`            | Build for production              |
-| `pnpm start`            | Start production server           |
-| `pnpm test`             | Run tests                         |
-| `pnpm test:watch`       | Run tests in watch mode           |
-| `pnpm test:coverage`    | Run tests with coverage           |
-| `pnpm lint`             | Lint source code                  |
-| `pnpm lint:fix`         | Lint and auto-fix issues          |
+### Development
+
+| Script          | Description                   |
+| --------------- | ----------------------------- |
+| `pnpm dev`      | Start Expo development server |
+| `pnpm start`    | Start Expo development server |
+| `pnpm ios`      | Run on iOS simulator          |
+| `pnpm android`  | Run on Android emulator       |
+| `pnpm web`      | Run in web browser            |
+| `pnpm build`    | Build for production          |
+
+### Testing & Quality
+
+| Script               | Description                  |
+| -------------------- | ---------------------------- |
+| `pnpm test`          | Run tests                    |
+| `pnpm test:watch`    | Run tests in watch mode      |
+| `pnpm test:coverage` | Run tests with coverage      |
+| `pnpm lint`          | Lint source code             |
+| `pnpm lint:fix`      | Lint and auto-fix issues     |
+| `pnpm typecheck`     | Check TypeScript types       |
+| `pnpm bundlesize`    | Check bundle size            |
+
+### AI Workflows (Ralph)
+
+| Script               | Description                                  |
+| -------------------- | -------------------------------------------- |
+| `pnpm ralph:plan`    | Create a plan for a task                     |
+| `pnpm ralph:execute` | Execute a plan step by step                  |
+| `pnpm ralph:review`  | Review progress and suggest iterations       |
+| `pnpm ralph:iterate` | Update plan based on review                  |
+| `pnpm ralph:status`  | Show all active plans                        |
+| `pnpm ralph:show`    | Show plan details                            |
+| `pnpm ralph:share`   | Move local plan to shared location           |
+
+> See [AI Workflows Documentation](./docs/ai-workflows.md) for more information on Ralph.
 
 ## 🌍 Internationalization
 
