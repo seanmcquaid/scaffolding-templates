@@ -1,0 +1,232 @@
+name: AI Test Coverage Analysis
+on:
+  schedule:
+    # Run every Monday at 10:00 AM UTC
+    - cron: '0 10 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: read
+  issues: write
+
+env:
+  MIN_COVERAGE_THRESHOLD: 80
+
+jobs:
+  analyze-coverage:
+    runs-on: ubuntu-latest
+    name: Analyze Test Coverage Gaps
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Coverage Analysis
+        id: coverage
+        continue-on-error: true
+        run: |
+          # Run coverage analysis script
+          ./scripts/run-coverage-analysis.sh coverage-reports
+          
+          # Extract coverage summary
+          COVERAGE_SUMMARY=""
+          for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native; do
+            if [ -f "templates/$TEMPLATE/coverage/coverage-summary.json" ]; then
+              TOTAL=$(jq -r '.total' "templates/$TEMPLATE/coverage/coverage-summary.json" 2>/dev/null || echo "{}")
+              COVERAGE_SUMMARY="$COVERAGE_SUMMARY\n$TEMPLATE: $TOTAL"
+            fi
+          done
+          
+          echo "coverage_summary<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$COVERAGE_SUMMARY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Identify Coverage Gaps
+        id: gaps
+        run: |
+          # Run coverage gaps script and capture output
+          GAPS=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} | grep -E "^[a-z-]+: " || echo "")
+          
+          echo "gaps<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$GAPS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Identify Missing Test Types
+        id: missing-tests
+        run: |
+          # Run missing tests script and capture output
+          MISSING=$(./scripts/identify-missing-tests.sh | grep -E "^[a-z-]+: " || echo "")
+          
+          echo "missing<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$MISSING" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Generate Coverage Gap Issues
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const gaps = `${{ steps.gaps.outputs.gaps }}`;
+            const missing = `${{ steps.missing-tests.outputs.missing }}`;
+            
+            const allGaps = [...gaps.split('\n'), ...missing.split('\n')]
+              .filter(line => line.trim() && line.includes(':'));
+            
+            const groupedGaps = {};
+            
+            allGaps.forEach(gap => {
+              const [template, ...rest] = gap.split(':');
+              const issue = rest.join(':').trim();
+              
+              if (!groupedGaps[template]) {
+                groupedGaps[template] = [];
+              }
+              groupedGaps[template].push(issue);
+            });
+            
+            for (const [template, issues] of Object.entries(groupedGaps)) {
+              if (issues.length === 0) continue;
+              
+              const title = `[Test Coverage] Improve ${template} test coverage`;
+              const body = `## 🧪 Test Coverage Gap Analysis
+              
+              **Template**: \`${template}\`
+              **Analysis Date**: ${new Date().toISOString().split('T')[0]}
+              **Coverage Threshold**: ${{ env.MIN_COVERAGE_THRESHOLD }}%
+              
+              ### Identified Gaps
+              
+              ${issues.map(issue => `- ${issue}`).join('\n')}
+              
+              ### Recommendations
+              
+              #### Unit Tests
+              - Test individual components in isolation
+              - Test custom hooks independently
+              - Test utility functions thoroughly
+              - Mock external dependencies
+              
+              #### Integration Tests
+              - Test component interactions
+              - Test data flow between components
+              - Test API integration with MSW
+              - Test routing and navigation flows
+              
+              #### E2E Tests (Optional, run separately)
+              - Test critical user journeys
+              - Test with real APIs in staging environment
+              - Focus on high-value flows
+              - Keep E2E tests minimal and maintainable
+              
+              ### Testing Strategy Reference
+              
+              From repository documentation:
+              
+              1. **Unit Tests**: Components, hooks, utils, pages
+                 - Fast and isolated
+                 - Run on every commit
+              
+              2. **Integration Tests**: Happy path flows with mocked APIs
+                 - Use MSW for API mocking
+                 - Test feature workflows
+              
+              3. **E2E Tests**: High-level user flows with real APIs
+                 - Use Playwright
+                 - Run in CI/CD after deployment
+                 - Keep slow tests out of PR checks
+              
+              ### Next Steps
+              
+              1. **Analysis** (Use @quality-analyst agent):
+                 - Review existing test files
+                 - Identify untested code paths
+                 - Plan test cases for missing coverage
+              
+              2. **Implementation** (Use @${template}-specialist agent):
+                 - Write tests following template patterns
+                 - Use appropriate testing utilities
+                 - Ensure tests are maintainable
+              
+              3. **Validation**:
+                 - Run \`pnpm test:coverage\` locally
+                 - Verify coverage meets threshold
+                 - Ensure tests are stable and fast
+              
+              ### Relevant Agents
+              
+              - @quality-analyst - Test strategy and implementation
+              - @${template}-specialist - Framework-specific test patterns
+              - @implementation-engineer - Code implementation support
+              
+              ---
+              *This issue was automatically generated by AI test coverage analysis workflow.*
+              *See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
+              `;
+              
+              // Check if similar issue already exists
+              const existingIssues = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: 'ai-generated,coverage-gap',
+                state: 'open'
+              });
+              
+              const isDuplicate = existingIssues.data.some(issue => 
+                issue.title.toLowerCase().includes(template.toLowerCase())
+              );
+              
+              if (!isDuplicate) {
+                await github.rest.issues.create({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  title: title,
+                  body: body,
+                  labels: ['ai-generated', 'coverage-gap', 'testing', `template:${template}`]
+                });
+                
+                console.log(`Created issue: ${title}`);
+              } else {
+                console.log(`Skipping duplicate issue: ${title}`);
+              }
+            }
+
+      - name: Create Coverage Report Summary
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const coverageSummary = `${{ steps.coverage.outputs.coverage_summary }}`;
+            const gaps = `${{ steps.gaps.outputs.gaps }}`;
+            const missing = `${{ steps.missing-tests.outputs.missing }}`;
+            
+            const gapLines = gaps.split('\n').filter(l => l.trim());
+            const missingLines = missing.split('\n').filter(l => l.trim());
+            
+            core.summary
+              .addHeading('🧪 Test Coverage Analysis Report')
+              .addHeading(`Date: ${new Date().toISOString().split('T')[0]}`, 3)
+              .addHeading(`Coverage Threshold: ${{ env.MIN_COVERAGE_THRESHOLD }}%`, 3)
+              .addHeading('Coverage Gaps', 3)
+              .addList(gapLines.length > 0 ? gapLines : ['✓ All templates meet coverage threshold'])
+              .addHeading('Missing Test Types', 3)
+              .addList(missingLines.length > 0 ? missingLines : ['✓ All test types present'])
+              .addHeading('Next Steps', 3)
+              .addRaw(`
+              1. Review generated issues with \`ai-generated\` and \`coverage-gap\` labels
+              2. Use @quality-analyst agent to plan test improvements
+              3. Use template specialist agents for framework-specific patterns
+              4. Validate coverage improvements with \`pnpm test:coverage\`
+              `)
+              .addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
+              .write();
