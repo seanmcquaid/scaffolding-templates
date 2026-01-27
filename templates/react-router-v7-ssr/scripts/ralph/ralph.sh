@@ -98,26 +98,40 @@ for i in $(seq 1 $MAX_ITERATIONS); do
       OUTPUT=$(claude --dangerously-skip-permissions --print < "$PROMPT_FILE" 2>&1 | tee /dev/stderr) || true
       ;;
     copilot)
-      echo "📝 For GitHub Copilot integration:"
-      echo "   1. Open the project in your IDE with GitHub Copilot"
-      echo "   2. Use the prompt in: $PROMPT_FILE"
-      echo "   3. Ask Copilot to implement the next user story from prd.json"
-      echo ""
-      echo "⚠️  Manual mode: Review prd.json and implement the next story with Copilot assistance"
-      echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
-      read -r
-      OUTPUT=""
+      # Try to use gh agent-task if available, otherwise fall back to manual mode
+      if command -v gh &> /dev/null; then
+        echo "🤖 Using GitHub Copilot CLI (gh agent-task)..."
+        # Create agent task from the prompt file, following logs
+        OUTPUT=$(gh agent-task create --from-file "$PROMPT_FILE" --follow 2>&1 | tee /dev/stderr) || true
+      else
+        echo "⚠️  GitHub CLI (gh) not found. Falling back to manual mode."
+        echo "📝 For GitHub Copilot integration:"
+        echo "   1. Open the project in your IDE with GitHub Copilot"
+        echo "   2. Use the prompt in: $PROMPT_FILE"
+        echo "   3. Ask Copilot to implement the next user story from prd.json"
+        echo ""
+        echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
+        read -r
+        OUTPUT=""
+      fi
       ;;
     cursor)
-      echo "📝 For Cursor integration:"
-      echo "   1. Open the project in Cursor"
-      echo "   2. Use the prompt in: $PROMPT_FILE"
-      echo "   3. Ask Cursor to implement the next user story from prd.json"
-      echo ""
-      echo "⚠️  Manual mode: Review prd.json and implement the next story with Cursor assistance"
-      echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
-      read -r
-      OUTPUT=""
+      # Try to use cursor CLI if available, otherwise fall back to manual mode
+      if command -v cursor &> /dev/null; then
+        echo "🤖 Using Cursor CLI..."
+        # Use cursor's CLI to process the prompt
+        OUTPUT=$(cursor --prompt-file "$PROMPT_FILE" 2>&1 | tee /dev/stderr) || true
+      else
+        echo "⚠️  Cursor CLI not found. Falling back to manual mode."
+        echo "📝 For Cursor integration:"
+        echo "   1. Open the project in Cursor"
+        echo "   2. Use the prompt in: $PROMPT_FILE"
+        echo "   3. Ask Cursor to implement the next user story from prd.json"
+        echo ""
+        echo "   Press Enter to mark this iteration as complete, or Ctrl+C to stop..."
+        read -r
+        OUTPUT=""
+      fi
       ;;
   esac
   
