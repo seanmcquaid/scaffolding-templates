@@ -127,7 +127,9 @@ Ralph can also be integrated into automated workflows to implement issues automa
 
 ---
 
-## Other Scripts
+## Ralph vs GitHub Issues (Continued)
+
+| Aspect | Ralph (Local) | GitHub Issues |
 |--------|---------------|---------------|
 | **Setup** | No setup required | Requires repository access |
 | **Privacy** | Fully local, no external data | Stored in GitHub |
