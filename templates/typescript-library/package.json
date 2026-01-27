@@ -24,10 +24,18 @@
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "prepare": "is-ci || husky",
+    "ralph:execute": "./scripts/ralph.sh execute",
+    "ralph:iterate": "./scripts/ralph.sh iterate",
+    "ralph:plan": "./scripts/ralph.sh plan",
+    "ralph:review": "./scripts/ralph.sh review",
+    "ralph:share": "./scripts/ralph.sh share",
+    "ralph:show": "./scripts/ralph.sh show",
+    "ralph:status": "./scripts/ralph.sh status",
     "release": "pnpm build && changeset publish",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",

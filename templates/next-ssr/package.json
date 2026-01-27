@@ -15,10 +15,18 @@
     "playwright:run-integration": "playwright test playwright/integration",
     "playwright:ui": "playwright test --ui",
     "prepare": "is-ci || husky",
+    "ralph:execute": "./scripts/ralph.sh execute",
+    "ralph:iterate": "./scripts/ralph.sh iterate",
+    "ralph:plan": "./scripts/ralph.sh plan",
+    "ralph:review": "./scripts/ralph.sh review",
+    "ralph:share": "./scripts/ralph.sh share",
+    "ralph:show": "./scripts/ralph.sh show",
+    "ralph:status": "./scripts/ralph.sh status",
     "start": "next start",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
