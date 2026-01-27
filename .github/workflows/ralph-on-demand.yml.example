@@ -52,8 +52,9 @@ jobs:
 
       - name: Setup GitHub CLI
         run: |
+          # GitHub CLI is pre-installed in ubuntu-latest runners
           gh --version
-          # Verify GitHub CLI is available
+          gh auth status
 
       - name: Fetch Issue Details
         id: fetch-issue
@@ -363,7 +364,7 @@ jobs:
               - Close the PR and comment \`/ralph implement\` again to retry
               - Implement manually if preferred
               
-              [View Pull Request](#${prNumber})
+              **View Pull Request:** ${context.repo.owner}/${context.repo.repo}#${prNumber}
               `
             });
             
