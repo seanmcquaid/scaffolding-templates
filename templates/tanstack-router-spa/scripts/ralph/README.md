@@ -23,6 +23,7 @@ Ralph is a bash script that implements the "Ralph is a loop" methodology for AI-
 For complete documentation on Ralph and AI workflows, see:
 
 - **[Main AI Workflows Documentation](/docs/ai-workflows.md)** - Complete guide to Ralph philosophy and workflows
+- **[Ralph in Cron Jobs Guide](/docs/ralph-in-cron-jobs.md)** - Advanced: Integrate Ralph with automated cron jobs
 - **[Scripts README](/scripts/README.md)** - Detailed documentation on all available scripts
 - **[Custom Agents Guide](/docs/custom-agents-guide.md)** - Information on specialized AI agents
 
