@@ -99,6 +99,38 @@ This directory contains scripts used by the AI workflow automation system. These
 
 | Aspect | Ralph (Local) | GitHub Issues |
 |--------|---------------|---------------|
+| **Storage** | Local `.ralph/` directory | GitHub platform |
+| **Visibility** | Private (local only) | Public/team-wide |
+| **Planning** | Markdown files | Issue descriptions |
+| **Tracking** | Manual status updates | Labels, assignees |
+| **Automation** | Manual workflow steps | GitHub Actions |
+| **Best For** | Individual work, experimentation | Team collaboration, CI/CD |
+
+### Advanced: Ralph in CI/CD
+
+Ralph can also be integrated into automated workflows to implement issues automatically. See:
+
+📘 **[Ralph in Cron Jobs Guide](/docs/ralph-in-cron-jobs.md)** - Complete guide for automating Ralph in GitHub Actions
+
+**Key Topics Covered:**
+- Integration approaches (GitHub Copilot, APIs, hybrid)
+- Security considerations and safeguards
+- Example workflow implementations
+- Best practices and recommendations
+- Phased rollout strategy
+
+**Example Use Cases:**
+- Automated test coverage improvements
+- Automated documentation updates
+- Scheduled maintenance tasks
+- Continuous quality improvement
+
+---
+
+## Ralph vs GitHub Issues (Continued)
+
+| Aspect | Ralph (Local) | GitHub Issues |
+|--------|---------------|---------------|
 | **Setup** | No setup required | Requires repository access |
 | **Privacy** | Fully local, no external data | Stored in GitHub |
 | **Workflow** | Manual progression through phases | Automated with GitHub Actions |
