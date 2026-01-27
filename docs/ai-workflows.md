@@ -14,6 +14,7 @@ This document provides complete documentation for the AI workflow automation sys
 8. [Architecture](#architecture)
 9. [Troubleshooting](#troubleshooting)
 10. [Implementation Details](#implementation-details)
+11. [Advanced: Ralph in Cron Jobs](#advanced-ralph-in-cron-jobs)
 
 ---
 
@@ -901,6 +902,74 @@ gh issue list --label ai-generated
 
 ---
 
+## Advanced: Ralph in Cron Jobs
+
+### Automated Implementation with Ralph
+
+While the current workflows focus on **discovering** issues (concepts, test gaps, etc.), it's also possible to use Ralph to **automatically implement** those discoveries.
+
+**Key Concepts:**
+- Current workflows: Discover + Create Issues
+- Advanced workflows: Discover + Create Issues + **Auto-implement with Ralph**
+
+**Use Cases:**
+- Automated test coverage improvements
+- Automated documentation updates
+- Automated dependency updates
+- Automated code quality fixes
+
+**Implementation Approaches:**
+1. **GitHub Copilot Integration** - Use `gh agent-task` in GitHub Actions
+2. **API-Based Integration** - Use AI provider APIs (OpenAI, Anthropic)
+3. **Hybrid Approach** - Human-in-the-loop with manual triggers
+
+**Security Considerations:**
+- Requires careful safeguards and human oversight
+- Start with low-risk tasks (tests, docs)
+- Implement quality gates and code review
+- Monitor costs and rate limits
+
+**Documentation:**
+
+For complete details on leveraging Ralph in automated cron jobs, see:
+
+📘 **[Ralph in Cron Jobs Guide](/docs/ralph-in-cron-jobs.md)**
+
+This comprehensive guide covers:
+- Integration approaches and implementation patterns
+- Security considerations and best practices
+- Example workflow implementations
+- Limitations and trade-offs
+- Phased rollout recommendations
+
+**Example Workflow:**
+
+A reference implementation is available at:
+- `.github/workflows/ralph-on-demand.yml.example` - Trigger Ralph via comment
+
+To try it out:
+1. Copy the example workflow (remove `.example` extension)
+2. Comment `/ralph implement` on an AI-generated issue
+3. Ralph will create a PR with the implementation
+4. Review and merge if acceptable
+
+**Important Notes:**
+
+⚠️ **Not recommended for production** without:
+- Thorough testing and validation
+- Proper security safeguards
+- Human review processes
+- Cost and rate limit controls
+
+✅ **Best for**:
+- Experimentation and learning
+- Low-risk automated tasks
+- Controlled pilot programs
+- Gradual rollout with monitoring
+
+---
+
 **Implementation Date:** January 26, 2026  
+**Last Updated:** January 27, 2025  
 **Status:** Complete ✅  
-**Version:** 1.0
+**Version:** 1.1
