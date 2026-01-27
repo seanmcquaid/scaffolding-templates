@@ -104,17 +104,20 @@ pnpm dev
 
 ### AI Workflows (Ralph)
 
-| Script               | Description                                  |
-| -------------------- | -------------------------------------------- |
-| `pnpm ralph:plan`    | Create a plan for a task                     |
-| `pnpm ralph:execute` | Execute a plan step by step                  |
-| `pnpm ralph:review`  | Review progress and suggest iterations       |
-| `pnpm ralph:iterate` | Update plan based on review                  |
-| `pnpm ralph:status`  | Show all active plans                        |
-| `pnpm ralph:show`    | Show plan details                            |
-| `pnpm ralph:share`   | Move local plan to shared location           |
+Ralph is an autonomous AI agent loop that runs coding tools (Amp or Claude Code) to complete tasks defined in `prd.json`.
 
-> See [AI Workflows Documentation](./docs/ai-workflows.md) for more information on Ralph.
+| Script              | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `pnpm ralph`        | Run Ralph with default settings (Amp, 10 iterations) |
+| `pnpm ralph:amp`    | Run Ralph with Amp                                   |
+| `pnpm ralph:claude` | Run Ralph with Claude Code                           |
+
+**Usage:**
+1. Create a `prd.json` file in the template root (see `scripts/prd.json.example`)
+2. Run `pnpm ralph` or `pnpm ralph 20` for more iterations
+3. Ralph will autonomously complete user stories defined in the PRD
+
+> See [OSS Ralph Documentation](https://github.com/snarktank/ralph) for more information.
 
 ## 🌍 Internationalization
 
