@@ -123,11 +123,8 @@ Ralph is an autonomous AI agent loop that runs coding tools (Amp, Claude Code, G
 2. Run `pnpm ralph` or `pnpm ralph 20` for more iterations
 3. Ralph will autonomously complete user stories defined in the PRD
 
-**Tool-Specific Prompts:**
-- Amp: `scripts/ralph/prompt.md`
-- Claude Code: `scripts/ralph/CLAUDE.md`
-- GitHub Copilot: `scripts/ralph/COPILOT.md`
-- Cursor: `scripts/ralph/CURSOR.md`
+**Unified Prompt:**
+All AI tools use the same prompt file: `scripts/ralph/PROMPT.md`
 
 > See [OSS Ralph Documentation](https://github.com/snarktank/ralph) for more information.
 

@@ -39,6 +39,7 @@ PRD_FILE="$SCRIPT_DIR/../../prd.json"
 PROGRESS_FILE="$SCRIPT_DIR/../../progress.txt"
 ARCHIVE_DIR="$SCRIPT_DIR/../../archive"
 LAST_BRANCH_FILE="$SCRIPT_DIR/../../.last-branch"
+PROMPT_FILE="$SCRIPT_DIR/PROMPT.md"
 
 # Archive previous run if branch changed
 if [ -f "$PRD_FILE" ] && [ -f "$LAST_BRANCH_FILE" ]; then
@@ -91,15 +92,15 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   # Run the selected tool with the ralph prompt
   case "$TOOL" in
     amp)
-      OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | amp --dangerously-allow-all 2>&1 | tee /dev/stderr) || true
+      OUTPUT=$(cat "$PROMPT_FILE" | amp --dangerously-allow-all 2>&1 | tee /dev/stderr) || true
       ;;
     claude)
-      OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee /dev/stderr) || true
+      OUTPUT=$(claude --dangerously-skip-permissions --print < "$PROMPT_FILE" 2>&1 | tee /dev/stderr) || true
       ;;
     copilot)
       echo "📝 For GitHub Copilot integration:"
       echo "   1. Open the project in your IDE with GitHub Copilot"
-      echo "   2. Use the prompt in: $SCRIPT_DIR/COPILOT.md"
+      echo "   2. Use the prompt in: $PROMPT_FILE"
       echo "   3. Ask Copilot to implement the next user story from prd.json"
       echo ""
       echo "⚠️  Manual mode: Review prd.json and implement the next story with Copilot assistance"
@@ -108,9 +109,9 @@ for i in $(seq 1 $MAX_ITERATIONS); do
       OUTPUT=""
       ;;
     cursor)
-      echo "�� For Cursor integration:"
+      echo "📝 For Cursor integration:"
       echo "   1. Open the project in Cursor"
-      echo "   2. Use the prompt in: $SCRIPT_DIR/CURSOR.md"
+      echo "   2. Use the prompt in: $PROMPT_FILE"
       echo "   3. Ask Cursor to implement the next user story from prd.json"
       echo ""
       echo "⚠️  Manual mode: Review prd.json and implement the next story with Cursor assistance"
