@@ -54,7 +54,7 @@ jobs:
         run: |
           # GitHub CLI is pre-installed in ubuntu-latest runners
           gh --version
-          gh auth status
+          gh auth status || echo "GitHub CLI auth not configured, but GITHUB_TOKEN will be used"
 
       - name: Fetch Issue Details
         id: fetch-issue
@@ -364,7 +364,7 @@ jobs:
               - Close the PR and comment \`/ralph implement\` again to retry
               - Implement manually if preferred
               
-              **View Pull Request:** ${context.repo.owner}/${context.repo.repo}#${prNumber}
+              **View Pull Request:** https://github.com/${context.repo.owner}/${context.repo.repo}/pull/${prNumber}
               `
             });
             
