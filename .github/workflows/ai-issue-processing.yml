@@ -100,7 +100,6 @@ jobs:
               const suggestedAgents = classification.agents || [];
               const suggestedLabels = classification.labels || [];
               const nextSteps = classification.next_steps.trim();
-              const nextSteps = classification.next_steps.trim();
               
               // Create Ralph workflow comment
               const ralphComment = `## 🤖 Ralph Workflow Analysis
