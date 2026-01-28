@@ -17,6 +17,18 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
+# Cross-platform sed in-place editing
+# macOS requires -i '', Linux requires -i
+sed_inplace() {
+  if sed --version &>/dev/null 2>&1; then
+    # GNU sed (Linux)
+    sed -i "$@"
+  else
+    # BSD sed (macOS)
+    sed -i '' "$@"
+  fi
+}
+
 # Print usage
 usage() {
   cat <<EOF
@@ -321,9 +333,9 @@ cmd_execute() {
   fi
   
   # Update status to Executing
-  sed -i 's/\*\*Status:\*\* Planning/\*\*Status:\*\* Executing/' "$filepath"
-  sed -i 's/\*\*Status:\*\* Reviewing/\*\*Status:\*\* Executing/' "$filepath"
-  sed -i 's/\*\*Status:\*\* Iterating/\*\*Status:\*\* Executing/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* Planning/\*\*Status:\*\* Executing/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* Reviewing/\*\*Status:\*\* Executing/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* Iterating/\*\*Status:\*\* Executing/' "$filepath"
   
   echo -e "${GREEN}✓ Plan marked as executing: $filepath${NC}"
   echo ""
@@ -361,8 +373,8 @@ cmd_review() {
   fi
   
   # Update status to Reviewing
-  sed -i 's/\*\*Status:\*\* Executing/\*\*Status:\*\* Reviewing/' "$filepath"
-  sed -i 's/\*\*Status:\*\* Planning/\*\*Status:\*\* Reviewing/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* Executing/\*\*Status:\*\* Reviewing/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* Planning/\*\*Status:\*\* Reviewing/' "$filepath"
   
   echo -e "${GREEN}✓ Plan marked as reviewing: $filepath${NC}"
   echo ""
@@ -404,11 +416,11 @@ cmd_iterate() {
   fi
   
   # Update status to Iterating
-  sed -i 's/\*\*Status:\*\* .*/\*\*Status:\*\* Iterating/' "$filepath"
+  sed_inplace 's/\*\*Status:\*\* .*/\*\*Status:\*\* Iterating/' "$filepath"
   
   # Add iteration timestamp
   local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-  sed -i "/\*\*Feedback Log:\*\*/a\\
+  sed_inplace "/\*\*Feedback Log:\*\*/a\\
 \\
 **Iteration $timestamp:**\\
 - _Add feedback and refinements here_\\
