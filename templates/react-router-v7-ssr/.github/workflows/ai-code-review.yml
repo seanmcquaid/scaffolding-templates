@@ -9,19 +9,31 @@ permissions:
   pull-requests: write
 
 jobs:
-  tag-copilot:
+  request-copilot-review:
     runs-on: ubuntu-latest
-    name: Tag Copilot for Review
+    name: Request Copilot Review
     steps:
-      - name: Tag Copilot for Review
+      - name: Request Copilot as Reviewer
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Tag @copilot for review on every PR
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '@copilot please review this PR'
-            });
+            // Request @copilot as a reviewer on every PR
+            try {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.issue.number,
+                reviewers: ['copilot']
+              });
+              console.log('✓ Requested @copilot as reviewer');
+            } catch (error) {
+              console.error('Failed to request @copilot as reviewer:', error.message);
+              // Fallback to comment if reviewer request fails
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '@copilot please review this PR'
+              });
+            }
