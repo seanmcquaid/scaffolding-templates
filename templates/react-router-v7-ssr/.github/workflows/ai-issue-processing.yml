@@ -27,7 +27,7 @@ jobs:
 
       - name: Fetch Outstanding Issues
         id: fetch-issues
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -63,7 +63,7 @@ jobs:
             return issueData;
 
       - name: Process Issues with Ralph Workflow
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -184,7 +184,7 @@ jobs:
             }
 
       - name: Create Summary Report
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
