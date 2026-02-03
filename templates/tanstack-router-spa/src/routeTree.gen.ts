@@ -55,10 +55,10 @@ const ReactQueryIdIndexLazyRoute = ReactQueryIdIndexLazyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/kitchen-sink': typeof KitchenSinkIndexRoute
-  '/react-hook-form-zod': typeof ReactHookFormZodIndexLazyRoute
-  '/react-query': typeof ReactQueryIndexLazyRoute
-  '/react-query/$id': typeof ReactQueryIdIndexLazyRoute
+  '/kitchen-sink/': typeof KitchenSinkIndexRoute
+  '/react-hook-form-zod/': typeof ReactHookFormZodIndexLazyRoute
+  '/react-query/': typeof ReactQueryIndexLazyRoute
+  '/react-query/$id/': typeof ReactQueryIdIndexLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
@@ -79,10 +79,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/kitchen-sink'
-    | '/react-hook-form-zod'
-    | '/react-query'
-    | '/react-query/$id'
+    | '/kitchen-sink/'
+    | '/react-hook-form-zod/'
+    | '/react-query/'
+    | '/react-query/$id/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,28 +119,28 @@ declare module '@tanstack/react-router' {
     '/react-query/': {
       id: '/react-query/'
       path: '/react-query'
-      fullPath: '/react-query'
+      fullPath: '/react-query/'
       preLoaderRoute: typeof ReactQueryIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/react-hook-form-zod/': {
       id: '/react-hook-form-zod/'
       path: '/react-hook-form-zod'
-      fullPath: '/react-hook-form-zod'
+      fullPath: '/react-hook-form-zod/'
       preLoaderRoute: typeof ReactHookFormZodIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kitchen-sink/': {
       id: '/kitchen-sink/'
       path: '/kitchen-sink'
-      fullPath: '/kitchen-sink'
+      fullPath: '/kitchen-sink/'
       preLoaderRoute: typeof KitchenSinkIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/react-query/$id/': {
       id: '/react-query/$id/'
       path: '/react-query/$id'
-      fullPath: '/react-query/$id'
+      fullPath: '/react-query/$id/'
       preLoaderRoute: typeof ReactQueryIdIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }

@@ -32,7 +32,7 @@ We will use a comprehensive code quality tooling stack:
 3. **Husky** for git hooks
 4. **lint-staged** for pre-commit checks
 5. **TypeScript** in strict mode for type safety
-6. **dpdm** for circular dependency detection
+6. **madge** for circular dependency detection
 7. **bundlesize** for bundle size monitoring
 
 All rules configured with `--max-warnings=0` to enforce zero tolerance for warnings.
@@ -52,6 +52,7 @@ This comprehensive approach provides:
 ## Consequences
 
 ### Positive Consequences
+
 - Consistent code style across the entire codebase
 - Catches common bugs before runtime
 - Prevents commits of poorly formatted code
@@ -61,6 +62,7 @@ This comprehensive approach provides:
 - New developers can't deviate from standards
 
 ### Negative Consequences / Trade-offs
+
 - Initial setup complexity
 - Slightly slower commit process due to pre-commit hooks
 - May be frustrating for developers used to looser standards
@@ -68,6 +70,7 @@ This comprehensive approach provides:
 - ESLint 9 flat config is newer and has less documentation
 
 ### Risks and Mitigations
+
 - **Risk**: Pre-commit hooks may be too slow
   - **Mitigation**: Only lint staged files, not entire codebase
 - **Risk**: Strict rules may frustrate developers
@@ -78,6 +81,7 @@ This comprehensive approach provides:
 ## ESLint Configuration
 
 ### Plugins Used
+
 - **@typescript-eslint**: TypeScript-specific linting rules
 - **eslint-plugin-react**: React best practices
 - **eslint-plugin-react-hooks**: React Hooks rules
@@ -92,6 +96,7 @@ This comprehensive approach provides:
 - **eslint-plugin-playwright**: Playwright test rules
 
 ### Key Rules
+
 - `no-console`: Error (except console.error)
 - `i18next/no-literal-string`: Error (enforce translations)
 - `react-hooks/rules-of-hooks`: Error
@@ -102,12 +107,13 @@ This comprehensive approach provides:
 ## Alternatives Considered
 
 ### Alternative 1: Standard.js
+
 - **Description**: Pre-configured ESLint with opinionated rules
-- **Pros**: 
+- **Pros**:
   - Zero configuration
   - Consistent ruleset
   - Simple to set up
-- **Cons**: 
+- **Cons**:
   - Less flexible
   - Can't customize rules
   - No Prettier integration
@@ -115,12 +121,13 @@ This comprehensive approach provides:
 - **Reason for rejection**: Too opinionated, need more control
 
 ### Alternative 2: Biome
+
 - **Description**: New all-in-one linter and formatter written in Rust
-- **Pros**: 
+- **Pros**:
   - Very fast (written in Rust)
   - Single tool for linting and formatting
   - Good TypeScript support
-- **Cons**: 
+- **Cons**:
   - Newer, less mature
   - Smaller ecosystem of plugins
   - Less configurable than ESLint
@@ -128,12 +135,13 @@ This comprehensive approach provides:
 - **Reason for rejection**: Too new, ESLint ecosystem is more mature
 
 ### Alternative 3: No Linting (TypeScript Only)
+
 - **Description**: Rely solely on TypeScript for code quality
-- **Pros**: 
+- **Pros**:
   - Simpler setup
   - Faster builds
   - One less tool to configure
-- **Cons**: 
+- **Cons**:
   - No style consistency
   - TypeScript doesn't catch all issues
   - No accessibility checking
@@ -141,11 +149,12 @@ This comprehensive approach provides:
 - **Reason for rejection**: TypeScript alone is insufficient for code quality
 
 ### Alternative 4: No Pre-commit Hooks
+
 - **Description**: Run checks only in CI/CD
-- **Pros**: 
+- **Pros**:
   - Faster local development
   - No commit delays
-- **Cons**: 
+- **Cons**:
   - Issues found later in cycle
   - Wastes CI/CD resources
   - Broken commits in git history
@@ -155,6 +164,7 @@ This comprehensive approach provides:
 ## Implementation Notes
 
 ### Git Hooks Setup
+
 ```json
 {
   "scripts": {
@@ -164,19 +174,16 @@ This comprehensive approach provides:
 ```
 
 ### lint-staged Configuration
+
 ```json
 {
-  "*.{js,jsx,ts,tsx}": [
-    "eslint --fix --max-warnings=0",
-    "prettier --write"
-  ],
-  "*.{json,md,mdx,css,yaml,yml}": [
-    "prettier --write"
-  ]
+  "*.{js,jsx,ts,tsx}": ["eslint --fix --max-warnings=0", "prettier --write"],
+  "*.{json,md,mdx,css,yaml,yml}": ["prettier --write"]
 }
 ```
 
 ### Bundle Size Monitoring
+
 ```json
 {
   "bundlesize": [
@@ -189,6 +196,7 @@ This comprehensive approach provides:
 ```
 
 ### TypeScript Configuration
+
 - `strict: true`
 - `noUncheckedIndexedAccess: true`
 - `noImplicitReturns: true`
