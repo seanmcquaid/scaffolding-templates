@@ -29,6 +29,11 @@ jest.mock('expo-router', () => ({
     back: jest.fn(),
   }),
   useLocalSearchParams: () => ({}),
+  Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const ReactMock = require('react');
+    return ReactMock.createElement('Link', props, children);
+  },
 }));
 
 // Mock react-native components and utilities
@@ -47,6 +52,10 @@ jest.mock('react-native', () => {
       ReactMock.createElement('Text', props, children),
     View: ({ children, ...props }: Record<string, unknown>) =>
       ReactMock.createElement('View', props, children),
+    TouchableOpacity: ({ children, ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('TouchableOpacity', props, children),
+    TextInput: ({ ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('TextInput', props),
   };
 });
 
