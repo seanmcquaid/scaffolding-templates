@@ -1,6 +1,6 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { Text } from 'react-native';
 import { ThemedView } from '../ThemedView';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('ThemedView', () => {
   it('renders children', () => {

@@ -1,5 +1,5 @@
-import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import TabLayout from '../_layout';
+import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 // Mock Colors from useThemeColor
 jest.mock('@/hooks/useThemeColor', () => ({

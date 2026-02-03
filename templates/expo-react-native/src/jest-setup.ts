@@ -21,23 +21,43 @@ jest.mock('react-i18next', () => ({
 jest.mock('expo-router', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const ReactMock = require('react');
-  
-  const TabsScreen = ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
-    ReactMock.createElement('TabsScreen', props, children);
-  
-  const TabsComponent = ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) =>
-    ReactMock.createElement('Tabs', props, children);
-  
+
+  const TabsScreen = ({
+    children,
+    ...props
+  }: {
+    children?: React.ReactNode;
+    [key: string]: unknown;
+  }) => ReactMock.createElement('TabsScreen', props, children);
+
+  const TabsComponent = ({
+    children,
+    ...props
+  }: {
+    children: React.ReactNode;
+    [key: string]: unknown;
+  }) => ReactMock.createElement('Tabs', props, children);
+
   TabsComponent.Screen = TabsScreen;
-  
-  const StackScreen = ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
-    ReactMock.createElement('StackScreen', props, children);
-  
-  const StackComponent = ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) =>
-    ReactMock.createElement('Stack', props, children);
-  
+
+  const StackScreen = ({
+    children,
+    ...props
+  }: {
+    children?: React.ReactNode;
+    [key: string]: unknown;
+  }) => ReactMock.createElement('StackScreen', props, children);
+
+  const StackComponent = ({
+    children,
+    ...props
+  }: {
+    children: React.ReactNode;
+    [key: string]: unknown;
+  }) => ReactMock.createElement('Stack', props, children);
+
   StackComponent.Screen = StackScreen;
-  
+
   return {
     Stack: StackComponent,
     Tabs: TabsComponent,
@@ -77,8 +97,7 @@ jest.mock('react-native', () => {
       ReactMock.createElement('ScrollView', props, children),
     ActivityIndicator: ({ ...props }: Record<string, unknown>) =>
       ReactMock.createElement('ActivityIndicator', props),
-    Switch: ({ ...props }: Record<string, unknown>) =>
-      ReactMock.createElement('Switch', props),
+    Switch: ({ ...props }: Record<string, unknown>) => ReactMock.createElement('Switch', props),
     Alert: {
       alert: jest.fn(),
     },

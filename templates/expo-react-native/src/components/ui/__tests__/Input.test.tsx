@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { Input } from '../Input';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('Input', () => {
   it('renders without label or error', () => {

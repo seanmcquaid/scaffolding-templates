@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import HomeScreen from '../index';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('HomeScreen', () => {
   it('renders home screen title', () => {

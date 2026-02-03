@@ -1,9 +1,6 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import type { RenderResult } from '@testing-library/react-native';
-import {
-  render as rntlRender,
-  renderHook as rntlRenderHook,
-} from '@testing-library/react-native';
+import { render as rntlRender, renderHook as rntlRenderHook } from '@testing-library/react-native';
 import type { PropsWithChildren, ReactElement } from 'react';
 import queryClient from '@/services/queries/queryClient';
 

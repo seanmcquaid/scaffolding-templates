@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import Modal from '../modal';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('Modal', () => {
   it('renders modal title', () => {

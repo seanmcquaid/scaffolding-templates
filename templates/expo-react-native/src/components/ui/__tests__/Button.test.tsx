@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { Button } from '../Button';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('Button', () => {
   it('renders children text', () => {

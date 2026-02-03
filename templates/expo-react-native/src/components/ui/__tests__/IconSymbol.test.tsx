@@ -1,5 +1,5 @@
-import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { IconSymbol } from '../IconSymbol';
+import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('IconSymbol', () => {
   it('renders with house.fill icon', () => {

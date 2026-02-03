@@ -1,5 +1,5 @@
-import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import ReactQueryScreen from '../react-query';
+import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 // Mock the postsService to return data instead of using MSW
 jest.mock('@/services/postsService', () => ({
@@ -9,10 +9,10 @@ jest.mock('@/services/postsService', () => ({
       Promise.resolve([
         { id: 1, title: 'First Post', body: 'First Body', userId: 1 },
         { id: 2, title: 'Second Post', body: 'Second Body', userId: 1 },
-      ]),
+      ])
     ),
     getPost: jest.fn(() =>
-      Promise.resolve({ id: 1, title: 'Test Post', body: 'Test Body', userId: 1 }),
+      Promise.resolve({ id: 1, title: 'Test Post', body: 'Test Body', userId: 1 })
     ),
     deletePost: jest.fn(() => Promise.resolve()),
   },

@@ -1,5 +1,5 @@
-import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import RootLayout from '../_layout';
+import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 // Mock @react-navigation/native
 jest.mock('@react-navigation/native', () => ({

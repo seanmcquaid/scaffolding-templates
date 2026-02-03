@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { LinkButton } from '../LinkButton';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('LinkButton', () => {
   it('renders children text', () => {
@@ -8,17 +8,29 @@ describe('LinkButton', () => {
   });
 
   it('renders with default variant', () => {
-    render(<LinkButton href="/" variant="default">Common.navigate</LinkButton>);
+    render(
+      <LinkButton href="/" variant="default">
+        Common.navigate
+      </LinkButton>
+    );
     expect(screen.getByText('Common.navigate')).toBeTruthy();
   });
 
   it('renders with secondary variant', () => {
-    render(<LinkButton href="/" variant="secondary">Common.secondary</LinkButton>);
+    render(
+      <LinkButton href="/" variant="secondary">
+        Common.secondary
+      </LinkButton>
+    );
     expect(screen.getByText('Common.secondary')).toBeTruthy();
   });
 
   it('renders with outline variant', () => {
-    render(<LinkButton href="/" variant="outline">Common.outline</LinkButton>);
+    render(
+      <LinkButton href="/" variant="outline">
+        Common.outline
+      </LinkButton>
+    );
     expect(screen.getByText('Common.outline')).toBeTruthy();
   });
 
@@ -29,9 +41,7 @@ describe('LinkButton', () => {
 
   it('accepts object href with pathname', () => {
     render(
-      <LinkButton href={{ pathname: '/explore', params: { id: '1' } }}>
-        Common.explore
-      </LinkButton>
+      <LinkButton href={{ pathname: '/explore', params: { id: '1' } }}>Common.explore</LinkButton>
     );
     expect(screen.getByText('Common.explore')).toBeTruthy();
   });

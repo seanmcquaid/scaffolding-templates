@@ -69,6 +69,13 @@ export default [
     },
   },
   {
+    files: ['**/__tests__/**/*.{ts,tsx}', '**/*.test.{ts,tsx}'],
+    rules: {
+      'i18next/no-literal-string': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
     ignores: [
       'node_modules',
       'build',

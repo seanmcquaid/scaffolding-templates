@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import ExploreScreen from '../explore';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('ExploreScreen', () => {
   it('renders explore screen title', () => {

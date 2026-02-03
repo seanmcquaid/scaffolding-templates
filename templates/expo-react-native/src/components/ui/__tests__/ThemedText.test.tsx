@@ -1,5 +1,5 @@
-import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { ThemedText } from '../ThemedText';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 
 describe('ThemedText', () => {
   it('renders children text', () => {
