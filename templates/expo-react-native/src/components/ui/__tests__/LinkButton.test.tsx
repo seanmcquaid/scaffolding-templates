@@ -1,62 +1,38 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import { LinkButton } from '../LinkButton';
 
 describe('LinkButton', () => {
-  it('exports LinkButton component', () => {
-    expect(LinkButton).toBeDefined();
-    expect(typeof LinkButton).toBe('function');
+  it('renders children text', () => {
+    render(<LinkButton href="/">Common.goHome</LinkButton>);
+    expect(screen.getByText('Common.goHome')).toBeTruthy();
   });
 
-  it('accepts href and children props', () => {
-    const result = LinkButton({
-      href: '/',
-      children: 'Navigate',
-    });
-    expect(result).toBeDefined();
+  it('renders with default variant', () => {
+    render(<LinkButton href="/" variant="default">Common.navigate</LinkButton>);
+    expect(screen.getByText('Common.navigate')).toBeTruthy();
   });
 
-  it('accepts variant prop - default', () => {
-    const result = LinkButton({
-      href: '/',
-      children: 'Navigate',
-      variant: 'default',
-    });
-    expect(result).toBeDefined();
+  it('renders with secondary variant', () => {
+    render(<LinkButton href="/" variant="secondary">Common.secondary</LinkButton>);
+    expect(screen.getByText('Common.secondary')).toBeTruthy();
   });
 
-  it('accepts variant prop - secondary', () => {
-    const result = LinkButton({
-      href: '/',
-      children: 'Navigate',
-      variant: 'secondary',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts variant prop - outline', () => {
-    const result = LinkButton({
-      href: '/',
-      children: 'Navigate',
-      variant: 'outline',
-    });
-    expect(result).toBeDefined();
+  it('renders with outline variant', () => {
+    render(<LinkButton href="/" variant="outline">Common.outline</LinkButton>);
+    expect(screen.getByText('Common.outline')).toBeTruthy();
   });
 
   it('accepts string href', () => {
-    const result = LinkButton({
-      href: '/explore',
-      children: 'Explore',
-    });
-    expect(result).toBeDefined();
+    render(<LinkButton href="/explore">Common.explore</LinkButton>);
+    expect(screen.getByText('Common.explore')).toBeTruthy();
   });
 
   it('accepts object href with pathname', () => {
-    const result = LinkButton({
-      href: { pathname: '/explore', params: { id: '1' } },
-      children: 'Explore',
-    });
-    expect(result).toBeDefined();
+    render(
+      <LinkButton href={{ pathname: '/explore', params: { id: '1' } }}>
+        Common.explore
+      </LinkButton>
+    );
+    expect(screen.getByText('Common.explore')).toBeTruthy();
   });
 });

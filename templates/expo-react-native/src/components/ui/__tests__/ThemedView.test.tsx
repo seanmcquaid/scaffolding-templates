@@ -1,44 +1,37 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
+import { Text } from 'react-native';
 import { ThemedView } from '../ThemedView';
 
 describe('ThemedView', () => {
-  it('exports ThemedView component', () => {
-    expect(ThemedView).toBeDefined();
-    expect(typeof ThemedView).toBe('function');
+  it('renders children', () => {
+    render(
+      <ThemedView>
+        <Text>Common.content</Text>
+      </ThemedView>
+    );
+    expect(screen.getByText('Common.content')).toBeTruthy();
   });
 
-  it('accepts children prop', () => {
-    const result = ThemedView({ children: 'Content' });
-    expect(result).toBeDefined();
+  it('renders with light color', () => {
+    render(
+      <ThemedView lightColor="#FFFFFF">
+        <Text>Content</Text>
+      </ThemedView>
+    );
+    expect(screen.getByText('Content')).toBeTruthy();
   });
 
-  it('accepts lightColor prop', () => {
-    const result = ThemedView({ lightColor: '#FFFFFF' });
-    expect(result).toBeDefined();
+  it('renders with dark color', () => {
+    render(
+      <ThemedView darkColor="#000000">
+        <Text>Content</Text>
+      </ThemedView>
+    );
+    expect(screen.getByText('Content')).toBeTruthy();
   });
 
-  it('accepts darkColor prop', () => {
-    const result = ThemedView({ darkColor: '#000000' });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts both light and dark colors', () => {
-    const result = ThemedView({
-      lightColor: '#FFFFFF',
-      darkColor: '#000000',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts style prop', () => {
-    const result = ThemedView({ style: { padding: 10 } });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts View props', () => {
-    const result = ThemedView({ testID: 'themed-view' });
-    expect(result).toBeDefined();
+  it('renders with testID', () => {
+    render(<ThemedView testID="themed-view" />);
+    expect(screen.getByTestId('themed-view')).toBeTruthy();
   });
 });

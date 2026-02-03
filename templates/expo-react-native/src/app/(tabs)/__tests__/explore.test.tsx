@@ -1,16 +1,21 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import ExploreScreen from '../explore';
 
 describe('ExploreScreen', () => {
-  it('exports ExploreScreen component', () => {
-    expect(ExploreScreen).toBeDefined();
-    expect(typeof ExploreScreen).toBe('function');
+  it('renders explore screen title', () => {
+    render(<ExploreScreen />);
+    expect(screen.getByText('ExplorePage.title')).toBeTruthy();
   });
 
-  it('renders ExploreScreen component', () => {
-    const result = ExploreScreen({});
-    expect(result).toBeDefined();
+  it('renders explore screen subtitle', () => {
+    render(<ExploreScreen />);
+    expect(screen.getByText('ExplorePage.subtitle')).toBeTruthy();
+  });
+
+  it('renders features section', () => {
+    render(<ExploreScreen />);
+    expect(screen.getByText('ExplorePage.featuresTitle')).toBeTruthy();
+    expect(screen.getByText('ExplorePage.featureI18n')).toBeTruthy();
+    expect(screen.getByText('ExplorePage.featureTypeScript')).toBeTruthy();
   });
 });

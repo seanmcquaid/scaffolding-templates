@@ -1,47 +1,30 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import { Input } from '../Input';
 
 describe('Input', () => {
-  it('exports Input component', () => {
-    expect(Input).toBeDefined();
-    expect(typeof Input).toBe('function');
+  it('renders without label or error', () => {
+    render(<Input placeholder="Common.enterText" />);
+    expect(screen.getByPlaceholderText('Common.enterText')).toBeTruthy();
   });
 
-  it('accepts placeholder prop', () => {
-    const result = Input({ placeholder: 'Enter text' });
-    expect(result).toBeDefined();
+  it('renders with label', () => {
+    render(<Input label="Form.emailLabel" />);
+    expect(screen.getByText('Form.emailLabel')).toBeTruthy();
   });
 
-  it('accepts label prop', () => {
-    const result = Input({ label: 'Email' });
-    expect(result).toBeDefined();
+  it('renders with error message', () => {
+    render(<Input errorMessage="Form.validation.required" />);
+    expect(screen.getByText('Form.validation.required')).toBeTruthy();
   });
 
-  it('accepts errorMessage prop', () => {
-    const result = Input({ errorMessage: 'Required field' });
-    expect(result).toBeDefined();
+  it('renders with both label and error message', () => {
+    render(<Input label="Form.emailLabel" errorMessage="Form.validation.invalidEmail" />);
+    expect(screen.getByText('Form.emailLabel')).toBeTruthy();
+    expect(screen.getByText('Form.validation.invalidEmail')).toBeTruthy();
   });
 
-  it('accepts both label and errorMessage', () => {
-    const result = Input({
-      label: 'Email',
-      errorMessage: 'Invalid email',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts style prop', () => {
-    const result = Input({ style: { width: 200 } });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts TextInput props', () => {
-    const result = Input({
-      placeholder: 'Search',
-      autoCapitalize: 'none',
-    });
-    expect(result).toBeDefined();
+  it('applies placeholder text', () => {
+    render(<Input placeholder="Search..." />);
+    expect(screen.getByPlaceholderText('Search...')).toBeTruthy();
   });
 });

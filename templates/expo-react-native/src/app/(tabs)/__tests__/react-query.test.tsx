@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import ReactQueryScreen from '../react-query';
 
 // Mock postsService before importing the component
@@ -31,13 +29,8 @@ jest.mock('@tanstack/react-query', () => ({
 }));
 
 describe('ReactQueryScreen', () => {
-  it('exports ReactQueryScreen component', () => {
-    expect(ReactQueryScreen).toBeDefined();
-    expect(typeof ReactQueryScreen).toBe('function');
-  });
-
-  it('renders ReactQueryScreen component', () => {
-    const result = ReactQueryScreen({});
-    expect(result).toBeDefined();
+  it('renders react query screen title', () => {
+    render(<ReactQueryScreen />);
+    expect(screen.getByText('ReactQueryPage.title')).toBeTruthy();
   });
 });

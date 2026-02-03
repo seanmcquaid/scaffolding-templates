@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+import { render } from '@testing-library/react-native';
 import RootLayout from '../_layout';
 
 // Mock @react-navigation/native
@@ -28,14 +26,9 @@ jest.mock('@tanstack/react-query', () => ({
 jest.mock('@/i18n/i18next.client', () => ({}));
 
 describe('RootLayout', () => {
-  it('exports RootLayout component', () => {
-    expect(RootLayout).toBeDefined();
-    expect(typeof RootLayout).toBe('function');
-  });
-
-  it('renders RootLayout component', () => {
-    const result = RootLayout({});
-    expect(result).toBeDefined();
+  it('renders root layout', () => {
+    const result = render(<RootLayout />);
+    expect(result).toBeTruthy();
   });
 
   it('exports unstable_settings', () => {

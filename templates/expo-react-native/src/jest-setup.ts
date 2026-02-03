@@ -18,23 +18,39 @@ jest.mock('react-i18next', () => ({
 }));
 
 // Mock expo-router
-jest.mock('expo-router', () => ({
-  Stack: {
-    Screen: 'Screen',
-  },
-  Tabs: ({ children }: { children: React.ReactNode }) => children,
-  useRouter: () => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    back: jest.fn(),
-  }),
-  useLocalSearchParams: () => ({}),
-  Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const ReactMock = require('react');
-    return ReactMock.createElement('Link', props, children);
-  },
-}));
+jest.mock('expo-router', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const ReactMock = require('react');
+  
+  const TabsScreen = ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
+    ReactMock.createElement('TabsScreen', props, children);
+  
+  const TabsComponent = ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) =>
+    ReactMock.createElement('Tabs', props, children);
+  
+  TabsComponent.Screen = TabsScreen;
+  
+  const StackScreen = ({ children, ...props }: { children?: React.ReactNode; [key: string]: unknown }) =>
+    ReactMock.createElement('StackScreen', props, children);
+  
+  const StackComponent = ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) =>
+    ReactMock.createElement('Stack', props, children);
+  
+  StackComponent.Screen = StackScreen;
+  
+  return {
+    Stack: StackComponent,
+    Tabs: TabsComponent,
+    useRouter: () => ({
+      push: jest.fn(),
+      replace: jest.fn(),
+      back: jest.fn(),
+    }),
+    useLocalSearchParams: () => ({}),
+    Link: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) =>
+      ReactMock.createElement('Link', props, children),
+  };
+});
 
 // Mock react-native components and utilities
 jest.mock('react-native', () => {
@@ -43,6 +59,7 @@ jest.mock('react-native', () => {
   return {
     StyleSheet: {
       create: (styles: Record<string, unknown>) => styles,
+      flatten: (style: unknown) => style || {},
     },
     Platform: {
       select: (obj: Record<string, unknown>) => obj.default || obj.ios || obj.android,
@@ -56,6 +73,15 @@ jest.mock('react-native', () => {
       ReactMock.createElement('TouchableOpacity', props, children),
     TextInput: ({ ...props }: Record<string, unknown>) =>
       ReactMock.createElement('TextInput', props),
+    ScrollView: ({ children, ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('ScrollView', props, children),
+    ActivityIndicator: ({ ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('ActivityIndicator', props),
+    Switch: ({ ...props }: Record<string, unknown>) =>
+      ReactMock.createElement('Switch', props),
+    Alert: {
+      alert: jest.fn(),
+    },
   };
 });
 

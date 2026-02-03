@@ -1,16 +1,21 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import HomeScreen from '../index';
 
 describe('HomeScreen', () => {
-  it('exports HomeScreen component', () => {
-    expect(HomeScreen).toBeDefined();
-    expect(typeof HomeScreen).toBe('function');
+  it('renders home screen title', () => {
+    render(<HomeScreen />);
+    expect(screen.getByText('HomePage.title')).toBeTruthy();
   });
 
-  it('renders HomeScreen component', () => {
-    const result = HomeScreen({});
-    expect(result).toBeDefined();
+  it('renders home screen subtitle', () => {
+    render(<HomeScreen />);
+    expect(screen.getByText('HomePage.subtitle')).toBeTruthy();
+  });
+
+  it('renders navigation links', () => {
+    render(<HomeScreen />);
+    expect(screen.getByText('HomePage.reactQuery')).toBeTruthy();
+    expect(screen.getByText('HomePage.reactHookFormZod')).toBeTruthy();
+    expect(screen.getByText('HomePage.kitchenSink')).toBeTruthy();
   });
 });

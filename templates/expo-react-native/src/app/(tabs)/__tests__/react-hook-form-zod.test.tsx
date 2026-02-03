@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import ReactHookFormZodScreen from '../react-hook-form-zod';
 
 // Mock react-hook-form
@@ -10,7 +8,20 @@ jest.mock('react-hook-form', () => ({
     formState: { errors: {} },
     handleSubmit: jest.fn(),
   })),
-  Controller: ({ children }: { children: () => React.ReactNode }) => children(),
+  Controller: ({ render: renderProp }: { render: (props: unknown) => React.ReactNode }) => {
+    // Controller uses render prop pattern
+    const mockFieldProps = {
+      field: {
+        onChange: jest.fn(),
+        onBlur: jest.fn(),
+        value: '',
+        name: 'test',
+      },
+      fieldState: {},
+      formState: {},
+    };
+    return renderProp(mockFieldProps);
+  },
 }));
 
 // Mock @hookform/resolvers/zod
@@ -19,13 +30,8 @@ jest.mock('@hookform/resolvers/zod', () => ({
 }));
 
 describe('ReactHookFormZodScreen', () => {
-  it('exports ReactHookFormZodScreen component', () => {
-    expect(ReactHookFormZodScreen).toBeDefined();
-    expect(typeof ReactHookFormZodScreen).toBe('function');
-  });
-
-  it('renders ReactHookFormZodScreen component', () => {
-    const result = ReactHookFormZodScreen({});
-    expect(result).toBeDefined();
+  it('renders react hook form screen title', () => {
+    render(<ReactHookFormZodScreen />);
+    expect(screen.getByText('ReactHookFormZodPage.title')).toBeTruthy();
   });
 });

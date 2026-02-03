@@ -1,85 +1,48 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import { ThemedText } from '../ThemedText';
 
 describe('ThemedText', () => {
-  it('exports ThemedText component', () => {
-    expect(ThemedText).toBeDefined();
-    expect(typeof ThemedText).toBe('function');
+  it('renders children text', () => {
+    render(<ThemedText>Common.text</ThemedText>);
+    expect(screen.getByText('Common.text')).toBeTruthy();
   });
 
-  it('accepts children prop', () => {
-    const result = ThemedText({ children: 'Text content' });
-    expect(result).toBeDefined();
+  it('renders with default type', () => {
+    render(<ThemedText type="default">Common.default</ThemedText>);
+    expect(screen.getByText('Common.default')).toBeTruthy();
   });
 
-  it('accepts type prop - default', () => {
-    const result = ThemedText({ children: 'Text', type: 'default' });
-    expect(result).toBeDefined();
+  it('renders with title type', () => {
+    render(<ThemedText type="title">Common.title</ThemedText>);
+    expect(screen.getByText('Common.title')).toBeTruthy();
   });
 
-  it('accepts type prop - title', () => {
-    const result = ThemedText({ children: 'Text', type: 'title' });
-    expect(result).toBeDefined();
+  it('renders with defaultSemiBold type', () => {
+    render(<ThemedText type="defaultSemiBold">Common.semiBold</ThemedText>);
+    expect(screen.getByText('Common.semiBold')).toBeTruthy();
   });
 
-  it('accepts type prop - defaultSemiBold', () => {
-    const result = ThemedText({
-      children: 'Text',
-      type: 'defaultSemiBold',
-    });
-    expect(result).toBeDefined();
+  it('renders with subtitle type', () => {
+    render(<ThemedText type="subtitle">Common.subtitle</ThemedText>);
+    expect(screen.getByText('Common.subtitle')).toBeTruthy();
   });
 
-  it('accepts type prop - subtitle', () => {
-    const result = ThemedText({ children: 'Text', type: 'subtitle' });
-    expect(result).toBeDefined();
+  it('renders with link type', () => {
+    render(<ThemedText type="link">Common.link</ThemedText>);
+    expect(screen.getByText('Common.link')).toBeTruthy();
   });
 
-  it('accepts type prop - link', () => {
-    const result = ThemedText({ children: 'Text', type: 'link' });
-    expect(result).toBeDefined();
+  it('renders with custom colors', () => {
+    render(
+      <ThemedText lightColor="#000000" darkColor="#FFFFFF">
+        Common.coloredText
+      </ThemedText>
+    );
+    expect(screen.getByText('Common.coloredText')).toBeTruthy();
   });
 
-  it('accepts lightColor prop', () => {
-    const result = ThemedText({
-      children: 'Text',
-      lightColor: '#000000',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts darkColor prop', () => {
-    const result = ThemedText({
-      children: 'Text',
-      darkColor: '#FFFFFF',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts both light and dark colors', () => {
-    const result = ThemedText({
-      children: 'Text',
-      lightColor: '#000000',
-      darkColor: '#FFFFFF',
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts style prop', () => {
-    const result = ThemedText({
-      children: 'Text',
-      style: { fontSize: 20 },
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts Text props', () => {
-    const result = ThemedText({
-      children: 'Text',
-      testID: 'themed-text',
-    });
-    expect(result).toBeDefined();
+  it('renders with testID', () => {
+    render(<ThemedText testID="themed-text">Common.testable</ThemedText>);
+    expect(screen.getByTestId('themed-text')).toBeTruthy();
   });
 });

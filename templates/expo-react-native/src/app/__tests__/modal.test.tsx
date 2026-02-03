@@ -1,16 +1,14 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import Modal from '../modal';
 
 describe('Modal', () => {
-  it('exports Modal component', () => {
-    expect(Modal).toBeDefined();
-    expect(typeof Modal).toBe('function');
+  it('renders modal title', () => {
+    render(<Modal />);
+    expect(screen.getByText('Modal.title')).toBeTruthy();
   });
 
-  it('renders Modal component', () => {
-    const result = Modal({});
-    expect(result).toBeDefined();
+  it('renders modal description', () => {
+    render(<Modal />);
+    expect(screen.getByText('Modal.description')).toBeTruthy();
   });
 });

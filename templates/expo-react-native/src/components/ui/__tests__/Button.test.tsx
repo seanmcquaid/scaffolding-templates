@@ -1,67 +1,40 @@
-/**
- * @jest-environment jsdom
- */
+import { render, screen } from '@testing-library/react-native';
 import { Button } from '../Button';
 
 describe('Button', () => {
-  it('exports Button component', () => {
-    expect(Button).toBeDefined();
-    expect(typeof Button).toBe('function');
+  it('renders children text', () => {
+    render(<Button>Common.clickMe</Button>);
+    expect(screen.getByText('Common.clickMe')).toBeTruthy();
   });
 
-  it('accepts variant prop - default', () => {
-    const result = Button({
-      children: 'Test',
-      variant: 'default',
-    });
-    expect(result).toBeDefined();
+  it('renders with default variant', () => {
+    render(<Button variant="default">Common.submit</Button>);
+    expect(screen.getByText('Common.submit')).toBeTruthy();
   });
 
-  it('accepts variant prop - secondary', () => {
-    const result = Button({
-      children: 'Test',
-      variant: 'secondary',
-    });
-    expect(result).toBeDefined();
+  it('renders with secondary variant', () => {
+    render(<Button variant="secondary">Common.cancel</Button>);
+    expect(screen.getByText('Common.cancel')).toBeTruthy();
   });
 
-  it('accepts variant prop - outline', () => {
-    const result = Button({
-      children: 'Test',
-      variant: 'outline',
-    });
-    expect(result).toBeDefined();
+  it('renders with outline variant', () => {
+    render(<Button variant="outline">Common.outline</Button>);
+    expect(screen.getByText('Common.outline')).toBeTruthy();
   });
 
-  it('accepts variant prop - destructive', () => {
-    const result = Button({
-      children: 'Test',
-      variant: 'destructive',
-    });
-    expect(result).toBeDefined();
+  it('renders with destructive variant', () => {
+    render(<Button variant="destructive">Common.delete</Button>);
+    expect(screen.getByText('Common.delete')).toBeTruthy();
   });
 
-  it('accepts disabled prop', () => {
-    const result = Button({
-      children: 'Test',
-      disabled: true,
-    });
-    expect(result).toBeDefined();
+  it('handles disabled state', () => {
+    render(<Button disabled>Common.disabled</Button>);
+    expect(screen.getByText('Common.disabled')).toBeTruthy();
   });
 
-  it('accepts style prop', () => {
-    const result = Button({
-      children: 'Test',
-      style: { margin: 10 },
-    });
-    expect(result).toBeDefined();
-  });
-
-  it('accepts TouchableOpacity props', () => {
-    const result = Button({
-      children: 'Test',
-      onPress: jest.fn(),
-    });
-    expect(result).toBeDefined();
+  it('handles onPress events', () => {
+    const onPress = jest.fn();
+    render(<Button onPress={onPress}>Common.pressable</Button>);
+    expect(screen.getByText('Common.pressable')).toBeTruthy();
   });
 });

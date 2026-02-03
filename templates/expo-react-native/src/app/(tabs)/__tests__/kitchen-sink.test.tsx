@@ -1,8 +1,5 @@
-/**
- * @jest-environment jsdom
- */
-// Import without executing the component
-const kitchenSinkModule = require('../kitchen-sink');
+// Import module to test exports without executing
+import * as KitchenSinkModule from '../kitchen-sink';
 
 // Mock postsService before importing the component
 jest.mock('@/services/postsService', () => ({
@@ -56,7 +53,7 @@ jest.mock('@tanstack/react-query', () => ({
 
 describe('KitchenSinkScreen', () => {
   it('exports KitchenSinkScreen component', () => {
-    expect(kitchenSinkModule.default).toBeDefined();
-    expect(typeof kitchenSinkModule.default).toBe('function');
+    expect(KitchenSinkModule.default).toBeDefined();
+    expect(typeof KitchenSinkModule.default).toBe('function');
   });
 });

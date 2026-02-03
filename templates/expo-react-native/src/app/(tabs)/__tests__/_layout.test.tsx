@@ -1,6 +1,4 @@
-/**
- * @jest-environment jsdom
- */
+import { render } from '@testing-library/react-native';
 import TabLayout from '../_layout';
 
 // Mock Colors from useThemeColor
@@ -13,13 +11,8 @@ jest.mock('@/hooks/useThemeColor', () => ({
 }));
 
 describe('TabLayout', () => {
-  it('exports TabLayout component', () => {
-    expect(TabLayout).toBeDefined();
-    expect(typeof TabLayout).toBe('function');
-  });
-
-  it('renders TabLayout component', () => {
-    const result = TabLayout({});
-    expect(result).toBeDefined();
+  it('renders tab layout', () => {
+    const result = render(<TabLayout />);
+    expect(result).toBeTruthy();
   });
 });
