@@ -87,3 +87,17 @@ jest.mock('ky', () => {
     },
   };
 });
+
+// Mock expo virtual env
+jest.mock('expo/virtual/env', () => ({
+  env: {},
+}));
+
+// Mock env.client globally
+jest.mock('@/env.client', () => ({
+  clientEnv: {
+    EXPO_PUBLIC_API_URL: 'https://api.example.com',
+    EXPO_PUBLIC_APP_NAME: 'Expo React Native',
+    EXPO_PUBLIC_APP_VERSION: '1.0.0',
+  },
+}));
