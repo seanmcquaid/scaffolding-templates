@@ -137,7 +137,7 @@ describe('yourFunction', () => {
 ### Code Quality
 
 - Use ESLint + Prettier for consistent formatting and linting
-- Run `dpdm` to check for circular dependencies
+- Run `madge` to check for circular dependencies
 - Validate tree-shaking with `agadoo`
 - Monitor bundle size with bundlesize
 
@@ -308,8 +308,6 @@ export class LibraryError extends Error {
 - **Performance monitoring**: Track library performance over time and optimize as needed
 - **User feedback**: Actively seek and incorporate user feedback for API improvements
 - **Long-term support**: Plan for long-term maintenance and support lifecycle
-
-
 
 ## Comprehensive Best Practices from Repository Documentation
 
