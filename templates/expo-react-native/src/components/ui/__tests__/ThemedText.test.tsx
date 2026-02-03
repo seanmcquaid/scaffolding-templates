@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react-native';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import { ThemedText } from '../ThemedText';
 
 describe('ThemedText', () => {

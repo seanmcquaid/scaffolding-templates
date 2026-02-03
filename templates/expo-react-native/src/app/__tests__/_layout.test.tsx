@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native';
+import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import RootLayout from '../_layout';
 
 // Mock @react-navigation/native
@@ -15,12 +15,6 @@ jest.mock('expo-status-bar', () => ({
 
 // Mock react-native-reanimated
 jest.mock('react-native-reanimated', () => ({}));
-
-// Mock @tanstack/react-query
-jest.mock('@tanstack/react-query', () => ({
-  QueryClient: jest.fn(() => ({})),
-  QueryClientProvider: ({ children }: { children: React.ReactNode }) => children,
-}));
 
 // Mock i18n client
 jest.mock('@/i18n/i18next.client', () => ({}));

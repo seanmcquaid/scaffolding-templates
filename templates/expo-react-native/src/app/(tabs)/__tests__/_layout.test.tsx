@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native';
+import { render } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import TabLayout from '../_layout';
 
 // Mock Colors from useThemeColor

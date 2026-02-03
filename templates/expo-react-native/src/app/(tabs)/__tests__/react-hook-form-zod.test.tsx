@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react-native';
+import { render, screen } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import ReactHookFormZodScreen from '../react-hook-form-zod';
 
 // Mock react-hook-form
