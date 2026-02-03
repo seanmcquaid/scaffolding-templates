@@ -23,8 +23,9 @@ TypeScript libraries need comprehensive testing to ensure correctness and preven
 ## Decision
 
 We will use **Vitest** as the primary testing framework with:
+
 - **@vitest/coverage-istanbul** for coverage reporting
-- **dpdm** for circular dependency detection
+- **madge** for circular dependency detection
 - Custom scripts for tree-shaking validation
 
 ## Rationale
@@ -41,6 +42,7 @@ Vitest provides:
 ## Consequences
 
 ### Positive Consequences
+
 - Very fast test execution
 - Excellent TypeScript support
 - Good developer experience
@@ -48,6 +50,7 @@ Vitest provides:
 - Built-in coverage reporting
 
 ### Negative Consequences / Trade-offs
+
 - Smaller ecosystem than Jest
 - Fewer third-party integrations
 - Some Jest plugins may not work
