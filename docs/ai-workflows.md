@@ -376,9 +376,8 @@ ralph.sh iterate "plan"  # Refine based on feedback
 4. Determine affected templates and components
 5. Suggest relevant agents for the issue
 6. Generate structured Ralph workflow plan
-7. Post analysis comment with plan → execute → review → iterate approach
-8. Add `ralph-processed` label and suggested labels
-9. **Auto-assign issue to @copilot for implementation**
+7. Post analysis comment with plan → execute → review → iterate approach (includes @copilot mention)
+8. Add `ralph-processed`, `copilot-assigned`, and suggested labels
 
 **Issue Classification:**
 - **Bug Reports** → @maintenance-engineer + template specialists
@@ -388,10 +387,9 @@ ralph.sh iterate "plan"  # Refine based on feedback
 - **Template-specific** → Relevant template specialist
 
 **Output:**
-- Ralph workflow analysis comment on each issue
+- Ralph workflow analysis comment on each issue (with @copilot mention)
 - Suggested agents tagged for specialized guidance
-- Labels applied (`ralph-processed`, issue type, template labels)
-- **Automatic assignment to @copilot**
+- Labels applied (`ralph-processed`, `copilot-assigned`, issue type, template labels)
 - Structured next steps following plan-first methodology
 - Daily summary report
 
@@ -402,7 +400,8 @@ ralph.sh iterate "plan"  # Refine based on feedback
 **Key Features:**
 - Applies "plan → execute → review → iterate" methodology to all issues
 - Routes issues to specialized agents automatically
-- **Automatically assigns issues to @copilot after analysis**
+- **Labels issues with `copilot-assigned` to indicate Copilot should handle them**
+- **Mentions @copilot in analysis comments to trigger notification**
 - Provides structured approach for contributors
 - Can be run manually on-demand
 - Reprocessing: Remove `ralph-processed` label to reanalyze
