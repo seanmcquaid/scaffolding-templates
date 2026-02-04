@@ -13,7 +13,7 @@ expo-react-native/
 │   ├── i18n/              # Internationalization configuration
 │   ├── services/          # API clients and business logic
 │   ├── __tests__/         # Test files
-│   ├── env.client.ts      # Environment variable validation
+│   ├── env.ts             # Environment variable validation
 │   └── jest-setup.ts      # Jest test setup
 ├── assets/                 # Static assets (images, fonts, etc.)
 ├── .env.example            # Environment variable template

@@ -47,7 +47,7 @@ This is a production-ready Expo React Native template for building cross-platfor
 - API clients in `services/` directory
 - Use `ky` for HTTP requests
 - Validate with Zod schemas
-- Environment variables validated in `env.client.ts`
+- Environment variables validated in `env.ts`
 
 ## Development Workflow
 
@@ -96,7 +96,7 @@ This is a production-ready Expo React Native template for building cross-platfor
 
 - All client-accessible variables must start with `EXPO_PUBLIC_`
 - Defined in `.env.example`
-- Validated with Zod in `env.client.ts`
+- Validated with Zod in `env.ts`
 - Never commit actual `.env` file
 
 ## Code Quality Tools

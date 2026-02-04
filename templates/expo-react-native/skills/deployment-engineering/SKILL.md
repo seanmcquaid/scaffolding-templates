@@ -254,7 +254,7 @@ export default defineConfig({
 
 ### Validation with Zod
 ```typescript
-// env.client.ts
+// env.ts
 import { z } from 'zod';
 
 const clientEnvSchema = z.object({

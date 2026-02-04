@@ -128,10 +128,10 @@ This decision was made because:
 
 ```
 src/
-└── env.client.ts    # Client-side environment variables (EXPO_PUBLIC_*)
+└── env.ts    # Client-side environment variables (EXPO_PUBLIC_*)
 ```
 
-### Client Environment Variables (src/env.client.ts)
+### Client Environment Variables (src/env.ts)
 
 ```typescript
 import { z } from 'zod';
@@ -155,7 +155,7 @@ export default clientEnv;
 
 ```typescript
 // Client-side code (components, screens)
-import clientEnv from '@/env.client';
+import clientEnv from '@/env';
 
 console.log(clientEnv.EXPO_PUBLIC_API_URL);     // string (typed!)
 console.log(clientEnv.EXPO_PUBLIC_APP_NAME);    // string | undefined (typed!)

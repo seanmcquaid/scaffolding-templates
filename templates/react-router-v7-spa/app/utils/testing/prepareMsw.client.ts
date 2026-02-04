@@ -1,4 +1,4 @@
-import env from '@/env.client';
+import env from '@/env';
 
 const prepareMsw = async () => {
   if (env.MODE === 'development' && env.VITE_APP_MSW_ENABLED) {

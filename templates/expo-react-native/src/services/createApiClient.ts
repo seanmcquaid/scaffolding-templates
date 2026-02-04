@@ -1,5 +1,5 @@
 import ky from 'ky';
-import clientEnv from '@/env.client';
+import clientEnv from '@/env';
 
 export const createApiClient = () => {
   return ky.create({

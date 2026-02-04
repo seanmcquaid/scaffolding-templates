@@ -264,7 +264,7 @@ export default defineConfig({
 ### Environment Variables Management
 
 ```typescript
-// env.client.ts
+// env.ts
 import { z } from 'zod';
 
 const clientEnvSchema = z.object({

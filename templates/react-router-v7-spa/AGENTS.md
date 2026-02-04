@@ -487,7 +487,7 @@ export function DataTable<T>({
 ```typescript
 // services/apiClient.ts
 import ky from 'ky';
-import { clientEnv } from '@/env.client';
+import clientEnv from '@/env';
 
 export const apiClient = ky.create({
   prefixUrl: clientEnv.VITE_API_URL,

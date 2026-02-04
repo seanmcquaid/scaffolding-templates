@@ -124,10 +124,10 @@ This decision was made because:
 
 ```
 src/
-└── env.client.ts    # Client-side environment variables (VITE_*)
+└── env.ts    # Client-side environment variables (VITE_*)
 ```
 
-### Client Environment Variables (src/env.client.ts)
+### Client Environment Variables (src/env.ts)
 
 ```typescript
 import { z } from 'zod';
@@ -149,7 +149,7 @@ export default env;
 
 ```typescript
 // Client-side code (components, pages)
-import env from '@/env.client';
+import env from '@/env';
 
 console.log(env.MODE);                   // 'development' | 'test' | 'production' (typed!)
 console.log(env.VITE_APP_ENVIRONMENT);   // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
