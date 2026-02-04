@@ -43,6 +43,7 @@ Each ADR follows a consistent structure:
 - [ADR-008: API Client with ky and Zod](./ADR-008-api-client.md)
 - [ADR-009: Form Handling with React Hook Form](./ADR-009-form-handling.md)
 - [ADR-010: Code Quality Tooling](./ADR-010-code-quality.md)
+- [ADR-011: TanStack Query v5 Best Practices](./ADR-011-tanstack-query-best-practices.md)
 
 ## Resources
 
