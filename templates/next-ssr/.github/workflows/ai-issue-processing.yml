@@ -149,33 +149,24 @@ jobs:
                   body: ralphComment
                 });
                 
-                // Add suggested labels
-                if (suggestedLabels.length > 0) {
-                  // Get existing labels
-                  const existingLabels = issue.labels || [];
-                  const newLabels = [...new Set([...existingLabels, ...suggestedLabels, 'ralph-processed'])];
-                  
-                  await github.rest.issues.update({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    labels: newLabels
-                  });
-                }
+                // Add suggested labels plus copilot-assigned label
+                // Get existing labels
+                const existingLabels = issue.labels || [];
+                const labelsToAdd = [...suggestedLabels, 'ralph-processed', 'copilot-assigned'];
+                const newLabels = [...new Set([...existingLabels, ...labelsToAdd])];
                 
-                // Auto-assign issue to Copilot after analysis
-                try {
-                  await github.rest.issues.addAssignees({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    assignees: ['copilot']
-                  });
-                  console.log(`✓ Assigned issue #${issue.number} to @copilot`);
-                } catch (assignError) {
-                  // Log error but don't fail the entire workflow
-                  console.warn(`⚠ Could not assign issue #${issue.number} to @copilot:`, assignError.message);
-                }
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  labels: newLabels
+                });
+                
+                console.log(`✓ Added labels to issue #${issue.number}: ${labelsToAdd.join(', ')}`);
+                
+                // Note: GitHub bot accounts cannot be assigned to issues directly.
+                // The @copilot mention in the comment above will trigger Copilot to handle this issue.
+                // The 'copilot-assigned' label serves as a visual indicator for tracking.
                 
                 console.log(`✓ Processed issue #${issue.number}`);
               } catch (error) {
