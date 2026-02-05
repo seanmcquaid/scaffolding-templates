@@ -4,8 +4,22 @@ set -e
 # Identify test coverage gaps across templates
 # Usage: ./scripts/identify-coverage-gaps.sh [threshold] [--format json|text]
 
-THRESHOLD="${1:-80}"
-FORMAT="${2:-text}"
+THRESHOLD="80"
+FORMAT="text"
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --format)
+      FORMAT="$2"
+      shift 2
+      ;;
+    *)
+      THRESHOLD="$1"
+      shift
+      ;;
+  esac
+done
 
 echo "Identifying coverage gaps (threshold: ${THRESHOLD}%)..." >&2
 
