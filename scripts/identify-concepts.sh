@@ -25,6 +25,7 @@ get_package_version() {
 # Function to get latest package version from npm (simulated for now)
 get_latest_version() {
   local package="$1"
+  # TODO: Implement actual npm version lookup
   # In a real implementation, this would call: npm view "$package" version
   # For now, return a placeholder that indicates "latest available"
   echo "latest"

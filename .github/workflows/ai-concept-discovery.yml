@@ -105,7 +105,10 @@ jobs:
                     'medium': '🟡',
                     'high': '🔴'
                   };
-                  body += `\n**Migration Effort**: ${effortEmoji[details.migration_effort] || ''} ${details.migration_effort.charAt(0).toUpperCase() + details.migration_effort.slice(1)}\n`;
+                  const effortText = details.migration_effort 
+                    ? details.migration_effort.charAt(0).toUpperCase() + details.migration_effort.slice(1)
+                    : 'Unknown';
+                  body += `\n**Migration Effort**: ${effortEmoji[details.migration_effort] || ''} ${effortText}\n`;
                 }
                 
                 // Breaking changes
