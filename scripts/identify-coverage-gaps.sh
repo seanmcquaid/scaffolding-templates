@@ -114,16 +114,21 @@ for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-
       }"
     else
       # Text format (original behavior)
+      # Calculate missing counts
+      LINE_MISSING=$((LINE_TOTAL - LINE_COVERED))
+      BRANCH_MISSING=$((BRANCH_TOTAL - BRANCH_COVERED))
+      FUNC_MISSING=$((FUNC_TOTAL - FUNC_COVERED))
+      
       if (( $(echo "$LINE_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-        GAPS="$GAPS\n$TEMPLATE: Line coverage ${LINE_PCT}% (target: ${THRESHOLD}%) - Missing ${LINE_TOTAL} - ${LINE_COVERED} lines"
+        GAPS="$GAPS\n$TEMPLATE: Line coverage ${LINE_PCT}% (target: ${THRESHOLD}%) - Missing ${LINE_MISSING} lines"
         echo "  ⚠ Line coverage below threshold" >&2
       fi
       if (( $(echo "$BRANCH_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-        GAPS="$GAPS\n$TEMPLATE: Branch coverage ${BRANCH_PCT}% (target: ${THRESHOLD}%) - Missing ${BRANCH_TOTAL} - ${BRANCH_COVERED} branches"
+        GAPS="$GAPS\n$TEMPLATE: Branch coverage ${BRANCH_PCT}% (target: ${THRESHOLD}%) - Missing ${BRANCH_MISSING} branches"
         echo "  ⚠ Branch coverage below threshold" >&2
       fi
       if (( $(echo "$FUNC_PCT < $THRESHOLD" | bc -l 2>/dev/null || echo "0") )); then
-        GAPS="$GAPS\n$TEMPLATE: Function coverage ${FUNC_PCT}% (target: ${THRESHOLD}%) - Missing ${FUNC_TOTAL} - ${FUNC_COVERED} functions"
+        GAPS="$GAPS\n$TEMPLATE: Function coverage ${FUNC_PCT}% (target: ${THRESHOLD}%) - Missing ${FUNC_MISSING} functions"
         echo "  ⚠ Function coverage below threshold" >&2
       fi
       

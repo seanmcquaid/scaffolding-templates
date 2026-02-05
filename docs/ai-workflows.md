@@ -1165,6 +1165,4 @@ To try it out:
 - AI Issue Processing (Ralph) workflow
 - Custom agent integration
 - Automated issue generation
-- Summary reports  
-**Status:** Complete ✅  
-**Version:** 1.1
+- Summary reports
