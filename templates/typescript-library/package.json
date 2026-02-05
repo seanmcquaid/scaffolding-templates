@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "build": "tsdown",
+    "bundlesize": "bundlesize",
     "check-treeshaking": "madge --circular --extensions ts ./src",
     "check-types": "tsc --noEmit",
     "lint": "eslint src --max-warnings=0",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@types/madge": "^5.0.3",
+    "bundlesize2": "^0.0.35",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
