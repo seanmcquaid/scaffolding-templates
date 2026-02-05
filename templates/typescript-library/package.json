@@ -7,16 +7,10 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    "import": {
-      "types": "./dist/index.d.mts",
-      "default": "./dist/index.mjs"
-    },
-    "require": {
-      "types": "./dist/index.d.cts",
-      "default": "./dist/index.cjs"
-    }
+    "types": "./dist/index.d.mts",
+    "default": "./dist/index.mjs"
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.mts",
   "files": [
@@ -26,7 +20,7 @@
     "build": "tsdown",
     "bundlesize": "bundlesize",
     "check-treeshaking": "agadoo dist/index.mjs",
-    "check-types": "npm pack && attw --pack",
+    "check-types": "npm pack && attw --pack --ignore-rules cjs-resolves-to-esm",
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "test": "vitest run",
@@ -34,7 +28,9 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
     "@types/madge": "^5.0.3",
+    "agadoo": "^3.0.0",
     "bundlesize2": "^0.0.35",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
