@@ -17,8 +17,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Lint
@@ -34,8 +34,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Run Unit Tests
@@ -51,8 +51,8 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
       - name: Bundlesize Check
@@ -79,12 +79,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build TypeScript Library
-        run: pnpm --filter typescript-library build
       - name: Check Types
         run: pnpm --filter typescript-library check-types
   typescript-library-tree-shaking:
@@ -98,11 +96,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-      - name: Build TypeScript Library
-        run: pnpm --filter typescript-library build
       - name: Check Tree Shaking
         run: pnpm --filter typescript-library check-treeshaking
