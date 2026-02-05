@@ -6,8 +6,34 @@
   "author": "",
   "sideEffects": false,
   "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "bundlesize": "bundlesize",
+    "check-treeshaking": "agadoo dist/index.js",
+    "check-types": "npm pack && attw --pack --ignore-rules cjs-resolves-to-esm",
+    "lint": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.2",
+    "@eslint/js": "^9.39.2",
     "@types/madge": "^5.0.3",
+    "@vitest/eslint-plugin": "^1.6.6",
+    "@vitest/coverage-istanbul": "^4.0.18",
+    "agadoo": "^3.0.0",
+    "bundlesize2": "^0.0.35",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
