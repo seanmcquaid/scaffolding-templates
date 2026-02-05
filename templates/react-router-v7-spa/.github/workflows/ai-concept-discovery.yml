@@ -74,15 +74,15 @@ jobs:
               // Build detailed issue body with all available information
               let body = `## 🔍 AI-Discovered Concept Opportunity
               
-**Concept**: ${concept.concept}
-**Category**: ${concept.category || 'general'}
-**Priority**: ${concept.priority || 'medium'}
-**Discovery Date**: ${new Date().toISOString().split('T')[0]}
-
-### 📊 Current State
-
-**Affected Templates**: ${Array.isArray(concept.affected_templates) ? concept.affected_templates.map(t => \`\\\`${t}\\\`\`).join(', ') : 'all templates'}
-`;
+              **Concept**: ${concept.concept}
+              **Category**: ${concept.category || 'general'}
+              **Priority**: ${concept.priority || 'medium'}
+              **Discovery Date**: ${new Date().toISOString().split('T')[0]}
+              
+              ### 📊 Current State
+              
+              **Affected Templates**: ${Array.isArray(concept.affected_templates) ? concept.affected_templates.map(t => \`\\\`${t}\\\`\`).join(', ') : 'all templates'}
+              `;
 
               // Add version information if available
               if (concept.current_version && concept.current_version !== 'unknown') {
@@ -134,24 +134,24 @@ jobs:
               
               body += `
 
-### 🎯 Implementation Plan
+              ### 🎯 Implementation Plan
 
-#### Phase 1: Validation (Use @requirements-analyst agent)
-- [ ] Research the concept in depth using provided resources
-- [ ] Evaluate relevance to our templates and use cases
-- [ ] Assess implementation complexity and effort
-- [ ] Identify specific templates that would benefit
-- [ ] Document potential risks and mitigation strategies
+              #### Phase 1: Validation (Use @requirements-analyst agent)
+              - [ ] Research the concept in depth using provided resources
+              - [ ] Evaluate relevance to our templates and use cases
+              - [ ] Assess implementation complexity and effort
+              - [ ] Identify specific templates that would benefit
+              - [ ] Document potential risks and mitigation strategies
 
-#### Phase 2: Design (Use @software-architect agent)
-- [ ] Create architectural design for integration
-- [ ] Define implementation approach for each affected template
-- [ ] Plan for maintaining consistency across templates
-- [ ] Identify potential risks and edge cases
-- [ ] Create ADR (Architectural Decision Record) if needed
+              #### Phase 2: Design (Use @software-architect agent)
+              - [ ] Create architectural design for integration
+              - [ ] Define implementation approach for each affected template
+              - [ ] Plan for maintaining consistency across templates
+              - [ ] Identify potential risks and edge cases
+              - [ ] Create ADR (Architectural Decision Record) if needed
 
-#### Phase 3: Implementation (Use template specialist agents)
-`;
+              #### Phase 3: Implementation (Use template specialist agents)
+              `;
 
               // Add template-specific implementation steps
               if (Array.isArray(concept.affected_templates) && concept.affected_templates.length > 0) {
@@ -172,22 +172,22 @@ jobs:
               }
               
               body += `- [ ] Update documentation
-- [ ] Add/update tests
-- [ ] Verify consistency across all affected templates
-- [ ] Run full test suite and ensure all tests pass
+              - [ ] Add/update tests
+              - [ ] Verify consistency across all affected templates
+              - [ ] Run full test suite and ensure all tests pass
 
-#### Phase 4: Validation
-- [ ] Review implementation against design
-- [ ] Verify all acceptance criteria are met
-- [ ] Test in development environment
-- [ ] Get peer review from team members
-- [ ] Update CHANGELOG and migration guides if needed
+              #### Phase 4: Validation
+              - [ ] Review implementation against design
+              - [ ] Verify all acceptance criteria are met
+              - [ ] Test in development environment
+              - [ ] Get peer review from team members
+              - [ ] Update CHANGELOG and migration guides if needed
 
-### 👥 Relevant Agents
+              ### 👥 Relevant Agents
 
-- **@requirements-analyst** - Initial research and validation
-- **@software-architect** - Design and architecture
-`;
+              - **@requirements-analyst** - Initial research and validation
+              - **@software-architect** - Design and architecture
+              `;
 
               // Add template specialists
               if (Array.isArray(concept.affected_templates) && concept.affected_templates.length > 0) {
@@ -212,39 +212,39 @@ jobs:
               }
               
               body += `- **@quality-analyst** - Test strategy and coverage
-- **@implementation-engineer** - Code implementation support
+              - **@implementation-engineer** - Code implementation support
 
-### 🔍 Review Guidelines
+              ### 🔍 Review Guidelines
 
-When evaluating this concept, consider:
+              When evaluating this concept, consider:
 
-1. **Alignment**: Does this concept align with our template philosophy and goals?
-2. **Value**: What specific value does it provide to template users?
-3. **Maintenance**: What's the ongoing maintenance burden?
-4. **Consistency**: How does it affect template consistency?
-5. **Complexity**: Is the added complexity justified by the benefits?
-6. **Adoption**: What's the community adoption and maturity level?
+              1. **Alignment**: Does this concept align with our template philosophy and goals?
+              2. **Value**: What specific value does it provide to template users?
+              3. **Maintenance**: What's the ongoing maintenance burden?
+              4. **Consistency**: How does it affect template consistency?
+              5. **Complexity**: Is the added complexity justified by the benefits?
+              6. **Adoption**: What's the community adoption and maturity level?
 
-### 📈 Success Metrics
+              ### 📈 Success Metrics
 
-`;
+              `;
 
               if (concept.details && concept.details.benefits) {
                 body += `Track improvements in:\n${concept.details.benefits.map(b => \`- ${b}\`).join('\n')}\n`;
               } else {
                 body += `- Developer experience improvements
-- Code quality metrics
-- Performance benchmarks
-- Community feedback
-`;
+                - Code quality metrics
+                - Performance benchmarks
+                - Community feedback
+                `;
               }
 
               body += `
 
----
-*This issue was automatically generated by AI concept discovery workflow.*
-*See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
-`;
+              ---
+              *This issue was automatically generated by AI concept discovery workflow.*
+              *See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
+              `;
               
               // Check if similar issue already exists
               const existingIssues = await github.rest.issues.listForRepo({
@@ -324,10 +324,10 @@ When evaluating this concept, consider:
             
             summary.addHeading('📊 Statistics', 3)
               .addRaw(`
-- **Total Opportunities**: ${total}
-- **High Priority**: ${highPriority}
-- **Medium Priority**: ${mediumPriority}
-- **Low Priority**: ${lowPriority}
+              - **Total Opportunities**: ${total}
+              - **High Priority**: ${highPriority}
+              - **Medium Priority**: ${mediumPriority}
+              - **Low Priority**: ${lowPriority}
               `);
             
             // Add detailed breakdown by category
@@ -386,36 +386,36 @@ When evaluating this concept, consider:
             
             summary.addHeading('🎯 Next Steps', 3)
               .addRaw(\`
-1. **Review Generated Issues**: Check issues with \\\`ai-generated\\\` and \\\`concept-proposal\\\` labels
-2. **Prioritize Work**: Focus on high-priority items with low migration effort
-3. **Validate Concepts**: Use @requirements-analyst agent to research and validate
-4. **Plan Implementation**: Use @software-architect for architectural design
-5. **Execute**: Assign to template specialists for implementation
+              1. **Review Generated Issues**: Check issues with \\\`ai-generated\\\` and \\\`concept-proposal\\\` labels
+              2. **Prioritize Work**: Focus on high-priority items with low migration effort
+              3. **Validate Concepts**: Use @requirements-analyst agent to research and validate
+              4. **Plan Implementation**: Use @software-architect for architectural design
+              5. **Execute**: Assign to template specialists for implementation
               \`)
               .addHeading('📈 Recommended Focus Areas', 3);
             
-            // Identify quick wins (low effort, high/medium priority)
-            const quickWins = opportunities.filter(o => 
+              // Identify quick wins (low effort, high/medium priority)
+              const quickWins = opportunities.filter(o => 
               o.details && o.details.migration_effort === 'low' && 
               (o.priority === 'high' || o.priority === 'medium')
-            );
+              );
             
-            if (quickWins.length > 0) {
+              if (quickWins.length > 0) {
               summary.addRaw('**Quick Wins (Low Effort, High/Medium Priority):**\n');
               for (const opp of quickWins) {
                 summary.addRaw(\`- ${opp.concept}\n\`);
               }
-            }
+              }
             
-            // High impact (high priority, any effort)
-            const highImpact = opportunities.filter(o => o.priority === 'high');
-            if (highImpact.length > 0 && highImpact.length !== quickWins.length) {
+              // High impact (high priority, any effort)
+              const highImpact = opportunities.filter(o => o.priority === 'high');
+              if (highImpact.length > 0 && highImpact.length !== quickWins.length) {
               summary.addRaw('\n**High Impact (High Priority):**\n');
               for (const opp of highImpact.filter(o => !quickWins.includes(o))) {
                 summary.addRaw(\`- ${opp.concept} (Effort: ${opp.details?.migration_effort || 'unknown'})\n\`);
               }
-            }
+              }
             
-            summary.addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
+              summary.addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
               .addLink('View All Concept Proposals', \`https://github.com/${context.repo.owner}/${context.repo.repo}/issues?q=is%3Aissue+is%3Aopen+label%3Aconcept-proposal\`)
               .write();
