@@ -394,7 +394,6 @@ git diff --name-only main...HEAD | ./scripts/determine-agents.sh - "next-ssr"
 
 These scripts are called by the GitHub Actions workflows:
 
-- `.github/workflows/ai-code-review.yml` uses `analyze-changed-files.sh` and `determine-agents.sh`
 - `.github/workflows/ai-concept-discovery.yml` uses `analyze-templates.sh` and `identify-concepts.sh`
 - `.github/workflows/ai-test-coverage.yml` uses `run-coverage-analysis.sh`, `identify-coverage-gaps.sh`, and `identify-missing-tests.sh`
 - `.github/workflows/ai-issue-processing.yml` uses `classify-issue.sh`

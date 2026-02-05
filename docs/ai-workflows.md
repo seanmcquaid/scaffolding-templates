@@ -156,10 +156,9 @@ Step 4: Test (Use @quality-analyst)
 
 Workflows are configured in `.github/workflows/`:
 
-1. **ai-code-review.yml** - Runs on every PR
-2. **ai-concept-discovery.yml** - Runs weekly (Monday 9 AM UTC)
-3. **ai-test-coverage.yml** - Runs weekly (Monday 10 AM UTC)
-4. **ai-issue-processing.yml** - Runs daily (8 AM UTC)
+1. **ai-concept-discovery.yml** - Runs weekly (Monday 9 AM UTC)
+2. **ai-test-coverage.yml** - Runs weekly (Monday 10 AM UTC)
+3. **ai-issue-processing.yml** - Runs daily (8 AM UTC)
 
 #### Running Scripts Locally
 
@@ -911,9 +910,6 @@ gh workflow list
 # Run workflow manually
 gh workflow run ai-concept-discovery.yml
 
-# View recent runs
-gh run list --workflow=ai-code-review.yml
-
 # List issues by label
 gh issue list --label ai-generated
 
@@ -942,8 +938,7 @@ gh issue list --label ai-generated
 - `/scripts/identify-missing-tests.sh`
 - `/scripts/README.md`
 
-**GitHub Actions Workflows (3 files):**
-- `/.github/workflows/ai-code-review.yml`
+**GitHub Actions Workflows (2 files):**
 - `/.github/workflows/ai-concept-discovery.yml`
 - `/.github/workflows/ai-test-coverage.yml`
 
