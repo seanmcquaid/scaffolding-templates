@@ -10,9 +10,11 @@
         "build/**"
       ]
     },
+    "lint": {},
     "lint:fix": {
       "cache": false
     },
+    "test": {},
     "test:coverage": {
       "outputs": ["coverage/**"]
     },
