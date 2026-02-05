@@ -44,11 +44,18 @@ jobs:
       - name: Identify Concept Opportunities
         id: concepts
         run: |
-          # Run concept identification script
-          OPPORTUNITIES=$(./scripts/identify-concepts.sh | grep "^-" || echo "")
+          # Run concept identification script with JSON output
+          OPPORTUNITIES_JSON=$(./scripts/identify-concepts.sh --format json)
+          
+          # Also get text format for backwards compatibility
+          OPPORTUNITIES_TEXT=$(./scripts/identify-concepts.sh | grep "^-" || echo "")
+          
+          echo "opportunities_json<<EOF" >> $GITHUB_OUTPUT
+          echo "$OPPORTUNITIES_JSON" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           
           echo "opportunities<<EOF" >> $GITHUB_OUTPUT
-          echo "$OPPORTUNITIES" >> $GITHUB_OUTPUT
+          echo "$OPPORTUNITIES_TEXT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Generate Concept Issues
@@ -56,57 +63,185 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const opportunities = `${{ steps.concepts.outputs.opportunities }}`;
-            const lines = opportunities.split('\n').filter(line => line.trim().startsWith('-'));
+            const opportunitiesJson = `${{ steps.concepts.outputs.opportunities_json }}`;
+            const opportunities = JSON.parse(opportunitiesJson);
             
-            for (const line of lines) {
-              const concept = line.replace(/^-\s*/, '').trim();
-              if (!concept) continue;
+            for (const concept of opportunities) {
+              if (!concept.concept) continue;
               
-              const title = `[Concept Discovery] ${concept}`;
-              const body = `## 🔍 AI-Discovered Concept Opportunity
+              const title = `[Concept Discovery] ${concept.concept}`;
               
-              **Concept**: ${concept}
+              // Build detailed issue body with all available information
+              let body = `## 🔍 AI-Discovered Concept Opportunity
               
-              **Discovery Date**: ${new Date().toISOString().split('T')[0]}
+**Concept**: ${concept.concept}
+**Category**: ${concept.category || 'general'}
+**Priority**: ${concept.priority || 'medium'}
+**Discovery Date**: ${new Date().toISOString().split('T')[0]}
+
+### 📊 Current State
+
+**Affected Templates**: ${Array.isArray(concept.affected_templates) ? concept.affected_templates.map(t => \`\\\`${t}\\\`\`).join(', ') : 'all templates'}
+`;
+
+              // Add version information if available
+              if (concept.current_version && concept.current_version !== 'unknown') {
+                body += `**Current Version**: ${concept.current_version}\n`;
+              }
+              if (concept.latest_version) {
+                body += `**Latest Version**: ${concept.latest_version}\n`;
+              }
               
-              **Context**:
-              This concept was identified during automated ecosystem scanning as a potential improvement opportunity for one or more templates.
+              // Add detailed information
+              if (concept.details) {
+                const details = concept.details;
+                
+                body += `\n### 📝 Description\n\n${details.description}\n`;
+                
+                // Migration effort
+                if (details.migration_effort) {
+                  const effortEmoji = {
+                    'low': '🟢',
+                    'medium': '🟡',
+                    'high': '🔴'
+                  };
+                  body += `\n**Migration Effort**: ${effortEmoji[details.migration_effort] || ''} ${details.migration_effort.charAt(0).toUpperCase() + details.migration_effort.slice(1)}\n`;
+                }
+                
+                // Breaking changes
+                if (details.breaking_changes !== undefined) {
+                  body += `**Breaking Changes**: ${details.breaking_changes ? '⚠️  Yes' : '✅ No'}\n`;
+                }
+                
+                // Current status
+                if (details.current_status) {
+                  body += `**Status**: ${details.current_status}\n`;
+                }
+                
+                // Benefits
+                if (details.benefits && details.benefits.length > 0) {
+                  body += `\n### ✨ Benefits\n\n${details.benefits.map(b => \`- ${b}\`).join('\n')}\n`;
+                }
+                
+                // Resources
+                if (details.resources && details.resources.length > 0) {
+                  body += `\n### 📚 Resources\n\n${details.resources.map(r => \`- ${r}\`).join('\n')}\n`;
+                }
+              }
               
-              **Next Steps**:
-              1. **Validation Phase** (Use @requirements-analyst agent):
-                 - Research the concept in depth
-                 - Evaluate relevance to our templates
-                 - Assess implementation complexity
-                 - Identify affected templates
+              body += `
+
+### 🎯 Implementation Plan
+
+#### Phase 1: Validation (Use @requirements-analyst agent)
+- [ ] Research the concept in depth using provided resources
+- [ ] Evaluate relevance to our templates and use cases
+- [ ] Assess implementation complexity and effort
+- [ ] Identify specific templates that would benefit
+- [ ] Document potential risks and mitigation strategies
+
+#### Phase 2: Design (Use @software-architect agent)
+- [ ] Create architectural design for integration
+- [ ] Define implementation approach for each affected template
+- [ ] Plan for maintaining consistency across templates
+- [ ] Identify potential risks and edge cases
+- [ ] Create ADR (Architectural Decision Record) if needed
+
+#### Phase 3: Implementation (Use template specialist agents)
+`;
+
+              // Add template-specific implementation steps
+              if (Array.isArray(concept.affected_templates) && concept.affected_templates.length > 0) {
+                for (const template of concept.affected_templates) {
+                  const specialistMap = {
+                    'typescript-library': '@typescript-library-specialist',
+                    'next-ssr': '@nextjs-ssr-specialist',
+                    'react-router-v7-spa': '@react-router-spa-specialist',
+                    'react-router-v7-ssr': '@react-router-ssr-specialist',
+                    'tanstack-router-spa': '@tanstack-router-spa-specialist',
+                    'expo-react-native': '@expo-react-native-specialist'
+                  };
+                  const specialist = specialistMap[template] || '@implementation-engineer';
+                  body += `- [ ] Implement in \`${template}\` template (${specialist})\n`;
+                }
+              } else {
+                body += `- [ ] Implement in relevant templates\n`;
+              }
               
-              2. **Design Phase** (Use @software-architect agent):
-                 - Create architectural design
-                 - Define implementation approach
-                 - Identify potential risks
-                 - Create ADR if needed
+              body += `- [ ] Update documentation
+- [ ] Add/update tests
+- [ ] Verify consistency across all affected templates
+- [ ] Run full test suite and ensure all tests pass
+
+#### Phase 4: Validation
+- [ ] Review implementation against design
+- [ ] Verify all acceptance criteria are met
+- [ ] Test in development environment
+- [ ] Get peer review from team members
+- [ ] Update CHANGELOG and migration guides if needed
+
+### 👥 Relevant Agents
+
+- **@requirements-analyst** - Initial research and validation
+- **@software-architect** - Design and architecture
+`;
+
+              // Add template specialists
+              if (Array.isArray(concept.affected_templates) && concept.affected_templates.length > 0) {
+                const specialists = new Set();
+                for (const template of concept.affected_templates) {
+                  const specialistMap = {
+                    'typescript-library': '@typescript-library-specialist',
+                    'next-ssr': '@nextjs-ssr-specialist',
+                    'react-router-v7-spa': '@react-router-spa-specialist',
+                    'react-router-v7-ssr': '@react-router-ssr-specialist',
+                    'tanstack-router-spa': '@tanstack-router-spa-specialist',
+                    'expo-react-native': '@expo-react-native-specialist'
+                  };
+                  const specialist = specialistMap[template];
+                  if (specialist) {
+                    specialists.add(specialist);
+                  }
+                }
+                for (const specialist of specialists) {
+                  body += `- **${specialist}** - Framework-specific implementation\n`;
+                }
+              }
               
-              3. **Implementation Phase** (Use template specialist agents):
-                 - Implement in relevant templates
-                 - Update documentation
-                 - Add tests
-                 - Verify consistency
-              
-              **Relevant Agents**:
-              - @requirements-analyst - Initial research and validation
-              - @software-architect - Design and architecture
-              - Template specialists - Framework-specific implementation
-              
-              **Review Guidelines**:
-              - Does this concept align with our template philosophy?
-              - What value does it provide to template users?
-              - What's the maintenance burden?
-              - How does it affect template consistency?
-              
-              ---
-              *This issue was automatically generated by AI concept discovery workflow.*
-              *See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
-              `;
+              body += `- **@quality-analyst** - Test strategy and coverage
+- **@implementation-engineer** - Code implementation support
+
+### 🔍 Review Guidelines
+
+When evaluating this concept, consider:
+
+1. **Alignment**: Does this concept align with our template philosophy and goals?
+2. **Value**: What specific value does it provide to template users?
+3. **Maintenance**: What's the ongoing maintenance burden?
+4. **Consistency**: How does it affect template consistency?
+5. **Complexity**: Is the added complexity justified by the benefits?
+6. **Adoption**: What's the community adoption and maturity level?
+
+### 📈 Success Metrics
+
+`;
+
+              if (concept.details && concept.details.benefits) {
+                body += `Track improvements in:\n${concept.details.benefits.map(b => \`- ${b}\`).join('\n')}\n`;
+              } else {
+                body += `- Developer experience improvements
+- Code quality metrics
+- Performance benchmarks
+- Community feedback
+`;
+              }
+
+              body += `
+
+---
+*This issue was automatically generated by AI concept discovery workflow.*
+*See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
+`;
               
               // Check if similar issue already exists
               const existingIssues = await github.rest.issues.listForRepo({
@@ -117,21 +252,41 @@ jobs:
               });
               
               const isDuplicate = existingIssues.data.some(issue => 
-                issue.title.toLowerCase().includes(concept.toLowerCase().slice(0, 30))
+                issue.title.toLowerCase().includes(concept.concept.toLowerCase().slice(0, 30))
               );
               
               if (!isDuplicate) {
+                // Determine labels based on category and priority
+                const labels = ['ai-generated', 'concept-proposal', 'enhancement'];
+                
+                if (concept.priority === 'high') {
+                  labels.push('priority:high');
+                } else if (concept.priority === 'low') {
+                  labels.push('priority:low');
+                }
+                
+                if (concept.category) {
+                  labels.push(`category:${concept.category}`);
+                }
+                
+                // Add template labels
+                if (Array.isArray(concept.affected_templates)) {
+                  for (const template of concept.affected_templates) {
+                    labels.push(`template:${template}`);
+                  }
+                }
+                
                 await github.rest.issues.create({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   title: title,
                   body: body,
-                  labels: ['ai-generated', 'concept-proposal', 'enhancement']
+                  labels: labels
                 });
                 
-                console.log(`Created issue: ${title}`);
+                console.log(`✓ Created issue: ${title}`);
               } else {
-                console.log(`Skipping duplicate issue: ${title}`);
+                console.log(`⊘ Skipping duplicate issue: ${title}`);
               }
             }
 
@@ -140,20 +295,124 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const opportunities = `${{ steps.concepts.outputs.opportunities }}`;
-            const lines = opportunities.split('\n').filter(line => line.trim().startsWith('-'));
+            const opportunitiesJson = `${{ steps.concepts.outputs.opportunities_json }}`;
+            const opportunities = JSON.parse(opportunitiesJson);
             
-            core.summary
+            let summary = core.summary
               .addHeading('🔍 AI Concept Discovery Report')
-              .addHeading(`Date: ${new Date().toISOString().split('T')[0]}`, 3)
-              .addHeading('Discovered Opportunities', 3)
-              .addList(lines.map(l => l.replace(/^-\s*/, '').trim()))
-              .addHeading('Next Steps', 3)
+              .addHeading(`Date: ${new Date().toISOString().split('T')[0]}`, 3);
+            
+            // Group by category and priority
+            const grouped = {};
+            for (const opp of opportunities) {
+              const category = opp.category || 'general';
+              if (!grouped[category]) {
+                grouped[category] = { high: [], medium: [], low: [] };
+              }
+              const priority = opp.priority || 'medium';
+              grouped[category][priority].push(opp);
+            }
+            
+            // Add statistics
+            const total = opportunities.length;
+            const highPriority = opportunities.filter(o => o.priority === 'high').length;
+            const mediumPriority = opportunities.filter(o => o.priority === 'medium').length;
+            const lowPriority = opportunities.filter(o => o.priority === 'low').length;
+            
+            summary.addHeading('📊 Statistics', 3)
               .addRaw(`
-              1. Review generated issues with \`ai-generated\` and \`concept-proposal\` labels
-              2. Validate concepts using @requirements-analyst agent
-              3. Prioritize based on impact and effort
-              4. Assign to appropriate team members or agents
-              `)
-              .addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
+- **Total Opportunities**: ${total}
+- **High Priority**: ${highPriority}
+- **Medium Priority**: ${mediumPriority}
+- **Low Priority**: ${lowPriority}
+              `);
+            
+            // Add detailed breakdown by category
+            for (const [category, priorities] of Object.entries(grouped)) {
+              const categoryTotal = [...priorities.high, ...priorities.medium, ...priorities.low].length;
+              if (categoryTotal === 0) continue;
+              
+              const categoryName = category.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+              summary.addHeading(`${categoryName} (${categoryTotal})`, 3);
+              
+              // High priority first
+              if (priorities.high.length > 0) {
+                summary.addRaw('**🔴 High Priority:**\n');
+                for (const opp of priorities.high) {
+                  let line = \`- **${opp.concept}**\`;
+                  if (opp.current_version && opp.current_version !== 'unknown') {
+                    line += \` (Current: ${opp.current_version})\`;
+                  }
+                  if (opp.details && opp.details.migration_effort) {
+                    line += \` - Effort: ${opp.details.migration_effort}\`;
+                  }
+                  summary.addRaw(line + '\n');
+                }
+              }
+              
+              // Medium priority
+              if (priorities.medium.length > 0) {
+                summary.addRaw('\n**🟡 Medium Priority:**\n');
+                for (const opp of priorities.medium) {
+                  let line = \`- **${opp.concept}**\`;
+                  if (opp.current_version && opp.current_version !== 'unknown') {
+                    line += \` (Current: ${opp.current_version})\`;
+                  }
+                  if (opp.details && opp.details.migration_effort) {
+                    line += \` - Effort: ${opp.details.migration_effort}\`;
+                  }
+                  summary.addRaw(line + '\n');
+                }
+              }
+              
+              // Low priority
+              if (priorities.low.length > 0) {
+                summary.addRaw('\n**🟢 Low Priority:**\n');
+                for (const opp of priorities.low) {
+                  let line = \`- **${opp.concept}**\`;
+                  if (opp.current_version && opp.current_version !== 'unknown') {
+                    line += \` (Current: ${opp.current_version})\`;
+                  }
+                  if (opp.details && opp.details.migration_effort) {
+                    line += \` - Effort: ${opp.details.migration_effort}\`;
+                  }
+                  summary.addRaw(line + '\n');
+                }
+              }
+            }
+            
+            summary.addHeading('🎯 Next Steps', 3)
+              .addRaw(\`
+1. **Review Generated Issues**: Check issues with \\\`ai-generated\\\` and \\\`concept-proposal\\\` labels
+2. **Prioritize Work**: Focus on high-priority items with low migration effort
+3. **Validate Concepts**: Use @requirements-analyst agent to research and validate
+4. **Plan Implementation**: Use @software-architect for architectural design
+5. **Execute**: Assign to template specialists for implementation
+              \`)
+              .addHeading('📈 Recommended Focus Areas', 3);
+            
+            // Identify quick wins (low effort, high/medium priority)
+            const quickWins = opportunities.filter(o => 
+              o.details && o.details.migration_effort === 'low' && 
+              (o.priority === 'high' || o.priority === 'medium')
+            );
+            
+            if (quickWins.length > 0) {
+              summary.addRaw('**Quick Wins (Low Effort, High/Medium Priority):**\n');
+              for (const opp of quickWins) {
+                summary.addRaw(\`- ${opp.concept}\n\`);
+              }
+            }
+            
+            // High impact (high priority, any effort)
+            const highImpact = opportunities.filter(o => o.priority === 'high');
+            if (highImpact.length > 0 && highImpact.length !== quickWins.length) {
+              summary.addRaw('\n**High Impact (High Priority):**\n');
+              for (const opp of highImpact.filter(o => !quickWins.includes(o))) {
+                summary.addRaw(\`- ${opp.concept} (Effort: ${opp.details?.migration_effort || 'unknown'})\n\`);
+              }
+            }
+            
+            summary.addLink('View AI Workflows Documentation', '/docs/ai-workflows.md')
+              .addLink('View All Concept Proposals', \`https://github.com/${context.repo.owner}/${context.repo.repo}/issues?q=is%3Aissue+is%3Aopen+label%3Aconcept-proposal\`)
               .write();
