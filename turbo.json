@@ -10,18 +10,10 @@
         "build/**"
       ]
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
     "lint:fix": {
-      "dependsOn": ["^build"],
       "cache": false
     },
-    "test": {
-      "dependsOn": ["^build"]
-    },
     "test:coverage": {
-      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
     "test:watch": {
@@ -29,13 +21,13 @@
       "persistent": true
     },
     "bundlesize": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "check-types": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "check-treeshaking": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "dev": {
       "cache": false,
@@ -50,7 +42,7 @@
       "outputs": ["playwright-report/**", "test-results/**"]
     },
     "playwright:run-e2e": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "outputs": ["playwright-report/**", "test-results/**"]
     }
   }
