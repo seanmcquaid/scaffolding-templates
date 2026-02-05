@@ -267,13 +267,13 @@ export default defineConfig({
 // env.client.ts
 import { z } from 'zod';
 
-const envSchema = z.object({
+const clientEnvSchema = z.object({
   VITE_API_URL: z.string().url(),
   VITE_APP_NAME: z.string(),
   VITE_ENV: z.enum(['development', 'staging', 'production']),
 });
 
-export const env = envSchema.parse({
+export const clientEnv = clientEnvSchema.parse({
   VITE_API_URL: import.meta.env.VITE_API_URL,
   VITE_APP_NAME: import.meta.env.VITE_APP_NAME,
   VITE_ENV: import.meta.env.VITE_ENV,

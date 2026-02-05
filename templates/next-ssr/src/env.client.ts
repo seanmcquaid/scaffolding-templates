@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-const envSchema = z.object({
+const clientEnvSchema = z.object({
   NEXT_PUBLIC_APP_ENVIRONMENT: z.enum(['dev', 'qa', 'staging', 'prod']),
 });
 
-const env = envSchema.parse(process.env);
+const clientEnv = clientEnvSchema.parse(process.env);
 
-export default env;
+export default clientEnv;

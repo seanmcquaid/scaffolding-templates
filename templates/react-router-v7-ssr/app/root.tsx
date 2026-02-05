@@ -17,7 +17,7 @@ import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
 import { Toaster } from './components/ui/Toaster';
-import env from './env.client';
+import clientEnv from './env.client';
 import serverEnv from './env.server';
 import useAppTranslation from './hooks/useAppTranslation';
 import i18next from './i18n/i18next.server';
@@ -38,7 +38,7 @@ const clientLoggerMiddleware: Route.ClientMiddlewareFunction = async (
   // Run the remaining middlewares and all route loaders
   await next();
 
-  if (env.VITE_APP_ENVIRONMENT !== 'dev') {
+  if (clientEnv.VITE_APP_ENVIRONMENT !== 'dev') {
     return;
   }
 

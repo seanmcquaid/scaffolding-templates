@@ -159,7 +159,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url().optional(),
 });
 
-const env = envSchema.parse(process.env);
+const clientEnv = clientEnvSchema.parse(process.env);
 
 export default env;
 ```
@@ -176,7 +176,7 @@ console.log(serverEnv.DATABASE_URL);       // string | undefined (typed!)
 // Client-side code (components, client components)
 import env from '@/env.client';
 
-console.log(env.NEXT_PUBLIC_APP_ENVIRONMENT); // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
+console.log(clientEnv.NEXT_PUBLIC_APP_ENVIRONMENT); // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
 ```
 
 ### Environment File (.env.example)

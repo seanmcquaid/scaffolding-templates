@@ -408,12 +408,12 @@ export const serverEnv = serverEnvSchema.parse(process.env);
 
 ```typescript
 // app/env.client.ts
-const envSchema = z.object({
+const clientEnvSchema = z.object({
   VITE_API_URL: z.string().url(),
   VITE_APP_NAME: z.string(),
 });
 
-export const env = envSchema.parse({
+export const clientEnv = clientEnvSchema.parse({
   VITE_API_URL: import.meta.env.VITE_API_URL,
   VITE_APP_NAME: import.meta.env.VITE_APP_NAME,
 });

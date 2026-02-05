@@ -155,7 +155,7 @@ export default serverEnv;
 ```typescript
 import { z } from 'zod';
 
-const envSchema = z.object({
+const clientEnvSchema = z.object({
   MODE: z.enum(['development', 'test', 'production']),
   VITE_APP_ENVIRONMENT: z.enum(['dev', 'qa', 'staging', 'prod']),
   VITE_APP_MSW_ENABLED: z
@@ -163,7 +163,7 @@ const envSchema = z.object({
     .transform(value => value === 'true'),
 });
 
-const env = envSchema.parse(import.meta.env);
+const clientEnv = clientEnvSchema.parse(import.meta.env);
 
 export default env;
 ```
@@ -178,10 +178,10 @@ console.log(serverEnv.NODE_ENV);               // 'development' | 'test' | 'prod
 console.log(serverEnv.VITE_APP_MSW_ENABLED);   // boolean (typed!)
 
 // Client-side code (components, entry.client.tsx)
-import env from '~/env.client';
+import clientEnv from '~/env.client';
 
-console.log(env.MODE);                   // 'development' | 'test' | 'production' (typed!)
-console.log(env.VITE_APP_ENVIRONMENT);   // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
+console.log(clientEnv.MODE);                   // 'development' | 'test' | 'production' (typed!)
+console.log(clientEnv.VITE_APP_ENVIRONMENT);   // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
 ```
 
 ### Environment File (.env.example)
