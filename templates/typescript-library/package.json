@@ -6,6 +6,17 @@
   "author": "",
   "sideEffects": false,
   "type": "module",
+  "scripts": {
+    "build": "tsdown",
+    "check-treeshaking": "madge --circular --extensions ts ./src",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --max-warnings=0",
+    "lint:fix": "eslint src --fix",
+    "prepare": "is-ci || husky",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest"
+  },
   "devDependencies": {
     "@types/madge": "^5.0.3",
     "eslint": "^9.39.2",
