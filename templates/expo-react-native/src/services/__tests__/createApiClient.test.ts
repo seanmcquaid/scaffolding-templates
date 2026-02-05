@@ -1,8 +1,9 @@
 import { createApiClient, apiClient } from '@/services/createApiClient';
 
-// Mock env.client to avoid Expo imports
-jest.mock('@/env.client', () => ({
-  clientEnv: {
+// Mock env to avoid Expo imports
+jest.mock('@/env', () => ({
+  __esModule: true,
+  default: {
     EXPO_PUBLIC_API_URL: 'https://api.example.com',
   },
 }));

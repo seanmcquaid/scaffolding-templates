@@ -16,7 +16,7 @@ import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
 import { Toaster } from './components/ui/Toaster';
-import env from './env.client';
+import env from './env';
 import queryClient from './services/queries/queryClient';
 import stylesheet from './styles/index.css?url';
 

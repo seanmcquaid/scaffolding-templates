@@ -584,7 +584,7 @@ export const handlers = [
 // env.client.ts - Client-side environment variables
 import { z } from 'zod';
 
-const clientEnvSchema = z.object({
+const envSchema = z.object({
   NEXT_PUBLIC_API_URL: z.string().url(),
 });
 
