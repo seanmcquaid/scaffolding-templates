@@ -10,18 +10,12 @@
         "build/**"
       ]
     },
-    "lint": {
-      "dependsOn": ["^build"]
-    },
+    "lint": {},
     "lint:fix": {
-      "dependsOn": ["^build"],
       "cache": false
     },
-    "test": {
-      "dependsOn": ["^build"]
-    },
+    "test": {},
     "test:coverage": {
-      "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
     "test:watch": {
@@ -29,6 +23,12 @@
       "persistent": true
     },
     "bundlesize": {
+      "dependsOn": ["build"]
+    },
+    "check-types": {
+      "dependsOn": ["build"]
+    },
+    "check-treeshaking": {
       "dependsOn": ["build"]
     },
     "dev": {
