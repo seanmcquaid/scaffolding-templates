@@ -83,6 +83,8 @@ jobs:
           cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build TypeScript Library
+        run: pnpm --filter typescript-library build
       - name: Check Types
         run: pnpm --filter typescript-library check-types
   typescript-library-tree-shaking:
@@ -100,5 +102,7 @@ jobs:
           cache: "pnpm"
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build TypeScript Library
+        run: pnpm --filter typescript-library build
       - name: Check Tree Shaking
         run: pnpm --filter typescript-library check-treeshaking
