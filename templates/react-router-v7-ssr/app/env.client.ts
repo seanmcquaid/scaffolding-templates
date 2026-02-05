@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const clientEnvSchema = z.object({
+const envSchema = z.object({
   MODE: z.enum(['development', 'test', 'production']),
   VITE_APP_ENVIRONMENT: z.enum(['dev', 'qa', 'staging', 'prod']),
   VITE_APP_MSW_ENABLED: z
@@ -8,6 +8,6 @@ const clientEnvSchema = z.object({
     .transform(value => value === 'true'),
 });
 
-const clientEnv = clientEnvSchema.parse(import.meta.env);
+const env = envSchema.parse(import.meta.env);
 
-export default clientEnv;
+export default env;

@@ -1,9 +1,9 @@
 import ky from 'ky';
-import clientEnv from '@/env';
+import env from '@/env';
 
 export const createApiClient = () => {
   return ky.create({
-    prefixUrl: clientEnv.EXPO_PUBLIC_API_URL,
+    prefixUrl: env.EXPO_PUBLIC_API_URL,
     headers: {
       'Content-Type': 'application/json',
     },

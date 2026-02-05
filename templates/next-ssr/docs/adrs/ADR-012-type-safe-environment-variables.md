@@ -154,14 +154,14 @@ export default serverEnv;
 ```typescript
 import { z } from 'zod';
 
-const clientEnvSchema = z.object({
+const envSchema = z.object({
   NEXT_PUBLIC_APP_ENVIRONMENT: z.enum(['dev', 'qa', 'staging', 'prod']),
   NEXT_PUBLIC_API_URL: z.string().url().optional(),
 });
 
-const clientEnv = clientEnvSchema.parse(process.env);
+const env = envSchema.parse(process.env);
 
-export default clientEnv;
+export default env;
 ```
 
 ### Usage in Application Code
@@ -174,9 +174,9 @@ console.log(serverEnv.EXAMPLE_SECRET_KEY); // string (typed!)
 console.log(serverEnv.DATABASE_URL);       // string | undefined (typed!)
 
 // Client-side code (components, client components)
-import clientEnv from '@/env.client';
+import env from '@/env.client';
 
-console.log(clientEnv.NEXT_PUBLIC_APP_ENVIRONMENT); // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
+console.log(env.NEXT_PUBLIC_APP_ENVIRONMENT); // 'dev' | 'qa' | 'staging' | 'prod' (typed!)
 ```
 
 ### Environment File (.env.example)

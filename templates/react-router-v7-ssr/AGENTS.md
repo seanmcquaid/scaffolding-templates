@@ -433,12 +433,12 @@ const serverEnvSchema = z.object({
 export const serverEnv = serverEnvSchema.parse(process.env);
 
 // env.client.ts
-const clientEnvSchema = z.object({
+const envSchema = z.object({
   VITE_API_URL: z.string().url(),
   VITE_APP_NAME: z.string(),
 });
 
-export const clientEnv = clientEnvSchema.parse({
+export const env = envSchema.parse({
   VITE_API_URL: import.meta.env.VITE_API_URL,
   VITE_APP_NAME: import.meta.env.VITE_APP_NAME,
 });
