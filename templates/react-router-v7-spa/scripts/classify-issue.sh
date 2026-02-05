@@ -2,11 +2,12 @@
 set -e
 
 # Classify a GitHub issue and determine agents, labels, and next steps
-# Usage: ./scripts/classify-issue.sh <issue-title> <issue-body>
-# Output: JSON with classification, agents, labels, and next steps
+# Usage: ./scripts/classify-issue.sh <issue-title> <issue-body> [--format json]
+# Output: JSON with classification, agents, labels, next steps, and metadata
 
 TITLE="${1:-}"
 BODY="${2:-}"
+FORMAT="${3:-json}"
 
 if [ -z "$TITLE" ]; then
   echo '{"error": "Issue title is required"}' >&2
@@ -21,6 +22,10 @@ ANALYSIS=""
 AGENTS=""
 LABELS=""
 NEXT_STEPS=""
+COMPLEXITY="medium"
+PRIORITY="medium"
+ESTIMATED_EFFORT="unknown"
+RELATED_CONCEPTS=""
 
 # Bug-related
 if echo "$CONTENT" | grep -qE "(bug|error|fix|broken|issue|problem)"; then
@@ -172,6 +177,57 @@ if [ -z "$ANALYSIS" ]; then
    - Update documentation"
 fi
 
+# Estimate complexity based on keywords
+if echo "$CONTENT" | grep -qE "(architecture|refactor|migrate|redesign)"; then
+  COMPLEXITY="high"
+  ESTIMATED_EFFORT="2-4 weeks"
+elif echo "$CONTENT" | grep -qE "(authentication|authorization|security|performance|optimization)"; then
+  COMPLEXITY="high"
+  ESTIMATED_EFFORT="1-3 weeks"
+elif echo "$CONTENT" | grep -qE "(new feature|add|implement|integration)"; then
+  COMPLEXITY="medium"
+  ESTIMATED_EFFORT="3-7 days"
+elif echo "$CONTENT" | grep -qE "(bug|fix|issue|problem)"; then
+  COMPLEXITY="low"
+  ESTIMATED_EFFORT="1-3 days"
+elif echo "$CONTENT" | grep -qE "(documentation|readme|docs)"; then
+  COMPLEXITY="low"
+  ESTIMATED_EFFORT="1-2 days"
+fi
+
+# Determine priority
+if echo "$CONTENT" | grep -qE "(critical|urgent|security|vulnerability|broken|production)"; then
+  PRIORITY="high"
+elif echo "$CONTENT" | grep -qE "(enhancement|improvement|optimization|nice to have)"; then
+  PRIORITY="low"
+fi
+
+# Identify related concepts/technologies
+if echo "$CONTENT" | grep -qE "(authentication|auth|jwt|oauth|session)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}authentication,"
+fi
+if echo "$CONTENT" | grep -qE "(testing|test|coverage|spec)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}testing,"
+fi
+if echo "$CONTENT" | grep -qE "(typescript|type|interface)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}typescript,"
+fi
+if echo "$CONTENT" | grep -qE "(api|rest|graphql|endpoint)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}api,"
+fi
+if echo "$CONTENT" | grep -qE "(ui|ux|design|layout|component)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}ui-ux,"
+fi
+if echo "$CONTENT" | grep -qE "(performance|optimization|speed|slow)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}performance,"
+fi
+if echo "$CONTENT" | grep -qE "(security|vulnerability|xss|csrf)"; then
+  RELATED_CONCEPTS="${RELATED_CONCEPTS}security,"
+fi
+
+# Clean up related concepts (remove trailing comma, convert to array)
+RELATED_CONCEPTS=$(echo "$RELATED_CONCEPTS" | sed 's/,$//' | tr ',' '\n' | grep -v '^$')
+
 # Always add implementation engineer for code changes
 if echo "$LABELS" | grep -qE "(enhancement|bug)"; then
   if ! echo "$AGENTS" | grep -q "@implementation-engineer"; then
@@ -189,6 +245,12 @@ cat << EOF
   "analysis": $(echo "$ANALYSIS" | jq -Rs .),
   "agents": $(echo "$AGENTS" | xargs -n1 | jq -Rs 'split("\n") | map(select(length > 0))'),
   "labels": $(echo "$LABELS" | xargs -n1 | jq -Rs 'split("\n") | map(select(length > 0))'),
-  "next_steps": $(echo "$NEXT_STEPS" | jq -Rs .)
+  "next_steps": $(echo "$NEXT_STEPS" | jq -Rs .),
+  "metadata": {
+    "complexity": "$COMPLEXITY",
+    "priority": "$PRIORITY",
+    "estimated_effort": "$ESTIMATED_EFFORT",
+    "related_concepts": $(echo "$RELATED_CONCEPTS" | jq -Rs 'split("\n") | map(select(length > 0))')
+  }
 }
 EOF

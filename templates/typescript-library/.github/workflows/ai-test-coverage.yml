@@ -55,11 +55,18 @@ jobs:
       - name: Identify Coverage Gaps
         id: gaps
         run: |
-          # Run coverage gaps script and capture output
-          GAPS=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} | grep -E "^[a-z-]+: " || echo "")
+          # Run coverage gaps script with JSON output
+          GAPS_JSON=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} --format json 2>/dev/null)
+          
+          # Also get text format for backwards compatibility
+          GAPS_TEXT=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} | grep -E "^[a-z-]+: " || echo "")
+          
+          echo "gaps_json<<EOF" >> $GITHUB_OUTPUT
+          echo "$GAPS_JSON" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           
           echo "gaps<<EOF" >> $GITHUB_OUTPUT
-          echo -e "$GAPS" >> $GITHUB_OUTPUT
+          echo -e "$GAPS_TEXT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Identify Missing Test Types
@@ -77,102 +84,222 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const gaps = `${{ steps.gaps.outputs.gaps }}`;
+            const gapsJson = `${{ steps.gaps.outputs.gaps_json }}`;
             const missing = `${{ steps.missing-tests.outputs.missing }}`;
             
-            const allGaps = [...gaps.split('\n'), ...missing.split('\n')]
-              .filter(line => line.trim() && line.includes(':'));
+            let templatesData = [];
+            try {
+              templatesData = JSON.parse(gapsJson);
+            } catch (e) {
+              console.error('Failed to parse gaps JSON:', e);
+              return;
+            }
             
-            const groupedGaps = {};
+            // Parse missing tests data
+            const missingTests = {};
+            if (missing) {
+              missing.split('\n').filter(line => line.trim() && line.includes(':')).forEach(line => {
+                const [template, ...rest] = line.split(':');
+                if (!missingTests[template]) {
+                  missingTests[template] = [];
+                }
+                missingTests[template].push(rest.join(':').trim());
+              });
+            }
             
-            allGaps.forEach(gap => {
-              const [template, ...rest] = gap.split(':');
-              const issue = rest.join(':').trim();
+            for (const templateData of templatesData) {
+              const template = templateData.template;
               
-              if (!groupedGaps[template]) {
-                groupedGaps[template] = [];
+              // Skip if no gaps and no missing tests
+              if (!templateData.has_gaps && (!missingTests[template] || missingTests[template].length === 0)) {
+                continue;
               }
-              groupedGaps[template].push(issue);
-            });
-            
-            for (const [template, issues] of Object.entries(groupedGaps)) {
-              if (issues.length === 0) continue;
               
-              const title = `[Test Coverage] Improve ${template} test coverage`;
-              const body = `## 🧪 Test Coverage Gap Analysis
+              // Skip if there's an error
+              if (templateData.error) {
+                console.log(\`⊘ Skipping ${template}: ${templateData.error}\`);
+                continue;
+              }
               
-              **Template**: \`${template}\`
-              **Analysis Date**: ${new Date().toISOString().split('T')[0]}
-              **Coverage Threshold**: ${{ env.MIN_COVERAGE_THRESHOLD }}%
+              const title = \`[Test Coverage] Improve ${template} test coverage\`;
               
-              ### Identified Gaps
+              // Build coverage metrics section
+              let coverageMetrics = '| Metric | Current | Target | Gap |\n';
+              coverageMetrics += '|--------|---------|--------|-----|\n';
               
-              ${issues.map(issue => `- ${issue}`).join('\n')}
+              if (templateData.coverage) {
+                const cov = templateData.coverage;
+                if (cov.lines) {
+                  const gap = cov.lines.total - cov.lines.covered;
+                  coverageMetrics += \`| **Lines** | ${cov.lines.pct}% (${cov.lines.covered}/${cov.lines.total}) | ${{ env.MIN_COVERAGE_THRESHOLD }}% | ${gap} lines |\n\`;
+                }
+                if (cov.branches) {
+                  const gap = cov.branches.total - cov.branches.covered;
+                  coverageMetrics += \`| **Branches** | ${cov.branches.pct}% (${cov.branches.covered}/${cov.branches.total}) | ${{ env.MIN_COVERAGE_THRESHOLD }}% | ${gap} branches |\n\`;
+                }
+                if (cov.functions) {
+                  const gap = cov.functions.total - cov.functions.covered;
+                  coverageMetrics += \`| **Functions** | ${cov.functions.pct}% (${cov.functions.covered}/${cov.functions.total}) | ${{ env.MIN_COVERAGE_THRESHOLD }}% | ${gap} functions |\n\`;
+                }
+                if (cov.statements) {
+                  coverageMetrics += \`| **Statements** | ${cov.statements.pct}% | ${{ env.MIN_COVERAGE_THRESHOLD }}% | - |\n\`;
+                }
+              }
               
-              ### Recommendations
+              // Build specific gaps section
+              let gapsSection = '';
+              if (templateData.gaps && templateData.gaps.length > 0) {
+                gapsSection = '### 📊 Coverage Gaps by Type\n\n';
+                for (const gap of templateData.gaps) {
+                  const emoji = gap.type === 'line' ? '📝' : gap.type === 'branch' ? '🔀' : '⚡';
+                  gapsSection += \`${emoji} **${gap.type.charAt(0).toUpperCase() + gap.type.slice(1)} Coverage**\n\`;
+                  gapsSection += \`- Current: ${gap.current}%\n\`;
+                  gapsSection += \`- Target: ${gap.target}%\n\`;
+                  gapsSection += \`- Missing: ${gap.missing} ${gap.type}s need coverage\n\n\`;
+                }
+              }
               
-              #### Unit Tests
-              - Test individual components in isolation
-              - Test custom hooks independently
-              - Test utility functions thoroughly
-              - Mock external dependencies
+              // Build low coverage files section
+              let lowCoverageSection = '';
+              if (templateData.low_coverage_files && templateData.low_coverage_files.length > 0) {
+                lowCoverageSection = '### 🎯 Files Needing Attention\n\n';
+                lowCoverageSection += 'These files have the lowest coverage and should be prioritized:\n\n';
+                lowCoverageSection += '| File | Coverage | Uncovered Lines |\n';
+                lowCoverageSection += '|------|----------|----------------|\n';
+                for (const file of templateData.low_coverage_files) {
+                  lowCoverageSection += \`| \\\`${file.file}\\\` | ${file.coverage}% | ${file.uncovered}/${file.total} |\n\`;
+                }
+                lowCoverageSection += '\n';
+              }
               
-              #### Integration Tests
-              - Test component interactions
-              - Test data flow between components
-              - Test API integration with MSW
-              - Test routing and navigation flows
+              // Build missing tests section
+              let missingTestsSection = '';
+              if (missingTests[template] && missingTests[template].length > 0) {
+                missingTestsSection = '### ⚠️  Missing Test Types\n\n';
+                missingTestsSection += missingTests[template].map(t => \`- ${t}\`).join('\n') + '\n\n';
+              }
               
-              #### E2E Tests (Optional, run separately)
-              - Test critical user journeys
-              - Test with real APIs in staging environment
-              - Focus on high-value flows
-              - Keep E2E tests minimal and maintainable
+              // Get template specialist
+              const specialistMap = {
+                'typescript-library': 'typescript-library-specialist',
+                'next-ssr': 'nextjs-ssr-specialist',
+                'react-router-v7-spa': 'react-router-spa-specialist',
+                'react-router-v7-ssr': 'react-router-ssr-specialist',
+                'tanstack-router-spa': 'tanstack-router-spa-specialist',
+                'expo-react-native': 'expo-react-native-specialist'
+              };
+              const specialist = specialistMap[template] || 'implementation-engineer';
               
-              ### Testing Strategy Reference
-              
-              From repository documentation:
-              
-              1. **Unit Tests**: Components, hooks, utils, pages
-                 - Fast and isolated
-                 - Run on every commit
-              
-              2. **Integration Tests**: Happy path flows with mocked APIs
-                 - Use MSW for API mocking
-                 - Test feature workflows
-              
-              3. **E2E Tests**: High-level user flows with real APIs
-                 - Use Playwright
-                 - Run in CI/CD after deployment
-                 - Keep slow tests out of PR checks
-              
-              ### Next Steps
-              
-              1. **Analysis** (Use @quality-analyst agent):
-                 - Review existing test files
-                 - Identify untested code paths
-                 - Plan test cases for missing coverage
-              
-              2. **Implementation** (Use @${template}-specialist agent):
-                 - Write tests following template patterns
-                 - Use appropriate testing utilities
-                 - Ensure tests are maintainable
-              
-              3. **Validation**:
-                 - Run \`pnpm test:coverage\` locally
-                 - Verify coverage meets threshold
-                 - Ensure tests are stable and fast
-              
-              ### Relevant Agents
-              
-              - @quality-analyst - Test strategy and implementation
-              - @${template}-specialist - Framework-specific test patterns
-              - @implementation-engineer - Code implementation support
-              
-              ---
-              *This issue was automatically generated by AI test coverage analysis workflow.*
-              *See [\`/docs/ai-workflows.md\`](/docs/ai-workflows.md) for details.*
-              `;
+              const body = \`## 🧪 Test Coverage Gap Analysis
+
+**Template**: \\\`${template}\\\`
+**Analysis Date**: ${new Date().toISOString().split('T')[0]}
+**Coverage Threshold**: ${{ env.MIN_COVERAGE_THRESHOLD }}%
+
+### 📈 Coverage Metrics
+
+${coverageMetrics}
+
+${gapsSection}${lowCoverageSection}${missingTestsSection}
+
+### 💡 Recommended Actions
+
+Based on the analysis, here are prioritized actions:
+
+1. **High Priority** - Files with <50% coverage
+   - Focus on critical paths and error handling
+   - Add unit tests for core functionality
+   
+2. **Medium Priority** - Files with 50-${{ env.MIN_COVERAGE_THRESHOLD }}% coverage
+   - Add tests for edge cases
+   - Improve branch coverage
+   
+3. **Low Priority** - Files near threshold
+   - Add tests for remaining branches
+   - Test error conditions
+
+### 🧪 Testing Strategy
+
+#### Unit Tests
+- ✅ Test individual components in isolation
+- ✅ Test custom hooks independently with \`@testing-library/react-hooks\`
+- ✅ Test utility functions thoroughly with edge cases
+- ✅ Mock external dependencies properly
+
+#### Integration Tests  
+- ✅ Test component interactions and data flow
+- ✅ Test API integration with MSW (Mock Service Worker)
+- ✅ Test routing and navigation flows
+- ✅ Test form submissions and validations
+
+#### E2E Tests (Optional, run separately)
+- ✅ Test critical user journeys end-to-end
+- ✅ Test with real APIs in staging environment
+- ✅ Focus on high-value, business-critical flows
+- ✅ Keep E2E tests minimal and maintainable
+
+### 📋 Testing Best Practices
+
+**From Repository Documentation:**
+
+1. **Unit Tests**: Components, hooks, utils, pages
+   - Fast and isolated
+   - Run on every commit
+   - Mock external dependencies
+
+2. **Integration Tests**: Happy path flows with mocked APIs
+   - Use MSW for API mocking
+   - Test feature workflows
+   - Cover user interactions
+
+3. **E2E Tests**: High-level user flows with real APIs
+   - Use Playwright
+   - Run in CI/CD after deployment
+   - Keep slow tests out of PR checks
+
+### 🎯 Implementation Plan
+
+- [ ] **Phase 1: Analysis** (Use @quality-analyst agent)
+  - Review existing test files and patterns
+  - Identify untested code paths from coverage report
+  - Plan specific test cases for missing coverage
+  - Estimate effort and prioritize work
+
+- [ ] **Phase 2: Implementation** (Use @${specialist} agent)
+  - Write tests following template patterns
+  - Use appropriate testing utilities (@testing-library/react, etc.)
+  - Ensure tests are maintainable and well-documented
+  - Follow AAA pattern (Arrange, Act, Assert)
+
+- [ ] **Phase 3: Validation**
+  - Run \\\`pnpm test:coverage\\\` locally
+  - Verify coverage meets or exceeds ${{ env.MIN_COVERAGE_THRESHOLD }}% threshold
+  - Ensure all tests pass consistently
+  - Review test quality and maintainability
+
+- [ ] **Phase 4: Documentation**
+  - Document any new testing patterns
+  - Update test documentation if needed
+  - Add inline comments for complex test scenarios
+
+### 👥 Relevant Agents
+
+- **@quality-analyst** - Test strategy, implementation, and coverage analysis
+- **@${specialist}** - Framework-specific test patterns and best practices
+- **@implementation-engineer** - Code implementation support
+
+### 📚 Resources
+
+- [Testing Library Documentation](https://testing-library.com/docs/react-testing-library/intro/)
+- [Vitest Documentation](https://vitest.dev/)
+- [MSW Documentation](https://mswjs.io/)
+- [Repository Testing Guide](/docs/testing-strategy.md)
+
+---
+*This issue was automatically generated by AI test coverage analysis workflow.*
+*Run \\\`./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }}\\\` locally to see current gaps.*
+*See [\\\`/docs/ai-workflows.md\\\`](/docs/ai-workflows.md) for workflow details.*
+\`;
               
               // Check if similar issue already exists
               const existingIssues = await github.rest.issues.listForRepo({
@@ -192,12 +319,12 @@ jobs:
                   repo: context.repo.repo,
                   title: title,
                   body: body,
-                  labels: ['ai-generated', 'coverage-gap', 'testing', `template:${template}`]
+                  labels: ['ai-generated', 'coverage-gap', 'testing', \`template:${template}\`]
                 });
                 
-                console.log(`Created issue: ${title}`);
+                console.log(\`✓ Created issue: ${title}\`);
               } else {
-                console.log(`Skipping duplicate issue: ${title}`);
+                console.log(\`⊘ Skipping duplicate issue: ${title}\`);
               }
             }
 
