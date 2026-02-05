@@ -29,7 +29,7 @@
       "persistent": true
     },
     "bundlesize": {
-      "dependsOn": ["build"]
+      "dependsOn": ["^build"]
     },
     "dev": {
       "cache": false,
@@ -44,7 +44,7 @@
       "outputs": ["playwright-report/**", "test-results/**"]
     },
     "playwright:run-e2e": {
-      "dependsOn": ["build"],
+      "dependsOn": ["^build"],
       "outputs": ["playwright-report/**", "test-results/**"]
     }
   }
