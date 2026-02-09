@@ -38,7 +38,7 @@ jobs:
         run: |
           # Run coverage analysis script
           ./scripts/run-coverage-analysis.sh coverage-reports
-          
+
           # Extract coverage summary
           COVERAGE_SUMMARY=""
           for TEMPLATE in typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native; do
@@ -47,7 +47,7 @@ jobs:
               COVERAGE_SUMMARY="$COVERAGE_SUMMARY\n$TEMPLATE: $TOTAL"
             fi
           done
-          
+
           echo "coverage_summary<<EOF" >> $GITHUB_OUTPUT
           echo -e "$COVERAGE_SUMMARY" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -57,14 +57,14 @@ jobs:
         run: |
           # Run coverage gaps script with JSON output
           GAPS_JSON=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} --format json 2>/dev/null)
-          
+
           # Also get text format for backwards compatibility
           GAPS_TEXT=$(./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }} | grep -E "^[a-z-]+: " || echo "")
-          
+
           echo "gaps_json<<EOF" >> $GITHUB_OUTPUT
           echo "$GAPS_JSON" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          
+
           echo "gaps<<EOF" >> $GITHUB_OUTPUT
           echo -e "$GAPS_TEXT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -74,7 +74,7 @@ jobs:
         run: |
           # Run missing tests script and capture output
           MISSING=$(./scripts/identify-missing-tests.sh | grep -E "^[a-z-]+: " || echo "")
-          
+
           echo "missing<<EOF" >> $GITHUB_OUTPUT
           echo -e "$MISSING" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -86,7 +86,7 @@ jobs:
           script: |
             const gapsJson = `${{ steps.gaps.outputs.gaps_json }}`;
             const missing = `${{ steps.missing-tests.outputs.missing }}`;
-            
+
             let templatesData = [];
             try {
               templatesData = JSON.parse(gapsJson);
@@ -94,7 +94,7 @@ jobs:
               console.error('Failed to parse gaps JSON:', e);
               return;
             }
-            
+
             // Parse missing tests data
             const missingTests = {};
             if (missing) {
@@ -106,27 +106,27 @@ jobs:
                 missingTests[template].push(rest.join(':').trim());
               });
             }
-            
+
             for (const templateData of templatesData) {
               const template = templateData.template;
-              
+
               // Skip if no gaps and no missing tests
               if (!templateData.has_gaps && (!missingTests[template] || missingTests[template].length === 0)) {
                 continue;
               }
-              
+
               // Skip if there's an error
               if (templateData.error) {
                 console.log(\`⊘ Skipping ${template}: ${templateData.error}\`);
                 continue;
               }
-              
+
               const title = \`[Test Coverage] Improve ${template} test coverage\`;
-              
+
               // Build coverage metrics section
               let coverageMetrics = '| Metric | Current | Target | Gap |\n';
               coverageMetrics += '|--------|---------|--------|-----|\n';
-              
+
               if (templateData.coverage) {
                 const cov = templateData.coverage;
                 if (cov.lines) {
@@ -145,7 +145,7 @@ jobs:
                   coverageMetrics += \`| **Statements** | ${cov.statements.pct}% | ${{ env.MIN_COVERAGE_THRESHOLD }}% | - |\n\`;
                 }
               }
-              
+
               // Build specific gaps section
               let gapsSection = '';
               if (templateData.gaps && templateData.gaps.length > 0) {
@@ -158,7 +158,7 @@ jobs:
                   gapsSection += \`- Missing: ${gap.missing} ${gap.type}s need coverage\n\n\`;
                 }
               }
-              
+
               // Build low coverage files section
               let lowCoverageSection = '';
               if (templateData.low_coverage_files && templateData.low_coverage_files.length > 0) {
@@ -171,14 +171,14 @@ jobs:
                 }
                 lowCoverageSection += '\n';
               }
-              
+
               // Build missing tests section
               let missingTestsSection = '';
               if (missingTests[template] && missingTests[template].length > 0) {
                 missingTestsSection = '### ⚠️  Missing Test Types\n\n';
                 missingTestsSection += missingTests[template].map(t => \`- ${t}\`).join('\n') + '\n\n';
               }
-              
+
               // Get template specialist
               const specialistMap = {
                 'typescript-library': 'typescript-library-specialist',
@@ -189,7 +189,7 @@ jobs:
                 'expo-react-native': 'expo-react-native-specialist'
               };
               const specialist = specialistMap[template] || 'implementation-engineer';
-              
+
               const body = \`## 🧪 Test Coverage Gap Analysis
 
               **Template**: \\\`${template}\\\`
@@ -209,11 +209,11 @@ jobs:
               1. **High Priority** - Files with <50% coverage
               - Focus on critical paths and error handling
               - Add unit tests for core functionality
-   
+
               2. **Medium Priority** - Files with 50-${{ env.MIN_COVERAGE_THRESHOLD }}% coverage
               - Add tests for edge cases
               - Improve branch coverage
-   
+
               3. **Low Priority** - Files near threshold
               - Add tests for remaining branches
               - Test error conditions
@@ -226,7 +226,7 @@ jobs:
               - ✅ Test utility functions thoroughly with edge cases
               - ✅ Mock external dependencies properly
 
-              #### Integration Tests  
+              #### Integration Tests
               - ✅ Test component interactions and data flow
               - ✅ Test API integration with MSW (Mock Service Worker)
               - ✅ Test routing and navigation flows
@@ -300,7 +300,7 @@ jobs:
               *Run \\\`./scripts/identify-coverage-gaps.sh ${{ env.MIN_COVERAGE_THRESHOLD }}\\\` locally to see current gaps.*
               *See [\\\`/docs/ai-workflows.md\\\`](/docs/ai-workflows.md) for workflow details.*
               \`;
-              
+
               // Check if similar issue already exists
               const existingIssues = await github.rest.issues.listForRepo({
                 owner: context.repo.owner,
@@ -308,11 +308,11 @@ jobs:
                 labels: 'ai-generated,coverage-gap',
                 state: 'open'
               });
-              
-              const isDuplicate = existingIssues.data.some(issue => 
+
+              const isDuplicate = existingIssues.data.some(issue =>
                 issue.title.toLowerCase().includes(template.toLowerCase())
               );
-              
+
               if (!isDuplicate) {
                 await github.rest.issues.create({
                   owner: context.repo.owner,
@@ -321,7 +321,7 @@ jobs:
                   body: body,
                   labels: ['ai-generated', 'coverage-gap', 'testing', \`template:${template}\`]
                 });
-                
+
                 console.log(\`✓ Created issue: ${title}\`);
               } else {
                 console.log(\`⊘ Skipping duplicate issue: ${title}\`);
@@ -336,10 +336,10 @@ jobs:
             const coverageSummary = `${{ steps.coverage.outputs.coverage_summary }}`;
             const gaps = `${{ steps.gaps.outputs.gaps }}`;
             const missing = `${{ steps.missing-tests.outputs.missing }}`;
-            
+
             const gapLines = gaps.split('\n').filter(l => l.trim());
             const missingLines = missing.split('\n').filter(l => l.trim());
-            
+
             core.summary
               .addHeading('🧪 Test Coverage Analysis Report')
               .addHeading(`Date: ${new Date().toISOString().split('T')[0]}`, 3)
