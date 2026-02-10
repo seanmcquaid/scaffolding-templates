@@ -28,13 +28,13 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.2",
-    "@eslint/js": "^9.39.2",
+    "@eslint/js": "^10.0.0",
     "@types/madge": "^5.0.3",
     "@vitest/eslint-plugin": "^1.6.6",
     "@vitest/coverage-istanbul": "^4.0.18",
     "agadoo": "^3.0.0",
     "bundlesize2": "^0.0.35",
-    "eslint": "^9.39.2",
+    "eslint": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.3.0",
@@ -52,6 +52,6 @@
   },
   "packageManager": "pnpm@10.12.4",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=22.13.0"
   }
 }
