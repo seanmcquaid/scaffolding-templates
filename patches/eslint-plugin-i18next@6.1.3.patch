@@ -1,0 +1,32 @@
+diff --git a/lib/rules/no-literal-string.js b/lib/rules/no-literal-string.js
+index 88b5f06f6b66d9e5db50ed478e25b013d7d49543..f0e16ab3e39d23a1536923067e1d27309082a955 100644
+--- a/lib/rules/no-literal-string.js
++++ b/lib/rules/no-literal-string.js
+@@ -15,7 +15,7 @@ const {
+ function isValidFunctionCall(context, options, { callee }) {
+   if (callee.type === 'Import') return true;
+ 
+-  const sourceText = context.getSourceCode().getText(callee);
++  const sourceText = context.sourceCode.getText(callee);
+ 
+   return shouldSkip(options.callees, sourceText);
+ }
+@@ -109,7 +109,7 @@ module.exports = {
+     function report(node) {
+       context.report({
+         node,
+-        message: `${message}: ${context.getSourceCode().getText(node.parent)}`,
++        message: `${message}: ${context.sourceCode.getText(node.parent)}`,
+       });
+     }
+ 
+@@ -203,8 +203,7 @@ module.exports = {
+       //
+ 
+       JSXElement(node) {
+-        const fullComponentName = context
+-          .getSourceCode()
++        const fullComponentName = context.sourceCode
+           .getText(node.openingElement.name);
+         indicatorStack.push(
+           shouldSkip(options['jsx-components'], fullComponentName)
