@@ -81,7 +81,7 @@ jobs:
 
               ### 📊 Current State
 
-              **Affected Templates**: ${Array.isArray(concept.affected_templates) ? concept.affected_templates.map(t => \`\\\`${t}\\\`\`).join(', ') : 'all templates'}
+              **Affected Templates**: ${Array.isArray(concept.affected_templates) ? concept.affected_templates.map(t => '`' + t + '`').join(', ') : 'all templates'}
               `;
 
               // Add version information if available
@@ -386,7 +386,7 @@ jobs:
 
             summary.addHeading('🎯 Next Steps', 3)
               .addRaw(\`
-              1. **Review Generated Issues**: Check issues with \\\`ai-generated\\\` and \\\`concept-proposal\\\` labels
+              1. **Review Generated Issues**: Check issues with \`ai-generated\` and \`concept-proposal\` labels
               2. **Prioritize Work**: Focus on high-priority items with low migration effort
               3. **Validate Concepts**: Use @requirements-analyst agent to research and validate
               4. **Plan Implementation**: Use @software-architect for architectural design
