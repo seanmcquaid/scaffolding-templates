@@ -6,6 +6,11 @@ set -e
 
 OUTPUT_DIR="${1:-coverage-reports}"
 
+# Convert OUTPUT_DIR to absolute path
+if [[ "$OUTPUT_DIR" != /* ]]; then
+  OUTPUT_DIR="$(pwd)/$OUTPUT_DIR"
+fi
+
 echo "Running test coverage for all templates..."
 
 TEMPLATES="typescript-library next-ssr react-router-v7-spa react-router-v7-ssr tanstack-router-spa expo-react-native"
@@ -22,7 +27,7 @@ for TEMPLATE in $TEMPLATES; do
     cd "templates/$TEMPLATE"
     
     # Run tests with coverage
-    if pnpm test:coverage 2>&1 | tee "../../$OUTPUT_DIR/$TEMPLATE.log"; then
+    if pnpm test:coverage 2>&1 | tee "$OUTPUT_DIR/$TEMPLATE.log"; then
       echo "✓ Coverage generated for $TEMPLATE"
       
       # Extract coverage summary if available
