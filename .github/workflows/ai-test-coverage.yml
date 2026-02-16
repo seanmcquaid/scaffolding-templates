@@ -176,7 +176,7 @@ jobs:
               let missingTestsSection = '';
               if (missingTests[template] && missingTests[template].length > 0) {
                 missingTestsSection = '### ⚠️  Missing Test Types\n\n';
-                missingTestsSection += missingTests[template].map(t => \`- ${t}\`).join('\n') + '\n\n';
+                missingTestsSection += missingTests[template].map(t => '- ' + t).join('\n') + '\n\n';
               }
 
               // Get template specialist
