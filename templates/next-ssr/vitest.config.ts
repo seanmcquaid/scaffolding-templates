@@ -24,7 +24,7 @@ export default defineConfig({
       ],
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       provider: 'istanbul',
-      reporter: ['lcov'],
+      reporter: ['lcov', 'json-summary'],
     },
     environment: 'happy-dom',
     globals: true,
