@@ -314,13 +314,13 @@ jobs:
               - [ ] All tests pass
               - [ ] Code follows repository patterns
               - [ ] Documentation is updated if needed
-              - [ ] No security vulnerabilities introduced
+              - No security vulnerabilities introduced
               - [ ] i18n keys are used (no hardcoded strings)
 
               ### Next Steps
 
               1. ✅ Review the implementation carefully
-              2. ✅ Run tests locally: \`pnpm test\`
+              2. ✅ Run tests locally: 'pnpm test'
               3. ✅ Test manually if UI changes
               4. ✅ Request changes or approve
               5. ✅ Merge when ready
@@ -328,7 +328,7 @@ jobs:
               ---
               *Automated by Ralph on-demand workflow.*
               *See [Ralph in Cron Jobs](/docs/ralph-in-cron-jobs.md) for details.*
-              *To re-run, comment \`/ralph implement\` on the issue.*
+              *To re-run, comment '/ralph implement' on the issue.*
               `
             });
 
@@ -361,7 +361,7 @@ jobs:
 
               If the implementation needs improvement, you can:
               - Comment on the PR with feedback
-              - Close the PR and comment \`/ralph implement\` again to retry
+              - Close the PR and comment '/ralph implement' again to retry
               - Implement manually if preferred
 
               **View Pull Request:** https://github.com/${context.repo.owner}/${context.repo.repo}/pull/${prNumber}
@@ -409,7 +409,7 @@ jobs:
               **Next Steps:**
               1. Review the workflow logs
               2. Try manual implementation
-              3. Or refine the issue and retry with \`/ralph implement\`
+              3. Or refine the issue and retry with '/ralph implement'
 
               Please review the logs for more details.
               `
@@ -453,7 +453,7 @@ jobs:
               1. Review the issue requirements
               2. Add more context if needed
               3. Try manual implementation
-              4. Or retry with \`/ralph implement\`
+              4. Or retry with '/ralph implement'
 
               **Workflow Run**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
               `
