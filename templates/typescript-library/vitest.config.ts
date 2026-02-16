@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'istanbul',
-      reporter: ['lcov'],
+      reporter: ['lcov', 'json-summary'],
     },
     pool: 'threads',
     environment: 'happy-dom',

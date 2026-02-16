@@ -17,6 +17,7 @@ module.exports = {
     '!**/node_modules/**',
     '!**/__tests__/**',
   ],
+  coverageReporters: ['lcov', 'json-summary'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },

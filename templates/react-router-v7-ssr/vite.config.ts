@@ -57,7 +57,7 @@ const vitestConfig = defineVitestConfig({
       ],
       include: ['app/**/*.ts', 'app/**/*.tsx'],
       provider: 'istanbul',
-      reporter: ['lcov'],
+      reporter: ['lcov', 'json-summary'],
     },
     environment: 'happy-dom',
     exclude: ['playwright', 'node_modules'],
