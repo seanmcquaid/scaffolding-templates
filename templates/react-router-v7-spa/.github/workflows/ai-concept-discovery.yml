@@ -123,12 +123,12 @@ jobs:
 
                 // Benefits
                 if (details.benefits && details.benefits.length > 0) {
-                  body += `\n### ✨ Benefits\n\n${details.benefits.map(b => \`- ${b}\`).join('\n')}\n`;
+                  body += `\n### ✨ Benefits\n\n${details.benefits.map(b => '- ' + b).join('\n')}\n`;
                 }
 
                 // Resources
                 if (details.resources && details.resources.length > 0) {
-                  body += `\n### 📚 Resources\n\n${details.resources.map(r => \`- ${r}\`).join('\n')}\n`;
+                  body += `\n### 📚 Resources\n\n${details.resources.map(r => '- ' + r).join('\n')}\n`;
                 }
               }
 
@@ -230,7 +230,7 @@ jobs:
               `;
 
               if (concept.details && concept.details.benefits) {
-                body += `Track improvements in:\n${concept.details.benefits.map(b => \`- ${b}\`).join('\n')}\n`;
+                body += `Track improvements in:\n${concept.details.benefits.map(b => '- ' + b).join('\n')}\n`;
               } else {
                 body += `- Developer experience improvements
                 - Code quality metrics
