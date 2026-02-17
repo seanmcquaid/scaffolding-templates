@@ -319,7 +319,7 @@ jobs:
                   repo: context.repo.repo,
                   title: title,
                   body: body,
-                  labels: ['ai-generated', 'coverage-gap', 'testing', \`template:${template}\`]
+                  labels: ['ai-generated', 'coverage-gap', 'testing', 'template:' + template]
                 });
 
                 console.log(\`✓ Created issue: ${title}\`);
