@@ -1,11 +1,16 @@
-import { parseDependencyTree, parseCircular } from 'dpdm';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 describe('dependencies', () => {
   it('has no circular dependencies', async () => {
-    const tree = await parseDependencyTree('src/app/_layout.tsx', {
-      context: process.cwd(),
-    });
-    const circulars = parseCircular(tree);
-    expect(circulars).toHaveLength(0);
+    const { stdout, stderr } = await execAsync(
+      'pnpm exec dpdm --no-tree --no-warning --exit-code circular:1 src/app/_layout.tsx',
+    );
+
+    // DPDM exits with code 1 if circular dependencies are found
+    // If we reach here, no circular dependencies were found
+    expect(stdout).toContain('no circular dependency');
   });
 });
