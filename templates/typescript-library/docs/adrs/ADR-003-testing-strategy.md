@@ -25,7 +25,7 @@ TypeScript libraries need comprehensive testing to ensure correctness and preven
 We will use **Vitest** as the primary testing framework with:
 
 - **@vitest/coverage-istanbul** for coverage reporting
-- **madge** for circular dependency detection
+- **dpdm** for circular dependency detection
 - Custom scripts for tree-shaking validation
 
 ## Rationale

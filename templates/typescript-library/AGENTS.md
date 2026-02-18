@@ -137,7 +137,7 @@ describe('yourFunction', () => {
 ### Code Quality
 
 - Use ESLint + Prettier for consistent formatting and linting
-- Run `madge` to check for circular dependencies
+- Run `dpdm` to check for circular dependencies
 - Validate tree-shaking with `agadoo`
 - Monitor bundle size with bundlesize
 
