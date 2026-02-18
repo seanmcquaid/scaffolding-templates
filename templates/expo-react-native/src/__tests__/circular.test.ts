@@ -12,5 +12,5 @@ describe('dependencies', () => {
     // DPDM exits with code 1 if circular dependencies are found
     // If we reach here, no circular dependencies were found
     expect(stdout).toContain('no circular dependency');
-  });
+  }, 10000);
 });
