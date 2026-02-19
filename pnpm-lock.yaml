@@ -275,8 +275,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.5.0
-        version: 0.5.0(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))
+        specifier: ^0.6.4
+        version: 0.6.4(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))
       '@next/eslint-plugin-next':
         specifier: ^16.1.6
         version: 16.1.6
@@ -315,10 +315,10 @@ importers:
         version: 5.1.4(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -380,20 +380,20 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       lighthouse:
-        specifier: ^13.0.2
-        version: 13.0.2
+        specifier: ^13.0.3
+        version: 13.0.3
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7
       msw:
-        specifier: ^2.12.9
-        version: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+        specifier: ^2.12.10
+        version: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       next-router-mock:
         specifier: ^1.0.5
         version: 1.0.5(next@16.1.6(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.0.2)(playwright-core@1.58.2)
+        version: 4.0.0(lighthouse@13.0.3)(playwright-core@1.58.2)
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -420,7 +420,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: ^4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.3.6)
@@ -507,8 +507,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.5.0
-        version: 0.5.0(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))
+        specifier: ^0.6.4
+        version: 0.6.4(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -547,10 +547,10 @@ importers:
         version: 19.2.3(@types/react@19.2.14)
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -615,17 +615,17 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       lighthouse:
-        specifier: ^13.0.2
-        version: 13.0.2
+        specifier: ^13.0.3
+        version: 13.0.3
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7
       msw:
-        specifier: ^2.12.9
-        version: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+        specifier: ^2.12.10
+        version: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.0.2)(playwright-core@1.58.2)
+        version: 4.0.0(lighthouse@13.0.3)(playwright-core@1.58.2)
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -661,7 +661,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: ^4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.3.6)
@@ -757,8 +757,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.5.0
-        version: 0.5.0(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))
+        specifier: ^0.6.4
+        version: 0.6.4(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -797,10 +797,10 @@ importers:
         version: 19.2.3(@types/react@19.2.14)
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -865,17 +865,17 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       lighthouse:
-        specifier: ^13.0.2
-        version: 13.0.2
+        specifier: ^13.0.3
+        version: 13.0.3
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7
       msw:
-        specifier: ^2.12.9
-        version: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+        specifier: ^2.12.10
+        version: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.0.2)(playwright-core@1.58.2)
+        version: 4.0.0(lighthouse@13.0.3)(playwright-core@1.58.2)
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -911,7 +911,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: ^4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.3.6)
@@ -989,8 +989,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.5.0
-        version: 0.5.0(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))
+        specifier: ^0.6.4
+        version: 0.6.4(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -1032,10 +1032,10 @@ importers:
         version: 5.1.4(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       babel-plugin-react-compiler:
         specifier: 19.0.0-beta-714736e-20250131
         version: 19.0.0-beta-714736e-20250131
@@ -1100,17 +1100,17 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       lighthouse:
-        specifier: ^13.0.2
-        version: 13.0.2
+        specifier: ^13.0.3
+        version: 13.0.3
       lint-staged:
         specifier: ^16.2.7
         version: 16.2.7
       msw:
-        specifier: ^2.12.9
-        version: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+        specifier: ^2.12.10
+        version: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.0.2)(playwright-core@1.58.2)
+        version: 4.0.0(lighthouse@13.0.3)(playwright-core@1.58.2)
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -1143,7 +1143,7 @@ importers:
         version: 6.1.1(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       vitest:
         specifier: ^4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       zocker:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.3.6)
@@ -1158,10 +1158,10 @@ importers:
         version: 9.39.2
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
-        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/eslint-plugin':
         specifier: ^1.6.9
-        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+        version: 1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       agadoo:
         specifier: ^3.0.0
         version: 3.0.0
@@ -1212,7 +1212,7 @@ importers:
         version: 7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
       vitest:
         specifier: ^4.0.18
-        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
 packages:
 
@@ -2828,14 +2828,14 @@ packages:
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
 
-  '@msw/playwright@0.5.0':
-    resolution: {integrity: sha512-fKaeAySR2eVvezw0mSTqPiBhjVHyGmH8hKMQwTsWv+JXNytUwW+wu8FOb6086/bq28iUCRBH/zE0MfOE+Bsn3w==}
+  '@msw/playwright@0.6.4':
+    resolution: {integrity: sha512-CMex+p5E1k0mc/rQqjvjAD9uW9qhCbEbRGUVFhQUOTtsV9wQ2wbxgyFWldDKfiIwK2lEShT1apUZ57bC7PYpPA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
-      msw: ^2.12.9
+      msw: ^2.12.10
 
-  '@mswjs/interceptors@0.41.2':
-    resolution: {integrity: sha512-7G0Uf0yK3f2bjElBLGHIQzgRgMESczOMyYVasq1XK8P5HaXtlW4eQhz9MBL+TQILZLaruq+ClGId+hH0w4jvWw==}
+  '@mswjs/interceptors@0.41.3':
+    resolution: {integrity: sha512-cXu86tF4VQVfwz8W1SPbhoRyHJkti6mjH/XJIxp40jhO4j2k1m4KYrEykxqWPkFF3vrK4rgQppBh//AwyGSXPA==}
     engines: {node: '>=18'}
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -3131,8 +3131,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.8
 
-  '@puppeteer/browsers@2.12.0':
-    resolution: {integrity: sha512-Xuq42yxcQJ54ti8ZHNzF5snFvtpgXzNToJ1bXUGQRaiO8t+B6UM8sTUJfvV+AJnqtkJU/7hdy6nbKyA12aHtRw==}
+  '@puppeteer/browsers@2.13.0':
+    resolution: {integrity: sha512-46BZJYJjc/WwmKjsvDFykHtXrtomsCIrwYQPOP7VfMJoZY2bsDF9oROBABR3paDjDcmkUye1Pb1BqdcdiipaWA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4860,8 +4860,8 @@ packages:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
     engines: {node: '>= 0.4'}
 
-  b4a@1.7.3:
-    resolution: {integrity: sha512-5Q2mfq2WfGuFp3uS//0s6baOJLMoVduPYVeNmDYxu5OUA1/cBfvr2RIS7vi62LdNj/urk1hfmj867I3qt6uZ7Q==}
+  b4a@1.7.5:
+    resolution: {integrity: sha512-iEsKNwDh1wiWTps1/hdkNdmBgDlDVZP5U57ZVOlt+dNFqpc/lpPouCIxZw+DYBgc4P9NDfIZMPNR4CHNhzwLIA==}
     peerDependencies:
       react-native-b4a: '*'
     peerDependenciesMeta:
@@ -4976,8 +4976,8 @@ packages:
       bare-abort-controller:
         optional: true
 
-  bare-fs@4.5.3:
-    resolution: {integrity: sha512-9+kwVx8QYvt3hPWnmb19tPnh38c6Nihz8Lx3t0g9+4GoIf3/fTgYwM4Z6NxgI+B9elLQA7mLE9PpqcWtOMRDiQ==}
+  bare-fs@4.5.4:
+    resolution: {integrity: sha512-POK4oplfA7P7gqvetNmCs4CNtm9fNsx+IAh7jH7GgU0OJdge2rso0R20TNWVq6VoWcCvsTdlNDaleLHGaKx8CA==}
     engines: {bare: '>=1.16.0'}
     peerDependencies:
       bare-buffer: '*'
@@ -4992,8 +4992,8 @@ packages:
   bare-path@3.0.0:
     resolution: {integrity: sha512-tyfW2cQcB5NN8Saijrhqn0Zh7AnFNsnczRcuWODH0eYAXBsJ5gVxAUuNr7tsHSC6IZ77cA0SitzT+s47kot8Mw==}
 
-  bare-stream@2.7.0:
-    resolution: {integrity: sha512-oyXQNicV1y8nc2aKffH+BUHFRXmx6VrPzlnaEvMhram0nPBrKcEdcyBg5r08D0i8VxngHFAiVyn1QKXpSG0B8A==}
+  bare-stream@2.8.0:
+    resolution: {integrity: sha512-reUN0M2sHRqCdG4lUK3Fw8w98eeUIZHL5c3H7Mbhk2yVBL+oofgaIp0ieLfD5QXwPCypBpmEEKU2WZKzbAk8GA==}
     peerDependencies:
       bare-buffer: '*'
       bare-events: '*'
@@ -5189,8 +5189,8 @@ packages:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
 
-  chromium-bidi@13.1.1:
-    resolution: {integrity: sha512-zB9MpoPd7VJwjowQqiW3FKOvQwffFMjQ8Iejp5ZW+sJaKLRhZX1sTxzl3Zt22TDB4zP0OOqs8lRoY7eAW5geyQ==}
+  chromium-bidi@14.0.0:
+    resolution: {integrity: sha512-9gYlLtS6tStdRWzrtXaTMnqcM4dudNegMXJxkR0I/CXObHalYeYcAMPrL19eroNZHtJ8DQmu1E+ZNOYu/IXMXw==}
     peerDependencies:
       devtools-protocol: '*'
 
@@ -7274,8 +7274,8 @@ packages:
   lighthouse-stack-packs@1.12.3:
     resolution: {integrity: sha512-d8IsOpE83kbANgnM+Tp8+x6HcMpX9o2ITBiUERssgzAIFdZCQzs/f4k6D0DLQTE59enml9mbAOU52Wu35exWtg==}
 
-  lighthouse@13.0.2:
-    resolution: {integrity: sha512-n0gdiopYHdTugNMeysuO/1jAUTDVNk/rfybvbbetzdn1po82a+V1vI7JB0yv3SIJM8yTRb+1EFEHJqQmKK8crA==}
+  lighthouse@13.0.3:
+    resolution: {integrity: sha512-mEHAQV3nn4fB+3FDapye+KGeeE4V8FERgbCFegKT7HxqDVGWVOM/BoH9Qof71fzVYVMLIiGnDsnWRrH0sQ9o4Q==}
     engines: {node: '>=22.19'}
     hasBin: true
 
@@ -7648,8 +7648,8 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  msw@2.12.9:
-    resolution: {integrity: sha512-NYbi51C6M3dujGmcmuGemu68jy12KqQPoVWGeroKToLGsBgrwG5ErM8WctoIIg49/EV49SEvYM9WSqO4G7kNeQ==}
+  msw@2.12.10:
+    resolution: {integrity: sha512-G3VUymSE0/iegFnuipujpwyTM2GuZAKXNeerUSrG2+Eg391wW63xFs5ixWsK9MWzr1AGoSkYGmyAzNgbR3+urw==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -8231,8 +8231,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@24.37.2:
-    resolution: {integrity: sha512-nN8qwE3TGF2vA/+xemPxbesntTuqD9vCGOiZL2uh8HES3pPzLX20MyQjB42dH2rhQ3W3TljZ4ZaKZ0yX/abQuw==}
+  puppeteer-core@24.37.4:
+    resolution: {integrity: sha512-sQYtYgaNaLYO82k2FHmr7bR1tCmo2fBupEI7Kd0WpBlMropNcfxSTLOJXVRkhiHig0dUiMI7g0yq+HJI1IDCzg==}
     engines: {node: '>=18'}
 
   pure-rand@7.0.1:
@@ -9134,6 +9134,9 @@ packages:
     engines: {node: '>=18'}
     deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
+  teex@1.0.1:
+    resolution: {integrity: sha512-eYE6iEI62Ni1H8oIa7KlDU6uQBtqr4Eajni3wX7rpfXD8ysFx8z0+dri+KWEPWpBsxXfxu58x/0jvTVT1ekOSg==}
+
   temp-dir@2.0.0:
     resolution: {integrity: sha512-aoBAniQmmwtcKp/7BzsH8Cxzv8OL736p7v1ihGb5e9DJ9kTwGWHrQrVB5+lfVDzfGrdRzXch+ig7LHaY1JTOrg==}
     engines: {node: '>=8'}
@@ -9167,8 +9170,8 @@ packages:
     resolution: {integrity: sha512-cAGWPIyOHU6zlmg88jwm7VRyXnMN7iV68OGAbYDk/Mh/xC/pzVPlQtY6ngoIH/5/tciuhGfvESU8GrHrcxD56w==}
     engines: {node: '>=8'}
 
-  text-decoder@1.2.3:
-    resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
+  text-decoder@1.2.7:
+    resolution: {integrity: sha512-vlLytXkeP4xvEq2otHeJfSQIRyWxo/oZGEbXrtEEF9Hnmrdly59sUbzZ/QgyWuLYHctCHxFF4tRQZNQ9k60ExQ==}
 
   thenify-all@1.6.0:
     resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
@@ -9734,8 +9737,8 @@ packages:
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
 
-  webdriver-bidi-protocol@0.4.0:
-    resolution: {integrity: sha512-U9VIlNRrq94d1xxR9JrCEAx5Gv/2W7ERSv8oWRoNe/QYbfccS0V3h/H6qeNeCRJxXGMhhnkqvwNrvPAYeuP9VA==}
+  webdriver-bidi-protocol@0.4.1:
+    resolution: {integrity: sha512-ARrjNjtWRRs2w4Tk7nqrf2gBI0QXWuOmMCx2hU+1jUt6d00MjMxURrhxhGbrsoiZKJrhTSTzbIrc554iKI10qw==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -12093,13 +12096,13 @@ snapshots:
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
-  '@msw/playwright@0.5.0(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))':
+  '@msw/playwright@0.6.4(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))':
     dependencies:
-      '@mswjs/interceptors': 0.41.2
-      msw: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+      '@mswjs/interceptors': 0.41.3
+      msw: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       outvariant: 1.4.3
 
-  '@mswjs/interceptors@0.41.2':
+  '@mswjs/interceptors@0.41.3':
     dependencies:
       '@open-draft/deferred-promise': 2.2.0
       '@open-draft/logger': 0.3.0
@@ -12438,7 +12441,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@puppeteer/browsers@2.12.0':
+  '@puppeteer/browsers@2.13.0':
     dependencies:
       debug: 4.4.3
       extract-zip: 2.0.1
@@ -13924,7 +13927,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-istanbul@4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
+  '@vitest/coverage-istanbul@4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       '@jridgewell/gen-mapping': 0.3.13
@@ -13936,18 +13939,18 @@ snapshots:
       magicast: 0.5.1
       obug: 2.1.1
       tinyrainbow: 3.0.3
-      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/eslint-plugin@1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
+  '@vitest/eslint-plugin@1.6.9(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@typescript-eslint/scope-manager': 8.56.0
       '@typescript-eslint/utils': 8.56.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.2(jiti@2.6.1)
     optionalDependencies:
       typescript: 5.9.3
-      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
+      vitest: 4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -13960,13 +13963,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.0.3
 
-  '@vitest/mocker@4.0.18(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
+  '@vitest/mocker@4.0.18(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))':
     dependencies:
       '@vitest/spy': 4.0.18
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      msw: 2.12.9(@types/node@25.3.0)(typescript@5.9.3)
+      msw: 2.12.10(@types/node@25.3.0)(typescript@5.9.3)
       vite: 7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2)
 
   '@vitest/pretty-format@4.0.18':
@@ -14331,7 +14334,7 @@ snapshots:
 
   axobject-query@4.1.0: {}
 
-  b4a@1.7.3: {}
+  b4a@1.7.5: {}
 
   babel-dead-code-elimination@1.0.12:
     dependencies:
@@ -14521,11 +14524,11 @@ snapshots:
 
   bare-events@2.8.2: {}
 
-  bare-fs@4.5.3:
+  bare-fs@4.5.4:
     dependencies:
       bare-events: 2.8.2
       bare-path: 3.0.0
-      bare-stream: 2.7.0(bare-events@2.8.2)
+      bare-stream: 2.8.0(bare-events@2.8.2)
       bare-url: 2.3.2
       fast-fifo: 1.3.2
     transitivePeerDependencies:
@@ -14541,9 +14544,10 @@ snapshots:
       bare-os: 3.6.2
     optional: true
 
-  bare-stream@2.7.0(bare-events@2.8.2):
+  bare-stream@2.8.0(bare-events@2.8.2):
     dependencies:
       streamx: 2.23.0
+      teex: 1.0.1
     optionalDependencies:
       bare-events: 2.8.2
     transitivePeerDependencies:
@@ -14765,7 +14769,7 @@ snapshots:
   chrome-trace-event@1.0.4:
     optional: true
 
-  chromium-bidi@13.1.1(devtools-protocol@0.0.1566079):
+  chromium-bidi@14.0.0(devtools-protocol@0.0.1566079):
     dependencies:
       devtools-protocol: 0.0.1566079
       mitt: 3.0.1
@@ -17410,7 +17414,7 @@ snapshots:
 
   lighthouse-stack-packs@1.12.3: {}
 
-  lighthouse@13.0.2:
+  lighthouse@13.0.3:
     dependencies:
       '@paulirish/trace_engine': 0.0.61
       '@sentry/node': 9.47.1
@@ -17429,7 +17433,7 @@ snapshots:
       lodash-es: 4.17.23
       lookup-closest-locale: 6.2.0
       open: 8.4.2
-      puppeteer-core: 24.37.2
+      puppeteer-core: 24.37.4
       robots-parser: 3.0.1
       speedline-core: 1.4.3
       third-party-web: 0.27.0
@@ -17883,10 +17887,10 @@ snapshots:
 
   ms@2.1.3: {}
 
-  msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3):
+  msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3):
     dependencies:
       '@inquirer/confirm': 5.1.21(@types/node@25.3.0)
-      '@mswjs/interceptors': 0.41.2
+      '@mswjs/interceptors': 0.41.3
       '@open-draft/deferred-promise': 2.2.0
       '@types/statuses': 2.0.6
       cookie: 1.1.1
@@ -18284,10 +18288,10 @@ snapshots:
 
   playwright-core@1.58.2: {}
 
-  playwright-lighthouse@4.0.0(lighthouse@13.0.2)(playwright-core@1.58.2):
+  playwright-lighthouse@4.0.0(lighthouse@13.0.3)(playwright-core@1.58.2):
     dependencies:
       chalk: 4.1.2
-      lighthouse: 13.0.2
+      lighthouse: 13.0.3
       ua-parser-js: 1.0.40
     optionalDependencies:
       playwright-core: 1.58.2
@@ -18435,14 +18439,14 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@24.37.2:
+  puppeteer-core@24.37.4:
     dependencies:
-      '@puppeteer/browsers': 2.12.0
-      chromium-bidi: 13.1.1(devtools-protocol@0.0.1566079)
+      '@puppeteer/browsers': 2.13.0
+      chromium-bidi: 14.0.0(devtools-protocol@0.0.1566079)
       debug: 4.4.3
       devtools-protocol: 0.0.1566079
       typed-query-selector: 2.12.0
-      webdriver-bidi-protocol: 0.4.0
+      webdriver-bidi-protocol: 0.4.1
       ws: 8.19.0
     transitivePeerDependencies:
       - bare-abort-controller
@@ -19300,7 +19304,7 @@ snapshots:
     dependencies:
       events-universal: 1.0.1
       fast-fifo: 1.3.2
-      text-decoder: 1.2.3
+      text-decoder: 1.2.7
     transitivePeerDependencies:
       - bare-abort-controller
       - react-native-b4a
@@ -19492,7 +19496,7 @@ snapshots:
       pump: 3.0.3
       tar-stream: 3.1.7
     optionalDependencies:
-      bare-fs: 4.5.3
+      bare-fs: 4.5.4
       bare-path: 3.0.0
     transitivePeerDependencies:
       - bare-abort-controller
@@ -19501,7 +19505,7 @@ snapshots:
 
   tar-stream@3.1.7:
     dependencies:
-      b4a: 1.7.3
+      b4a: 1.7.5
       fast-fifo: 1.3.2
       streamx: 2.23.0
     transitivePeerDependencies:
@@ -19515,6 +19519,14 @@ snapshots:
       minipass: 7.1.2
       minizlib: 3.1.0
       yallist: 5.0.0
+
+  teex@1.0.1:
+    dependencies:
+      streamx: 2.23.0
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - react-native-b4a
+    optional: true
 
   temp-dir@2.0.0: {}
 
@@ -19546,9 +19558,9 @@ snapshots:
       glob: 7.2.3
       minimatch: 3.1.2
 
-  text-decoder@1.2.3:
+  text-decoder@1.2.7:
     dependencies:
-      b4a: 1.7.3
+      b4a: 1.7.5
     transitivePeerDependencies:
       - react-native-b4a
 
@@ -20013,10 +20025,10 @@ snapshots:
       tsx: 4.21.0
       yaml: 2.8.2
 
-  vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2):
+  vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.0)(happy-dom@20.6.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2):
     dependencies:
       '@vitest/expect': 4.0.18
-      '@vitest/mocker': 4.0.18(msw@2.12.9(@types/node@25.3.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
+      '@vitest/mocker': 4.0.18(msw@2.12.10(@types/node@25.3.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))
       '@vitest/pretty-format': 4.0.18
       '@vitest/runner': 4.0.18
       '@vitest/snapshot': 4.0.18
@@ -20084,7 +20096,7 @@ snapshots:
     dependencies:
       defaults: 1.0.4
 
-  webdriver-bidi-protocol@0.4.0: {}
+  webdriver-bidi-protocol@0.4.1: {}
 
   webidl-conversions@3.0.1: {}
 
