@@ -32,7 +32,7 @@ We will use a comprehensive code quality tooling stack:
 3. **Husky** for git hooks
 4. **lint-staged** for pre-commit checks
 5. **TypeScript** in strict mode for type safety
-6. **madge** for circular dependency detection
+6. **dpdm** for circular dependency detection
 7. **bundlesize** for bundle size monitoring
 
 All rules configured with `--max-warnings=0` to enforce zero tolerance for warnings.

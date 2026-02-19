@@ -1,9 +1,16 @@
-import madge from 'madge';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 describe('dependencies', () => {
   it('has no circular dependencies', async () => {
-    const res = await madge('src/app/_layout.tsx');
-    const circulars = await res.circular();
-    expect(circulars).toHaveLength(0);
-  });
+    const { stdout } = await execAsync(
+      'pnpm exec dpdm --no-tree --no-warning --exit-code circular:1 src/app/_layout.tsx'
+    );
+
+    // DPDM exits with code 1 if circular dependencies are found
+    // If we reach here, no circular dependencies were found
+    expect(stdout).toContain('no circular dependency');
+  }, 15000);
 });
