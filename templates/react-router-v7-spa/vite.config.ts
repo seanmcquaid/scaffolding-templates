@@ -21,7 +21,7 @@ const viteConfig = defineViteConfig({
       filter: /\.[jt]sx?$/,
     }),
     svgr(),
-    checker({ typescript: true }),
+    !process.env.VITEST && checker({ typescript: true }),
   ],
   preview: {
     open: true,
