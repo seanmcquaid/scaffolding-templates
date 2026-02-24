@@ -6,6 +6,7 @@ const serverEnvSchema = z.object({
   VITE_APP_MSW_ENABLED: z
     .enum(['true', 'false'])
     .transform(value => value === 'true'),
+  EXAMPLE_SECRET_KEY: z.string(),
 });
 
 const serverEnv = serverEnvSchema.parse(process.env);
