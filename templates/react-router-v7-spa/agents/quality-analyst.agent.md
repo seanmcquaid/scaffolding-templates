@@ -74,13 +74,13 @@ Test happy path flows with mocked APIs using Mock Service Worker.
 ```tsx
 // Integration test with MSW
 import { render, screen, waitFor } from '@testing-library/react';
-import { server } from '@/test/mocks/server';
+import worker from '@/mocks/worker';
 import { http, HttpResponse } from 'msw';
 import { UserDashboard } from './UserDashboard';
 
 describe('UserDashboard Integration', () => {
   it('displays user data after loading', async () => {
-    server.use(
+    worker.use(
       http.get('/api/users/1', () => {
         return HttpResponse.json({
           id: 1,
@@ -100,7 +100,7 @@ describe('UserDashboard Integration', () => {
   });
 
   it('handles error states gracefully', async () => {
-    server.use(
+    worker.use(
       http.get('/api/users/1', () => {
         return HttpResponse.json({ error: 'Not found' }, { status: 404 });
       })

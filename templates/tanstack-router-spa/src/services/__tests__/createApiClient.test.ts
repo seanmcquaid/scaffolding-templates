@@ -1,12 +1,12 @@
 import type { HTTPError } from 'ky';
 import { HttpResponse, http } from 'msw';
 import { z } from 'zod';
-import server from '@/mocks/server';
+import worker from '@/mocks/worker';
 import createApiClient from '@/services/createApiClient';
 
 describe('createApiClient', () => {
   it('Returns the unvalidated data if no validation schema is provided', async () => {
-    server.use(
+    worker.use(
       http.get('https://api.example.com/example', () =>
         HttpResponse.json({ data: 'example' }),
       ),
@@ -17,7 +17,7 @@ describe('createApiClient', () => {
   });
   describe('Validation schema is provided', () => {
     it('Throws an error if the returned data does not match the validation schema', async () => {
-      server.use(
+      worker.use(
         http.get('https://api.example.com/example', () =>
           HttpResponse.json({ data: 'example' }),
         ),
@@ -33,7 +33,7 @@ describe('createApiClient', () => {
       }
     });
     it('Returns the data if it matches the validation schema', async () => {
-      server.use(
+      worker.use(
         http.get('https://api.example.com/example', () =>
           HttpResponse.json(['example']),
         ),

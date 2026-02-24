@@ -69,12 +69,12 @@ Test feature workflows with mocked API responses.
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { http, HttpResponse } from 'msw';
-import { server } from '@/mocks/server';
+import worker from '@/mocks/worker';
 import { UserProfile } from './UserProfile';
 
 describe('UserProfile Integration', () => {
   it('fetches and displays user data', async () => {
-    server.use(
+    worker.use(
       http.get('/api/users/:id', () => {
         return HttpResponse.json({
           id: '1',
@@ -94,7 +94,7 @@ describe('UserProfile Integration', () => {
   });
 
   it('handles API errors gracefully', async () => {
-    server.use(
+    worker.use(
       http.get('/api/users/:id', () => {
         return HttpResponse.json(
           { error: 'Not found' },
@@ -113,7 +113,7 @@ describe('UserProfile Integration', () => {
   it('updates user data on form submit', async () => {
     const user = userEvent.setup();
     
-    server.use(
+    worker.use(
       http.get('/api/users/:id', () => {
         return HttpResponse.json({
           id: '1',
@@ -391,18 +391,18 @@ export const handlers = [
   }),
 ];
 
-// mocks/server.ts
-import { setupServer } from 'msw/node';
+// mocks/worker.ts
+import { setupWorker } from 'msw/browser';
 import { handlers } from './handlers';
 
-export const server = setupServer(...handlers);
+export const worker = setupWorker(...handlers);
 
 // setupTests.ts
-import { server } from './mocks/server';
+import worker from '@/mocks/worker';
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => worker.start({ onUnhandledRequest: 'bypass' }));
+afterEach(() => worker.resetHandlers());
+afterAll(() => worker.stop());
 ```
 
 ## Playwright Configuration

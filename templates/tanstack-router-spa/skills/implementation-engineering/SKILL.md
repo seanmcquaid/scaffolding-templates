@@ -213,11 +213,11 @@ describe('UserCard', () => {
 ### Integration Tests with MSW
 ```typescript
 import { http, HttpResponse } from 'msw';
-import { server } from '@/mocks/server';
+import worker from '@/mocks/worker';
 
 describe('UserProfile Integration', () => {
   it('fetches and displays user data', async () => {
-    server.use(
+    worker.use(
       http.get('/api/users/:id', () => {
         return HttpResponse.json({
           id: '1',

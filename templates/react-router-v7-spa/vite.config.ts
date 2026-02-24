@@ -1,5 +1,6 @@
 import { reactRouter } from '@react-router/dev/vite';
 import tailwindcss from '@tailwindcss/vite';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import babel from 'vite-plugin-babel';
 import checker from 'vite-plugin-checker';
@@ -34,7 +35,11 @@ const viteConfig = defineViteConfig({
 
 const vitestConfig = defineVitestConfig({
   test: {
-    pool: 'threads',
+    browser: {
+      enabled: true,
+      instances: [{ browser: 'chromium' }],
+      provider: playwright(),
+    },
     coverage: {
       exclude: [
         'app/utils/testing',
@@ -51,8 +56,8 @@ const vitestConfig = defineVitestConfig({
       provider: 'istanbul',
       reporter: ['lcov', 'json-summary'],
     },
-    environment: 'happy-dom',
-    exclude: ['playwright', 'node_modules'],
+    // circular.test.ts uses dpdm (a Node.js filesystem tool) that is incompatible with browser mode
+    exclude: ['playwright', 'node_modules', 'app/__tests__/circular.test.ts'],
     globals: true,
     setupFiles: ['./app/utils/testing/setupTests.ts'],
   },
