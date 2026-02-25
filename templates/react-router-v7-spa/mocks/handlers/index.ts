@@ -1,5 +1,9 @@
-import * as postsHandlers from './postsHandlers.js';
+import {
+  deletePostByIdHandler,
+  getPostByIdHandler,
+  getPostsHandler,
+} from './postsHandlers.js';
 
-const handlers = [...Object.values(postsHandlers)];
+const handlers = [getPostsHandler, getPostByIdHandler, deletePostByIdHandler];
 
 export default handlers;

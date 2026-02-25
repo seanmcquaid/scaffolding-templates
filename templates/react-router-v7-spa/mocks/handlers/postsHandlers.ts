@@ -12,11 +12,21 @@ export const getPostsHandler = http.get(
   },
 );
 
+export const getPostsErrorHandler = http.get(
+  'https://jsonplaceholder.typicode.com/posts',
+  () => new HttpResponse(null, { status: 500 }),
+);
+
 export const getPostByIdHandler = http.get(
   'https://jsonplaceholder.typicode.com/posts/:id',
   () => {
     return HttpResponse.json(postZocker.generate());
   },
+);
+
+export const getPostByIdErrorHandler = http.get(
+  'https://jsonplaceholder.typicode.com/posts/:id',
+  () => new HttpResponse(null, { status: 500 }),
 );
 
 export const deletePostByIdHandler = http.delete(

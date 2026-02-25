@@ -30,6 +30,6 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-beforeEach(() => server.listen());
+beforeEach(() => server.listen({ onUnhandledRequest: 'warn' }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
