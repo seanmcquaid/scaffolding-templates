@@ -14,6 +14,10 @@ This directory contains agent skills for the react-router-v7-spa template. These
 - **maintenance-engineering** - Available in `./maintenance-engineering/SKILL.md`
 - **production-support** - Available in `./production-support/SKILL.md`
 
+### Cross-Cutting Skills (2 skills)
+- **state-management** - State hierarchy, usehooks-ts, TanStack Query, React Hook Form, Zustand (`./state-management/SKILL.md`)
+- **i18n** - i18next setup, translation keys, locale detection, testing patterns (`./i18n/SKILL.md`)
+
 ### Template-Specific Skill
 - **react-router-spa** - Specialized for this template (`./react-router-spa/SKILL.md`)
 

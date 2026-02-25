@@ -9,12 +9,12 @@ All skills are available in two locations for maximum flexibility:
 ### 1. Root Skills (This Directory)
 **Location**: `/skills/`
 
-All 14 skills (8 SDLC + 6 template specialists) available for repository-wide access.
+All 16 skills (8 SDLC + 2 cross-cutting + 6 template specialists) available for repository-wide access.
 
 ### 2. Template Skills (Self-Contained)
 **Location**: `/templates/[template-name]/skills/`
 
-Each template contains **9 skills** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
+Each template contains **11 skills** (8 SDLC + 2 cross-cutting + 1 template specialist) to ensure templates are self-contained when cloned individually.
 
 ## Why Duplicate Skills?
 
@@ -49,6 +49,13 @@ Complete software development lifecycle coverage:
 6. **[deployment-engineering](./deployment-engineering/SKILL.md)** - Manage CI/CD and infrastructure
 7. **[maintenance-engineering](./maintenance-engineering/SKILL.md)** - Handle bugs, updates, and refactoring
 8. **[production-support](./production-support/SKILL.md)** - Monitor and respond to production issues
+
+### Cross-Cutting Skills (2 skills)
+
+Reusable domain knowledge across all SDLC phases and templates:
+
+1. **[state-management](./state-management/SKILL.md)** - State hierarchy selection, TanStack Query, React Hook Form, usehooks-ts, and Zustand patterns with full code examples
+2. **[i18n](./i18n/SKILL.md)** - i18next setup, translation key conventions, interpolation, testing with mocks, and locale detection configuration
 
 ### Template-Specific Skills (6 skills)
 
