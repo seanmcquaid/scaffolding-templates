@@ -2,161 +2,12 @@
 
 This directory contains scripts used by the AI workflow automation system. These scripts can be run locally for testing and development.
 
-## Ralph - Local Workflow Orchestrator
-
-**`ralph`** is a bash script (not a separate CLI tool - just a regular shell script) that brings the "Ralph is a loop" methodology to local development, allowing you to work with AI workflows without relying on GitHub Issues.
-
-**What it is:**
-- ✅ A single bash script file in `/scripts/ralph.sh`
-- ✅ Executable directly (`./scripts/ralph.sh plan "task"`)
-- ✅ No installation or dependencies required (uses standard bash/git)
-- ✅ Can be copied to any project
-
-**What it's NOT:**
-- ❌ Not a separate CLI tool or package
-- ❌ Not a complex application
-- ❌ Not requiring npm install or special setup
-
-### Quick Start
-
-```bash
-# Create a plan for a task
-./scripts/ralph.sh plan "Add authentication to next-ssr template"
-
-# Execute the plan
-./scripts/ralph.sh execute auth-next-ssr.md
-
-# Review your work
-./scripts/ralph.sh review auth-next-ssr.md
-
-# Iterate based on feedback
-./scripts/ralph.sh iterate auth-next-ssr.md
-
-# Check all active plans
-./scripts/ralph.sh status
-```
-
-### Ralph Commands
-
-| Command | Description |
-|---------|-------------|
-| `ralph.sh plan <task>` | Create a structured plan for a task with agent suggestions |
-| `ralph.sh execute <plan>` | Mark plan as executing and guide implementation |
-| `ralph.sh review <plan>` | Review completed work against validation checklist |
-| `ralph.sh iterate <plan>` | Update plan based on review feedback |
-| `ralph.sh status` | Show all active plans with their status |
-| `ralph.sh show <plan>` | Display a plan file with syntax highlighting |
-
-### How Ralph Works Locally
-
-**Ralph stores plans in `.ralph/` directory** (automatically added to `.gitignore`):
-- Each task gets a markdown file with structured plan
-- Plans track: task type, affected templates, suggested agents, progress
-- Supports full Ralph cycle: Plan → Execute → Review → Iterate
-
-**Key Features:**
-- ✅ Works entirely offline (no GitHub required)
-- ✅ Automatic task classification (bug, feature, test, docs)
-- ✅ Template detection (next-ssr, react-router-v7-spa, etc.)
-- ✅ Agent suggestions based on task type
-- ✅ Structured breakdown with checklists
-- ✅ Progress tracking and history
-- ✅ Integration with existing patterns
-
-**Example Plan Structure:**
-```markdown
-# Ralph Plan: Add authentication to next-ssr template
-
-**Status:** Planning
-**Type:** feature
-**Affected Templates:** next-ssr
-
-## Suggested Agents
-@requirements-analyst @software-architect @nextjs-ssr-specialist
-
-## Ralph Workflow: Plan → Execute → Review → Iterate
-
-### Phase 1: PLAN
-- [ ] Understand requirements
-- [ ] Design architecture
-- [ ] Plan implementation steps
-
-### Phase 2: EXECUTE
-- [ ] Implement changes
-- [ ] Add tests
-- [ ] Update documentation
-
-### Phase 3: REVIEW
-- [ ] All tests pass
-- [ ] Linting passes
-- [ ] Changes follow patterns
-
-### Phase 4: ITERATE
-(Add refinements based on review)
-```
-
-### Ralph vs GitHub Issues
-
-| Aspect | Ralph (Local) | GitHub Issues |
-|--------|---------------|---------------|
-| **Storage** | Local `.ralph/` directory | GitHub platform |
-| **Visibility** | Private (local only) | Public/team-wide |
-| **Planning** | Markdown files | Issue descriptions |
-| **Tracking** | Manual status updates | Labels, assignees |
-| **Automation** | Manual workflow steps | GitHub Actions |
-| **Best For** | Individual work, experimentation | Team collaboration, CI/CD |
-
-### Advanced: Ralph in CI/CD
-
-Ralph can also be integrated into automated workflows to implement issues automatically. See:
-
-📘 **[Ralph in Cron Jobs Guide](/docs/ralph-in-cron-jobs.md)** - Complete guide for automating Ralph in GitHub Actions
-
-**Key Topics Covered:**
-- Integration approaches (GitHub Copilot, APIs, hybrid)
-- Security considerations and safeguards
-- Example workflow implementations
-- Best practices and recommendations
-- Phased rollout strategy
-
-**Example Use Cases:**
-- Automated test coverage improvements
-- Automated documentation updates
-- Scheduled maintenance tasks
-- Continuous quality improvement
-
----
-
-## Ralph vs GitHub Issues (Continued)
-
-| Aspect | Ralph (Local) | GitHub Issues |
-|--------|---------------|---------------|
-| **Setup** | No setup required | Requires repository access |
-| **Privacy** | Fully local, no external data | Stored in GitHub |
-| **Workflow** | Manual progression through phases | Automated with GitHub Actions |
-| **Collaboration** | Local only | Team-wide visibility |
-| **Best For** | Individual work, experimentation | Team projects, tracking |
-
-**Use Ralph when:**
-- Working on experimental features
-- Want to plan before creating issues
-- Need privacy for sensitive work
-- Prefer local-first workflow
-
-**Use GitHub Issues when:**
-- Collaborating with team
-- Want automated agent routing
-- Need progress tracking across team
-- Want integration with CI/CD
-
----
-
 ## Available Scripts
 
 ### Issue Processing Scripts
 
 #### `classify-issue.sh`
-Classifies a GitHub issue and determines agents, labels, and next steps for Ralph workflow.
+Classifies a GitHub issue and determines agents, labels, and next steps.
 
 **Usage:**
 ```bash
@@ -169,12 +20,12 @@ Classifies a GitHub issue and determines agents, labels, and next steps for Ralp
 ./scripts/classify-issue.sh "Bug in next-ssr template" "Authentication flow is broken"
 ```
 
-**Output:** JSON with classification, suggested agents, suggested labels, and Ralph workflow next steps
+**Output:** JSON with classification, suggested agents, suggested labels, and next steps
 
 **Prerequisites:** `jq` for JSON processing
 
 #### `analyze-issue.sh`
-Analyzes a GitHub issue and suggests Ralph workflow approach with agent routing.
+Analyzes a GitHub issue and suggests workflow approach with agent routing.
 
 **Usage:**
 ```bash
@@ -187,7 +38,7 @@ Analyzes a GitHub issue and suggests Ralph workflow approach with agent routing.
 ./scripts/analyze-issue.sh 123
 ```
 
-**Output:** Classification, suggested agents, suggested labels, and Ralph workflow plan
+**Output:** Classification, suggested agents, suggested labels, and workflow plan
 
 **Prerequisites:** Requires GitHub CLI (`gh`) to be installed and authenticated.
 

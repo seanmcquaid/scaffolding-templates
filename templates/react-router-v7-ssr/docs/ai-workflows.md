@@ -6,21 +6,19 @@ This document provides complete documentation for the AI workflow automation sys
 
 1. [Overview](#overview)
 2. [Quick Start](#quick-start)
-3. [Philosophy: Ralph is a Loop](#philosophy-ralph-is-a-loop)
-4. [Workflows](#workflows)
-5. [Scripts](#scripts)
-6. [Agent System](#agent-system)
-7. [Usage Examples](#usage-examples)
-8. [Architecture](#architecture)
-9. [Troubleshooting](#troubleshooting)
-10. [Implementation Details](#implementation-details)
-11. [Advanced: Ralph in Cron Jobs](#advanced-ralph-in-cron-jobs)
+3. [Workflows](#workflows)
+4. [Scripts](#scripts)
+5. [Agent System](#agent-system)
+6. [Usage Examples](#usage-examples)
+7. [Architecture](#architecture)
+8. [Troubleshooting](#troubleshooting)
+9. [Implementation Details](#implementation-details)
 
 ---
 
 ## Overview
 
-The AI workflow automation system implements automated, continuous improvement cycles for maintaining and evolving templates. Based on the "Ralph is a loop" concept, it provides three primary workflows that run automatically to maintain code quality, discover new opportunities, and ensure comprehensive test coverage.
+The AI workflow automation system implements automated, continuous improvement cycles for maintaining and evolving templates. It provides three primary workflows that run automatically to maintain code quality, discover new opportunities, and ensure comprehensive test coverage.
 
 ### Key Features
 
@@ -28,7 +26,6 @@ The AI workflow automation system implements automated, continuous improvement c
 ✅ **Proactive concept discovery** (weekly ecosystem scans)
 ✅ **Test coverage monitoring** (80% threshold)
 ✅ **Integration with 14 custom agents** (8 SDLC phase + 6 template specialists)
-✅ **"Ralph is a loop" methodology** - Plan first, execute, review, iterate
 ✅ **Runnable scripts** for local analysis and testing
 
 ### Benefits
@@ -49,55 +46,6 @@ The AI workflow automation system implements automated, continuous improvement c
 ---
 
 ## Quick Start
-
-### Using Ralph Locally (No GitHub Required)
-
-**Ralph** is a simple bash script (`./scripts/ralph.sh`) that implements the "Ralph is a loop" methodology without requiring GitHub Issues. It's just a regular shell script - no installation or CLI tool needed:
-
-```bash
-# Create a local plan (git-ignored, personal)
-./scripts/ralph.sh plan "Add authentication to next-ssr template"
-
-# Or create a shared plan (committed, accessible to team/agents)
-./scripts/ralph.sh plan "Refactor routing system" --shared
-
-# Execute the plan
-./scripts/ralph.sh execute auth-next-ssr.md
-
-# Review your work
-./scripts/ralph.sh review auth-next-ssr.md
-
-# Iterate based on feedback
-./scripts/ralph.sh iterate auth-next-ssr.md
-
-# Share a local plan with the team
-./scripts/ralph.sh share auth-next-ssr.md
-
-# Check all plans
-./scripts/ralph.sh status --shared
-```
-
-**Features:**
-- ✅ Fully local (no GitHub needed) or shared for team collaboration
-- ✅ Automatic task classification and agent suggestions
-- ✅ Structured breakdown with checklists
-- ✅ Template detection (next-ssr, react-router-v7-spa, etc.)
-- ✅ Progress tracking in markdown files
-- ✅ Support for distributed AI agents via shared plans
-
-**When to use Ralph locally:**
-- Individual work or experimentation
-- Planning before creating GitHub issues
-- Privacy-sensitive work
-- Local-first workflow preference
-
-**When to use shared Ralph plans:**
-- Team collaboration needed
-- Distributed AI agents require access to plans
-- Formal planning that should be tracked in git
-- Complex tasks requiring multiple agents
-
-See `/scripts/README.md` for complete Ralph documentation and `.ralph-shared/README.md` for team collaboration details.
 
 ---
 
@@ -186,101 +134,6 @@ See `/scripts/README.md` for complete script documentation.
 
 ---
 
-## Philosophy: Ralph is a Loop
-
-The "Ralph is a loop" concept from [AI Hero](https://www.aihero.dev/tips-for-ai-coding-with-ralph-wiggum#1-ralph-is-a-loop) recognizes that AI agents work best in iterative cycles:
-
-### Core Principles
-
-1. **Plan Mode First**: Always start with planning before implementation
-2. **Automated Loops**: Set up continuous cycles for maintenance, discovery, and improvement
-3. **Proactive Analysis**: AI agents actively look for opportunities, not just respond to issues
-4. **Feedback Integration**: Incorporate results from each cycle into the next iteration
-
-### The Loop
-
-```
-┌─────────────────────────────────────────┐
-│             Ralph is a Loop              │
-│                                          │
-│   START → PLAN → EXECUTE → REVIEW      │
-│     ↑                            ↓      │
-│     └────────── ITERATE ─────────┘      │
-│                                          │
-│  Key: Always start with planning,       │
-│       iterate based on feedback          │
-└─────────────────────────────────────────┘
-```
-
-### Ralph: Local vs GitHub
-
-The Ralph methodology works in **two modes** to fit different workflows:
-
-#### Local Mode (`./scripts/ralph.sh`)
-
-**Best for:**
-- Individual work and experimentation
-- Privacy-sensitive features
-- Quick prototyping
-- Learning and exploration
-- Planning before creating issues
-
-**How it works:**
-- Stores plans locally in `.ralph/` directory
-- Markdown-based tracking
-- Manual progression through phases
-- Fully offline operation
-- Personal task management
-
-**Workflow:**
-```bash
-ralph.sh plan "task"     # Create structured plan
-ralph.sh execute "plan"  # Start implementation
-ralph.sh review "plan"   # Validate work
-ralph.sh iterate "plan"  # Refine based on feedback
-```
-
-#### GitHub Issues Mode (Automated)
-
-**Best for:**
-- Team collaboration
-- Public tracking
-- Automated agent routing
-- CI/CD integration
-- Cross-team visibility
-
-**How it works:**
-- GitHub Actions workflows process issues
-- Automated classification and agent tagging
-- Team-wide progress tracking
-- Integration with PR reviews
-- Scheduled proactive analysis
-
-**Workflow:**
-```
-1. Create GitHub issue → Auto-classified by AI
-2. AI adds agents and labels → Team notified
-3. Contributor implements → Tests run in CI
-4. AI reviews PR → Suggests improvements
-5. Iterate → Process repeats
-```
-
-### Choosing Your Approach
-
-| Need | Use Local Ralph | Use GitHub Issues |
-|------|-----------------|-------------------|
-| Experiment with idea | ✅ | ❌ |
-| Team collaboration | ❌ | ✅ |
-| Privacy required | ✅ | ❌ |
-| Automated workflows | ❌ | ✅ |
-| Quick prototyping | ✅ | ❌ |
-| Progress tracking | Local only | Team-wide |
-| Agent routing | Manual reference | Automatic |
-| CI/CD integration | ❌ | ✅ |
-
-**Pro Tip:** Start with local Ralph to plan, then create GitHub issue when ready to collaborate!
-
----
 
 ## Workflows
 
@@ -455,90 +308,6 @@ Review and adopt latest React Router v7 features including improved type safety.
 [Prioritized implementation plan with phases]
 ```
 
-### 4. AI Issue Processing (Ralph Workflow)
-
-**Trigger:** Daily (8:00 AM UTC) + manual
-
-**Purpose:** Process outstanding GitHub issues using Ralph workflow methodology
-
-**Process:**
-1. Fetch open issues without `ralph-processed` label
-2. Analyze issue content and context with enhanced metadata
-3. Classify issue type (bug, feature, test, documentation)
-4. Estimate complexity and priority
-5. Identify related concepts and technologies
-6. Determine affected templates and components
-7. Suggest relevant agents for the issue
-8. Generate structured Ralph workflow plan
-9. Post detailed analysis comment with metadata (includes @copilot mention)
-10. Add `ralph-processed`, `copilot-assigned`, and suggested labels
-
-**Issue Classification:**
-- **Bug Reports** → @maintenance-engineer + template specialists
-- **Feature Requests** → @requirements-analyst + @software-architect
-- **Testing** → @quality-analyst + template specialists
-- **Documentation** → @ui-ux-designer
-- **Template-specific** → Relevant template specialist
-
-**Enhanced Output (v2):**
-- **Detailed analysis comments** with:
-  - Issue metadata section (complexity, priority, estimated effort)
-  - Related concepts identification (authentication, testing, API, etc.)
-  - Suggested agents with descriptions
-  - Structured Ralph workflow steps
-  - Key principles and best practices
-  - Tips for success
-  - Additional resources
-- **JSON metadata output** from `classify-issue.sh`:
-  - Complexity estimation (low/medium/high)
-  - Priority detection (low/medium/high)
-  - Estimated effort ranges (1-3 days, 3-7 days, 1-3 weeks, etc.)
-  - Related concepts array
-- **Enhanced labels**: Issue type, template, priority (if detected)
-- **Daily summary report** with processing statistics
-
-**Scripts Used:**
-- `scripts/classify-issue.sh` - Enhanced workflow classification with metadata
-- `scripts/analyze-issue.sh` - Local issue analysis
-
-**Key Features:**
-- Applies "plan → execute → review → iterate" methodology to all issues
-- Routes issues to specialized agents automatically
-- **Provides complexity and effort estimates** for planning
-- **Identifies related concepts** to help with research and implementation
-- **Labels issues with `copilot-assigned`** to indicate Copilot should handle them
-- **Mentions @copilot in analysis comments** to trigger notification
-- Provides structured approach with actionable steps
-- Can be run manually on-demand
-- Reprocessing: Remove `ralph-processed` label to reanalyze
-
-**Example Enhanced Comment:**
-```markdown
-## 🤖 Ralph Workflow Analysis
-
-**Automated Analysis Date**: 2026-02-05
-**Auto-Assigned to**: @copilot
-
-### 📊 Issue Metadata
-**Complexity**: 🔴 High
-**Priority**: ⬆️  High
-**Estimated Effort**: 1-3 weeks
-**Related Concepts**: authentication, api, security
-
-### 📋 Issue Classification
-This appears to be a feature request involving authentication...
-
-### 👥 Suggested Agents
-- **@requirements-analyst** - Initial research and validation
-- **@software-architect** - Design and architecture
-- **@nextjs-ssr-specialist** - Framework-specific implementation
-
-### 🔄 Ralph Workflow: Plan → Execute → Review → Iterate
-[Detailed phase-by-phase approach]
-
-### 💡 Tips for Success
-[Context-specific guidance for this issue type]
-```
 
 ---
 
@@ -550,7 +319,6 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 
 | Script | Purpose | Usage |
 |--------|---------|-------|
-| `ralph` | **Local workflow orchestrator** | `./scripts/ralph.sh plan "<task>"` |
 | `classify-issue.sh` | Classify issue for workflow | `./scripts/classify-issue.sh "<title>" "<body>"` |
 | `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |
@@ -769,7 +537,7 @@ Each phase builds on the previous, following the plan-execute-review-iterate loo
 | AI Code Review | PR events | On-demand | Review changes, tag agents |
 | Concept Discovery | Scheduled | Weekly (Mon 9 AM UTC) | Find new opportunities |
 | Test Coverage | Scheduled | Weekly (Mon 10 AM UTC) | Identify coverage gaps |
-| Issue Processing | Scheduled | Daily (8 AM UTC) | Process issues with Ralph workflow |
+| Issue Processing | Scheduled | Daily (8 AM UTC) | Process open issues |
 
 ### Data Flow
 
@@ -1023,7 +791,6 @@ gh issue list --label ai-generated
 ## References
 
 ### External Resources
-- [AI Hero: Tips for AI Coding with Ralph Wiggum](https://www.aihero.dev/tips-for-ai-coding-with-ralph-wiggum#1-ralph-is-a-loop)
 - [GitHub Copilot Custom Agents](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
@@ -1034,70 +801,6 @@ gh issue list --label ai-generated
 
 ---
 
-## Advanced: Ralph in Cron Jobs
-
-### Automated Implementation with Ralph
-
-While the current workflows focus on **discovering** issues (concepts, test gaps, etc.), it's also possible to use Ralph to **automatically implement** those discoveries.
-
-**Key Concepts:**
-- Current workflows: Discover + Create Issues
-- Advanced workflows: Discover + Create Issues + **Auto-implement with Ralph**
-
-**Use Cases:**
-- Automated test coverage improvements
-- Automated documentation updates
-- Automated dependency updates
-- Automated code quality fixes
-
-**Implementation Approaches:**
-1. **GitHub Copilot Integration** - Use `gh agent-task` in GitHub Actions
-2. **API-Based Integration** - Use AI provider APIs (OpenAI, Anthropic)
-3. **Hybrid Approach** - Human-in-the-loop with manual triggers
-
-**Security Considerations:**
-- Requires careful safeguards and human oversight
-- Start with low-risk tasks (tests, docs)
-- Implement quality gates and code review
-- Monitor costs and rate limits
-
-**Documentation:**
-
-For complete details on leveraging Ralph in automated cron jobs, see:
-
-📘 **[Ralph in Cron Jobs Guide](/docs/ralph-in-cron-jobs.md)**
-
-This comprehensive guide covers:
-- Integration approaches and implementation patterns
-- Security considerations and best practices
-- Example workflow implementations
-- Limitations and trade-offs
-- Phased rollout recommendations
-
-**Example Workflow:**
-
-A reference implementation is available at:
-- `.github/workflows/ralph-on-demand.yml.example` - Trigger Ralph via comment
-
-To try it out:
-1. Copy the example workflow (remove `.example` extension)
-2. Comment `/ralph implement` on an AI-generated issue
-3. Ralph will create a PR with the implementation
-4. Review and merge if acceptable
-
-**Important Notes:**
-
-⚠️ **Not recommended for production** without:
-- Thorough testing and validation
-- Proper security safeguards
-- Human review processes
-- Cost and rate limit controls
-
-✅ **Best for**:
-- Experimentation and learning
-- Low-risk automated tasks
-- Controlled pilot programs
-- Gradual rollout with monitoring
 
 ---
 
@@ -1157,7 +860,7 @@ To try it out:
 **Initial Features:**
 - AI Concept Discovery workflow
 - AI Test Coverage Analysis workflow
-- AI Issue Processing (Ralph) workflow
+- AI Issue Processing workflow
 - Custom agent integration
 - Automated issue generation
 - Summary reports
