@@ -42,6 +42,36 @@ pnpm lint:fix
 pnpm typecheck
 ```
 
+## Guiding Principles
+
+### 1. Cross-Platform Consistency
+This app runs on iOS, Android, and Web. Any change must be tested conceptually on all three platforms. Platform-specific code should be isolated using `.ios.tsx`, `.android.tsx`, or the `Platform` API — don't scatter platform checks throughout shared components.
+
+### 2. Tests Are Mandatory
+All non-trivial code should have tests. Use Jest with the `jest-expo` preset:
+- **Unit tests** for utilities, hooks, and isolated component logic
+- Full component rendering tests require the Expo environment — at minimum, test that components mount without errors
+
+### 3. Right Level of Abstraction
+- Separate UI components (`components/ui/` — generic, themed, reusable like `ThemedText`, `ThemedView`) from app components (`components/app/` — feature-specific with business logic).
+- Keep components focused and composable. Single Responsibility Principle applies.
+- Only extract shared logic once you've seen the pattern repeated at least twice.
+
+### 4. Always Use Themed Components
+Use `ThemedText` and `ThemedView` instead of raw React Native `Text` and `View` for all user-facing content. Using raw RN primitives with hardcoded colors breaks dark mode support.
+
+### 5. Type Safety Throughout
+TypeScript strict mode is required. No `any` types. All component props must have properly typed interfaces.
+
+### 6. Internationalization is Not Optional
+All user-facing text must use the `useAppTranslation()` hook. ESLint enforces this — literal strings in JSX fail the build.
+
+### 7. State Management Hierarchy
+1. **Local component state** for UI-only concerns
+2. **TanStack Query** for all server/async state (fetching, caching, mutations)
+3. **React Hook Form** for all form state
+4. **`useLocalStorage` / `useSessionStorage`** from `usehooks-ts` for persistent client state
+
 ## Common Mistakes and Confusion Points
 
 ### 1. File-Based Routing with Expo Router

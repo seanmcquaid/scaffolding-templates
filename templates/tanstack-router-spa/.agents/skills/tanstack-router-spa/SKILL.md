@@ -7,6 +7,23 @@ description: Expert in TanStack Router for type-safe single-page applications wi
 
 Build production-ready single-page applications with TanStack Router's type-safe routing and search parameter validation.
 
+## Technology Stack
+
+- **TanStack Router**: Type-safe router with file-based routing, search param validation, and data loading
+- **React 19**: Latest React with concurrent features
+- **TypeScript**: Full type safety including route parameters, search params, and loader data
+- **Vite**: Fast development server and build tool
+- **TanStack Query**: Server state management integrated with the router
+- **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Essential React hooks for common UI patterns
+- **Tailwind CSS**: Utility-first styling framework
+- **shadcn/ui**: Component library built on Radix UI
+- **i18next**: Internationalization with type-safe translation keys
+- **ESLint + Prettier**: Code linting and formatting
+- **Vitest + React Testing Library**: Unit and integration tests
+- **MSW**: API mocking for development and testing
+- **Playwright**: End-to-end and integration browser tests
+
 ## When to Use
 
 Use this skill for TanStack Router SPA projects that need:

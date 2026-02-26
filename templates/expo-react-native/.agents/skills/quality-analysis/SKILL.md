@@ -19,7 +19,13 @@ Use this skill when you need to:
 
 ## Three-Tier Testing Strategy
 
-### 1. Unit Tests (Vitest + Testing Library)
+### Overview
+Every non-trivial change requires tests at the appropriate tier:
+1. **Unit tests** — for components, hooks, and utilities in isolation
+2. **Integration tests with mocked APIs** — for happy path flows with mocked network calls
+3. **End-to-end tests** — for high-level user flows on device/simulator; these are slow and potentially brittle, so run them in CI/CD after successful deploy, NOT in PR checks
+
+### 1. Unit Tests (Jest + jest-expo)
 Test individual components, hooks, and utilities in isolation.
 
 **When to use:**
@@ -27,6 +33,7 @@ Test individual components, hooks, and utilities in isolation.
 - Hook behavior and state management
 - Utility function logic
 - Edge cases and error handling
+- If a component navigates to another page and you want to test behavior after navigation, test that in an integration test instead
 
 **Example:**
 ```typescript

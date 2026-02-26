@@ -7,6 +7,20 @@ description: Expert in Expo and React Native for cross-platform mobile developme
 
 Build production-ready cross-platform mobile applications with Expo SDK and React Native.
 
+## Technology Stack
+
+- **Expo SDK**: Cross-platform React Native framework (iOS, Android, Web)
+- **Expo Router**: File-based routing with native navigation support
+- **React Native**: Native mobile UI components
+- **React 19**: Latest React with concurrent features
+- **TypeScript**: Full type safety with strict configuration
+- **TanStack Query**: Server state management and data fetching
+- **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Essential React hooks for common UI patterns
+- **i18next**: Internationalization with type-safe translation keys
+- **ESLint + Prettier**: Code linting and formatting
+- **Jest + jest-expo**: Unit testing with React Native support
+
 ## When to Use
 
 Use this skill for Expo React Native projects that need:

@@ -19,6 +19,12 @@ Use this skill when you need to:
 
 ## Three-Tier Testing Strategy
 
+### Overview
+Every non-trivial change requires tests at the appropriate tier:
+1. **Unit tests** — for components, hooks, and utilities in isolation
+2. **Integration tests with mocked APIs (MSW)** — for happy path flows; due to MSW limitations with server-side requests, run the app with the MSW server alongside it when testing SSR loaders
+3. **End-to-end tests with real APIs (Playwright)** — for high-level user flows; these are slow and potentially brittle, so run them in CI/CD after successful deploy, NOT in PR checks
+
 ### 1. Unit Tests (Vitest + Testing Library)
 Test individual components, hooks, and utilities in isolation.
 
@@ -27,6 +33,7 @@ Test individual components, hooks, and utilities in isolation.
 - Hook behavior and state management
 - Utility function logic
 - Edge cases and error handling
+- If a component navigates to another page and you want to test behavior after navigation, test that in an integration test instead
 
 **Example:**
 ```typescript

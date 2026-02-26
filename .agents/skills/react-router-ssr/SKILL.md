@@ -7,6 +7,23 @@ description: Expert in React Router v7 with server-side rendering, loaders, acti
 
 Build production-ready server-rendered applications with React Router v7, server loaders, and server actions.
 
+## Technology Stack
+
+- **React Router v7**: Full-stack React framework with SSR, file-based routing, loaders, and server actions
+- **React 19**: Latest React with concurrent features and SSR capabilities
+- **TypeScript**: Full type safety for client and server code; route types auto-generated via `react-router typegen`
+- **Vite**: Fast development server and build tool with SSR support
+- **TanStack Query**: Client-side caching and mutations with SSR hydration support
+- **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Essential React hooks for common UI patterns
+- **Tailwind CSS**: Utility-first styling framework
+- **shadcn/ui**: Component library built on Radix UI
+- **i18next**: Internationalization with SSR support and type-safe translation keys
+- **ESLint + Prettier**: Code linting and formatting
+- **Vitest + React Testing Library**: Unit and integration tests
+- **MSW**: API mocking for development and testing
+- **Playwright**: End-to-end and integration browser tests
+
 ## When to Use
 
 Use this skill for React Router v7 SSR projects that need:

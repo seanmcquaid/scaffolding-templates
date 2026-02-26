@@ -39,6 +39,31 @@ pnpm check-treeshaking
 pnpm check-types
 ```
 
+## Guiding Principles
+
+### 1. Public API Is the Contract
+The `src/index.ts` barrel export is the library's public contract. Keep it minimal and intentional. Every exported symbol is a commitment to consumers — adding is easy, removing is a breaking change.
+
+### 2. Tests Are Mandatory
+Every exported function and behavior needs tests. Focus on:
+- **Unit tests (Vitest)** testing the public API surface and edge cases
+- Cover both happy paths and error conditions
+- Aim for 100% coverage of all exported utilities
+
+### 3. Dual ESM/CJS Compatibility
+Both module formats must work correctly. When adding new entry points, update the `exports` field in `package.json` for both formats. Test with `pnpm check-types` and `pnpm check-treeshaking` before shipping.
+
+### 4. Bundle Size Discipline
+Every dependency you add is a cost to every consumer. Prefer zero-dependency solutions. When a dependency is necessary, verify it's tree-shakeable with `pnpm check-treeshaking` and monitor bundle size with `pnpm bundlesize`.
+
+### 5. Type Safety Is Part of the API
+TypeScript types are part of the public API. Design types first, then implement. All exported functions must have full type annotations — no `any`, no implicit `unknown`.
+
+### 6. Right Level of Abstraction
+- Each module in `src/` does one thing. Single Responsibility Principle strictly applies.
+- Keep the public API as small as possible — you can always add, but you can't remove without a breaking change.
+- Only abstract shared internal logic once you've seen the pattern repeated at least twice.
+
 ## Common Mistakes and Confusion Points
 
 ### 1. Dual ESM/CJS Exports

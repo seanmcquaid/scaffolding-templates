@@ -7,6 +7,23 @@ description: Expert in React Router v7 single-page applications with client-side
 
 Build production-ready single-page applications with React Router v7, client-side routing, and optimal performance.
 
+## Technology Stack
+
+- **React Router v7**: Client-side routing with file-based route configuration
+- **React 19**: Latest React with concurrent features
+- **TypeScript**: Full type safety with strict configuration; route types auto-generated via `react-router typegen`
+- **Vite**: Fast development server and build tool
+- **TanStack Query**: Server state management and client-side caching
+- **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Essential React hooks for common UI patterns
+- **Tailwind CSS**: Utility-first styling framework
+- **shadcn/ui**: Component library built on Radix UI
+- **i18next**: Internationalization with type-safe translation keys
+- **ESLint + Prettier**: Code linting and formatting
+- **Vitest + React Testing Library**: Unit and integration tests
+- **MSW**: API mocking for development and testing
+- **Playwright**: End-to-end and integration browser tests
+
 ## When to Use
 
 Use this skill for React Router v7 SPA projects that need:

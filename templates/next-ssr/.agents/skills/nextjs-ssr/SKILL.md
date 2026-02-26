@@ -7,6 +7,22 @@ description: Expert in Next.js App Router with Server Components, Server Actions
 
 Build production-ready Next.js applications with App Router, Server Components, and optimal performance.
 
+## Technology Stack
+
+- **Next.js 15.3+**: React framework with App Router and server-side rendering
+- **React 19**: Latest React with concurrent features and React Compiler
+- **TypeScript**: Full type safety with strict configuration
+- **TanStack Query**: Client-side server state management with hydration support
+- **React Hook Form + Zod**: Type-safe form handling with validation
+- **usehooks-ts**: Essential React hooks for common UI patterns
+- **Tailwind CSS**: Utility-first styling with custom design system
+- **shadcn/ui**: Component library built on Radix UI primitives
+- **i18next**: Internationalization with type-safe translation keys
+- **ESLint + Prettier**: Code linting and formatting
+- **Vitest + React Testing Library**: Unit and integration tests
+- **MSW**: API mocking for development and testing
+- **Playwright**: End-to-end and integration browser tests
+
 ## When to Use
 
 Use this skill for Next.js projects that need:

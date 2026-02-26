@@ -42,6 +42,38 @@ pnpm playwright:run-e2e
 pnpm playwright:run-integration
 ```
 
+## Guiding Principles
+
+### 1. Type-Safe Routing Throughout
+TanStack Router's type system covers route parameters, search params, loader data, and navigation. Always leverage this — never use untyped route access or string-based navigation without proper type inference.
+
+### 2. Tests Are Mandatory
+All new code must have tests. Use the three-tier approach:
+- **Unit tests (Vitest)** for components, hooks, and utilities in isolation
+- **Integration tests (Playwright + MSW)** for happy path flows with mocked APIs
+- **End-to-end tests (Playwright)** for critical user journeys with real APIs — run post-deploy, not in PRs
+
+### 3. Client-Side Only — No SSR
+This template is a pure SPA. All data fetching is client-side via loaders and TanStack Query. Do not introduce server-only code or Node.js APIs.
+
+### 4. Right Level of Abstraction
+- Separate UI components (`src/components/ui/` — pure presentational) from app components (`src/components/app/` — business logic).
+- Keep components small and composable. Single Responsibility Principle applies.
+- Only extract shared logic once you've seen the pattern repeated at least twice.
+
+### 5. Type Safety End-to-End
+Validate all API responses with **Zod** at the boundary. Use TypeScript strict mode throughout. No `any` types.
+
+### 6. Internationalization is Not Optional
+All user-facing text must use the `useAppTranslation()` hook. ESLint enforces this — literal strings in JSX fail the build.
+
+### 7. State Management Hierarchy
+1. **URL state / search params** — use `Route.useSearch()` with Zod schema for shareable, type-safe state
+2. **Loader data** (`Route.useLoaderData()`) for data fetched at route entry
+3. **Local component state** for UI-only concerns
+4. **TanStack Query** for client-side mutations and re-fetching
+5. **React Hook Form** for all form state
+
 ## Common Mistakes and Confusion Points
 
 ### 1. Route Code Generation

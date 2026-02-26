@@ -7,6 +7,17 @@ description: Expert in TypeScript library development with dual ESM/CJS exports,
 
 Build production-ready TypeScript libraries with modern tooling, dual package support, and excellent developer experience.
 
+## Technology Stack
+
+- **TypeScript 5.8+**: Type-safe development with strict configuration
+- **tsdown**: Fast TypeScript bundler for dual ESM/CJS output
+- **Vitest**: Modern testing framework with coverage support
+- **ESLint + Prettier**: Code linting and formatting
+- **Changesets**: Versioning and changelog management
+- **Husky + lint-staged**: Git hooks for pre-commit quality gates
+- **agadoo**: Tree-shaking validation to ensure bundle correctness
+- **bundlesize**: Bundle size monitoring to enforce size budgets
+
 ## When to Use
 
 Use this skill for TypeScript library projects that need:

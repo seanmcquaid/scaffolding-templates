@@ -94,12 +94,24 @@ const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
 ```
 
 ### State Management
-Follow the state management hierarchy:
-1. **URL State**: Use search params for shareable state
-2. **Local State**: Use `useState` for component-only state
-3. **Server State**: Use TanStack Query for API data
-4. **Form State**: Use React Hook Form
-5. **Storage**: Use `useLocalStorage`/`useSessionStorage` from usehooks-ts
+Follow the state management hierarchy — choose the simplest mechanism that solves the problem:
+
+| State Type | Tool | Use Case |
+|------------|------|----------|
+| URL state | `useSearchParams` | Shareable, bookmarkable state (filters, pagination) |
+| Web storage | `useLocalStorage` / `useSessionStorage` from usehooks-ts | Persist across sessions or within a single session |
+| Local state | `useState` / `useReducer` | UI state owned by one component |
+| Lifted state | `useState` in parent | State shared by related sibling components |
+| Derived state | `useMemo` / computed in render | Values computed from existing state |
+| Server state | TanStack Query | All async/API data (fetching, caching, mutations) |
+| Form state | React Hook Form | Form fields and validation |
+| Context | React Context | Small amounts of subtree-wide state |
+| Global store | Redux Toolkit / Zustand / Jotai | Large-scale global state (use sparingly) |
+
+**Rules:**
+- Prefer URL state for anything that should survive a page refresh or be shareable via link
+- Never manage form state manually — always use React Hook Form
+- Never use TanStack Query for local UI state that does not come from an API
 
 ### API Integration
 ```typescript

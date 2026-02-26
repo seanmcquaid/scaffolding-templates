@@ -42,6 +42,35 @@ pnpm playwright:run-e2e
 pnpm playwright:run-integration
 ```
 
+## Guiding Principles
+
+### 1. Server Components First
+Default to **server components**. Use `"use client"` only when the component genuinely needs browser APIs or interactive state (event handlers, `useState`, `useEffect`). Every unnecessary `"use client"` directive increases the JavaScript bundle sent to the browser.
+
+### 2. Tests Are Mandatory
+All new code must have tests. Use the three-tier approach:
+- **Unit tests (Vitest)** for components, hooks, and utilities in isolation
+- **Integration tests (Playwright + MSW server)** for happy path flows — note that MSW cannot intercept server-side fetch calls, so integration tests that exercise SSR loaders require the MSW server to run alongside the app
+- **End-to-end tests (Playwright)** for critical user journeys with real APIs — run post-deploy, not in PRs
+
+### 3. Right Level of Abstraction
+- Each component, hook, or utility does one thing. Keep components small and composable.
+- Separate UI components (`components/ui/` — pure presentational) from app components (`components/app/` — business logic).
+- Only abstract shared logic once you've seen the same pattern at least twice.
+
+### 4. Type Safety End-to-End
+Validate all external data with **Zod** at the boundary. Use TypeScript strict mode throughout. No `any` types.
+
+### 5. Internationalization is Not Optional
+All user-facing text must use the `useAppTranslation()` hook. ESLint enforces this — literal strings in JSX fail the build.
+
+### 6. State Management Hierarchy
+1. **URL state** (search params) for shareable state
+2. **Local component state** for UI-only concerns
+3. **TanStack Query** for all server state on the client side
+4. **React Hook Form** for form state
+5. Never use SSR loaders (`fetch` in server components) and TanStack Query for the same data — pick one boundary
+
 ## Common Mistakes and Confusion Points
 
 ### 1. Server Components vs Client Components
