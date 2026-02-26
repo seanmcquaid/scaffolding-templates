@@ -1,0 +1,1 @@
+../../.agents/quality-analyst.agent.md
