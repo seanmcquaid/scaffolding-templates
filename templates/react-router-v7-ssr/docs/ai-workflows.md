@@ -796,7 +796,7 @@ gh issue list --label ai-generated
 
 ### Internal Resources
 - Repository `/AGENTS.md` - Custom agents documentation
-- Repository `/agents/README.md` - Agent usage guide
+- Repository `/.agents/README.md` - Agent usage guide
 - `/scripts/README.md` - Script documentation
 
 ---

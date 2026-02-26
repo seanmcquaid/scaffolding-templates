@@ -1,6 +1,6 @@
-# Skills for next-ssr Template
+# Skills for tanstack-router-spa Template
 
-This directory contains agent skills for the next-ssr template. These skills work with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents.
+This directory contains agent skills for the tanstack-router-spa template. These skills work with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents.
 
 ## Available Skills
 
@@ -15,7 +15,7 @@ This directory contains agent skills for the next-ssr template. These skills wor
 - **production-support** - Available in `./production-support/SKILL.md`
 
 ### Template-Specific Skill
-- **nextjs-ssr** - Specialized for this template (`./nextjs-ssr/SKILL.md`)
+- **tanstack-router-spa** - Specialized for this template (`./tanstack-router-spa/SKILL.md`)
 
 ## Installation
 
@@ -33,4 +33,4 @@ npx skills add . --skill requirements-analysis
 
 This template includes all necessary skills so you can use it independently without the parent repository.
 
-For more information about the skills system, see the [root skills README](../../skills/README.md).
+For more information about the skills system, see the [root skills README](../../.agents/skills/README.md).

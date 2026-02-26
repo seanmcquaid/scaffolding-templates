@@ -4,8 +4,8 @@
 
 This repository contains two complementary AI assistance systems:
 
-1. **Skills** (`/skills/` directory) - Standard agentskills.io format
-2. **Agents** (`/agents/` directory) - Custom sub-agents pattern
+1. **Skills** (`/.agents/skills/` directory) - Standard agentskills.io format
+2. **Agents** (`/.agents/` directory) - Custom sub-agents pattern
 
 Both work together to provide comprehensive AI-assisted development across multiple platforms.
 
@@ -30,7 +30,7 @@ Instructions and guidelines...
 - ✅ **Standardized**: Follow agentskills.io specification
 - ✅ **Broad Support**: Work with 20+ AI coding tools
 - ✅ **Simple Format**: Name and description only in frontmatter
-- ✅ **File Location**: `/skills/[skill-name]/SKILL.md`
+- ✅ **File Location**: `/.agents/skills/[skill-name]/SKILL.md`
 - ✅ **Naming**: Use `SKILL.md` (uppercase)
 
 ### Available Skills (14 total)
@@ -75,7 +75,7 @@ Detailed instructions, examples, checklists...
 - ✅ **Platform-Specific**: Optimized for Copilot, Claude, Cursor
 - ✅ **Enhanced Format**: Includes tool specifications
 - ✅ **Rich Content**: Detailed examples, checklists, workflows
-- ✅ **File Location**: `/agents/[agent-name].agent.md`
+- ✅ **File Location**: `/.agents/[agent-name].agent.md`
 - ✅ **Naming**: Use `.agent.md` extension
 
 ### Available Agents (14 total)
@@ -108,7 +108,7 @@ Detailed instructions, examples, checklists...
 | **Platform Support** | 20+ AI tools | Copilot, Claude, Cursor |
 | **Content Depth** | Concise guidelines | Detailed examples & checklists |
 | **Tool Access** | Not specified | Explicitly defined |
-| **Documentation** | `/skills/README.md` | `/docs/custom-agents-guide.md` |
+| **Documentation** | `/.agents/skills/README.md` | `/docs/custom-agents-guide.md` |
 
 ## How They Work Together
 
@@ -144,8 +144,8 @@ Both work! Use Skills for standard format, Agents for detailed guidance.
 
 **For Claude:**
 ```
-Option 1 (Skills): Reference /skills/[name]/SKILL.md
-Option 2 (Agents): Reference /agents/[name].agent.md
+Option 1 (Skills): Reference /.agents/skills/[name]/SKILL.md
+Option 2 (Agents): Reference /.agents/[name].agent.md
 Both work! Choose based on your needs for detail vs simplicity.
 ```
 
@@ -201,7 +201,7 @@ Skills and Agents cover the same functional areas but use slightly different nam
 
 ```
 With agentskills.io support, Copilot discovers:
-/skills/implementation-engineering/SKILL.md
+/.agents/skills/implementation-engineering/SKILL.md
 
 Usage: Natural conversation referencing the skill context
 "Help me implement this feature following implementation-engineering practices"
@@ -211,7 +211,7 @@ Usage: Natural conversation referencing the skill context
 
 ```
 With custom agents, Copilot discovers:
-/agents/implementation-engineer.agent.md
+/.agents/implementation-engineer.agent.md
 
 Usage: @implementation-engineer
 "@implementation-engineer implement a user dashboard following template patterns"
@@ -221,8 +221,8 @@ Usage: @implementation-engineer
 
 ```
 Cursor discovers both:
-- /skills/*/SKILL.md (standard format)
-- /agents/*.agent.md (custom format)
+- /.agents/skills/*/SKILL.md (standard format)
+- /.agents/*.agent.md (custom format)
 
 Usage:
 "Use implementation engineering best practices" (Skills)
@@ -249,7 +249,7 @@ Usage:
 
 ### For Developers
 
-1. **Start with Documentation**: Read `/skills/README.md` and `/docs/custom-agents-guide.md`
+1. **Start with Documentation**: Read `/.agents/skills/README.md` and `/docs/custom-agents-guide.md`
 2. **Choose Based on Platform**: Use Skills for broad support, Agents for rich features
 3. **Mix and Match**: Use both formats as needed
 4. **Provide Feedback**: Report which format works better for your workflow
@@ -260,8 +260,8 @@ Usage:
 
 If you prefer Agents over Skills:
 ```
-Skill: /skills/implementation-engineering/SKILL.md
-→ Agent: /agents/implementation-engineer.agent.md
+Skill: /.agents/skills/implementation-engineering/SKILL.md
+→ Agent: /.agents/implementation-engineer.agent.md
 
 Change: Use agent naming (@implementation-engineer)
 Benefit: More detailed examples, tool specifications
@@ -271,8 +271,8 @@ Benefit: More detailed examples, tool specifications
 
 If you prefer Skills over Agents:
 ```
-Agent: /agents/implementation-engineer.agent.md
-→ Skill: /skills/implementation-engineering/SKILL.md
+Agent: /.agents/implementation-engineer.agent.md
+→ Skill: /.agents/skills/implementation-engineering/SKILL.md
 
 Change: Reference skill by context
 Benefit: Broader platform compatibility
@@ -290,9 +290,9 @@ Both formats coexist peacefully and serve different needs. Use Skills for broad 
 ## Additional Resources
 
 ### Skills Documentation
-- `/skills/README.md` - Skills overview and usage
+- `/.agents/skills/README.md` - Skills overview and usage
 - [agentskills.io](https://agentskills.io) - Official specification
-- Individual `SKILL.md` files in `/skills/` subdirectories
+- Individual `SKILL.md` files in `/.agents/skills/` subdirectories
 
 ### Agents Documentation
 - `/docs/custom-agents-guide.md` - Comprehensive agents guide

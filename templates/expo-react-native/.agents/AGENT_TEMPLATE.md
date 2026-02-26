@@ -435,10 +435,10 @@ Choose appropriate tools:
 
 ### For SDLC Phase Agents
 
-1. **Create root agent:** `/agents/new-agent.agent.md`
-2. **Add to all templates:** `/templates/*/agents/new-agent.agent.md`
-3. **Update root README:** `/agents/README.md`
-4. **Update template READMEs:** `/templates/*/agents/README.md`
+1. **Create root agent:** `/.agents/new-agent.agent.md`
+2. **Add to all templates:** `/templates/*/.agents/new-agent.agent.md`
+3. **Update root README:** `/.agents/README.md`
+4. **Update template READMEs:** `/templates/*/.agents/README.md`
 5. **Update main docs:**
    - `/AGENTS.md` - Add agent information
    - `/docs/custom-agents-guide.md` - Update agent list
@@ -446,10 +446,10 @@ Choose appropriate tools:
 
 ### For Template Specialist Agents
 
-1. **Create root specialist:** `/agents/template-name-specialist.agent.md`
-2. **Create template specialist:** `/templates/template-name/agents/template-name-specialist.agent.md`
-3. **Update root README:** `/agents/README.md`
-4. **Update template README:** `/templates/template-name/agents/README.md`
+1. **Create root specialist:** `/.agents/template-name-specialist.agent.md`
+2. **Create template specialist:** `/templates/template-name/.agents/template-name-specialist.agent.md`
+3. **Update root README:** `/.agents/README.md`
+4. **Update template README:** `/templates/template-name/.agents/README.md`
 5. **Update main docs:**
    - `/AGENTS.md` - Add specialist information
    - `/docs/custom-agents-guide.md` - Update specialist list
@@ -524,10 +524,10 @@ docs(agents): Update agent template with new sections
 
 See existing agents for reference:
 
-- `/agents/requirements-analyst.agent.md` - Simple SDLC agent
-- `/agents/software-architect.agent.md` - Complex SDLC agent
-- `/agents/implementation-engineer.agent.md` - Comprehensive SDLC agent
-- `/agents/nextjs-ssr-specialist.agent.md` - Template specialist agent
+- `/.agents/requirements-analyst.agent.md` - Simple SDLC agent
+- `/.agents/software-architect.agent.md` - Complex SDLC agent
+- `/.agents/implementation-engineer.agent.md` - Comprehensive SDLC agent
+- `/.agents/nextjs-ssr-specialist.agent.md` - Template specialist agent
 
 ## Additional Resources
 

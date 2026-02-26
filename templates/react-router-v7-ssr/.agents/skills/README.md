@@ -33,4 +33,4 @@ npx skills add . --skill requirements-analysis
 
 This template includes all necessary skills so you can use it independently without the parent repository.
 
-For more information about the skills system, see the [root skills README](../../skills/README.md).
+For more information about the skills system, see the [root skills README](../../.agents/skills/README.md).

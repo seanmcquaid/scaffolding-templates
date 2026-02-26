@@ -6,10 +6,10 @@ A comprehensive guide to using custom sub-agents with GitHub Copilot, Claude, an
 
 This repository provides **two AI assistance systems**:
 
-- **Skills** (`/skills/`) - Standard [agentskills.io](https://agentskills.io) format for broad platform compatibility
-- **Agents** (`/agents/`) - Custom enhanced format optimized for Copilot, Claude, and Cursor
+- **Skills** (`/.agents/skills/`) - Standard [agentskills.io](https://agentskills.io) format for broad platform compatibility
+- **Agents** (`/.agents/`) - Custom enhanced format optimized for Copilot, Claude, and Cursor
 
-**This guide covers the Agents system.** For Skills documentation, see [`/skills/README.md`](../skills/README.md). To understand which to use, see [Skills vs Agents Guide](ai-skills-vs-agents.md).
+**This guide covers the Agents system.** For Skills documentation, see [`/.agents/skills/README.md`](../.agents/skills/README.md). To understand which to use, see [Skills vs Agents Guide](ai-skills-vs-agents.md).
 
 Both systems cover the same 14 functional areas with similar guidance. Use Skills for standardized portability or Agents for platform-specific enhancements.
 
@@ -102,7 +102,7 @@ Design a user dashboard with:
 **Option 1: Claude Desktop Projects**
 1. Create a new project
 2. Add this repository folder
-3. Add `/agents/README.md` to project knowledge
+3. Add `/.agents/README.md` to project knowledge
 4. Reference agents by file path
 
 **Option 2: Claude in Cursor**
@@ -113,7 +113,7 @@ Design a user dashboard with:
 **Example:**
 ```
 I need help implementing authentication. 
-Please reference /agents/implementation-engineer.agent.md
+Please reference /.agents/implementation-engineer.agent.md
 and follow the patterns in /AGENTS.md.
 ```
 
@@ -329,7 +329,7 @@ Agent not understanding? Try:
 
 1. **Read the full guide:** Continue reading below for comprehensive details
 2. **Review patterns:** `/AGENTS.md`
-3. **Explore agents:** `/agents/README.md`
+3. **Explore agents:** `/.agents/README.md`
 4. **Check template docs:** `/templates/[name]/AGENTS.md`
 
 ### Examples
@@ -560,7 +560,7 @@ GitHub Copilot supports custom agents both on GitHub.com and in IDEs.
 
 2. **Select Repository**:
    - Choose the repository from the dropdown
-   - GitHub Copilot will scan for `.agent.md` files in `/agents/` directory
+   - GitHub Copilot will scan for `.agent.md` files in `/.agents/` directory
 
 3. **Choose Agent**:
    - Base SDLC agents appear when at repository root
@@ -629,7 +629,7 @@ Claude excels at understanding the sub-agent pattern through clear documentation
 2. **Reference Agent Explicitly**:
    ```
    Please act as the Requirements Analyst agent defined in 
-   /agents/requirements-analyst.agent.md
+   /.agents/requirements-analyst.agent.md
    
    Task: Analyze requirements for user authentication feature
    ```
@@ -937,7 +937,7 @@ Provide clear context to agents including current state, related files, and cons
 
 **Solutions**:
 - Navigate to correct directory
-- Ensure agent files are in `/agents/` directory
+- Ensure agent files are in `/.agents/` directory
 - Check file naming (must be `*.agent.md`)
 - Reload workspace or restart IDE
 
@@ -1060,7 +1060,7 @@ Use template specialist:
 
 - **Repository Documentation**: `/AGENTS.md` - Repository-wide patterns
 - **Template Documentation**: `/templates/[name]/AGENTS.md` - Template-specific patterns
-- **Agent Definitions**: `/agents/*.agent.md` - Individual agent instructions
+- **Agent Definitions**: `/.agents/*.agent.md` - Individual agent instructions
 - **This Guide**: `/docs/custom-agents-guide.md`
 
 ---

@@ -7,12 +7,12 @@ This directory contains a comprehensive set of custom agents compatible with Git
 All agents are duplicated in two locations for maximum flexibility:
 
 ### 1. Root Agents (This Directory)
-**Location**: `/agents/`
+**Location**: `/.agents/`
 
 All 14 agents (8 SDLC + 6 template specialists) available for repository-wide access.
 
 ### 2. Template Agents (Self-Contained)
-**Location**: `/templates/[template-name]/agents/`
+**Location**: `/templates/[template-name]/.agents/`
 
 Each template contains **9 agents** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
 
@@ -28,7 +28,7 @@ Templates are designed to be cloned individually. By including all agents in eac
 
 Custom agents are specialized AI assistants with tailored expertise for specific development tasks. They have access to the repository's AGENTS.md documentation and are designed to maintain consistency across all templates while respecting framework-specific best practices.
 
-**Cross-Tool Compatibility**: These agents are stored in the `/agents/` directory (not `.github/agents/`) to ensure they can be referenced by multiple AI tools including GitHub Copilot, Claude, Cursor, and others.
+**Cross-Tool Compatibility**: These agents are stored in the `/.agents/` directory (not `.github/.agents/`) to ensure they can be referenced by multiple AI tools including GitHub Copilot, Claude, Cursor, and others.
 
 ## SDLC Phase Agents
 
@@ -132,26 +132,26 @@ Handles production issues, monitoring, incident response, and operational excell
 
 ## Template-Specific Agents
 
-Each template has its own specialized agent located in `/templates/[template-name]/.github/agents/`. These agents provide deep expertise for their specific framework and are available when working within that template.
+Each template has its own specialized agent located in `/templates/[template-name]/.agents/`. These agents provide deep expertise for their specific framework and are available when working within that template.
 
 ### Available Template Agents
 
-1. **TypeScript Library Specialist** (`/templates/typescript-library/.github/agents/`)
+1. **TypeScript Library Specialist** (`/templates/typescript-library/.agents/`)
    - Library API design, dual ESM/CJS exports, NPM publishing
 
-2. **Next.js SSR Specialist** (`/templates/next-ssr/.github/agents/`)
+2. **Next.js SSR Specialist** (`/templates/next-ssr/.agents/`)
    - App Router, Server Components, Server Actions, SEO
 
-3. **React Router v7 SPA Specialist** (`/templates/react-router-v7-spa/.github/agents/`)
+3. **React Router v7 SPA Specialist** (`/templates/react-router-v7-spa/.agents/`)
    - Client-side routing, TanStack Query, URL state management
 
-4. **React Router v7 SSR Specialist** (`/templates/react-router-v7-ssr/.github/agents/`)
+4. **React Router v7 SSR Specialist** (`/templates/react-router-v7-ssr/.agents/`)
    - SSR loaders, server actions, hydration strategies
 
-5. **TanStack Router SPA Specialist** (`/templates/tanstack-router-spa/.github/agents/`)
+5. **TanStack Router SPA Specialist** (`/templates/tanstack-router-spa/.agents/`)
    - Type-safe routing, search parameter validation
 
-6. **Expo React Native Specialist** (`/templates/expo-react-native/.github/agents/`)
+6. **Expo React Native Specialist** (`/templates/expo-react-native/.agents/`)
    - Cross-platform mobile, Expo SDK, native modules
 
 To use a template-specific agent, navigate to the template directory or select it when the agent dropdown shows available agents for your workspace.

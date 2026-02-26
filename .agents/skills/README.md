@@ -7,12 +7,12 @@ This directory contains standardized agent skills following the [Agent Skills sp
 All skills are available in two locations for maximum flexibility:
 
 ### 1. Root Skills (This Directory)
-**Location**: `/skills/`
+**Location**: `/.agents/skills/`
 
 All 14 skills (8 SDLC + 6 template specialists) available for repository-wide access.
 
 ### 2. Template Skills (Self-Contained)
-**Location**: `/templates/[template-name]/skills/`
+**Location**: `/templates/[template-name]/.agents/skills/`
 
 Each template contains **9 skills** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
 
@@ -90,23 +90,23 @@ You can also copy skills manually:
 
 ```bash
 # Project-level (committed with your project)
-cp -r skills/* /path/to/your/project/skills/
+cp -r .agents/skills/* /path/to/your/project/.agents/skills/
 
 # For GitHub Copilot specifically
-cp -r skills/* /path/to/your/project/.github/skills/
+cp -r .agents/skills/* /path/to/your/project/.github/skills/
 
 # Global (available across all projects, varies by agent)
 # GitHub Copilot
-cp -r skills/* ~/.copilot/skills/
+cp -r .agents/skills/* ~/.copilot/skills/
 
 # Claude Code
-cp -r skills/* ~/.claude/skills/
+cp -r .agents/skills/* ~/.claude/skills/
 
 # Cursor
-cp -r skills/* ~/.cursor/skills/
+cp -r .agents/skills/* ~/.cursor/skills/
 ```
 
-**Note**: Skills are stored in `/skills/` (not `.github/skills/`) for cross-tool compatibility. Most agents support discovering skills from the root `skills/` directory. Only GitHub Copilot specifically requires `.github/skills/`, so you may need to create a symlink or copy for that agent.
+**Note**: Skills are stored in `/.agents/skills/` (not `.github/skills/`) for cross-tool compatibility. Most agents support discovering skills from the root `skills/` directory. Only GitHub Copilot specifically requires `.github/skills/`, so you may need to create a symlink or copy for that agent.
 
 ## Usage
 
@@ -131,10 +131,10 @@ Example prompts:
 
 These skills work with any agent supporting the [Agent Skills specification](https://agentskills.io):
 
-- **Claude Code** - `.claude/skills/`
-- **Cursor** - `.cursor/skills/`
-- **Cline** - `.cline/skills/`
-- **OpenCode** - `.opencode/skills/`
+- **Claude Code** - `.claude/.agents/skills/`
+- **Cursor** - `.cursor/.agents/skills/`
+- **Cline** - `.cline/.agents/skills/`
+- **OpenCode** - `.opencode/.agents/skills/`
 - And 20+ more agents
 
 ## Workflow Examples
