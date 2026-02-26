@@ -1,0 +1,1 @@
+../../.agents/tanstack-router-spa-specialist.agent.md
