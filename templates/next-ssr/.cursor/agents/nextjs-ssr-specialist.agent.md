@@ -1,0 +1,1 @@
+../../.agents/nextjs-ssr-specialist.agent.md

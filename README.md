@@ -16,9 +16,9 @@ This repository includes **14 standardized agent skills** compatible with GitHub
 npx skills add seanmcquaid/scaffolding-templates --all -a github-copilot
 ```
 
-👉 [Learn more about skills](./skills/README.md)
+👉 [Learn more about skills](./.agents/skills/README.md)
 
-**Note**: Skills are stored in `/skills/` for cross-tool compatibility with multiple AI agents, not just GitHub Copilot.
+**Note**: Skills are stored in `/.agents/skills/` for cross-tool compatibility with multiple AI agents, not just GitHub Copilot.
 
 ## Platform Support
 
@@ -80,14 +80,14 @@ This repository includes **two complementary AI assistance systems**:
 ### Skills (Standard Format)
 Following [agentskills.io](https://agentskills.io) specification for broad platform compatibility:
 - **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
-- **Location**: `/skills/` directory with `SKILL.md` files
+- **Location**: `/.agents/skills/` directory with `SKILL.md` files
 - **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
 - **Documentation**: [Skills README](skills/README.md)
 
 ### Custom Agents (Enhanced Format)
 Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
 - **14 Agents**: 8 SDLC phase agents + 6 template specialist agents
-- **Location**: `/agents/` directory with `.agent.md` files
+- **Location**: `/.agents/` directory with `.agent.md` files
 - **Support**: GitHub Copilot, Claude Desktop, Cursor IDE
 - **Documentation**: [Custom Agents Guide](docs/custom-agents-guide.md) (includes Quick Start)
 
@@ -113,4 +113,4 @@ This repository uses automated AI workflows to maintain code quality and acceler
 
 **Scripts**: [AI Workflow Scripts](/scripts/README.md)
 
-**Agents**: [Custom Agents Guide](/agents/README.md)
+**Agents**: [Custom Agents Guide](/.agents/README.md)

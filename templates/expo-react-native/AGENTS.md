@@ -1,124 +1,98 @@
-# Agent Instructions for Expo React Native Template
+# Expo React Native Template - Agent Instructions
 
-This document contains specific instructions and guidelines for AI agents working with this Expo React Native template.
+The role of this file is to describe common mistakes and confusion points that agents might encounter as they work in this project. If you ever encounter something like this in the project, please alert the developer working with you and indicate this is the case in the AGENTS.md file to help prevent future agents from having the same issue.
 
-## Template Overview
+## Commands
 
-This is a production-ready Expo React Native template for building cross-platform mobile applications (iOS, Android, and Web) with modern tooling and best practices.
+```bash
+# Install dependencies
+pnpm install
 
-## Key Patterns to Maintain
+# Start Expo development server
+pnpm dev
 
-### 1. Mandatory Internationalization
-- **All user-facing text MUST use translations** - enforced by ESLint `i18next/no-literal-string` rule
-- Translation keys follow the pattern: `Namespace.key` (e.g., `HomePage.title`, `Common.loading`)
-- Use `useAppTranslation()` hook for all components
-- Translation files located in `i18n/locales/`
+# Run on iOS simulator (requires macOS + Xcode)
+pnpm ios
 
-### 2. File-Based Routing (Expo Router)
-- Routes are defined by file structure in `app/` directory
-- Use `(tabs)` for grouped routes (tab navigation)
-- `_layout.tsx` files define layouts
-- Modal screens use `presentation: 'modal'` option
+# Run on Android emulator (requires Android Studio/SDK)
+pnpm android
 
-### 3. Component Organization
-- **UI Components**: `components/ui/` - Generic, reusable components (ThemedText, ThemedView, IconSymbol)
-- **App Components**: `components/app/` - Feature-specific components with business logic
-- All components use TypeScript with strict types
+# Run in browser
+pnpm web
 
-### 4. Theming & Styling
-- Use `ThemedText` and `ThemedView` for automatic dark mode support
-- StyleSheet.create() for component styles
-- Color themes defined in `hooks/useThemeColor.ts`
-- Support both light and dark color schemes
+# Build for all platforms (production export)
+pnpm build
 
-### 5. State Management Hierarchy
-- **TanStack Query** - Server state and data fetching
-- **React Hook Form** - Form state management
-- **useState/useReducer** - Local component state
-- **usehooks-ts** - Common utility hooks
+# Run unit tests
+pnpm test
 
-### 6. TypeScript Standards
-- Strict mode enabled
-- Use `type` imports: `import type { ... }`
-- Define prop types as interfaces
-- Path aliases: `@/*` maps to root directory
+# Run tests in watch mode
+pnpm test:watch
 
-### 7. API Integration
-- API clients in `services/` directory
-- Use `ky` for HTTP requests
-- Validate with Zod schemas
-- Environment variables validated in `env.ts`
+# Run tests with coverage
+pnpm test:coverage
 
-## Development Workflow
+# Run linting
+pnpm lint
 
-### Adding New Screens
-1. Create screen file in `app/` or `app/(tabs)/`
-2. Add translations to i18n locales
-3. Use themed components
-4. Implement proper loading/error states
+# Fix lint errors
+pnpm lint:fix
 
-### Adding New Components
-1. Place in appropriate directory (ui/ or app/)
-2. Use TypeScript interfaces for props
-3. Add translations for any text
-4. Create tests if appropriate
-5. Export from component file
+# Type checking
+pnpm typecheck
+```
 
-### Modifying Existing Code
-- Maintain existing patterns
-- Don't break i18n enforcement
-- Keep TypeScript strict
-- Test linting: `pnpm lint`
+## Guiding Principles
 
-## Common Pitfalls to Avoid
+### 1. Cross-Platform Consistency
+This app runs on iOS, Android, and Web. Any change must be tested conceptually on all three platforms. Platform-specific code should be isolated using `.ios.tsx`, `.android.tsx`, or the `Platform` API — don't scatter platform checks throughout shared components.
 
-1. **Hardcoded Strings**: Never use string literals for user-facing text
-2. **Direct Imports**: Always use `@/` path alias instead of relative imports beyond same folder
-3. **Missing Types**: All functions and components should have proper TypeScript types
-4. **Breaking Layouts**: Maintain Expo Router file structure
-5. **Theme Violations**: Always use themed components for consistent styling
+### 2. Tests Are Mandatory
+All non-trivial code should have tests. Use Jest with the `jest-expo` preset:
+- **Unit tests** for utilities, hooks, and isolated component logic
+- Full component rendering tests require the Expo environment — at minimum, test that components mount without errors
 
-## Testing Considerations
+### 3. Right Level of Abstraction
+- Separate UI components (`components/ui/` — generic, themed, reusable like `ThemedText`, `ThemedView`) from app components (`components/app/` — feature-specific with business logic).
+- Keep components focused and composable. Single Responsibility Principle applies.
+- Only extract shared logic once you've seen the pattern repeated at least twice.
 
-- Jest configured with jest-expo preset
-- Testing React Native components requires Expo development environment
-- Basic tests validate configuration
-- Full component testing should be done in Expo environment
+### 4. Always Use Themed Components
+Use `ThemedText` and `ThemedView` instead of raw React Native `Text` and `View` for all user-facing content. Using raw RN primitives with hardcoded colors breaks dark mode support.
 
-## Build & Deployment
+### 5. Type Safety Throughout
+TypeScript strict mode is required. No `any` types. All component props must have properly typed interfaces.
 
-- **iOS**: `pnpm ios` (requires macOS and Xcode)
-- **Android**: `pnpm android` (requires Android Studio/SDK)
-- **Web**: `pnpm web` (runs in browser)
-- **Production Build**: `pnpm build`
+### 6. Internationalization is Not Optional
+All user-facing text must use the `useAppTranslation()` hook. ESLint enforces this — literal strings in JSX fail the build.
 
-## Environment Variables
+### 7. State Management Hierarchy
+1. **Local component state** for UI-only concerns
+2. **TanStack Query** for all server/async state (fetching, caching, mutations)
+3. **React Hook Form** for all form state
+4. **`useLocalStorage` / `useSessionStorage`** from `usehooks-ts` for persistent client state
 
-- All client-accessible variables must start with `EXPO_PUBLIC_`
-- Defined in `.env.example`
-- Validated with Zod in `env.ts`
-- Never commit actual `.env` file
+## Common Mistakes and Confusion Points
 
-## Code Quality Tools
+### 1. File-Based Routing with Expo Router
+- Routes are defined by the file structure in the `app/` directory. Do not manually register routes. Adding a file in `app/` automatically creates a route. `_layout.tsx` files define layouts for route groups.
+- The `(tabs)` directory creates a tab-based navigation group — files inside are tab screens.
 
-- **ESLint**: Configured with React Native and i18n rules
-- **Prettier**: Code formatting (runs on pre-commit)
-- **Husky**: Git hooks for code quality
-- **lint-staged**: Runs checks on staged files only
+### 2. Hardcoded Strings / Missing Translations
+- All user-facing text **must** use the `useAppTranslation()` hook with i18n keys. ESLint enforces this with `i18next/no-literal-string`. Adding any string literal in JSX will fail linting.
+- Translation files are in `i18n/locales/`. Always add new keys there when adding new text.
 
-## When Making Changes
+### 3. Themed Components for Dark Mode
+- Use `ThemedText` and `ThemedView` instead of raw `Text` and `View` for automatic dark/light mode support. Using raw RN primitives with hardcoded colors breaks the theming system.
 
-1. Read existing code patterns first
-2. Follow the established conventions
-3. Run `pnpm lint` before committing
-4. Ensure i18n is maintained
-5. Test on actual device/simulator when possible
-6. Update documentation if adding new patterns
+### 4. Environment Variables
+- All client-accessible env vars must be prefixed with `EXPO_PUBLIC_`. Validated with Zod in `env.ts`. If adding new env vars, update both `.env.example` and the Zod schema.
 
-## Resources
+### 5. Testing React Native Components
+- Jest is configured with the `jest-expo` preset. Full component rendering tests require the Expo environment. Basic tests validate configuration. For visual testing, use the actual device/simulator.
 
-- [Expo Documentation](https://docs.expo.dev/)
-- [Expo Router Guide](https://docs.expo.dev/router/introduction/)
-- [React Native Docs](https://reactnative.dev/)
-- [TanStack Query](https://tanstack.com/query/latest)
-- [React Hook Form](https://react-hook-form.com/)
+### 6. Import Paths
+- Use the `@/` alias (maps to the root directory) — not relative paths like `../../components`.
+
+### 7. Package Manager
+- Use **`pnpm`** only. Do not use `npm install` or `yarn add`.
