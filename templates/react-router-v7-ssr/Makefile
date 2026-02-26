@@ -1,4 +1,4 @@
 .PHONY: setup
 
 setup:
-	chmod +x setup.sh && ./setup.sh
+	chmod +x scripts/setup.sh && ./scripts/setup.sh
