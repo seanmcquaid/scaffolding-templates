@@ -100,30 +100,13 @@ Both systems cover the same functional areas (requirements, architecture, implem
 
 This repository uses automated AI workflows to maintain code quality and accelerate development:
 
-### Local Development with Ralph
-
-**Ralph** is a simple bash script (`./scripts/ralph.sh`) for working with AI workflows locally - no CLI tools or installation required:
-
-```bash
-# Create a structured plan for your task
-./scripts/ralph.sh plan "Add authentication to next-ssr"
-
-# Execute, review, and iterate through the plan
-./scripts/ralph.sh execute auth-next-ssr.md
-./scripts/ralph.sh review auth-next-ssr.md
-./scripts/ralph.sh iterate auth-next-ssr.md
-```
-
-**It's just a script:** No dependencies, no installation - runs with standard bash and git. Copy it to any project.
-
-**Features:** Task classification, agent suggestions, template detection, progress tracking, local or shared team plans
 
 ### Automated GitHub Workflows
 
 - 🤖 **Automated Code Reviews** - AI agents automatically review PRs and tag relevant specialists
 - 🔍 **Proactive Concept Discovery** - Weekly scans for new technologies and best practices
 - 🧪 **Test Coverage Analysis** - Automated identification of test coverage gaps
-- 📋 **Issue Processing** - Daily Ralph workflow analysis of open issues
+- 📋 **Issue Processing** - Daily analysis of open issues
 - 🛠️ **Runnable Scripts** - All workflows use scripts that can be run locally for testing
 
 **Documentation**: [Complete AI Workflows Guide](/docs/ai-workflows.md)

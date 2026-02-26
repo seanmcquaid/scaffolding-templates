@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# Analyze a GitHub issue and suggest Ralph workflow approach
+# Analyze a GitHub issue and suggest workflow approach
 # Usage: ./scripts/analyze-issue.sh <issue-number>
 
 ISSUE_NUMBER="${1:-}"
@@ -109,7 +109,7 @@ if command -v gh &> /dev/null; then
   
   # Output analysis
   echo "═══════════════════════════════════════════════════════════"
-  echo "RALPH WORKFLOW ANALYSIS"
+  echo "WORKFLOW ANALYSIS"
   echo "═══════════════════════════════════════════════════════════"
   echo ""
   echo "Issue Type: $ISSUE_TYPE"
@@ -125,7 +125,7 @@ if command -v gh &> /dev/null; then
   done
   echo ""
   echo "═══════════════════════════════════════════════════════════"
-  echo "RALPH WORKFLOW: PLAN → EXECUTE → REVIEW → ITERATE"
+  echo "WORKFLOW: PLAN → EXECUTE → REVIEW → ITERATE"
   echo "═══════════════════════════════════════════════════════════"
   echo ""
   

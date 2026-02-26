@@ -102,27 +102,6 @@ pnpm dev
 | `pnpm typecheck`                  | Check TypeScript types       |
 | `pnpm bundlesize`                 | Check bundle size            |
 
-### AI Workflows (Ralph)
-
-Ralph is an autonomous AI agent loop that runs coding tools (Amp, Claude Code, GitHub Copilot, or Cursor) to complete tasks defined in `prd.json`.
-
-| Script               | Description                                          |
-| -------------------- | ---------------------------------------------------- |
-| `pnpm ralph`         | Run Ralph with default settings (Amp, 10 iterations) |
-| `pnpm ralph:amp`     | Run Ralph with Amp                                   |
-| `pnpm ralph:claude`  | Run Ralph with Claude Code                           |
-| `pnpm ralph:copilot` | Run Ralph with GitHub Copilot (manual mode)          |
-| `pnpm ralph:cursor`  | Run Ralph with Cursor (manual mode)                  |
-
-**Usage:**
-1. Create a `prd.json` file in the template root (see `scripts/ralph/prd.json.example`)
-2. Run `pnpm ralph` or `pnpm ralph 20` for more iterations
-3. Ralph will autonomously complete user stories defined in the PRD
-
-**Unified Prompt:**
-All AI tools use the same prompt file: `scripts/ralph/PROMPT.md`
-
-> See [OSS Ralph Documentation](https://github.com/snarktank/ralph) for more information.
 
 ## 🌍 Internationalization
 
