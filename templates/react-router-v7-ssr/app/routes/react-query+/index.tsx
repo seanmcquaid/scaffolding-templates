@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/Button';
 import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { useToast } from '@/hooks/useToast';
-import postsService from '@/services/postsService';
-import { getPostsQuery, postsQueryKeys } from '@/services/queries/posts';
+import { getDeletePostMutationOptions, getPostsQuery } from '@/services/queries/posts';
 
 const ReactQueryPage = () => {
   const { t } = useAppTranslation();
@@ -14,11 +13,8 @@ const ReactQueryPage = () => {
   const { toast } = useToast();
 
   const { mutate: deletePost, isPending: deletePostLoading } = useMutation({
-    mutationFn: async (id: string) => postsService.deletePost(id),
+    ...getDeletePostMutationOptions(queryClient),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: postsQueryKeys.posts,
-      });
       toast({ title: 'I got deleted' });
     },
   });
