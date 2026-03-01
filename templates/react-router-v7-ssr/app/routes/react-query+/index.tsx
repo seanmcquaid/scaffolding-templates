@@ -1,23 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
 import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 import { useToast } from '@/hooks/useToast';
-import { getDeletePostMutationOptions, getPostsQuery } from '@/services/queries/posts';
+import { getPostsQuery, useDeletePostMutation } from '@/services/queries/posts';
 
 const ReactQueryPage = () => {
   const { t } = useAppTranslation();
   const { data, isLoading, isError } = useQuery(getPostsQuery());
-  const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  const { mutate: deletePost, isPending: deletePostLoading } = useMutation({
-    ...getDeletePostMutationOptions(queryClient),
-    onSuccess: () => {
-      toast({ title: 'I got deleted' });
-    },
-  });
+  const { mutate: deletePost, isPending: deletePostLoading } =
+    useDeletePostMutation();
 
   return (
     <PageWrapper isError={isError} isLoading={isLoading}>
@@ -29,7 +24,11 @@ const ReactQueryPage = () => {
             <Button
               className="ml-4"
               disabled={deletePostLoading}
-              onClick={() => deletePost(post.id.toString())}
+              onClick={() =>
+                deletePost(post.id.toString(), {
+                  onSuccess: () => toast({ title: 'I got deleted' }),
+                })
+              }
             >
               {t('ReactQueryPage.delete')}
             </Button>

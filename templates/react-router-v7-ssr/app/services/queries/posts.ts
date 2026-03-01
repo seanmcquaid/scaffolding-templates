@@ -1,4 +1,4 @@
-import { type QueryClient, mutationOptions, queryOptions } from '@tanstack/react-query';
+import { useMutation, useQueryClient, queryOptions } from '@tanstack/react-query';
 import postsService from '@/services/postsService';
 import type Post from '@/types/Post';
 
@@ -65,27 +65,22 @@ export const getPostsQuery = () =>
   });
 
 /**
- * Mutation options for deleting a post with optimistic updates.
+ * Hook for deleting a post with optimistic updates.
  *
  * Implements the TanStack Query v5 optimistic update pattern:
  * - onMutate: Immediately removes the post from the cache for instant UI feedback
  * - onError: Rolls back to the previous state if the deletion fails
  * - onSettled: Always refetches to ensure the cache is in sync with the server
  *
- * @param queryClient - The QueryClient instance from useQueryClient()
- * @returns Mutation options to spread into useMutation()
- *
  * @example
  * ```tsx
- * const queryClient = useQueryClient();
- * const { mutate: deletePost, isPending } = useMutation({
- *   ...getDeletePostMutationOptions(queryClient),
- *   onSuccess: () => toast({ title: 'Post deleted' }),
- * });
+ * const { mutate: deletePost, isPending } = useDeletePostMutation();
+ * deletePost(postId, { onSuccess: () => toast({ title: 'Post deleted' }) });
  * ```
  */
-export const getDeletePostMutationOptions = (queryClient: QueryClient) =>
-  mutationOptions({
+export const useDeletePostMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
     mutationFn: (id: string) => postsService.deletePost(id),
     onError: (_err, _id, context) => {
       queryClient.setQueryData(postsQueryKeys.posts, context?.previousPosts);
@@ -104,3 +99,4 @@ export const getDeletePostMutationOptions = (queryClient: QueryClient) =>
       queryClient.invalidateQueries({ queryKey: postsQueryKeys.posts });
     },
   });
+};
