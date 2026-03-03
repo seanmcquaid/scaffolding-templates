@@ -88,6 +88,17 @@ updates:
       publishing:
         patterns:
           - "@changesets/*"
+      react-native:
+        patterns:
+          - "expo"
+          - "expo-*"
+          - "@expo/*"
+          - "jest-expo"
+          - "babel-preset-expo"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "@react-navigation/*"
       dev-tools:
         patterns:
           - "husky"
@@ -169,6 +180,15 @@ updates:
           - "*"
   - package-ecosystem: github-actions
     directory: "/templates/tanstack-router-spa/.github/actions/setup-pull-request-job"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: "/templates/expo-react-native/.github/workflows"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20

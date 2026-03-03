@@ -1,0 +1,76 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: tuesday
+    open-pull-requests-limit: 20
+    groups:
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      react-native:
+        patterns:
+          - 'expo'
+          - 'expo-*'
+          - '@expo/*'
+          - 'jest-expo'
+          - 'babel-preset-expo'
+          - 'react-native'
+          - 'react-native-*'
+          - '@react-native/*'
+          - '@react-navigation/*'
+      tanstack:
+        patterns:
+          - '@tanstack/*'
+      unit-testing:
+        patterns:
+          - '@testing-library/*'
+          - '@types/jest'
+          - 'babel-jest'
+          - 'jest'
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - 'globals'
+      formatting:
+        patterns:
+          - 'prettier'
+          - 'prettier-plugin-*'
+      i18n:
+        patterns:
+          - 'i18next'
+          - 'i18next-*'
+          - 'react-i18next'
+      build-tools:
+        patterns:
+          - 'typescript'
+          - '@babel/*'
+      form-handling:
+        patterns:
+          - 'react-hook-form'
+          - '@hookform/*'
+      dev-tools:
+        patterns:
+          - 'husky'
+          - 'lint-staged'
+          - 'is-ci'
+          - 'bundlesize2'
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: tuesday
+    open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - '*'
