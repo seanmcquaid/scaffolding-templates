@@ -88,12 +88,6 @@ updates:
       publishing:
         patterns:
           - "@changesets/*"
-      react-native:
-        patterns:
-          - "react-native"
-          - "react-native-*"
-          - "@react-native/*"
-          - "@react-navigation/*"
       expo:
         patterns:
           - "expo"
@@ -101,6 +95,10 @@ updates:
           - "@expo/*"
           - "jest-expo"
           - "babel-preset-expo"
+          - "react-native"
+          - "react-native-*"
+          - "@react-native/*"
+          - "@react-navigation/*"
       dev-tools:
         patterns:
           - "husky"
