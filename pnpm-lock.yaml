@@ -66,8 +66,8 @@ importers:
         specifier: ~6.0.9
         version: 6.0.9(expo@54.0.33)(react-native-web@0.21.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4))
       expo-web-browser:
-        specifier: ~15.0.10
-        version: 15.0.10(expo@54.0.33)(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4))
+        specifier: ~55.0.9
+        version: 55.0.9(expo@54.0.33)(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4))
       i18next:
         specifier: ^25.8.13
         version: 25.8.13(typescript@5.9.3)
@@ -6188,8 +6188,8 @@ packages:
       react-native-web:
         optional: true
 
-  expo-web-browser@15.0.10:
-    resolution: {integrity: sha512-fvDhW4bhmXAeWFNFiInmsGCK83PAqAcQaFyp/3pE/jbdKmFKoRCWr46uZGIfN4msLK/OODhaQ/+US7GSJNDHJg==}
+  expo-web-browser@55.0.9:
+    resolution: {integrity: sha512-PvAVsG401QmZabtTsYh1cYcpPiqvBPs8oiOkSrp0jIXnneiM466HxmeNtvo+fNxqJ2nwOBz9qLPiWRO91VBfsQ==}
     peerDependencies:
       expo: '*'
       react-native: '*'
@@ -15980,7 +15980,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  expo-web-browser@15.0.10(expo@54.0.33)(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4)):
+  expo-web-browser@55.0.9(expo@54.0.33)(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4)):
     dependencies:
       expo: 54.0.33(@babel/core@7.29.0)(@expo/metro-runtime@6.1.2)(expo-router@6.0.23)(graphql@16.12.0)(react-native@0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       react-native: 0.82.1(@babel/core@7.29.0)(@types/react@19.2.14)(react@19.2.4)
