@@ -18,12 +18,11 @@ This document provides complete documentation for the AI workflow automation sys
 
 ## Overview
 
-The AI workflow automation system implements automated, continuous improvement cycles for maintaining and evolving templates. It provides three primary workflows that run automatically to maintain code quality, discover new opportunities, and ensure comprehensive test coverage.
+The AI workflow automation system implements automated, continuous improvement cycles for maintaining and evolving templates. It provides workflows that run automatically to maintain code quality and ensure comprehensive test coverage.
 
 ### Key Features
 
 ✅ **Automated @copilot tagging** on every PR
-✅ **Proactive concept discovery** (weekly ecosystem scans)
 ✅ **Test coverage monitoring** (80% threshold)
 ✅ **Integration with 14 custom agents** (8 SDLC phase + 6 template specialists)
 ✅ **Runnable scripts** for local analysis and testing
@@ -40,7 +39,6 @@ The AI workflow automation system implements automated, continuous improvement c
 - Proactive issue identification
 - Consistent code review standards
 - Better test coverage visibility
-- Ecosystem awareness
 - Automated routine tasks
 
 ---
@@ -104,9 +102,8 @@ Step 4: Test (Use @quality-analyst)
 
 Workflows are configured in `.github/workflows/`:
 
-1. **ai-concept-discovery.yml** - Runs weekly (Monday 9 AM UTC)
-2. **ai-test-coverage.yml** - Runs weekly (Monday 10 AM UTC)
-3. **ai-issue-processing.yml** - Runs daily (8 AM UTC)
+1. **ai-test-coverage.yml** - Runs weekly (Monday 10 AM UTC)
+2. **ai-issue-processing.yml** - Runs daily (8 AM UTC)
 
 #### Running Scripts Locally
 
@@ -119,10 +116,6 @@ All workflow logic is extracted to scripts in `/scripts/`:
 # Test code review logic
 ./scripts/analyze-changed-files.sh main HEAD
 ./scripts/determine-agents.sh
-
-# Test concept discovery
-./scripts/analyze-templates.sh
-./scripts/identify-concepts.sh
 
 # Test coverage analysis
 ./scripts/run-coverage-analysis.sh
@@ -154,82 +147,7 @@ See `/scripts/README.md` for complete script documentation.
 - `scripts/analyze-changed-files.sh` - Analyze what changed
 - `scripts/determine-agents.sh` - Identify relevant agents
 
-### 2. AI Concept Discovery
-
-**Trigger:** Weekly (Monday 9:00 AM UTC) + manual
-
-**Purpose:** Identify new technologies, patterns, and best practices for templates
-
-**Process:**
-1. Scan ecosystem for new framework releases
-2. Check current package versions against latest available
-3. Analyze community trends and best practices
-4. Review related repositories for new patterns
-5. Compare current templates against latest practices
-6. Generate detailed GitHub issues with comprehensive metadata
-7. Tag software architect and template specialists
-
-**Concept Categories:**
-- Framework version updates (React Router, Next.js, TanStack Query, etc.)
-- Emerging patterns (Server Components, Edge runtime, etc.)
-- Testing improvements (Playwright, MSW v2, etc.)
-- Developer experience enhancements
-- Build and tooling optimizations
-
-**Enhanced Output (v2):**
-- **Detailed GitHub Issues** with:
-  - Current vs. latest version information
-  - Migration effort estimation (low/medium/high)
-  - Breaking changes indicators
-  - Benefits and success metrics
-  - Implementation checklist with phases
-  - Resource links and documentation
-  - Related template specialists
-- **Categorized labels**: Priority (`priority:high`), category (`category:framework-update`), affected templates
-- **Comprehensive summary reports** with:
-  - Statistics by priority and category
-  - Quick wins identification (low effort, high/medium priority)
-  - High impact opportunities
-  - Prioritized recommendations
-- **JSON data output** for automation and integration
-
-**Scripts Used:**
-- `scripts/analyze-templates.sh` - Analyze template dependencies
-- `scripts/identify-concepts.sh` - Identify opportunities with `--format json` support
-
-**Example Enhanced Issue:**
-```markdown
-## 🔍 AI-Discovered Concept Opportunity
-
-**Concept**: React Router v7 latest features and patterns
-**Category**: framework-update
-**Priority**: high
-
-### 📊 Current State
-**Affected Templates**: react-router-v7-spa, react-router-v7-ssr
-**Current Version**: 7.13.0
-**Latest Version**: 7.x
-
-### 📝 Description
-Review and adopt latest React Router v7 features including improved type safety...
-
-**Migration Effort**: 🟡 Medium
-**Breaking Changes**: ✅ No
-
-### ✨ Benefits
-- Improved type safety
-- Enhanced error handling
-- Better developer experience
-
-### 📚 Resources
-- https://reactrouter.com/en/main
-- https://github.com/remix-run/react-router/releases
-
-### 🎯 Implementation Plan
-[Detailed phase-by-phase checklist]
-```
-
-### 3. AI Test Coverage Analysis
+### 2. AI Test Coverage Analysis
 
 **Trigger:** Weekly (Monday 10:00 AM UTC) + manual
 
@@ -323,8 +241,6 @@ All workflow logic has been extracted into standalone scripts in the `/scripts/`
 | `analyze-issue.sh` | Analyze GitHub issue | `./scripts/analyze-issue.sh <issue-number>` |
 | `analyze-changed-files.sh` | Analyze git changes | `./scripts/analyze-changed-files.sh [base] [head]` |
 | `determine-agents.sh` | Find relevant agents | `./scripts/determine-agents.sh [files] [templates]` |
-| `analyze-templates.sh` | Check dependencies | `./scripts/analyze-templates.sh` |
-| `identify-concepts.sh` | Find opportunities | `./scripts/identify-concepts.sh` |
 | `run-coverage-analysis.sh` | Run coverage tests | `./scripts/run-coverage-analysis.sh [dir]` |
 | `identify-coverage-gaps.sh` | Find coverage gaps | `./scripts/identify-coverage-gaps.sh [threshold]` |
 | `identify-missing-tests.sh` | Find missing tests | `./scripts/identify-missing-tests.sh` |
@@ -517,7 +433,6 @@ Each phase builds on the previous, following the plan-execute-review-iterate loo
 │  │   AI Workflow Automation Layer        │ │
 │  │                                       │ │
 │  │  • AI Code Review Workflow           │ │
-│  │  • Concept Discovery Workflow        │ │
 │  │  • Test Coverage Workflow            │ │
 │  └───────────────────────────────────────┘ │
 │                     │                       │
@@ -535,7 +450,6 @@ Each phase builds on the previous, following the plan-execute-review-iterate loo
 | Workflow | Trigger | Frequency | Purpose |
 |----------|---------|-----------|---------|
 | AI Code Review | PR events | On-demand | Review changes, tag agents |
-| Concept Discovery | Scheduled | Weekly (Mon 9 AM UTC) | Find new opportunities |
 | Test Coverage | Scheduled | Weekly (Mon 10 AM UTC) | Identify coverage gaps |
 | Issue Processing | Scheduled | Daily (8 AM UTC) | Process open issues |
 
@@ -675,9 +589,6 @@ python3 -c "import yaml; yaml.safe_load(open('workflow.yml'))"
 # List workflows
 gh workflow list
 
-# Run workflow manually
-gh workflow run ai-concept-discovery.yml
-
 # List issues by label
 gh issue list --label ai-generated
 
@@ -696,18 +607,15 @@ gh issue list --label ai-generated
 **Documentation (this file):**
 - `/docs/ai-workflows.md` - Complete consolidated documentation
 
-**Scripts (7 files):**
+**Scripts (5 files):**
 - `/scripts/analyze-changed-files.sh`
 - `/scripts/determine-agents.sh`
-- `/scripts/analyze-templates.sh`
-- `/scripts/identify-concepts.sh`
 - `/scripts/run-coverage-analysis.sh`
 - `/scripts/identify-coverage-gaps.sh`
 - `/scripts/identify-missing-tests.sh`
 - `/scripts/README.md`
 
-**GitHub Actions Workflows (2 files):**
-- `/.github/workflows/ai-concept-discovery.yml`
+**GitHub Actions Workflows (1 file):**
 - `/.github/workflows/ai-test-coverage.yml`
 
 **Main README:**
@@ -720,7 +628,6 @@ gh issue list --label ai-generated
 - `MIN_ISSUE_PRIORITY: medium` - Minimum priority for created issues
 
 **Workflow Schedules:**
-- Concept Discovery: `0 9 * * 1` (Monday 9:00 AM UTC)
 - Test Coverage: `0 10 * * 1` (Monday 10:00 AM UTC)
 
 ### Metrics to Track
@@ -815,17 +722,7 @@ gh issue list --label ai-generated
 
 **Major Enhancements:**
 
-1. **AI Concept Discovery**
-   - ✨ Added JSON output format with structured data
-   - ✨ Current vs. latest version comparisons from package.json
-   - ✨ Migration effort estimation (low/medium/high)
-   - ✨ Breaking changes indicators
-   - ✨ Benefits and resources sections
-   - ✨ Categorized summary reports with quick wins
-   - ✨ Priority-based issue labeling
-   - ✨ Comprehensive implementation plans
-
-2. **AI Test Coverage**
+1. **AI Test Coverage**
    - ✨ Added JSON output format with detailed metrics
    - ✨ File-level coverage breakdown with specifics
    - ✨ Gap counts (missing lines, branches, functions)
@@ -844,7 +741,6 @@ gh issue list --label ai-generated
    - ✨ More comprehensive guidance
 
 **Scripts Enhanced:**
-- `scripts/identify-concepts.sh` - Added `--format json` support
 - `scripts/identify-coverage-gaps.sh` - Added `--format json` support
 - `scripts/classify-issue.sh` - Added metadata output
 
@@ -858,7 +754,6 @@ gh issue list --label ai-generated
 ### Version 1.0 (January 26, 2026) - Initial Release
 
 **Initial Features:**
-- AI Concept Discovery workflow
 - AI Test Coverage Analysis workflow
 - AI Issue Processing workflow
 - Custom agent integration

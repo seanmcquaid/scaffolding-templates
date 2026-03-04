@@ -82,37 +82,6 @@ git diff --name-only main...HEAD | ./scripts/determine-agents.sh - "next-ssr rea
 
 **Output:** JSON with relevant agent tags
 
-### Concept Discovery Scripts
-
-#### `analyze-templates.sh`
-Analyzes all templates for dependencies and version information.
-
-**Usage:**
-```bash
-./scripts/analyze-templates.sh
-```
-
-**Example:**
-```bash
-./scripts/analyze-templates.sh
-```
-
-**Output:** List of templates with their major dependencies
-
-#### `identify-concepts.sh`
-Identifies potential concept opportunities for templates.
-
-**Usage:**
-```bash
-./scripts/identify-concepts.sh
-```
-
-**Example:**
-```bash
-./scripts/identify-concepts.sh
-```
-
-**Output:** List of identified concepts organized by category
 
 ### Test Coverage Scripts
 
@@ -218,16 +187,6 @@ sudo dnf install jq bc
 git diff --name-only main...HEAD | ./scripts/determine-agents.sh - "next-ssr"
 ```
 
-### Testing Concept Discovery
-
-```bash
-# 1. Analyze templates for dependencies
-./scripts/analyze-templates.sh
-
-# 2. Identify concept opportunities
-./scripts/identify-concepts.sh
-```
-
 ### Testing Coverage Analysis
 
 ```bash
@@ -245,7 +204,6 @@ git diff --name-only main...HEAD | ./scripts/determine-agents.sh - "next-ssr"
 
 These scripts are called by the GitHub Actions workflows:
 
-- `.github/workflows/ai-concept-discovery.yml` uses `analyze-templates.sh` and `identify-concepts.sh`
 - `.github/workflows/ai-test-coverage.yml` uses `run-coverage-analysis.sh`, `identify-coverage-gaps.sh`, and `identify-missing-tests.sh`
 - `.github/workflows/ai-issue-processing.yml` uses `classify-issue.sh`
 
