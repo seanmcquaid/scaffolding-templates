@@ -96,4 +96,10 @@ Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
 
 Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.
 
+## Automated Test Coverage
+
+A scheduled GitHub Actions workflow (`.github/workflows/ai-test-coverage.yml`) runs every Monday to analyse test coverage across all templates and open issues for any gaps found below the 80% threshold.
+
+Scripts used by the workflow can also be run locally — see [scripts/README.md](/scripts/README.md) and [docs/ai-workflows.md](/docs/ai-workflows.md).
+
 **Agents**: [Custom Agents Guide](/.agents/README.md)
