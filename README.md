@@ -96,21 +96,10 @@ Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
 
 Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.
 
-## AI-Powered Development Workflows
+## Automated Test Coverage
 
-This repository uses automated AI workflows to maintain code quality and accelerate development:
+A scheduled GitHub Actions workflow (`.github/workflows/ai-test-coverage.yml`) runs every Monday to analyse test coverage across all templates and open issues for any gaps found below the 80% threshold.
 
-
-### Automated GitHub Workflows
-
-- 🤖 **Automated Code Reviews** - AI agents automatically review PRs and tag relevant specialists
-- 🔍 **Proactive Concept Discovery** - Weekly scans for new technologies and best practices
-- 🧪 **Test Coverage Analysis** - Automated identification of test coverage gaps
-- 📋 **Issue Processing** - Daily analysis of open issues
-- 🛠️ **Runnable Scripts** - All workflows use scripts that can be run locally for testing
-
-**Documentation**: [Complete AI Workflows Guide](/docs/ai-workflows.md)
-
-**Scripts**: [AI Workflow Scripts](/scripts/README.md)
+Scripts used by the workflow can also be run locally — see [scripts/README.md](/scripts/README.md) and [docs/ai-workflows.md](/docs/ai-workflows.md).
 
 **Agents**: [Custom Agents Guide](/.agents/README.md)
