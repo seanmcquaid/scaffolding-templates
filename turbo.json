@@ -39,6 +39,7 @@
       "cache": false,
       "persistent": true
     },
+    "typecheck": {},
     "playwright:run-integration": {
       "dependsOn": ["build"],
       "outputs": ["playwright-report/**", "test-results/**"]

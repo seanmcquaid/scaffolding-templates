@@ -28,7 +28,7 @@ exit_with_error() {
 check_exit_code() {
     local exit_code=$1
     local error_message="$2"
-    if [ $exit_code -ne 0 ]; then
+    if [ "$exit_code" -ne 0 ]; then
         exit_with_error "$error_message"
     fi
 }
@@ -113,8 +113,8 @@ install_nvm() {
 
     if ! grep -q 'NVM_DIR' "$shell_profile" 2>/dev/null; then
         {
-            echo '\nexport NVM_DIR="$HOME/.nvm"'
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"'
+            printf '\nexport NVM_DIR="$HOME/.nvm"\n'
+            printf '[ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"\n'
         } >> "$shell_profile"
         echo "✅ Added nvm source to $shell_profile"
         echo "Please restart your terminal or run: source $shell_profile"
