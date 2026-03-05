@@ -1,11 +1,9 @@
 import { z } from 'zod';
-import createApiClient from './createApiClient';
+import { createApiClient } from './createApiClient';
 import type Post from '@/types/Post';
 import { postSchema } from '@/types/Post';
 
-const baseUrl = 'https://jsonplaceholder.typicode.com';
-
-const client = createApiClient(baseUrl);
+const client = createApiClient();
 
 const postsService = {
   deletePost: (id: string) => client.delete(`posts/${id}`),

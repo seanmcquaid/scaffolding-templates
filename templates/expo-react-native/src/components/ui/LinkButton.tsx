@@ -1,11 +1,10 @@
 import type { ReactNode } from 'react';
-import { Link, type Href } from 'expo-router';
-import type { TouchableOpacityProps } from 'react-native';
+import { Link, type Href, type LinkProps as ExpoLinkProps } from 'expo-router';
 import { StyleSheet } from 'react-native';
 import { ThemedText } from './ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
-export interface LinkButtonProps extends Omit<TouchableOpacityProps, 'style'> {
+export interface LinkButtonProps extends Omit<ExpoLinkProps, 'style' | 'children'> {
   href: Href;
   children: ReactNode;
   variant?: 'default' | 'secondary' | 'outline';
