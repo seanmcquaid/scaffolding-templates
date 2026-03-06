@@ -45,7 +45,7 @@ export const Button = ({
   size,
   asChild = false,
   ...props
-}: React.HTMLProps<HTMLButtonElement> & ButtonProps) => {
+}: ButtonProps) => {
   const Comp = asChild ? Slot : 'button';
   return (
     <Comp
