@@ -157,9 +157,6 @@ describe('useToast', () => {
 
       act(() => {
         result.current.toast({ title: 'Toast to dismiss' });
-      });
-
-      act(() => {
         result.current.dismiss();
       });
 
@@ -203,9 +200,6 @@ describe('useToast', () => {
 
       act(() => {
         toastResult = result.current.toast({ title: 'Original title' });
-      });
-
-      act(() => {
         toastResult!.update({ id: toastResult!.id, title: 'Updated title' });
       });
 
@@ -226,9 +220,6 @@ describe('addToRemoveQueue', () => {
 
     act(() => {
       result.current.dismiss(toastId);
-    });
-
-    act(() => {
       result.current.dismiss(toastId);
     });
 
