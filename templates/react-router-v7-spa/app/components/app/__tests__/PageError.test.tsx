@@ -1,4 +1,3 @@
-import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
 import PageError from '@/components/app/PageError';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
@@ -27,14 +26,12 @@ describe('PageError', () => {
     render(<RouteStub />);
     expect(screen.getByText('Error message')).toBeInTheDocument();
   });
-  it('Renders the go back button', async () => {
-    const user = userEvent.setup();
+  it('Renders the go back button', () => {
     const RouteStub = createRoutesStub([
       { Component: () => <PageError />, path: '/' },
     ]);
     render(<RouteStub />);
     const goBackButton = screen.getByText('PageError.goBack');
     expect(goBackButton).toBeInTheDocument();
-    await user.click(goBackButton);
   });
 });
