@@ -16,9 +16,6 @@ pnpm lint
 
 # Build all templates
 pnpm build
-
-# Run typecheck across all templates
-pnpm typecheck
 ```
 
 ## Guiding Principles

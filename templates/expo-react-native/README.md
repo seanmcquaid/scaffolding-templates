@@ -83,27 +83,25 @@ pnpm dev
 
 ### Development
 
-| Script          | Description                   |
-| --------------- | ----------------------------- |
-| `pnpm dev`      | Start Expo development server |
-| `pnpm start`    | Start Expo development server |
-| `pnpm ios`      | Run on iOS simulator          |
-| `pnpm android`  | Run on Android emulator       |
-| `pnpm web`      | Run in web browser            |
-| `pnpm build`    | Build for production          |
+| Script         | Description                   |
+| -------------- | ----------------------------- |
+| `pnpm dev`     | Start Expo development server |
+| `pnpm start`   | Start Expo development server |
+| `pnpm ios`     | Run on iOS simulator          |
+| `pnpm android` | Run on Android emulator       |
+| `pnpm web`     | Run in web browser            |
+| `pnpm build`   | Build for production          |
 
 ### Testing & Quality
 
-| Script               | Description                  |
-| -------------------- | ---------------------------- |
-| `pnpm test`          | Run tests                    |
-| `pnpm test:watch`    | Run tests in watch mode      |
-| `pnpm test:coverage` | Run tests with coverage      |
-| `pnpm lint`          | Lint source code             |
-| `pnpm lint:fix`      | Lint and auto-fix issues     |
-| `pnpm typecheck`     | Check TypeScript types       |
-| `pnpm bundlesize`    | Check bundle size            |
-
+| Script               | Description              |
+| -------------------- | ------------------------ |
+| `pnpm test`          | Run tests                |
+| `pnpm test:watch`    | Run tests in watch mode  |
+| `pnpm test:coverage` | Run tests with coverage  |
+| `pnpm lint`          | Lint source code         |
+| `pnpm lint:fix`      | Lint and auto-fix issues |
+| `pnpm bundlesize`    | Check bundle size        |
 
 ## 🌍 Internationalization
 
@@ -161,9 +159,7 @@ describe('Template Setup', () => {
 import { ThemedText } from '@/components/ui/ThemedText';
 
 test('renders correctly', () => {
-  const { getByText } = render(
-    <ThemedText>HomePage.title</ThemedText>
-  );
+  const { getByText } = render(<ThemedText>HomePage.title</ThemedText>);
   expect(getByText('HomePage.title')).toBeTruthy();
 });
 ```
@@ -240,11 +236,13 @@ pnpm build
 ### Using Simulators/Emulators
 
 **iOS Simulator (macOS only):**
+
 ```bash
 pnpm ios
 ```
 
 **Android Emulator:**
+
 ```bash
 pnpm android
 ```
@@ -287,27 +285,32 @@ All `EXPO_PUBLIC_*` variables are available in your app code.
 If the development server fails to start, try these steps:
 
 **1. Clear Cache and Restart:**
+
 ```bash
 npx expo start --clear
 ```
 
 **2. Check Node Version:**
+
 ```bash
 node --version  # Should be >=22.12.0
 ```
 
 If needed, use nvm to switch:
+
 ```bash
 nvm use 22
 ```
 
 **3. Reinstall Dependencies:**
+
 ```bash
 rm -rf node_modules
 pnpm install
 ```
 
 **4. Clear Expo Cache:**
+
 ```bash
 rm -rf .expo
 rm -rf node_modules/.cache
@@ -319,16 +322,19 @@ npx expo start --clear
 If `pnpm web` fails:
 
 **1. Ensure all dependencies are installed:**
+
 ```bash
 pnpm install
 ```
 
 **2. Check for missing assets:**
+
 - The template includes placeholder asset files in `assets/`
 - Replace `.placeholder` files with actual images before production
 - Missing assets will show warnings but won't prevent the app from running
 
 **3. Build for web explicitly:**
+
 ```bash
 pnpm build
 ```
@@ -350,6 +356,7 @@ npx expo start --port 8082
 ### Metro Bundler Issues
 
 **Reset Metro Bundler:**
+
 ```bash
 rm -rf node_modules
 rm -rf .expo
@@ -358,6 +365,7 @@ npx expo start --clear
 ```
 
 **Check for conflicting Metro instances:**
+
 ```bash
 ps aux | grep metro
 # Kill any stray metro processes
@@ -366,6 +374,7 @@ ps aux | grep metro
 ### iOS Simulator Issues
 
 **Reset Simulator:**
+
 ```bash
 xcrun simctl erase all
 ```
@@ -373,6 +382,7 @@ xcrun simctl erase all
 ### Android Emulator Issues
 
 **Restart ADB:**
+
 ```bash
 adb kill-server
 adb start-server
@@ -381,14 +391,17 @@ adb start-server
 ### Common Errors
 
 **"Unable to resolve module"**
+
 - Clear cache: `npx expo start --clear`
 - Reinstall: `rm -rf node_modules && pnpm install`
 
 **"Metro bundler failed to start"**
+
 - Check if another metro instance is running
 - Clear watchman cache: `watchman watch-del-all` (if watchman is installed)
 
 **"CI mode" errors**
+
 - Ensure CI environment variable is not set incorrectly
 - Use `CI=false pnpm dev` to disable CI mode locally
 

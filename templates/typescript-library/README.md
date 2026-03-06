@@ -75,18 +75,16 @@ pnpm test:watch
 | `pnpm test:coverage`     | Run tests with coverage reporting             |
 | `pnpm lint`              | Lint source code                              |
 | `pnpm lint:fix`          | Lint and auto-fix issues                      |
-| `pnpm typecheck`         | Check TypeScript types                        |
 | `pnpm check-types`       | Validate TypeScript types and package exports |
 | `pnpm check-treeshaking` | Verify the bundle is tree-shakeable           |
 | `pnpm bundlesize`        | Check bundle size against limits              |
 
 ### Publishing
 
-| Script          | Description                                    |
-| --------------- | ---------------------------------------------- |
-| `pnpm changeset`| Create a changeset for version management      |
-| `pnpm release`  | Build and publish package to npm               |
-
+| Script           | Description                               |
+| ---------------- | ----------------------------------------- |
+| `pnpm changeset` | Create a changeset for version management |
+| `pnpm release`   | Build and publish package to npm          |
 
 ## 🔧 Development Workflow
 

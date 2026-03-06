@@ -14,10 +14,9 @@
     "test:coverage": "turbo test:coverage",
     "test:watch": "turbo test:watch",
     "playwright:run-integration": "turbo playwright:run-integration",
-    "playwright:run-e2e": "turbo playwright:run-e2e",
-    "typecheck": "turbo typecheck"
+    "playwright:run-e2e": "turbo playwright:run-e2e"
   },
   "devDependencies": {
-    "turbo": "^2.8.12"
+    "turbo": "^2.8.13"
   }
 }
