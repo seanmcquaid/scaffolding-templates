@@ -1,5 +1,9 @@
 import { reducer, toast, useToast } from '@/hooks/useToast';
-import { renderHook, act } from '@/utils/testing/reactTestingLibraryUtils';
+import {
+  renderHook,
+  act,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('useToast', () => {
   describe('reducer', () => {
@@ -126,104 +130,83 @@ describe('useToast', () => {
       expect(typeof result.current.toast).toBe('function');
     });
 
-    it('adds a toast to the state when toast is called', () => {
+    it('adds a toast to the state when toast is called', async () => {
       const { result } = renderHook(() => useToast());
 
-      act(() => {
-        result.current.toast({ title: 'Hello from hook' });
-      });
-
-      expect(result.current.toasts.length).toBeGreaterThan(0);
+      result.current.toast({ title: 'Hello from hook' });
+      await waitFor(() =>
+        expect(result.current.toasts.length).toBeGreaterThan(0),
+      );
     });
 
-    it('dismisses a toast by id when dismiss is called', () => {
+    it('dismisses a toast by id when dismiss is called', async () => {
       const { result } = renderHook(() => useToast());
 
-      act(() => {
-        result.current.toast({ title: 'Dismissible toast' });
-      });
+      result.current.toast({ title: 'Dismissible toast' });
+      await waitFor(() => expect(result.current.toasts).toHaveLength(1));
 
       const toastId = result.current.toasts[0]?.id;
 
-      act(() => {
-        result.current.dismiss(toastId);
-      });
-
-      expect(result.current.toasts[0]?.open).toBe(false);
+      result.current.dismiss(toastId);
+      await waitFor(() => expect(result.current.toasts[0]?.open).toBe(false));
     });
 
-    it('dismisses all toasts when dismiss is called without an id', () => {
+    it('dismisses all toasts when dismiss is called without an id', async () => {
       const { result } = renderHook(() => useToast());
 
-      act(() => {
-        result.current.toast({ title: 'Toast to dismiss' });
-        result.current.dismiss();
-      });
-
-      expect(result.current.toasts.every(t => t.open === false)).toBe(true);
+      result.current.toast({ title: 'Toast to dismiss' });
+      result.current.dismiss();
+      await waitFor(() =>
+        expect(result.current.toasts.every(t => t.open === false)).toBe(true),
+      );
     });
   });
 
   describe('toast function', () => {
     it('returns id, update, and dismiss functions', () => {
-      let toastResult: ReturnType<typeof toast>;
+      const toastResult = toast({ title: 'Test toast' });
 
-      act(() => {
-        toastResult = toast({ title: 'Test toast' });
-      });
-
-      expect(toastResult!.id).toBeDefined();
-      expect(typeof toastResult!.update).toBe('function');
-      expect(typeof toastResult!.dismiss).toBe('function');
+      expect(toastResult.id).toBeDefined();
+      expect(typeof toastResult.update).toBe('function');
+      expect(typeof toastResult.dismiss).toBe('function');
     });
 
-    it('dismiss function from toast return value dismisses the toast', () => {
+    it('dismiss function from toast return value dismisses the toast', async () => {
       const { result } = renderHook(() => useToast());
 
-      let toastResult: ReturnType<typeof toast>;
+      const toastResult = result.current.toast({ title: 'Toast to dismiss' });
+      await waitFor(() => expect(result.current.toasts).toHaveLength(1));
 
-      act(() => {
-        toastResult = result.current.toast({ title: 'Toast to dismiss' });
-      });
-
-      act(() => {
-        toastResult!.dismiss();
-      });
-
-      expect(result.current.toasts[0]?.open).toBe(false);
+      toastResult.dismiss();
+      await waitFor(() => expect(result.current.toasts[0]?.open).toBe(false));
     });
 
-    it('update function from toast return value updates the toast', () => {
+    it('update function from toast return value updates the toast', async () => {
       const { result } = renderHook(() => useToast());
 
-      let toastResult: ReturnType<typeof toast>;
+      const toastResult = result.current.toast({ title: 'Original title' });
+      await waitFor(() => expect(result.current.toasts).toHaveLength(1));
 
-      act(() => {
-        toastResult = result.current.toast({ title: 'Original title' });
-        toastResult!.update({ id: toastResult!.id, title: 'Updated title' });
-      });
-
-      expect(result.current.toasts[0]?.title).toBe('Updated title');
+      toastResult.update({ id: toastResult.id, title: 'Updated title' });
+      await waitFor(() =>
+        expect(result.current.toasts[0]?.title).toBe('Updated title'),
+      );
     });
   });
 });
 
 describe('addToRemoveQueue', () => {
-  it('dismissing the same toast twice does not add it to queue twice', () => {
+  it('dismissing the same toast twice does not add it to queue twice', async () => {
     const { result } = renderHook(() => useToast());
 
-    act(() => {
-      result.current.toast({ title: 'Toast to dismiss twice' });
-    });
+    result.current.toast({ title: 'Toast to dismiss twice' });
+    await waitFor(() => expect(result.current.toasts).toHaveLength(1));
 
     const toastId = result.current.toasts[0]?.id;
 
-    act(() => {
-      result.current.dismiss(toastId);
-      result.current.dismiss(toastId);
-    });
-
-    expect(result.current.toasts[0]?.open).toBe(false);
+    result.current.dismiss(toastId);
+    result.current.dismiss(toastId);
+    await waitFor(() => expect(result.current.toasts[0]?.open).toBe(false));
   });
 });
 
