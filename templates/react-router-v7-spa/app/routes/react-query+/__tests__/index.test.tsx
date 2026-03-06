@@ -3,7 +3,6 @@ import { HttpResponse, http } from 'msw';
 import { createRoutesStub } from 'react-router';
 import ReactQueryPage from '..';
 import server from '@/mocks/server';
-import queryClient from '@/services/queries/queryClient';
 import {
   render,
   screen,
@@ -11,15 +10,6 @@ import {
 } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('ReactQueryPage', () => {
-  beforeEach(() => {
-    queryClient.clear();
-    queryClient.setDefaultOptions({ queries: { retry: false } });
-  });
-
-  afterEach(() => {
-    queryClient.setDefaultOptions({ queries: { retry: 3 } });
-  });
-
   it('Displays a toast when a post is deleted succesfully', async () => {
     const user = userEvent.setup();
     const RoutesStub = createRoutesStub([
