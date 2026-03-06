@@ -19,19 +19,6 @@ describe('ReactQueryPostPage', () => {
     queryClient.setDefaultOptions({ queries: { retry: 3 } });
   });
 
-  it('should render successfully', async () => {
-    const RoutesStub = createRoutesStub([
-      {
-        // @ts-expect-error - mock params for testing
-        Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
-        path: '/',
-      },
-    ]);
-    render(<RoutesStub />);
-    await waitFor(() => {
-      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
-    });
-  });
   it('Displays loading state while fetching post', () => {
     const RoutesStub = createRoutesStub([
       {

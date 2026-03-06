@@ -10,33 +10,37 @@ import {
 } from '@/components/ui/Toast';
 
 describe('Toast components', () => {
-  it('renders Toast with default variant', () => {
-    const { container } = render(
+  it('applies the default variant CSS class to the toast element', () => {
+    render(
       <ToastProvider>
         <Toast open>
           {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastTitle>Test title</ToastTitle>
+          <ToastTitle>Default toast</ToastTitle>
         </Toast>
         <ToastViewport />
       </ToastProvider>,
     );
-    expect(container).toBeTruthy();
+    const title = screen.getByText('Default toast');
+    const toastEl = title.closest('[data-state]');
+    expect(toastEl?.className).toContain('bg-background');
   });
 
-  it('renders Toast with destructive variant', () => {
-    const { container } = render(
+  it('applies the destructive variant CSS class to the toast element', () => {
+    render(
       <ToastProvider>
         <Toast open variant="destructive">
           {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastTitle>Error title</ToastTitle>
+          <ToastTitle>Error toast</ToastTitle>
         </Toast>
         <ToastViewport />
       </ToastProvider>,
     );
-    expect(container).toBeTruthy();
+    const title = screen.getByText('Error toast');
+    const toastEl = title.closest('[data-state]');
+    expect(toastEl?.className).toContain('destructive');
   });
 
-  it('renders ToastTitle and ToastDescription', () => {
+  it('renders ToastTitle and ToastDescription with correct content', () => {
     render(
       <ToastProvider>
         <Toast open>
@@ -52,7 +56,7 @@ describe('Toast components', () => {
     expect(screen.getByText('Description text')).toBeInTheDocument();
   });
 
-  it('renders ToastAction and ToastClose', () => {
+  it('renders ToastAction and ToastClose as interactive elements', () => {
     render(
       <ToastProvider>
         <Toast open>
@@ -63,6 +67,8 @@ describe('Toast components', () => {
         <ToastViewport />
       </ToastProvider>,
     );
-    expect(screen.getByText('Undo')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
+    const allButtons = screen.getAllByRole('button');
+    expect(allButtons.some(btn => btn.hasAttribute('toast-close'))).toBe(true);
   });
 });

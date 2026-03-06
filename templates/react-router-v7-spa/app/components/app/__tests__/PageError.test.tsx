@@ -1,8 +1,23 @@
+import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
 import PageError from '@/components/app/PageError';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
+const mockNavigate = vi.fn();
+
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router');
+  return {
+    ...(actual as Record<string, unknown>),
+    useNavigate: () => mockNavigate,
+  };
+});
+
 describe('PageError', () => {
+  beforeEach(() => {
+    mockNavigate.mockReset();
+  });
+
   describe('Title text', () => {
     it('Displays custom title if provided', () => {
       const RouteStub = createRoutesStub([
@@ -26,12 +41,13 @@ describe('PageError', () => {
     render(<RouteStub />);
     expect(screen.getByText('Error message')).toBeInTheDocument();
   });
-  it('Renders the go back button', () => {
+  it('Calls navigate(-1) when go back button is clicked', async () => {
+    const user = userEvent.setup();
     const RouteStub = createRoutesStub([
       { Component: () => <PageError />, path: '/' },
     ]);
     render(<RouteStub />);
-    const goBackButton = screen.getByText('PageError.goBack');
-    expect(goBackButton).toBeInTheDocument();
+    await user.click(screen.getByText('PageError.goBack'));
+    expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
 });
