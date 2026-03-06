@@ -286,7 +286,6 @@ show_completion_message() {
     echo "   pnpm build                   - Build for production"
     echo "   pnpm serve                   - Serve production build"
     echo "   pnpm test                    - Run unit tests"
-    echo "   pnpm typecheck               - Run TypeScript type checking"
     echo "   pnpm lint                    - Run linting"
     echo "   pnpm playwright:run-integration - Run integration tests"
     echo "   pnpm playwright:run-e2e      - Run end-to-end tests"

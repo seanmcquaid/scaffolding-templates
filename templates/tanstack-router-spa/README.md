@@ -95,19 +95,17 @@ pnpm dev
 
 ### Testing & Quality
 
-| Script                            | Description                  |
-| --------------------------------- | ---------------------------- |
-| `pnpm test`                       | Run unit tests               |
-| `pnpm test:watch`                 | Run tests in watch mode      |
-| `pnpm test:coverage`              | Run tests with coverage      |
-| `pnpm playwright:run-integration` | Run integration tests        |
-| `pnpm playwright:run-e2e`         | Run end-to-end tests         |
-| `pnpm playwright:ui`              | Run Playwright in UI mode    |
-| `pnpm lint`                       | Lint source code             |
-| `pnpm lint:fix`                   | Lint and auto-fix issues     |
-| `pnpm typecheck`                  | Check TypeScript types       |
-| `pnpm bundlesize`                 | Check bundle size            |
-
+| Script                            | Description               |
+| --------------------------------- | ------------------------- |
+| `pnpm test`                       | Run unit tests            |
+| `pnpm test:watch`                 | Run tests in watch mode   |
+| `pnpm test:coverage`              | Run tests with coverage   |
+| `pnpm playwright:run-integration` | Run integration tests     |
+| `pnpm playwright:run-e2e`         | Run end-to-end tests      |
+| `pnpm playwright:ui`              | Run Playwright in UI mode |
+| `pnpm lint`                       | Lint source code          |
+| `pnpm lint:fix`                   | Lint and auto-fix issues  |
+| `pnpm bundlesize`                 | Check bundle size         |
 
 ## 🌍 Internationalization
 

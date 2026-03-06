@@ -17,8 +17,7 @@
     "start": "http-server -p 3000 build/client/",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest",
-    "typecheck": "tsc --noEmit"
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -59,7 +58,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-
     "@types/node": "^25.3.3",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
