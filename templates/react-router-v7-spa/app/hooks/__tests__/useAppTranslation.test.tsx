@@ -10,13 +10,13 @@ describe('useAppTranslation', () => {
 
   it('t function returns the i18n key when called without options', () => {
     const { result } = renderHook(() => useAppTranslation());
-    expect(result.current.t('Common.loading')).toBe('Common.loading');
+    expect(result.current.t('HomePage.title')).toBe('HomePage.title');
   });
 
   it('t function passes options when provided', () => {
     const { result } = renderHook(() => useAppTranslation());
-    expect(result.current.t('Common.loading', { count: 1 })).toBe(
-      'Common.loading',
+    expect(result.current.t('HomePage.title', { count: 1 })).toBe(
+      'HomePage.title',
     );
   });
 });
