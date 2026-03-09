@@ -125,5 +125,16 @@ describe('getValidatedFormData', () => {
         defaultValues: { name: 'John Doe' },
       });
     });
+    it('uses empty string as fallback when form field is missing from FormData', () => {
+      const formData = new FormData();
+
+      const result = getValidatedFormData({
+        formData,
+        schema: z.object({ name: z.string().min(3) }),
+      });
+
+      expect(result.defaultValues).toEqual({ name: '' });
+      expect(result.errors).toBeDefined();
+    });
   });
 });

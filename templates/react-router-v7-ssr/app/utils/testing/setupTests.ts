@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom/vitest';
 import 'cross-fetch/polyfill';
 import server from '@/mocks/server';
+import queryClient from '@/services/queries/queryClient';
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
@@ -28,6 +29,10 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-beforeEach(() => server.listen());
+beforeEach(() => {
+  server.listen();
+  queryClient.clear();
+  queryClient.setDefaultOptions({ queries: { retry: false } });
+});
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
