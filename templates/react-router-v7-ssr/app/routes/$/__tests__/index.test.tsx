@@ -1,10 +1,7 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
 import NotFoundPage from '..';
-import {
-  render,
-  screen,
-} from '@/utils/testing/reactTestingLibraryUtils';
+import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 const mockNavigate = vi.fn();
 

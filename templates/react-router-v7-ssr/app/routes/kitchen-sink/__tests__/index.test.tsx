@@ -135,4 +135,3 @@ describe('KitchenSinkPage', () => {
     expect(resetButton).toBeInTheDocument();
   });
 });
-
