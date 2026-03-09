@@ -1159,6 +1159,9 @@ importers:
       '@eslint/js':
         specifier: ^9.39.2
         version: 9.39.2
+      '@tanstack/intent':
+        specifier: ^0.0.14
+        version: 0.0.14
       '@vitest/coverage-istanbul':
         specifier: ^4.0.18
         version: 4.0.18(vitest@4.0.18(@opentelemetry/api@1.9.0)(@types/node@25.3.3)(happy-dom@20.8.3)(jiti@2.6.1)(jsdom@27.1.0)(lightningcss@1.31.1)(msw@2.12.10(@types/node@25.3.3)(typescript@5.9.3))(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
@@ -4171,6 +4174,10 @@ packages:
   '@tanstack/history@1.161.4':
     resolution: {integrity: sha512-Kp/WSt411ZWYvgXy6uiv5RmhHrz9cAml05AQPrtdAp7eUqvIDbMGPnML25OKbzR3RJ1q4wgENxDTvlGPa9+Mww==}
     engines: {node: '>=20.19'}
+
+  '@tanstack/intent@0.0.14':
+    resolution: {integrity: sha512-83cjen+tYll6z0MIN0JC9GuMljUkfYfHFDOLhmROz4XMmbD/0ZjvKNOsFgpO7eq957XHB/qyK+hCO+3OS/D6HQ==}
+    hasBin: true
 
   '@tanstack/query-core@5.90.20':
     resolution: {integrity: sha512-OMD2HLpNouXEfZJWcKeVKUgQ5n+n3A2JFmBaScpNDUqSrQSjiveC7dKMe53uJUg1nDG16ttFPz2xfilz6i2uVg==}
@@ -13754,6 +13761,10 @@ snapshots:
       - supports-color
 
   '@tanstack/history@1.161.4': {}
+
+  '@tanstack/intent@0.0.14':
+    dependencies:
+      yaml: 2.8.2
 
   '@tanstack/query-core@5.90.20': {}
 

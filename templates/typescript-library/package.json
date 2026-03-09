@@ -13,7 +13,8 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "/dist"
+    "/dist",
+    "skills"
   ],
   "scripts": {
     "build": "tsdown",
@@ -24,6 +25,8 @@
     "lint": "eslint src --max-warnings=0",
     "lint:fix": "eslint src --fix",
     "release": "pnpm build && changeset publish",
+    "intent:validate": "intent validate",
+    "intent:stale": "intent stale",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest"
@@ -32,7 +35,7 @@
     "@arethetypeswrong/cli": "^0.18.2",
     "@changesets/cli": "^2.30.0",
     "@eslint/js": "^9.39.2",
-
+    "@tanstack/intent": "^0.0.14",
     "@vitest/eslint-plugin": "^1.6.9",
     "@vitest/coverage-istanbul": "^4.0.18",
     "agadoo": "^3.0.0",
