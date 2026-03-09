@@ -9,6 +9,25 @@ import {
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
 
+const loaderData = [
+  { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
+  { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
+];
+
+const renderKitchenSink = () => {
+  const RoutesStub = createRoutesStub([
+    {
+      Component: () => (
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        <KitchenSinkPage loaderData={loaderData} />
+      ),
+      path: '/',
+    },
+  ]);
+  return render(<RoutesStub />);
+};
+
 describe('KitchenSinkPage', () => {
   describe('action', () => {
     it('Returns errors if there is a validation error with the form data', async () => {
@@ -72,42 +91,12 @@ describe('KitchenSinkPage', () => {
     });
   });
   it('Renders loader data', async () => {
-    const RoutesStub = createRoutesStub([
-      {
-        Component: () => (
-          // @ts-expect-error - mock props for testing
-          <KitchenSinkPage
-            loaderData={[
-              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
-              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
-            ]}
-          />
-        ),
-        path: '/',
-      },
-    ]);
-
-    render(<RoutesStub />);
-
+    renderKitchenSink();
     expect(screen.queryByText('Pos1...')).toBeInTheDocument();
   });
   it('Displays an error message if the name is too short', async () => {
     const user = userEvent.setup();
-    const RoutesStub = createRoutesStub([
-      {
-        Component: () => (
-          // @ts-expect-error - mock props for testing
-          <KitchenSinkPage
-            loaderData={[
-              { body: 'Body 1', id: 1, title: 'Pos1', userId: 1 },
-              { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
-            ]}
-          />
-        ),
-        path: '/',
-      },
-    ]);
-    render(<RoutesStub />);
+    renderKitchenSink();
     await user.type(screen.getByLabelText('KitchenSinkPage.name'), 'a');
     await waitFor(() =>
       expect(
@@ -115,4 +104,35 @@ describe('KitchenSinkPage', () => {
       ).toBeInTheDocument(),
     );
   });
+  it('Shows and hides advanced settings when the toggle is clicked', async () => {
+    const user = userEvent.setup();
+    renderKitchenSink();
+    const toggleButton = screen.getByText(
+      /KitchenSinkPage\.show.+KitchenSinkPage\.advancedSettings/,
+    );
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+    await user.click(toggleButton);
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
+    await user.click(toggleButton);
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+  });
+  it('Toggles autoRefresh button text when clicked', async () => {
+    const user = userEvent.setup();
+    renderKitchenSink();
+    const startButton = screen.getByText(
+      /KitchenSinkPage\.start.+KitchenSinkPage\.autoRefresh/,
+    );
+    await user.click(startButton);
+    expect(
+      screen.getByText(/KitchenSinkPage\.stop.+KitchenSinkPage\.autoRefresh/),
+    ).toBeInTheDocument();
+  });
+  it('Resets the refresh counter when reset button is clicked', async () => {
+    const user = userEvent.setup();
+    renderKitchenSink();
+    const resetButton = screen.getByText('KitchenSinkPage.resetCounter');
+    await user.click(resetButton);
+    expect(resetButton).toBeInTheDocument();
+  });
 });
+

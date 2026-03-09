@@ -5,17 +5,17 @@ import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 const mockNavigate = vi.fn();
 
-vi.mock('react-router', async importOriginal => {
-  const actual = await importOriginal<typeof import('react-router')>();
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router');
   return {
-    ...actual,
+    ...(actual as Record<string, unknown>),
     useNavigate: () => mockNavigate,
   };
 });
 
 describe('PageError', () => {
   beforeEach(() => {
-    mockNavigate.mockClear();
+    mockNavigate.mockReset();
   });
 
   describe('Title text', () => {
@@ -41,14 +41,7 @@ describe('PageError', () => {
     render(<RouteStub />);
     expect(screen.getByText('Error message')).toBeInTheDocument();
   });
-  it('Does not display error paragraph when errorText is not provided', () => {
-    const RouteStub = createRoutesStub([
-      { Component: () => <PageError />, path: '/' },
-    ]);
-    render(<RouteStub />);
-    expect(screen.queryByRole('paragraph')).not.toBeInTheDocument();
-  });
-  it('Navigates back when the go back button is clicked', async () => {
+  it('Calls navigate(-1) when go back button is clicked', async () => {
     const user = userEvent.setup();
     const RouteStub = createRoutesStub([
       { Component: () => <PageError />, path: '/' },

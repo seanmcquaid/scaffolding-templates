@@ -8,10 +8,10 @@ import {
 
 const mockNavigate = vi.fn();
 
-vi.mock('react-router', async importOriginal => {
-  const actual = await importOriginal<typeof import('react-router')>();
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router');
   return {
-    ...actual,
+    ...(actual as Record<string, unknown>),
     useNavigate: () => mockNavigate,
   };
 });
@@ -20,7 +20,7 @@ const RouteStub = createRoutesStub([{ Component: NotFoundPage, path: '/' }]);
 
 describe('NotFoundPage', () => {
   beforeEach(() => {
-    mockNavigate.mockClear();
+    mockNavigate.mockReset();
   });
 
   it('Renders the not found heading', () => {
