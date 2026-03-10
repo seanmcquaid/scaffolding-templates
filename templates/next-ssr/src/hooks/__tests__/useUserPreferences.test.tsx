@@ -1,86 +1,119 @@
-import { act } from '@testing-library/react';
+import {
+  act,
+  renderHook,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 import useUserPreferences from '@/hooks/useUserPreferences';
-import { renderHook } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('useUserPreferences', () => {
-  it('returns default preferences on first render', () => {
-    const { result } = renderHook(() => useUserPreferences());
-    expect(result.current.preferences.theme).toBe('system');
-    expect(result.current.preferences.language).toBe('en');
-    expect(result.current.preferences.notifications).toBe(true);
-    expect(result.current.preferences.autoSave).toBe(true);
+  beforeEach(() => {
+    localStorage.clear();
   });
 
-  it('isEditMode starts as false', () => {
+  it('returns default preferences on initial render', () => {
     const { result } = renderHook(() => useUserPreferences());
+
+    expect(result.current.preferences).toEqual({
+      theme: 'system',
+      language: 'en',
+      notifications: true,
+      autoSave: true,
+    });
+  });
+
+  it('starts with isEditMode set to false', () => {
+    const { result } = renderHook(() => useUserPreferences());
+
     expect(result.current.isEditMode).toBe(false);
   });
 
-  it('toggleEditMode switches isEditMode', () => {
+  it('toggles isEditMode when toggleEditMode is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
     act(() => {
       result.current.toggleEditMode();
     });
-    expect(result.current.isEditMode).toBe(true);
+    await waitFor(() => expect(result.current.isEditMode).toBe(true));
 
     act(() => {
       result.current.toggleEditMode();
     });
-    expect(result.current.isEditMode).toBe(false);
+    await waitFor(() => expect(result.current.isEditMode).toBe(false));
   });
 
-  it('updateTheme updates the theme preference', () => {
+  it('updates theme when updateTheme is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
     act(() => {
       result.current.updateTheme('dark');
     });
-    expect(result.current.preferences.theme).toBe('dark');
+    await waitFor(() => expect(result.current.preferences.theme).toBe('dark'));
   });
 
-  it('updateLanguage updates the language preference', () => {
+  it('updates language when updateLanguage is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
     act(() => {
-      result.current.updateLanguage('es');
+      result.current.updateLanguage('fr');
     });
-    expect(result.current.preferences.language).toBe('es');
+    await waitFor(() => expect(result.current.preferences.language).toBe('fr'));
   });
 
-  it('toggleNotifications flips the notifications preference', () => {
+  it('toggles notifications when toggleNotifications is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
-    const initial = result.current.preferences.notifications;
     act(() => {
       result.current.toggleNotifications();
     });
-    expect(result.current.preferences.notifications).toBe(!initial);
+    await waitFor(() =>
+      expect(result.current.preferences.notifications).toBe(false),
+    );
+
+    act(() => {
+      result.current.toggleNotifications();
+    });
+    await waitFor(() =>
+      expect(result.current.preferences.notifications).toBe(true),
+    );
   });
 
-  it('toggleAutoSave flips the autoSave preference', () => {
+  it('toggles autoSave when toggleAutoSave is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
-    const initial = result.current.preferences.autoSave;
     act(() => {
       result.current.toggleAutoSave();
     });
-    expect(result.current.preferences.autoSave).toBe(!initial);
+    await waitFor(() =>
+      expect(result.current.preferences.autoSave).toBe(false),
+    );
+
+    act(() => {
+      result.current.toggleAutoSave();
+    });
+    await waitFor(() => expect(result.current.preferences.autoSave).toBe(true));
   });
 
-  it('resetToDefaults restores default preferences', () => {
+  it('resets preferences to defaults when resetToDefaults is called', async () => {
     const { result } = renderHook(() => useUserPreferences());
 
     act(() => {
       result.current.updateTheme('dark');
-      result.current.updateLanguage('fr');
+      result.current.updateLanguage('es');
+      result.current.toggleNotifications();
+      result.current.toggleAutoSave();
     });
-    expect(result.current.preferences.theme).toBe('dark');
+    await waitFor(() => expect(result.current.preferences.theme).toBe('dark'));
 
     act(() => {
       result.current.resetToDefaults();
     });
-    expect(result.current.preferences.theme).toBe('system');
-    expect(result.current.preferences.language).toBe('en');
+    await waitFor(() =>
+      expect(result.current.preferences).toEqual({
+        theme: 'system',
+        language: 'en',
+        notifications: true,
+        autoSave: true,
+      }),
+    );
   });
 });

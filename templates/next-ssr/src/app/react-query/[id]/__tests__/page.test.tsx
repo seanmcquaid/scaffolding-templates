@@ -24,4 +24,21 @@ describe('ReactQueryPostPage', () => {
       expect(screen.getByTestId('postHeader')).toBeInTheDocument();
     });
   });
+
+  it('renders the post body', async () => {
+    mockUseParams.mockReturnValue({ id: '1' });
+    render(<ReactQueryPostPage />);
+    await waitFor(() => {
+      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
+    });
+    expect(screen.getByRole('heading')).toBeInTheDocument();
+  });
+
+  it('renders a back button', async () => {
+    mockUseParams.mockReturnValue({ id: '1' });
+    render(<ReactQueryPostPage />);
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: 'BACK' })).toBeInTheDocument();
+    });
+  });
 });

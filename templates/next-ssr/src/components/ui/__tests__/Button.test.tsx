@@ -1,42 +1,44 @@
+import userEvent from '@testing-library/user-event';
 import { Button } from '../Button';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('Button', () => {
-  it('renders children', () => {
+  it('renders as a native button element by default', () => {
     // eslint-disable-next-line i18next/no-literal-string
     render(<Button>Click me</Button>);
-    expect(
-      screen.getByRole('button', { name: 'Click me' }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button').tagName).toBe('BUTTON');
   });
 
-  it('is disabled when disabled prop is true', () => {
-    // eslint-disable-next-line i18next/no-literal-string
-    render(<Button disabled>Click me</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
+  it('renders as the child element when asChild is true', () => {
+    render(
+      <Button asChild>
+        {/* eslint-disable-next-line i18next/no-literal-string */}
+        <a href="/test">Link button</a>
+      </Button>,
+    );
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByRole('link').tagName).toBe('A');
   });
 
-  it('renders with destructive variant', () => {
+  it('calls onClick handler when clicked', async () => {
+    const handleClick = vi.fn();
+    const user = userEvent.setup();
     // eslint-disable-next-line i18next/no-literal-string
-    render(<Button variant="destructive">Delete</Button>);
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    render(<Button onClick={handleClick}>Click me</Button>);
+    await user.click(screen.getByRole('button'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
-  it('renders with outline variant', () => {
-    // eslint-disable-next-line i18next/no-literal-string
-    render(<Button variant="outline">Outline</Button>);
-    expect(screen.getByRole('button')).toBeInTheDocument();
-  });
-
-  it('renders with small size', () => {
-    // eslint-disable-next-line i18next/no-literal-string
-    render(<Button size="sm">Small</Button>);
-    expect(screen.getByRole('button')).toBeInTheDocument();
-  });
-
-  it('forwards additional HTML button props', () => {
-    // eslint-disable-next-line i18next/no-literal-string
-    render(<Button data-testid="my-button">Custom</Button>);
-    expect(screen.getByTestId('my-button')).toBeInTheDocument();
+  it('does not call onClick when disabled', async () => {
+    const handleClick = vi.fn();
+    const user = userEvent.setup();
+    render(
+      // eslint-disable-next-line i18next/no-literal-string
+      <Button disabled onClick={handleClick}>
+        Disabled
+      </Button>,
+    );
+    await user.click(screen.getByRole('button'));
+    expect(handleClick).not.toHaveBeenCalled();
   });
 });
