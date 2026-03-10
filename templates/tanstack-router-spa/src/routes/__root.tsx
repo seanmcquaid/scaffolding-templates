@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
-const NotFoundPage = () => {
+export const NotFoundPage = () => {
   const { t } = useAppTranslation();
   const navigate = useNavigate();
 
