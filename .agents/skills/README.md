@@ -4,25 +4,17 @@ This directory contains standardized agent skills following the [Agent Skills sp
 
 ## Repository Structure
 
-All skills are available in two locations for maximum flexibility:
+Skills are defined once in this root directory and accessed via symlinks for maximum flexibility with minimal duplication:
 
 ### 1. Root Skills (This Directory)
 **Location**: `/.agents/skills/`
 
 All 14 skills (8 SDLC + 6 template specialists) available for repository-wide access.
 
-### 2. Template Skills (Self-Contained)
+### 2. Template Skills (Symlinked)
 **Location**: `/templates/[template-name]/.agents/skills/`
 
-Each template contains **9 skills** (8 SDLC + 1 template specialist) to ensure templates are self-contained when cloned individually.
-
-## Why Duplicate Skills?
-
-Templates are designed to be cloned individually. By including all skills in each template:
-- **Self-contained**: Each template has everything needed to work independently
-- **Cross-reference**: Developers can learn from other framework patterns
-- **Complete lifecycle**: All SDLC phase skills available in every template
-- **No dependencies**: No need to reference parent repository
+Each template's `.agents/skills/` is a symlink pointing to this root directory, giving every template access to all 14 skills without duplicating files.
 
 ## What are Agent Skills?
 

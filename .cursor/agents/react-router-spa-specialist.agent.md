@@ -1,1 +1,0 @@
-../../.agents/react-router-spa-specialist.agent.md

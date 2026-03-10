@@ -1,1 +1,0 @@
-../../.agents/react-router-ssr-specialist.agent.md
