@@ -1,1 +1,0 @@
-../../.agents/implementation-engineer.agent.md

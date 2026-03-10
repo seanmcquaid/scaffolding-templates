@@ -1,1 +1,0 @@
-../../.agents/expo-react-native-specialist.agent.md
