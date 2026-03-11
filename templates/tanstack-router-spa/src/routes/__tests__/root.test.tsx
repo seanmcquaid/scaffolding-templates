@@ -7,8 +7,6 @@ import {
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
 
-vi.mock('@/i18n/i18next', () => ({ default: {} }));
-
 describe('NotFoundPage', () => {
   it('renders the not found heading', async () => {
     const RoutesStub = createRoutesStub([
