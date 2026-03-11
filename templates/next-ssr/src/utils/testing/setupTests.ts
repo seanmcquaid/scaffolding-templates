@@ -4,6 +4,14 @@ import server from '@/mocks/server';
 
 vi.mock('next/navigation', () => import('next-router-mock'));
 
+vi.mock('@/i18n/getAppFixedT', () => ({
+  default: () =>
+    Promise.resolve({
+      t: (key: string) => key,
+      i18n: {},
+    }),
+}));
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {

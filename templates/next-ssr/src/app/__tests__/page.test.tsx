@@ -1,14 +1,6 @@
 import HomePage from '../page';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
-vi.mock('@/i18n/getAppFixedT', () => ({
-  default: () =>
-    Promise.resolve({
-      t: (key: string) => key,
-      i18n: {},
-    }),
-}));
-
 describe('HomePage', () => {
   it('renders the home page with navigation links', async () => {
     render(await HomePage());
