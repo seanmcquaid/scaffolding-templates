@@ -53,6 +53,8 @@ const vitestConfig = defineVitestConfig({
         'src/types',
         'src/assets',
         'src/styles',
+        'src/main.tsx',
+        'src/routeTree.gen.ts',
       ],
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       provider: 'istanbul',

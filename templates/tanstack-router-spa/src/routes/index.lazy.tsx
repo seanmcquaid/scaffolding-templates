@@ -3,7 +3,7 @@ import PageWrapper from '@/components/app/PageWrapper';
 import LinkButton from '@/components/ui/LinkButton';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
-const HomePage = () => {
+export const HomePage = () => {
   const { t } = useAppTranslation();
 
   return (

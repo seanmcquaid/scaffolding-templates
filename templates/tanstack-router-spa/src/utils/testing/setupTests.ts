@@ -2,6 +2,8 @@ import '@testing-library/jest-dom/vitest';
 import 'cross-fetch/polyfill';
 import server from '@/mocks/server';
 
+vi.mock('@/i18n/i18next', () => ({ default: {} }));
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
