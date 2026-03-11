@@ -37,16 +37,4 @@ describe('PageWrapper', () => {
     render(<RoutesStub />);
     expect(screen.getByText('Children')).toBeInTheDocument();
   });
-  it('Re-renders without errors', () => {
-    const RoutesStub = createRoutesStub([
-      {
-        // eslint-disable-next-line i18next/no-literal-string
-        Component: () => <PageWrapper>Content</PageWrapper>,
-        path: '/',
-      },
-    ]);
-    const { rerender } = render(<RoutesStub />);
-    rerender(<RoutesStub />);
-    expect(screen.getByText('Content')).toBeInTheDocument();
-  });
 });

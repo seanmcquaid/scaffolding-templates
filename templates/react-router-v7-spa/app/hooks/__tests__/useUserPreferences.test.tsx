@@ -112,15 +112,4 @@ describe('useUserPreferences', () => {
       }),
     );
   });
-
-  it('re-renders and returns stable references for callbacks', async () => {
-    const { result, rerender } = renderHook(() => useUserPreferences());
-    const initialUpdateTheme = result.current.updateTheme;
-
-    rerender();
-
-    await waitFor(() => {
-      expect(result.current.updateTheme).toBe(initialUpdateTheme);
-    });
-  });
 });

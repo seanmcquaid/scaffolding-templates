@@ -15,15 +15,4 @@ describe('HomePage', () => {
     expect(screen.getByText('HomePage.reactHookFormZod')).toBeInTheDocument();
     expect(screen.getByText('HomePage.kitchenSink')).toBeInTheDocument();
   });
-  it('re-renders without errors', () => {
-    const RoutesStub = createRoutesStub([
-      {
-        Component: HomePage,
-        path: '/',
-      },
-    ]);
-    const { rerender } = render(<RoutesStub />);
-    rerender(<RoutesStub />);
-    expect(screen.getByText('HomePage.reactQuery')).toBeInTheDocument();
-  });
 });

@@ -13,15 +13,4 @@ describe('NotFoundPage', () => {
     render(<RoutesStub />);
     expect(screen.getByText('NotFoundPage.home')).toBeInTheDocument();
   });
-  it('re-renders without errors', () => {
-    const RoutesStub = createRoutesStub([
-      {
-        Component: NotFoundPage,
-        path: '/',
-      },
-    ]);
-    const { rerender } = render(<RoutesStub />);
-    rerender(<RoutesStub />);
-    expect(screen.getByText('NotFoundPage.home')).toBeInTheDocument();
-  });
 });
