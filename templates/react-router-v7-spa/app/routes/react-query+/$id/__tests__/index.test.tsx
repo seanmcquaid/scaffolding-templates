@@ -12,11 +12,11 @@ describe('ReactQueryPostPage', () => {
   it('Displays loading state while fetching post', () => {
     const RoutesStub = createRoutesStub([
       {
-        Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
-        path: '/',
+        Component: ReactQueryPostPage,
+        path: '/:id',
       },
     ]);
-    render(<RoutesStub />);
+    render(<RoutesStub initialEntries={['/1']} />);
     expect(screen.getByTestId('loadingSpinner')).toBeInTheDocument();
   });
   it('Displays error state when fetching post fails', async () => {
@@ -27,11 +27,11 @@ describe('ReactQueryPostPage', () => {
     );
     const RoutesStub = createRoutesStub([
       {
-        Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
-        path: '/',
+        Component: ReactQueryPostPage,
+        path: '/:id',
       },
     ]);
-    render(<RoutesStub />);
+    render(<RoutesStub initialEntries={['/1']} />);
     await waitFor(() =>
       expect(screen.getByText('PageError.title')).toBeInTheDocument(),
     );
@@ -39,11 +39,11 @@ describe('ReactQueryPostPage', () => {
   it('Displays post data when fetch succeeds', async () => {
     const RoutesStub = createRoutesStub([
       {
-        Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
-        path: '/',
+        Component: ReactQueryPostPage,
+        path: '/:id',
       },
     ]);
-    render(<RoutesStub />);
+    render(<RoutesStub initialEntries={['/1']} />);
     await waitFor(() =>
       expect(screen.getByTestId('postHeader')).toBeInTheDocument(),
     );
