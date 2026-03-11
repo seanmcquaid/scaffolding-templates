@@ -3,15 +3,17 @@ import 'cross-fetch/polyfill';
 import server from '@/mocks/server';
 import queryClient from '@/services/queries/queryClient';
 
+// Stable mock references prevent React Compiler from always seeing changed deps,
+// allowing both cache-miss and cache-hit branches to be exercised in tests.
+const mockT = (i18nKey: string) => i18nKey;
+const mockChangeLanguage = () => Promise.resolve();
+const mockI18n = { changeLanguage: mockChangeLanguage };
+
 vi.mock('react-i18next', () => ({
-  useTranslation: () => {
-    return {
-      i18n: {
-        changeLanguage: () => Promise.resolve(),
-      },
-      t: (i18nKey: string) => i18nKey,
-    };
-  },
+  useTranslation: () => ({
+    i18n: mockI18n,
+    t: mockT,
+  }),
 }));
 
 // Mock window.matchMedia for useMediaQuery hook

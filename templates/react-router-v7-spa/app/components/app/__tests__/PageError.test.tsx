@@ -50,4 +50,12 @@ describe('PageError', () => {
     await user.click(screen.getByText('PageError.goBack'));
     expect(mockNavigate).toHaveBeenCalledWith(-1);
   });
+  it('Re-renders without errors', () => {
+    const RouteStub = createRoutesStub([
+      { Component: () => <PageError />, path: '/' },
+    ]);
+    const { rerender } = render(<RouteStub />);
+    rerender(<RouteStub />);
+    expect(screen.getByText('PageError.title')).toBeInTheDocument();
+  });
 });

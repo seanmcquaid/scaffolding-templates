@@ -12,7 +12,6 @@ describe('ReactQueryPostPage', () => {
   it('Displays loading state while fetching post', () => {
     const RoutesStub = createRoutesStub([
       {
-        // @ts-expect-error - mock params for testing
         Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
         path: '/',
       },
@@ -28,7 +27,6 @@ describe('ReactQueryPostPage', () => {
     );
     const RoutesStub = createRoutesStub([
       {
-        // @ts-expect-error - mock params for testing
         Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
         path: '/',
       },
@@ -36,6 +34,18 @@ describe('ReactQueryPostPage', () => {
     render(<RoutesStub />);
     await waitFor(() =>
       expect(screen.getByText('PageError.title')).toBeInTheDocument(),
+    );
+  });
+  it('Displays post data when fetch succeeds', async () => {
+    const RoutesStub = createRoutesStub([
+      {
+        Component: () => <ReactQueryPostPage params={{ id: '1' }} />,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    await waitFor(() =>
+      expect(screen.getByTestId('postHeader')).toBeInTheDocument(),
     );
   });
 });
