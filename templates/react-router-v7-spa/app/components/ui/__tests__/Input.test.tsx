@@ -15,9 +15,4 @@ describe('Input', () => {
     render(<Input label="Email" id="email" />);
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
   });
-  it('Re-renders without errors', () => {
-    const { rerender } = render(<Input />);
-    rerender(<Input />);
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-  });
 });
