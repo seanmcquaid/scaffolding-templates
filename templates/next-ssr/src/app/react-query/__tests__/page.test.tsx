@@ -18,4 +18,21 @@ describe('ReactQueryPage', () => {
       expect(screen.getByText('I got deleted')).toBeInTheDocument(),
     );
   });
+
+  it('Renders the page title and post list', async () => {
+    render(<ReactQueryPage />);
+    await waitFor(() =>
+      expect(screen.getByText('ReactQueryPage.title')).toBeInTheDocument(),
+    );
+    expect(
+      await screen.findAllByText('ReactQueryPage.delete'),
+    ).not.toHaveLength(0);
+  });
+
+  it('Renders a view link for each post', async () => {
+    render(<ReactQueryPage />);
+    await waitFor(() =>
+      expect(screen.queryAllByText('ReactQueryPage.view')).not.toHaveLength(0),
+    );
+  });
 });
