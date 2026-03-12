@@ -275,8 +275,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.6.4
-        version: 0.6.4(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
+        specifier: ^0.6.5
+        version: 0.6.5(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
       '@next/eslint-plugin-next':
         specifier: ^16.1.6
         version: 16.1.6
@@ -507,8 +507,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.6.4
-        version: 0.6.4(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
+        specifier: ^0.6.5
+        version: 0.6.5(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -757,8 +757,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.6.4
-        version: 0.6.4(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
+        specifier: ^0.6.5
+        version: 0.6.5(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -989,8 +989,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.2
       '@msw/playwright':
-        specifier: ^0.6.4
-        version: 0.6.4(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
+        specifier: ^0.6.5
+        version: 0.6.5(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))
       '@playwright/test':
         specifier: ^1.58.2
         version: 1.58.2
@@ -2941,14 +2941,18 @@ packages:
   '@mjackson/node-fetch-server@0.2.0':
     resolution: {integrity: sha512-EMlH1e30yzmTpGLQjlFmaDAjyOeZhng1/XCd7DExR8PNAnG/G1tyruZxEoUe11ClnwGhGrtsdnyyUx1frSzjng==}
 
-  '@msw/playwright@0.6.4':
-    resolution: {integrity: sha512-CMex+p5E1k0mc/rQqjvjAD9uW9qhCbEbRGUVFhQUOTtsV9wQ2wbxgyFWldDKfiIwK2lEShT1apUZ57bC7PYpPA==}
+  '@msw/playwright@0.6.5':
+    resolution: {integrity: sha512-inqYTLiJk0dnsQD5XMo5dIt2aZYTw8DtSr1Unfa4tLJmGIU6+qwpCkmWrNksqkBuc/nCz6nxmqSgkkZ87b+btA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       msw: ^2.12.10
 
   '@mswjs/interceptors@0.41.2':
     resolution: {integrity: sha512-7G0Uf0yK3f2bjElBLGHIQzgRgMESczOMyYVasq1XK8P5HaXtlW4eQhz9MBL+TQILZLaruq+ClGId+hH0w4jvWw==}
+    engines: {node: '>=18'}
+
+  '@mswjs/interceptors@0.41.3':
+    resolution: {integrity: sha512-cXu86tF4VQVfwz8W1SPbhoRyHJkti6mjH/XJIxp40jhO4j2k1m4KYrEykxqWPkFF3vrK4rgQppBh//AwyGSXPA==}
     engines: {node: '>=18'}
 
   '@napi-rs/wasm-runtime@0.2.12':
@@ -12470,13 +12474,22 @@ snapshots:
 
   '@mjackson/node-fetch-server@0.2.0': {}
 
-  '@msw/playwright@0.6.4(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))':
+  '@msw/playwright@0.6.5(msw@2.12.10(@types/node@25.4.0)(typescript@5.9.3))':
     dependencies:
-      '@mswjs/interceptors': 0.41.2
+      '@mswjs/interceptors': 0.41.3
       msw: 2.12.10(@types/node@25.4.0)(typescript@5.9.3)
       outvariant: 1.4.3
 
   '@mswjs/interceptors@0.41.2':
+    dependencies:
+      '@open-draft/deferred-promise': 2.2.0
+      '@open-draft/logger': 0.3.0
+      '@open-draft/until': 2.1.0
+      is-node-process: 1.2.0
+      outvariant: 1.4.3
+      strict-event-emitter: 0.5.1
+
+  '@mswjs/interceptors@0.41.3':
     dependencies:
       '@open-draft/deferred-promise': 2.2.0
       '@open-draft/logger': 0.3.0
