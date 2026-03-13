@@ -12,6 +12,8 @@ describe('ReactQueryPostPage', () => {
   it('Displays loading state while fetching post', () => {
     const RoutesStub = createRoutesStub([
       {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         Component: ReactQueryPostPage,
         path: '/:id',
       },
@@ -27,6 +29,8 @@ describe('ReactQueryPostPage', () => {
     );
     const RoutesStub = createRoutesStub([
       {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         Component: ReactQueryPostPage,
         path: '/:id',
       },
@@ -39,6 +43,8 @@ describe('ReactQueryPostPage', () => {
   it('Displays post data when fetch succeeds', async () => {
     const RoutesStub = createRoutesStub([
       {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         Component: ReactQueryPostPage,
         path: '/:id',
       },
