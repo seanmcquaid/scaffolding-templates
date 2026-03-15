@@ -1,4 +1,8 @@
-import { defineNetworkFixture, type NetworkFixture } from '@msw/playwright';
+import {
+  defineNetworkFixture,
+  type NetworkFixture,
+  type NetworkFixtureOptions,
+} from '@msw/playwright';
 import { test as base, expect } from '@playwright/test';
 import { type AnyHandler } from 'msw';
 import initialHandlers from '@/mocks/handlers';
@@ -13,7 +17,7 @@ const test = base.extend<Fixtures>({
   network: [
     async ({ context, handlers }, use) => {
       const network = defineNetworkFixture({
-        context,
+        context: context as NetworkFixtureOptions['context'],
         handlers,
       });
       await network.enable();
