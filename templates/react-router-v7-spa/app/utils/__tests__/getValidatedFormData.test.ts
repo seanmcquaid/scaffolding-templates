@@ -125,5 +125,16 @@ describe('getValidatedFormData', () => {
         defaultValues: { name: 'John Doe' },
       });
     });
+    it('uses empty string for form fields missing from formData', () => {
+      const formData = new FormData();
+
+      const result = getValidatedFormData({
+        formData,
+        schema: z.object({ name: z.string().min(1) }),
+      });
+
+      expect(result.defaultValues).toEqual({ name: '' });
+      expect('errors' in result && result.errors).toBeDefined();
+    });
   });
 });

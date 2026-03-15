@@ -40,10 +40,7 @@ describe('ReactQueryPage', () => {
   it('Displays error state when fetching posts fails', async () => {
     server.use(
       http.get('https://jsonplaceholder.typicode.com/posts', () => {
-        return HttpResponse.json(
-          { error: 'Internal server error' },
-          { status: 500 },
-        );
+        return HttpResponse.json({ error: 'Not found' }, { status: 404 });
       }),
     );
     const RoutesStub = createRoutesStub([
