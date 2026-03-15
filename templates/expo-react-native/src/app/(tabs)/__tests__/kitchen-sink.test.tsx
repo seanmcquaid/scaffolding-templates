@@ -1,0 +1,290 @@
+/**
+ * @jest-environment jsdom
+ */
+import { render, screen, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
+import type Post from '@/types/Post';
+
+const mockPosts: Post[] = [
+  { id: 1, title: 'First post title here long enough', body: 'Body 1', userId: 1 },
+  { id: 2, title: 'Second post title here long enough', body: 'Body 2', userId: 1 },
+];
+
+jest.mock('@/services/postsService', () => ({
+  __esModule: true,
+  default: {
+    getPosts: jest.fn(),
+    deletePost: jest.fn(),
+    getPost: jest.fn(),
+  },
+}));
+
+jest.mock('usehooks-ts', () => ({
+  useLocalStorage: jest.fn(() => [{ theme: 'light', autoSave: true }, jest.fn()]),
+  useToggle: jest.fn(() => [false, jest.fn()]),
+  useCounter: jest.fn(() => ({
+    count: 0,
+    increment: jest.fn(),
+    decrement: jest.fn(),
+    reset: jest.fn(),
+  })),
+  useDebounceValue: jest.fn((val: string) => [val]),
+  useCopyToClipboard: jest.fn(() => [null, jest.fn()]),
+}));
+
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+      mutations: { retry: false },
+    },
+  });
+
+const renderWithQueryClient = (ui: React.ReactElement) => {
+  const queryClient = createTestQueryClient();
+  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
+};
+
+describe('KitchenSinkScreen', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    const postsService = require('@/services/postsService').default;
+    postsService.getPosts.mockResolvedValue(mockPosts);
+  });
+
+  it('renders without crashing', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.title')).toBeInTheDocument();
+    });
+  });
+
+  it('renders the React Hook Form section', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.reactHookFormZod')).toBeInTheDocument();
+    });
+    expect(screen.getByText('KitchenSinkPage.name')).toBeInTheDocument();
+  });
+
+  it('renders submit button', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.submit')).toBeInTheDocument();
+    });
+  });
+
+  it('renders usehooks-ts examples section', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.usehookstsExamples')).toBeInTheDocument();
+    });
+  });
+
+  it('renders useCounter section with count', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.useCounter')).toBeInTheDocument();
+    });
+  });
+
+  it('renders useDebounceValue section', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.useDebounceValue')).toBeInTheDocument();
+    });
+  });
+
+  it('renders useCopyToClipboard section', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.useCopyToClipboard')).toBeInTheDocument();
+    });
+  });
+
+  it('renders posts section when posts are loaded', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.posts/)).toBeInTheDocument();
+    });
+  });
+
+  it('renders toggle theme button', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.switchTo/)).toBeInTheDocument();
+    });
+  });
+
+  it('shows advanced settings toggle button', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.advancedSettings/)).toBeInTheDocument();
+    });
+  });
+
+  it('renders counter increment and decrement buttons', async () => {
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('+')).toBeInTheDocument();
+    });
+    expect(screen.getByText('-')).toBeInTheDocument();
+  });
+
+  it('renders advanced settings when toggled', async () => {
+    const usehooksts = require('usehooks-ts');
+    usehooksts.useToggle.mockReturnValue([true, jest.fn()]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.enableAutoSave')).toBeInTheDocument();
+    });
+  });
+
+  it('calls handleSubmit when submit button is pressed with valid data', async () => {
+    const user = userEvent.setup();
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.submit')).toBeInTheDocument();
+    });
+    const nameInputs = screen.getAllByRole('textbox');
+    const nameInput = nameInputs[0];
+    await user.type(nameInput, 'ValidName');
+    const submitButton = screen.getByText('KitchenSinkPage.submit');
+    await user.click(submitButton);
+  });
+
+  it('calls handleCopyPostsCount when copy button is clicked', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockCopyToClipboard = jest.fn();
+    usehooksts.useCopyToClipboard.mockReturnValue([null, mockCopyToClipboard]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.copyPostsCount')).toBeInTheDocument();
+    });
+    const copyButton = screen.getByText('KitchenSinkPage.copyPostsCount');
+    await user.click(copyButton);
+    expect(mockCopyToClipboard).toHaveBeenCalled();
+  });
+
+  it('calls toggleTheme when theme button is clicked', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockSetPreferences = jest.fn();
+    usehooksts.useLocalStorage.mockReturnValue([
+      { theme: 'light', autoSave: true },
+      mockSetPreferences,
+    ]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.switchTo/)).toBeInTheDocument();
+    });
+    const themeButton = screen.getByText(/KitchenSinkPage.switchTo/);
+    await user.click(themeButton);
+    expect(mockSetPreferences).toHaveBeenCalled();
+  });
+
+  it('calls counter increment when + is pressed', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockIncrement = jest.fn();
+    usehooksts.useCounter.mockReturnValue({
+      count: 0,
+      increment: mockIncrement,
+      decrement: jest.fn(),
+      reset: jest.fn(),
+    });
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('+')).toBeInTheDocument();
+    });
+    await user.click(screen.getByText('+'));
+    expect(mockIncrement).toHaveBeenCalled();
+  });
+
+  it('calls counter decrement when - is pressed', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockDecrement = jest.fn();
+    usehooksts.useCounter.mockReturnValue({
+      count: 0,
+      increment: jest.fn(),
+      decrement: mockDecrement,
+      reset: jest.fn(),
+    });
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('-')).toBeInTheDocument();
+    });
+    await user.click(screen.getByText('-'));
+    expect(mockDecrement).toHaveBeenCalled();
+  });
+
+  it('calls counter reset when reset button is pressed', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockReset = jest.fn();
+    usehooksts.useCounter.mockReturnValue({
+      count: 5,
+      increment: jest.fn(),
+      decrement: jest.fn(),
+      reset: mockReset,
+    });
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.reset')).toBeInTheDocument();
+    });
+    await user.click(screen.getByText('KitchenSinkPage.reset'));
+    expect(mockReset).toHaveBeenCalled();
+  });
+
+  it('updates search term on text input change', async () => {
+    const user = userEvent.setup();
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByPlaceholderText('KitchenSinkPage.typeToSearch')).toBeInTheDocument();
+    });
+    const searchInput = screen.getByPlaceholderText('KitchenSinkPage.typeToSearch');
+    await user.type(searchInput, 'test');
+  });
+
+  it('toggles autoSave preference via switch', async () => {
+    const user = userEvent.setup();
+    const usehooksts = require('usehooks-ts');
+    const mockSetPreferences = jest.fn();
+    usehooksts.useToggle.mockReturnValue([true, jest.fn()]);
+    usehooksts.useLocalStorage.mockReturnValue([
+      { theme: 'light', autoSave: true },
+      mockSetPreferences,
+    ]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText('KitchenSinkPage.enableAutoSave')).toBeInTheDocument();
+    });
+    const switchEl = screen.getByRole('checkbox');
+    await user.click(switchEl);
+    expect(mockSetPreferences).toHaveBeenCalled();
+  });
+
+  it('shows dark theme when preferences.theme is dark', async () => {
+    const usehooksts = require('usehooks-ts');
+    usehooksts.useLocalStorage.mockReturnValue([{ theme: 'dark', autoSave: false }, jest.fn()]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.off/)).toBeInTheDocument();
+    });
+  });
+
+  it('shows no posts found message when search returns empty', async () => {
+    const usehooksts = require('usehooks-ts');
+    usehooksts.useDebounceValue.mockReturnValue(['searchterm']);
+    const postsService = require('@/services/postsService').default;
+    postsService.getPosts.mockResolvedValue([]);
+    renderWithQueryClient(<KitchenSinkScreen />);
+    await waitFor(() => {
+      expect(screen.getByText(/KitchenSinkPage.noPostsFound/)).toBeInTheDocument();
+    });
+  });
+});
