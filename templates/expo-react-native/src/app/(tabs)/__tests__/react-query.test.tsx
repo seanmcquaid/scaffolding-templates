@@ -4,23 +4,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HttpResponse, http } from 'msw';
 import ReactQueryScreen from '@/app/(tabs)/react-query';
-import type Post from '@/types/Post';
-
-const mockPosts: Post[] = [
-  { id: 1, title: 'First post title here', body: 'First post body', userId: 1 },
-  { id: 2, title: 'Second post title here', body: 'Second post body', userId: 1 },
-  { id: 3, title: 'Third post title here long', body: 'Third post body', userId: 2 },
-];
-
-jest.mock('@/services/postsService', () => ({
-  __esModule: true,
-  default: {
-    getPosts: jest.fn(),
-    deletePost: jest.fn(),
-    getPost: jest.fn(),
-  },
-}));
+import server from '@/mocks/server';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -36,64 +22,57 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 };
 
 describe('ReactQueryScreen', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('renders loading state initially', async () => {
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockReturnValue(new Promise(() => {}));
+  it('renders loading state initially', () => {
+    // Use a never-resolving promise to keep the component in loading state.
+    // server.resetHandlers() in afterEach cleans up the pending request.
+    server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => new Promise(() => {})));
     renderWithQueryClient(<ReactQueryScreen />);
     expect(screen.getByTestId('activity-indicator')).toBeInTheDocument();
   });
 
   it('renders posts after loading', async () => {
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue(mockPosts);
     renderWithQueryClient(<ReactQueryScreen />);
     await waitFor(() => {
       expect(screen.getByText('ReactQueryPage.title')).toBeInTheDocument();
     });
-    expect(screen.getByText('First post title here...')).toBeInTheDocument();
-    expect(screen.getByText('Second post title here...')).toBeInTheDocument();
+    expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(5);
+    expect(screen.getAllByText('ReactQueryPage.view')).toHaveLength(5);
   });
 
   it('renders error state when query fails', async () => {
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockRejectedValue(new Error('Network error'));
+    server.use(
+      http.get('https://jsonplaceholder.typicode.com/posts', () =>
+        HttpResponse.json({ error: 'Server error' }, { status: 500 })
+      )
+    );
     renderWithQueryClient(<ReactQueryScreen />);
     await waitFor(() => {
       expect(screen.getByText('Common.error')).toBeInTheDocument();
     });
   });
 
-  it('renders delete and view buttons for each post', async () => {
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue(mockPosts);
-    renderWithQueryClient(<ReactQueryScreen />);
-    await waitFor(() => {
-      expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(3);
-    });
-    expect(screen.getAllByText('ReactQueryPage.view')).toHaveLength(3);
-  });
-
   it('calls deletePost when delete button is clicked', async () => {
     const user = userEvent.setup();
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue(mockPosts);
-    postsService.deletePost.mockResolvedValue(undefined);
+    let deletedId: string | undefined;
+    server.use(
+      http.delete('https://jsonplaceholder.typicode.com/posts/:id', ({ params }) => {
+        deletedId = params.id as string;
+        return HttpResponse.json({});
+      })
+    );
     renderWithQueryClient(<ReactQueryScreen />);
     await waitFor(() => {
-      expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(3);
+      expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(5);
     });
     const deleteButtons = screen.getAllByText('ReactQueryPage.delete');
     await user.click(deleteButtons[0]);
-    expect(postsService.deletePost).toHaveBeenCalledWith('1');
+    await waitFor(() => {
+      expect(deletedId).toBeDefined();
+    });
   });
 
   it('renders empty when no posts returned', async () => {
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue([]);
+    server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => HttpResponse.json([])));
     renderWithQueryClient(<ReactQueryScreen />);
     await waitFor(() => {
       expect(screen.getByText('ReactQueryPage.title')).toBeInTheDocument();

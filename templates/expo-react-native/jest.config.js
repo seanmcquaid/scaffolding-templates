@@ -1,12 +1,16 @@
 module.exports = {
   testEnvironment: 'node',
   transform: {
-    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './babel.config.js' }],
+    '^.+\\.(ts|tsx|js|jsx)$': ['babel-jest', { configFile: './babel.config.js' }],
   },
   transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
+    'node_modules/(?!(.pnpm/(until-async|ky)|until-async|ky|(jest-)?react-native|@react-native(-community)?|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg))',
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/jest-setup.ts'],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'require', 'default'],
+  },
+  setupFiles: [],
+  setupFilesAfterEnv: ['<rootDir>/src/jest-polyfills.ts', '<rootDir>/src/jest-setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/build/', '/.expo/'],
   collectCoverageFrom: [
     'src/app/**/*.{ts,tsx}',

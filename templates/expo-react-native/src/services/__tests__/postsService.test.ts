@@ -1,23 +1,5 @@
 import postsService from '@/services/postsService';
 
-jest.mock('@/services/createApiClient', () => ({
-  __esModule: true,
-  default: jest.fn(() => ({
-    get: jest.fn(() => ({ json: jest.fn().mockResolvedValue([]) })),
-    post: jest.fn(() => ({ json: jest.fn().mockResolvedValue({}) })),
-    put: jest.fn(() => ({ json: jest.fn().mockResolvedValue({}) })),
-    delete: jest.fn(() => ({ json: jest.fn().mockResolvedValue({}) })),
-    patch: jest.fn(() => ({ json: jest.fn().mockResolvedValue({}) })),
-  })),
-  apiClient: {
-    get: jest.fn(),
-    post: jest.fn(),
-    put: jest.fn(),
-    delete: jest.fn(),
-    patch: jest.fn(),
-  },
-}));
-
 describe('postsService', () => {
   it('exports postsService as default', () => {
     expect(postsService).toBeDefined();
@@ -35,18 +17,26 @@ describe('postsService', () => {
     expect(typeof postsService.getPosts).toBe('function');
   });
 
-  it('deletePost returns a response object', () => {
-    const result = postsService.deletePost('1');
-    expect(result).toBeDefined();
+  it('getPosts returns an array of posts from the API', async () => {
+    const posts = await postsService.getPosts();
+    expect(Array.isArray(posts)).toBe(true);
+    expect(posts.length).toBe(5);
+    expect(posts[0]).toHaveProperty('id');
+    expect(posts[0]).toHaveProperty('title');
+    expect(posts[0]).toHaveProperty('body');
+    expect(posts[0]).toHaveProperty('userId');
   });
 
-  it('getPost returns a response with json method', () => {
-    const result = postsService.getPost('1');
-    expect(result).toBeDefined();
+  it('getPost returns a single post from the API', async () => {
+    const post = await postsService.getPost('1');
+    expect(post).toBeDefined();
+    expect(post).toHaveProperty('id');
+    expect(post).toHaveProperty('title');
+    expect(post).toHaveProperty('body');
+    expect(post).toHaveProperty('userId');
   });
 
-  it('getPosts returns a response with json method', () => {
-    const result = postsService.getPosts();
-    expect(result).toBeDefined();
+  it('deletePost resolves without throwing', async () => {
+    await expect(postsService.deletePost('1').json()).resolves.toBeDefined();
   });
 });

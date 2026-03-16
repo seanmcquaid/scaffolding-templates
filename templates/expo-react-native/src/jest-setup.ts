@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import type React from 'react';
+import server from '@/mocks/server';
 
 // Mock i18next for tests
 jest.mock('react-i18next', () => ({
@@ -150,21 +151,8 @@ jest.mock('@expo/vector-icons/MaterialIcons', () => {
   };
 });
 
-// Mock ky
-jest.mock('ky', () => {
-  const createMockResponse = () => ({ json: jest.fn().mockResolvedValue({}) });
-  const mockCreate = jest.fn(() => ({
-    get: jest.fn(() => createMockResponse()),
-    post: jest.fn(() => createMockResponse()),
-    put: jest.fn(() => createMockResponse()),
-    delete: jest.fn(() => createMockResponse()),
-    patch: jest.fn(() => createMockResponse()),
-  }));
-
-  return {
-    __esModule: true,
-    default: {
-      create: mockCreate,
-    },
-  };
-});
+// Start MSW server once before all tests, reset handlers after each test,
+// and close the server after all tests are complete.
+beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());

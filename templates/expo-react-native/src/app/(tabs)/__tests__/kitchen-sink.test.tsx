@@ -4,22 +4,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HttpResponse, http } from 'msw';
 import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
-import type Post from '@/types/Post';
-
-const mockPosts: Post[] = [
-  { id: 1, title: 'First post title here long enough', body: 'Body 1', userId: 1 },
-  { id: 2, title: 'Second post title here long enough', body: 'Body 2', userId: 1 },
-];
-
-jest.mock('@/services/postsService', () => ({
-  __esModule: true,
-  default: {
-    getPosts: jest.fn(),
-    deletePost: jest.fn(),
-    getPost: jest.fn(),
-  },
-}));
+import server from '@/mocks/server';
 
 jest.mock('usehooks-ts', () => ({
   useLocalStorage: jest.fn(() => [{ theme: 'light', autoSave: true }, jest.fn()]),
@@ -50,8 +37,6 @@ const renderWithQueryClient = (ui: React.ReactElement) => {
 describe('KitchenSinkScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue(mockPosts);
   });
 
   it('renders without crashing', async () => {
@@ -277,11 +262,17 @@ describe('KitchenSinkScreen', () => {
     });
   });
 
-  it('shows no posts found message when search returns empty', async () => {
+  it('shows no posts found message when search term does not match any posts', async () => {
     const usehooksts = require('usehooks-ts');
-    usehooksts.useDebounceValue.mockReturnValue(['searchterm']);
-    const postsService = require('@/services/postsService').default;
-    postsService.getPosts.mockResolvedValue([]);
+    usehooksts.useDebounceValue.mockReturnValue(['xyznotfound']);
+    server.use(
+      http.get('https://jsonplaceholder.typicode.com/posts', () =>
+        HttpResponse.json([
+          { id: 1, title: 'first title', body: 'body 1', userId: 1 },
+          { id: 2, title: 'second title', body: 'body 2', userId: 2 },
+        ])
+      )
+    );
     renderWithQueryClient(<KitchenSinkScreen />);
     await waitFor(() => {
       expect(screen.getByText(/KitchenSinkPage.noPostsFound/)).toBeInTheDocument();

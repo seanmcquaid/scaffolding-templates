@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import createApiClient from './createApiClient';
+import { createApiClient } from './createApiClient';
 import type Post from '@/types/Post';
 import { postSchema } from '@/types/Post';
 
