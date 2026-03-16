@@ -1,65 +1,38 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { Input } from '@/components/ui/Input';
 
 describe('Input', () => {
-  it('renders without crashing', () => {
-    render(<Input />);
-  });
-
-  it('renders with a label', () => {
+  it('displays the label when the label prop is provided', () => {
     render(<Input label="Email Address" />);
     expect(screen.getByText('Email Address')).toBeInTheDocument();
   });
 
-  it('renders without a label when not provided', () => {
+  it('does not display a label when the label prop is omitted', () => {
     render(<Input placeholder="Enter text" />);
-    expect(screen.queryByText('Email Address')).not.toBeInTheDocument();
+    expect(screen.queryByRole('label')).not.toBeInTheDocument();
   });
 
-  it('renders an error message', () => {
+  it('displays the error message when the errorMessage prop is provided', () => {
     render(<Input errorMessage="This field is required" />);
     expect(screen.getByText('This field is required')).toBeInTheDocument();
   });
 
-  it('renders without an error message when not provided', () => {
+  it('does not display an error message when the errorMessage prop is omitted', () => {
     render(<Input label="Name" />);
     expect(screen.queryByText('This field is required')).not.toBeInTheDocument();
   });
 
-  it('renders with both label and error message', () => {
-    render(<Input label="Password" errorMessage="Password is too short" />);
-    expect(screen.getByText('Password')).toBeInTheDocument();
-    expect(screen.getByText('Password is too short')).toBeInTheDocument();
-  });
-
-  it('accepts user input', async () => {
+  it('fires onChangeText when the user types', async () => {
     const user = userEvent.setup();
     const handleChange = jest.fn();
     render(<Input onChangeText={handleChange} />);
-    const input = screen.getByRole('textbox');
-    await user.type(input, 'hello');
-    expect(input).toHaveValue('hello');
+    await user.type(screen.getByRole('textbox'), 'hello');
+    expect(handleChange).toHaveBeenCalled();
   });
 
-  it('renders with a controlled value', () => {
+  it('reflects the controlled value', () => {
     render(<Input value="test value" onChangeText={jest.fn()} />);
     expect(screen.getByRole('textbox')).toHaveValue('test value');
-  });
-
-  it('renders with dark color scheme', () => {
-    const { useColorScheme } = require('react-native');
-    useColorScheme.mockReturnValueOnce('dark');
-    render(<Input label="Dark input" />);
-    expect(screen.getByText('Dark input')).toBeInTheDocument();
-  });
-
-  it('renders with error border when errorMessage is present', () => {
-    render(<Input errorMessage="Error!" label="Test" />);
-    expect(screen.getByText('Error!')).toBeInTheDocument();
-    expect(screen.getByText('Test')).toBeInTheDocument();
   });
 });

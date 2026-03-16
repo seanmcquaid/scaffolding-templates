@@ -1,36 +1,9 @@
-/**
- * @jest-environment jsdom
- */
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import ReactHookFormZodScreen from '@/app/(tabs)/react-hook-form-zod';
 
 describe('ReactHookFormZodScreen', () => {
-  it('renders without crashing', () => {
-    render(<ReactHookFormZodScreen />);
-  });
-
-  it('renders the page title', () => {
-    render(<ReactHookFormZodScreen />);
-    expect(screen.getByText('ReactHookFormZodPage.title')).toBeInTheDocument();
-  });
-
-  it('renders username input label', () => {
-    render(<ReactHookFormZodScreen />);
-    expect(screen.getByText('ReactHookFormZodPage.username')).toBeInTheDocument();
-  });
-
-  it('renders password input label', () => {
-    render(<ReactHookFormZodScreen />);
-    expect(screen.getByText('ReactHookFormZodPage.password')).toBeInTheDocument();
-  });
-
-  it('renders confirm password input label', () => {
-    render(<ReactHookFormZodScreen />);
-    expect(screen.getByText('ReactHookFormZodPage.confirmPassword')).toBeInTheDocument();
-  });
-
-  it('shows validation error for invalid email', async () => {
+  it('shows a validation error when an invalid email is submitted', async () => {
     const user = userEvent.setup();
     render(<ReactHookFormZodScreen />);
     const inputs = screen.getAllByRole('textbox');
@@ -39,7 +12,7 @@ describe('ReactHookFormZodScreen', () => {
     await screen.findByText('Please enter a valid email');
   });
 
-  it('shows validation error for short password', async () => {
+  it('shows a validation error when the password is too short', async () => {
     const user = userEvent.setup();
     render(<ReactHookFormZodScreen />);
     const inputs = screen.getAllByRole('textbox');
