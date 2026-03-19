@@ -1,8 +1,5 @@
 import { Colors } from '@/hooks/useThemeColor';
 
-// Mock the useColorScheme hook to avoid React Native imports
-jest.mock('@/hooks/useColorScheme');
-
 describe('useThemeColor', () => {
   it('Colors constant has all required properties for light theme', () => {
     expect(Colors.light).toHaveProperty('text');

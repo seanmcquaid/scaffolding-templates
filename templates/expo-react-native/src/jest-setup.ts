@@ -140,17 +140,6 @@ jest.mock('@/env', () => ({
   },
 }));
 
-// Mock @expo/vector-icons/MaterialIcons
-jest.mock('@expo/vector-icons/MaterialIcons', () => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const ReactMock = require('react');
-  return {
-    __esModule: true,
-    default: ({ children, ...props }: Record<string, unknown>) =>
-      ReactMock.createElement('MaterialIcons', props, children),
-  };
-});
-
 // Start MSW server once before all tests, reset handlers after each test,
 // and close the server after all tests are complete.
 beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
