@@ -22,39 +22,14 @@ jest.mock('react-i18next', () => ({
 jest.mock('expo-router', () => {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const ReactMock = require('react');
-  const TabsComponent = ({ children }: { children: React.ReactNode }) =>
-    ReactMock.createElement(ReactMock.Fragment, null, children);
-  TabsComponent.Screen = ({
-    options,
-  }: {
-    name: string;
-    options?: {
-      tabBarIcon?: (props: { color: string; focused: boolean }) => React.ReactNode;
-      title?: string;
-      headerShown?: boolean;
-      presentation?: string;
-    };
-  }) => {
-    if (options?.tabBarIcon) {
-      options.tabBarIcon({ color: '#000', focused: false });
-    }
-    return null;
-  };
   const StackComponent = ({ children }: { children: React.ReactNode }) =>
     ReactMock.createElement(ReactMock.Fragment, null, children);
   StackComponent.Screen = 'Screen';
 
   return {
     Stack: StackComponent,
-    Tabs: TabsComponent,
     Link: ({ href, children, style, ...props }: Record<string, unknown>) =>
       ReactMock.createElement('a', { href, style, ...props }, children),
-    useRouter: () => ({
-      push: jest.fn(),
-      replace: jest.fn(),
-      back: jest.fn(),
-    }),
-    useLocalSearchParams: () => ({}),
   };
 });
 
@@ -65,9 +40,6 @@ jest.mock('react-native', () => {
   return {
     StyleSheet: {
       create: (styles: Record<string, unknown>) => styles,
-    },
-    Platform: {
-      select: (obj: Record<string, unknown>) => obj.default || obj.ios || obj.android,
     },
     useColorScheme: jest.fn(() => 'light'),
     Text: ({ children, ...props }: Record<string, unknown>) =>
