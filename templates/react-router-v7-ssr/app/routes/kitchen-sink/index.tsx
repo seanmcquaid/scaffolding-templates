@@ -41,7 +41,7 @@ export const clientLoader = async ({
   serverLoader,
 }: Route.ClientLoaderArgs) => {
   const posts = await queryClient.ensureQueryData({
-    queryFn: () => serverLoader(),
+    queryFn: serverLoader,
     queryKey: postsQueryKeys.posts,
   });
 
