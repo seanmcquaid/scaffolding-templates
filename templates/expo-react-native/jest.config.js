@@ -23,7 +23,16 @@ module.exports = {
   ],
   coverageReporters: ['lcov', 'json-summary'],
   moduleNameMapper: {
+    '^@/env$': '<rootDir>/src/utils/testing/mocks/env.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^react-native$': '<rootDir>/src/utils/testing/mocks/react-native.tsx',
+    '^expo-router$': '<rootDir>/src/utils/testing/mocks/expo-router.tsx',
+    '^@react-navigation/native$':
+      '<rootDir>/src/utils/testing/mocks/react-navigation-native.tsx',
+    '^expo-status-bar$': '<rootDir>/src/utils/testing/mocks/expo-status-bar.ts',
+    '^react-native-reanimated$':
+      '<rootDir>/src/utils/testing/mocks/react-native-reanimated.ts',
+    '^react-i18next$': '<rootDir>/src/utils/testing/mocks/react-i18next.ts',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };

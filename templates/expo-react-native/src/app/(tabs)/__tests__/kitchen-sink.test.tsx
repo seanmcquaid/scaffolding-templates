@@ -1,20 +1,6 @@
-import { render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
 import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
-
-const createTestQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: { retry: false },
-      mutations: { retry: false },
-    },
-  });
-
-const renderWithQueryClient = (ui: React.ReactElement) => {
-  const queryClient = createTestQueryClient();
-  return render(<QueryClientProvider client={queryClient}>{ui}</QueryClientProvider>);
-};
 
 describe('KitchenSinkScreen', () => {
   beforeEach(() => {
@@ -23,7 +9,7 @@ describe('KitchenSinkScreen', () => {
 
   it('shows advanced settings when the toggle button is clicked', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     expect(screen.queryByText('KitchenSinkPage.enableAutoSave')).not.toBeInTheDocument();
     await user.click(screen.getByText(/KitchenSinkPage.advancedSettings/));
     expect(screen.getByText('KitchenSinkPage.enableAutoSave')).toBeInTheDocument();
@@ -31,7 +17,7 @@ describe('KitchenSinkScreen', () => {
 
   it('increments the counter when + is pressed', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     expect(screen.getByText(/KitchenSinkPage.count: 0/)).toBeInTheDocument();
     await user.click(screen.getByText('+'));
     expect(screen.getByText(/KitchenSinkPage.count: 1/)).toBeInTheDocument();
@@ -39,7 +25,7 @@ describe('KitchenSinkScreen', () => {
 
   it('decrements the counter when - is pressed', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     expect(screen.getByText(/KitchenSinkPage.count: 0/)).toBeInTheDocument();
     await user.click(screen.getByText('-'));
     expect(screen.getByText(/KitchenSinkPage.count: -1/)).toBeInTheDocument();
@@ -47,7 +33,7 @@ describe('KitchenSinkScreen', () => {
 
   it('resets the counter when reset is pressed', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     await user.click(screen.getByText('+'));
     expect(screen.getByText(/KitchenSinkPage.count: 1/)).toBeInTheDocument();
     await user.click(screen.getByText('KitchenSinkPage.reset'));
@@ -56,7 +42,7 @@ describe('KitchenSinkScreen', () => {
 
   it('toggles the theme between light and dark', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     expect(screen.getByText(/KitchenSinkPage.darkTheme/)).toBeInTheDocument();
     await user.click(screen.getByText(/KitchenSinkPage.switchTo/));
     expect(screen.getByText(/KitchenSinkPage.lightTheme/)).toBeInTheDocument();
@@ -64,7 +50,7 @@ describe('KitchenSinkScreen', () => {
 
   it('toggles autoSave when the switch is clicked in advanced settings', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     await user.click(screen.getByText(/KitchenSinkPage.advancedSettings/));
     const autoSaveSwitch = screen.getByRole('checkbox');
     expect(autoSaveSwitch).toBeChecked();
@@ -74,7 +60,7 @@ describe('KitchenSinkScreen', () => {
 
   it('shows no posts found when search term does not match any posts', async () => {
     const user = userEvent.setup();
-    renderWithQueryClient(<KitchenSinkScreen />);
+    render(<KitchenSinkScreen />);
     const searchInput = await screen.findByPlaceholderText('KitchenSinkPage.typeToSearch');
     await user.type(searchInput, 'xyznotfound');
     await waitFor(
