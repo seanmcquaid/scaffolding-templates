@@ -9,8 +9,9 @@ describe('Input', () => {
   });
 
   it('does not display a label when the label prop is omitted', () => {
-    render(<Input placeholder="Enter text" />);
-    expect(screen.queryByText('Email Address')).not.toBeInTheDocument();
+    const { container } = render(<Input placeholder="Enter text" />);
+    const spans = container.querySelectorAll('span');
+    expect(spans).toHaveLength(0);
   });
 
   it('displays the error message when the errorMessage prop is provided', () => {
