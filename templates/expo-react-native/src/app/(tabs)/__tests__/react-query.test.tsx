@@ -6,8 +6,6 @@ import server from '@/mocks/server';
 
 describe('ReactQueryScreen', () => {
   it('renders loading state initially', () => {
-    // Use a never-resolving promise to keep the component in loading state.
-    // server.resetHandlers() in afterEach cleans up the pending request.
     server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => new Promise(() => {})));
     render(<ReactQueryScreen />);
     expect(screen.getByTestId('activity-indicator')).toBeInTheDocument();

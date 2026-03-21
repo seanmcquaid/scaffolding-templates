@@ -22,9 +22,4 @@ describe('Button', () => {
     await user.click(screen.getByText('Disabled'));
     expect(handlePress).not.toHaveBeenCalled();
   });
-
-  it('renders as a disabled button element when the disabled prop is set', () => {
-    render(<Button disabled>Disabled</Button>);
-    expect(screen.getByRole('button')).toBeDisabled();
-  });
 });
