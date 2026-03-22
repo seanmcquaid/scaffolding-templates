@@ -78,4 +78,11 @@ export default [
       '*.d.ts',
     ],
   },
+  {
+    files: ['**/__tests__/**', '**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    rules: {
+      'i18next/no-literal-string': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 ];

@@ -1,13 +1,11 @@
 module.exports = {
-  testEnvironment: 'node',
-  transform: {
-    '^.+\\.(ts|tsx)$': ['babel-jest', { configFile: './babel.config.js' }],
-  },
-  transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)',
-  ],
+  preset: 'jest-expo',
+  setupFiles: ['<rootDir>/src/jest-polyfills.ts'],
   setupFilesAfterEnv: ['<rootDir>/src/jest-setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/build/', '/.expo/'],
+  testEnvironmentOptions: {
+    customExportConditions: ['node', 'require', 'default'],
+  },
   collectCoverageFrom: [
     'src/app/**/*.{ts,tsx}',
     'src/components/**/*.{ts,tsx}',
@@ -22,4 +20,8 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|until-async|ky))',
+  ],
 };
+
