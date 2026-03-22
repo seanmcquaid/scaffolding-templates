@@ -3,23 +3,21 @@ import { HttpResponse, http } from 'msw';
 import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
 import ReactQueryScreen from '@/app/(tabs)/react-query';
 import server from '@/mocks/server';
-import '@/i18n/i18next.client';
 
 describe('ReactQueryScreen', () => {
   it('renders loading state initially', async () => {
     server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => new Promise(() => {})));
     render(<ReactQueryScreen />);
-    // Loading state shows ActivityIndicator, not the title
-    expect(screen.queryByText('Querying and Mutating Data with React Query')).toBeNull();
+    expect(screen.queryByText('ReactQueryPage.title')).toBeNull();
   });
 
   it('renders posts after loading', async () => {
     render(<ReactQueryScreen />);
     await waitFor(() => {
-      expect(screen.getByText('Querying and Mutating Data with React Query')).toBeTruthy();
+      expect(screen.getByText('ReactQueryPage.title')).toBeTruthy();
     });
-    expect(screen.getAllByText('Delete')).toHaveLength(5);
-    expect(screen.getAllByText('View')).toHaveLength(5);
+    expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(5);
+    expect(screen.getAllByText('ReactQueryPage.view')).toHaveLength(5);
   });
 
   it('renders error state when query fails', async () => {
@@ -30,7 +28,7 @@ describe('ReactQueryScreen', () => {
     );
     render(<ReactQueryScreen />);
     await waitFor(() => {
-      expect(screen.getByText('An error occurred')).toBeTruthy();
+      expect(screen.getByText('Common.error')).toBeTruthy();
     });
   });
 
@@ -44,9 +42,9 @@ describe('ReactQueryScreen', () => {
     );
     render(<ReactQueryScreen />);
     await waitFor(() => {
-      expect(screen.getAllByText('Delete')).toHaveLength(5);
+      expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(5);
     });
-    const deleteButtons = screen.getAllByText('Delete');
+    const deleteButtons = screen.getAllByText('ReactQueryPage.delete');
     fireEvent.press(deleteButtons[0]);
     await waitFor(() => {
       expect(deletedId).toBeDefined();
@@ -57,8 +55,8 @@ describe('ReactQueryScreen', () => {
     server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => HttpResponse.json([])));
     render(<ReactQueryScreen />);
     await waitFor(() => {
-      expect(screen.getByText('Querying and Mutating Data with React Query')).toBeTruthy();
+      expect(screen.getByText('ReactQueryPage.title')).toBeTruthy();
     });
-    expect(screen.queryByText('Delete')).toBeNull();
+    expect(screen.queryByText('ReactQueryPage.delete')).toBeNull();
   });
 });

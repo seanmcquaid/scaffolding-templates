@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-native';
 import useAppTranslation from '@/hooks/useAppTranslation';
-import '@/i18n/i18next.client';
 
 describe('useAppTranslation', () => {
   it('returns translation function and i18n instance', () => {
@@ -12,11 +11,11 @@ describe('useAppTranslation', () => {
     expect(typeof result.current.i18n).toBe('object');
   });
 
-  it('translation function returns a translated string', () => {
+  it('translation function returns the i18n key', () => {
     const { result } = renderHook(() => useAppTranslation());
 
     const translatedText = result.current.t('HomePage.title');
-    expect(typeof translatedText).toBe('string');
+    expect(translatedText).toBe('HomePage.title');
   });
 
   it('i18n has changeLanguage method', () => {

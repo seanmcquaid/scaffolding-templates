@@ -1,6 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react-native';
 import ReactHookFormZodScreen from '@/app/(tabs)/react-hook-form-zod';
-import '@/i18n/i18next.client';
 
 describe('ReactHookFormZodScreen', () => {
   it('shows a validation error when an invalid email is submitted', async () => {
