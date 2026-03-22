@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react-native';
-import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
+import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
 
 describe('KitchenSinkScreen', () => {

@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react-native';
 import { HttpResponse, http } from 'msw';
-import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
+import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import ReactQueryScreen from '@/app/(tabs)/react-query';
 import server from '@/mocks/server';
 
