@@ -17,14 +17,11 @@ module.exports = {
   ],
   coverageReporters: ['lcov', 'json-summary'],
   moduleNameMapper: {
-    '^@/env$': '<rootDir>/src/utils/testing/mocks/env.ts',
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^react-native-reanimated$': '<rootDir>/src/utils/testing/mocks/react-native-reanimated.ts',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   transformIgnorePatterns: [
     'node_modules/(?!(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|until-async|ky))',
-    'node_modules/react-native-reanimated/plugin/',
   ],
 };
 

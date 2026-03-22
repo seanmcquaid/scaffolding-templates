@@ -30,6 +30,12 @@ if (typeof globalThis.BroadcastChannel === 'undefined') {
   (globalThis as any).BroadcastChannel = BroadcastChannel;
 }
 
+// Set environment variables so the real @/env module's Zod validation passes.
+// This avoids needing a moduleNameMapper mock for @/env.
+process.env.EXPO_PUBLIC_API_URL ??= 'https://jsonplaceholder.typicode.com';
+process.env.EXPO_PUBLIC_APP_NAME ??= 'expo-react-native';
+process.env.EXPO_PUBLIC_APP_VERSION ??= '0.0.0';
+
 // localStorage — react-native env doesn't provide it; usehooks-ts needs it.
 if (typeof globalThis.localStorage === 'undefined') {
   const store = new Map<string, string>();
