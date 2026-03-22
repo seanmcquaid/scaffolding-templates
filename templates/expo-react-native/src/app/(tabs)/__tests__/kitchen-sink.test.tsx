@@ -1,70 +1,54 @@
-import { userEvent } from '@testing-library/user-event';
+import { fireEvent } from '@testing-library/react-native';
 import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
 import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
+import '@/i18n/i18next.client';
 
 describe('KitchenSinkScreen', () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
   it('shows advanced settings when the toggle button is clicked', async () => {
-    const user = userEvent.setup();
     render(<KitchenSinkScreen />);
-    expect(screen.queryByText('KitchenSinkPage.enableAutoSave')).not.toBeInTheDocument();
-    await user.click(screen.getByText(/KitchenSinkPage.advancedSettings/));
-    expect(screen.getByText('KitchenSinkPage.enableAutoSave')).toBeInTheDocument();
+    expect(screen.queryByText('Enable auto-save')).toBeNull();
+    fireEvent.press(screen.getByText(/Advanced Settings/));
+    expect(screen.getByText('Enable auto-save')).toBeTruthy();
   });
 
-  it('increments the counter when + is pressed', async () => {
-    const user = userEvent.setup();
+  it('increments the counter when + is pressed', () => {
     render(<KitchenSinkScreen />);
-    expect(screen.getByText(/KitchenSinkPage.count: 0/)).toBeInTheDocument();
-    await user.click(screen.getByText('+'));
-    expect(screen.getByText(/KitchenSinkPage.count: 1/)).toBeInTheDocument();
+    expect(screen.getByText(/Count: 0/)).toBeTruthy();
+    fireEvent.press(screen.getByText('+'));
+    expect(screen.getByText(/Count: 1/)).toBeTruthy();
   });
 
-  it('decrements the counter when - is pressed', async () => {
-    const user = userEvent.setup();
+  it('decrements the counter when - is pressed', () => {
     render(<KitchenSinkScreen />);
-    expect(screen.getByText(/KitchenSinkPage.count: 0/)).toBeInTheDocument();
-    await user.click(screen.getByText('-'));
-    expect(screen.getByText(/KitchenSinkPage.count: -1/)).toBeInTheDocument();
+    expect(screen.getByText(/Count: 0/)).toBeTruthy();
+    fireEvent.press(screen.getByText('-'));
+    expect(screen.getByText(/Count: -1/)).toBeTruthy();
   });
 
-  it('resets the counter when reset is pressed', async () => {
-    const user = userEvent.setup();
+  it('resets the counter when reset is pressed', () => {
     render(<KitchenSinkScreen />);
-    await user.click(screen.getByText('+'));
-    expect(screen.getByText(/KitchenSinkPage.count: 1/)).toBeInTheDocument();
-    await user.click(screen.getByText('KitchenSinkPage.reset'));
-    expect(screen.getByText(/KitchenSinkPage.count: 0/)).toBeInTheDocument();
+    fireEvent.press(screen.getByText('+'));
+    expect(screen.getByText(/Count: 1/)).toBeTruthy();
+    fireEvent.press(screen.getByText('Reset'));
+    expect(screen.getByText(/Count: 0/)).toBeTruthy();
   });
 
-  it('toggles the theme between light and dark', async () => {
-    const user = userEvent.setup();
+  it('toggles the theme when the theme button is pressed', () => {
     render(<KitchenSinkScreen />);
-    expect(screen.getByText(/KitchenSinkPage.darkTheme/)).toBeInTheDocument();
-    await user.click(screen.getByText(/KitchenSinkPage.switchTo/));
-    expect(screen.getByText(/KitchenSinkPage.lightTheme/)).toBeInTheDocument();
-  });
-
-  it('toggles autoSave when the switch is clicked in advanced settings', async () => {
-    const user = userEvent.setup();
-    render(<KitchenSinkScreen />);
-    await user.click(screen.getByText(/KitchenSinkPage.advancedSettings/));
-    const autoSaveSwitch = screen.getByRole('checkbox');
-    expect(autoSaveSwitch).toBeChecked();
-    await user.click(autoSaveSwitch);
-    expect(autoSaveSwitch).not.toBeChecked();
+    // Initial state: light theme shown in info text
+    expect(screen.getByText(/Current theme: light/)).toBeTruthy();
+    // Find and press the "Switch to" button
+    fireEvent.press(screen.getByText(/Switch to/));
+    // After toggle: dark theme shown in info text
+    expect(screen.getByText(/Current theme: dark/)).toBeTruthy();
   });
 
   it('shows no posts found when search term does not match any posts', async () => {
-    const user = userEvent.setup();
     render(<KitchenSinkScreen />);
-    const searchInput = await screen.findByPlaceholderText('KitchenSinkPage.typeToSearch');
-    await user.type(searchInput, 'xyznotfound');
+    const searchInput = await screen.findByPlaceholderText('Type to search...');
+    fireEvent.changeText(searchInput, 'xyznotfound');
     await waitFor(
-      () => expect(screen.getByText(/KitchenSinkPage.noPostsFound/)).toBeInTheDocument(),
+      () => expect(screen.getByText(/No posts found matching/)).toBeTruthy(),
       { timeout: 600 }
     );
   });

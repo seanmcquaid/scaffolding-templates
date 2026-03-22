@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import type { RenderResult } from '@testing-library/react';
-import { render as rtlRender, renderHook as rtlRenderHook } from '@testing-library/react';
+import {
+  render as rtlRender,
+  renderHook as rtlRenderHook,
+} from '@testing-library/react-native';
 import { useState } from 'react';
 import type { PropsWithChildren, ReactElement } from 'react';
 
@@ -21,11 +23,11 @@ const renderHook = <T,>(fn: () => T) => {
   return rtlRenderHook(fn, { wrapper: Wrapper });
 };
 
-const render = (ui: ReactElement): RenderResult => {
+const render = (ui: ReactElement) => {
   return rtlRender(ui, { wrapper: Wrapper });
 };
 
 // re-export everything
-export * from '@testing-library/react';
+export * from '@testing-library/react-native';
 // override render method
 export { render, renderHook };
