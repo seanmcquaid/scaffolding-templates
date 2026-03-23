@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import { renderHook } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-native';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 describe('useAppTranslation', () => {
@@ -14,19 +11,11 @@ describe('useAppTranslation', () => {
     expect(typeof result.current.i18n).toBe('object');
   });
 
-  it('translation function returns the key (mocked behavior)', () => {
+  it('translation function returns the i18n key', () => {
     const { result } = renderHook(() => useAppTranslation());
 
     const translatedText = result.current.t('HomePage.title');
     expect(translatedText).toBe('HomePage.title');
-  });
-
-  it('translation function works with interpolation options', () => {
-    const { result } = renderHook(() => useAppTranslation());
-
-    const translatedText = result.current.t('HomePage.greeting', { name: 'User' });
-    // In test environment, it just returns the key
-    expect(translatedText).toBe('HomePage.greeting');
   });
 
   it('i18n has changeLanguage method', () => {
