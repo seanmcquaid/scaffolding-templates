@@ -1,8 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import {
-  render as rtlRender,
-  renderHook as rtlRenderHook,
-} from '@testing-library/react-native';
+import { render as rtlRender, renderHook as rtlRenderHook } from '@testing-library/react-native';
 import { useState } from 'react';
 import type { PropsWithChildren, ReactElement } from 'react';
 

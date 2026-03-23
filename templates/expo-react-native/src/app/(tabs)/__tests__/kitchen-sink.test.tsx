@@ -43,9 +43,8 @@ describe('KitchenSinkScreen', () => {
     render(<KitchenSinkScreen />);
     const searchInput = await screen.findByPlaceholderText('KitchenSinkPage.typeToSearch');
     fireEvent.changeText(searchInput, 'xyznotfound');
-    await waitFor(
-      () => expect(screen.getByText(/KitchenSinkPage\.noPostsFound/)).toBeTruthy(),
-      { timeout: 600 }
-    );
+    await waitFor(() => expect(screen.getByText(/KitchenSinkPage\.noPostsFound/)).toBeTruthy(), {
+      timeout: 600,
+    });
   });
 });

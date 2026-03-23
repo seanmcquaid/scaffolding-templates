@@ -50,3 +50,42 @@ if (typeof globalThis.localStorage === 'undefined') {
     key: (index: number) => [...store.keys()][index] ?? null,
   };
 }
+
+// window.dispatchEvent — usehooks-ts useLocalStorage calls
+// window.dispatchEvent(new StorageEvent(...)); the react-native env
+// doesn't provide window.dispatchEvent.
+if (typeof (globalThis as any).window === 'undefined') {
+  (globalThis as any).window = globalThis;
+}
+if (typeof (globalThis as any).window.dispatchEvent !== 'function') {
+  (globalThis as any).window.dispatchEvent = () => true;
+}
+
+// StorageEvent — usehooks-ts dispatches StorageEvent to sync across tabs;
+// the react-native test environment doesn't provide it.
+if (typeof globalThis.StorageEvent === 'undefined') {
+  (globalThis as any).StorageEvent = class StorageEvent extends Event {
+    readonly key: string | null;
+    readonly newValue: string | null;
+    readonly oldValue: string | null;
+    readonly storageArea: Storage | null;
+    readonly url: string;
+    constructor(
+      type: string,
+      init: EventInit & {
+        key?: string | null;
+        newValue?: string | null;
+        oldValue?: string | null;
+        storageArea?: Storage | null;
+        url?: string;
+      } = {}
+    ) {
+      super(type, init);
+      this.key = init.key ?? null;
+      this.newValue = init.newValue ?? null;
+      this.oldValue = init.oldValue ?? null;
+      this.storageArea = init.storageArea ?? null;
+      this.url = init.url ?? '';
+    }
+  };
+}
