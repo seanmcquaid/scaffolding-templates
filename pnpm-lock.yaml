@@ -210,6 +210,9 @@ importers:
       typescript-eslint:
         specifier: ^8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      zocker:
+        specifier: ^3.0.0
+        version: 3.0.0(zod@4.3.6)
 
   templates/next-ssr:
     dependencies:
