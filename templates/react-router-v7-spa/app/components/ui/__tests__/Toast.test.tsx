@@ -71,4 +71,28 @@ describe('Toast components', () => {
     const allButtons = screen.getAllByRole('button');
     expect(allButtons.some(btn => btn.hasAttribute('toast-close'))).toBe(true);
   });
+
+  it('applies a custom className to ToastViewport', () => {
+    const { container } = render(
+      <ToastProvider>
+        <ToastViewport className="custom-viewport" />
+      </ToastProvider>,
+    );
+    expect(container.querySelector('.custom-viewport')).toBeInTheDocument();
+  });
+
+  it('applies a custom className to Toast', () => {
+    render(
+      <ToastProvider>
+        <Toast open className="custom-toast">
+          {/* eslint-disable-next-line i18next/no-literal-string */}
+          <ToastTitle>Custom styled toast</ToastTitle>
+        </Toast>
+        <ToastViewport />
+      </ToastProvider>,
+    );
+    const title = screen.getByText('Custom styled toast');
+    const toastEl = title.closest('[data-state]');
+    expect(toastEl?.className).toContain('custom-toast');
+  });
 });

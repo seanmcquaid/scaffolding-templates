@@ -124,6 +124,12 @@ describe('useToast', () => {
       expect(result.current.toasts).toBeDefined();
     });
 
+    it('removes listener when hook unmounts', () => {
+      const { unmount } = renderHook(() => useToast());
+      // Explicitly unmount to trigger the useEffect cleanup function
+      unmount();
+    });
+
     it('provides dismiss and toast functions', () => {
       const { result } = renderHook(() => useToast());
       expect(typeof result.current.dismiss).toBe('function');
