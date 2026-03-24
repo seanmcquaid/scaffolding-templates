@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { createRoutesStub } from 'react-router';
-import KitchenSinkPage, { action, clientAction } from '..';
+import KitchenSinkPage, { action, clientAction, loader, clientLoader } from '..';
 // eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 import type { Route } from '../+types';
 import {
@@ -14,13 +14,13 @@ const loaderData = [
   { body: 'Body 2', id: 2, title: 'Post 2', userId: 2 },
 ];
 
-const renderKitchenSink = () => {
+const renderKitchenSink = (data = loaderData) => {
   const RoutesStub = createRoutesStub([
     {
       Component: () => (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        <KitchenSinkPage loaderData={loaderData} />
+        <KitchenSinkPage loaderData={data} />
       ),
       path: '/',
     },
@@ -29,6 +29,21 @@ const renderKitchenSink = () => {
 };
 
 describe('KitchenSinkPage', () => {
+  describe('loader', () => {
+    it('Returns posts from the posts service', async () => {
+      const result = await loader();
+      expect(Array.isArray(result)).toBe(true);
+    });
+  });
+  describe('clientLoader', () => {
+    it('Returns posts from the server loader', async () => {
+      const mockPosts = [{ body: 'Body', id: 1, title: 'Title', userId: 1 }];
+      const result = await clientLoader({
+        serverLoader: async () => mockPosts,
+      } as Route.ClientLoaderArgs);
+      expect(result).toEqual(mockPosts);
+    });
+  });
   describe('action', () => {
     it('Returns errors if there is a validation error with the form data', async () => {
       const formData = new FormData();
@@ -116,6 +131,17 @@ describe('KitchenSinkPage', () => {
     await user.click(toggleButton);
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
   });
+  it('Updates itemsPerPage when select value changes', async () => {
+    const user = userEvent.setup();
+    renderKitchenSink();
+    const toggleButton = screen.getByText(
+      /KitchenSinkPage\.show.+KitchenSinkPage\.advancedSettings/,
+    );
+    await user.click(toggleButton);
+    const select = screen.getByRole('combobox');
+    await user.selectOptions(select, '5');
+    expect(select).toHaveValue('5');
+  });
   it('Toggles autoRefresh button text when clicked', async () => {
     const user = userEvent.setup();
     renderKitchenSink();
@@ -126,6 +152,17 @@ describe('KitchenSinkPage', () => {
     expect(
       screen.getByText(/KitchenSinkPage\.stop.+KitchenSinkPage\.autoRefresh/),
     ).toBeInTheDocument();
+  });
+  it('Shows pagination text when loaderData exceeds itemsPerPage', async () => {
+    localStorage.clear();
+    const manyPosts = Array.from({ length: 15 }, (_, i) => ({
+      body: `Body ${i + 1}`,
+      id: i + 1,
+      title: `Post ${i + 1}`,
+      userId: 1,
+    }));
+    renderKitchenSink(manyPosts);
+    expect(screen.getByText(/^KitchenSinkPage\.showing/)).toBeInTheDocument();
   });
   it('Resets the refresh counter when reset button is clicked', async () => {
     const user = userEvent.setup();
