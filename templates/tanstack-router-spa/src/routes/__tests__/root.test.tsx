@@ -4,6 +4,7 @@ import {
   createRoute,
   createRouter,
   RouterProvider,
+  type AnyRouter,
 } from '@tanstack/react-router';
 import userEvent from '@testing-library/user-event';
 import { NotFoundPage, Route as rootRoute } from '@/routes/__root';
@@ -33,7 +34,7 @@ describe('Root', () => {
 
     render(
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router as never} />
+        <RouterProvider router={router as unknown as AnyRouter} />
       </QueryClientProvider>,
     );
 
@@ -60,7 +61,7 @@ describe('Root', () => {
 
     const { rerender } = render(
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router as never} />
+        <RouterProvider router={router as unknown as AnyRouter} />
       </QueryClientProvider>,
     );
 
@@ -70,7 +71,7 @@ describe('Root', () => {
 
     rerender(
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router as never} />
+        <RouterProvider router={router as unknown as AnyRouter} />
       </QueryClientProvider>,
     );
 
