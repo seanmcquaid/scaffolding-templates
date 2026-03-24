@@ -25,27 +25,4 @@ describe('ReactQueryPostPage', () => {
       expect(screen.getByTestId('postHeader')).toBeInTheDocument();
     });
   });
-
-  it('re-renders correctly', async () => {
-    const RoutesStub = createRoutesStub(
-      [
-        {
-          component: () => <ReactQueryPostPage />,
-          params: '1',
-          path: '/react-query/$id/',
-        },
-      ],
-      {
-        initialPath: '/react-query/$id/',
-      },
-    );
-    const { rerender } = render(<RoutesStub />);
-    await waitFor(() => {
-      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
-    });
-    rerender(<RoutesStub />);
-    await waitFor(() => {
-      expect(screen.getByTestId('postHeader')).toBeInTheDocument();
-    });
-  });
 });

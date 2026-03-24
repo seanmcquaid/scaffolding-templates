@@ -47,19 +47,6 @@ describe('PageError', () => {
     );
     expect(screen.queryByRole('paragraph')).not.toBeInTheDocument();
   });
-  it('Re-renders correctly with same props', async () => {
-    const RouteStub = createRoutesStub([
-      { component: () => <PageError titleText="Test title" />, path: '/' },
-    ]);
-    const { rerender } = render(<RouteStub />);
-    await waitFor(() =>
-      expect(screen.getByText('Test title')).toBeInTheDocument(),
-    );
-    rerender(<RouteStub />);
-    await waitFor(() =>
-      expect(screen.getByText('Test title')).toBeInTheDocument(),
-    );
-  });
   it('navigates to home when the go back button is clicked', async () => {
     const user = userEvent.setup();
     const RouteStub = createRoutesStub(

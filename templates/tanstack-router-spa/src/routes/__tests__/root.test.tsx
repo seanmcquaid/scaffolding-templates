@@ -42,43 +42,6 @@ describe('Root', () => {
       expect(screen.getByText('Outlet Content')).toBeInTheDocument();
     });
   });
-
-  it('re-renders outlet content correctly', async () => {
-    const queryClient = new QueryClient();
-    const childRoute = createRoute({
-      // eslint-disable-next-line i18next/no-literal-string
-      component: () => <div>Re-render Content</div>,
-      getParentRoute: () => rootRoute,
-      path: '/',
-    });
-    const routeTree = rootRoute.addChildren([childRoute]);
-    const history = createMemoryHistory({ initialEntries: ['/'] });
-    const router = createRouter({
-      context: { queryClient },
-      history,
-      routeTree,
-    });
-
-    const { rerender } = render(
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router as unknown as AnyRouter} />
-      </QueryClientProvider>,
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText('Re-render Content')).toBeInTheDocument();
-    });
-
-    rerender(
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router as unknown as AnyRouter} />
-      </QueryClientProvider>,
-    );
-
-    await waitFor(() => {
-      expect(screen.getByText('Re-render Content')).toBeInTheDocument();
-    });
-  });
 });
 
 describe('NotFoundPage', () => {

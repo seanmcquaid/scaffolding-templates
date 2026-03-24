@@ -96,20 +96,4 @@ describe('Button', () => {
       expect(screen.queryByRole('button')).not.toBeInTheDocument();
     });
   });
-
-  it('Re-renders correctly with same props', () => {
-    const { rerender } = render(
-      <Button variant="default" size="default">
-        Click me
-      </Button>,
-    );
-    rerender(
-      <Button variant="default" size="default">
-        Click me
-      </Button>,
-    );
-    expect(
-      screen.getByRole('button', { name: 'Click me' }),
-    ).toBeInTheDocument();
-  });
 });

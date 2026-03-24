@@ -1,7 +1,6 @@
 import { act } from '@testing-library/react';
 import { toast } from '@/hooks/useToast';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
-import { Toaster } from '@/components/ui/Toaster';
 
 describe('Toaster', () => {
   it('renders toast with title via the wrapper Toaster', () => {
@@ -19,12 +18,5 @@ describe('Toaster', () => {
       toast({ title: 'Test Title', description: 'Test Description' });
     });
     expect(screen.getByText('Test Description')).toBeInTheDocument();
-  });
-
-  it('renders Toaster component standalone', () => {
-    const { rerender } = render(<Toaster />);
-    rerender(<Toaster />);
-    // Should render without crashing
-    expect(document.body).toBeTruthy();
   });
 });

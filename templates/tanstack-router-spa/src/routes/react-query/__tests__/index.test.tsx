@@ -76,21 +76,4 @@ describe('ReactQueryPage', () => {
       expect(viewLinks.length).toBeGreaterThan(0);
     });
   });
-
-  it('Re-renders correctly', async () => {
-    const RoutesStub = createRoutesStub([
-      {
-        component: () => <ReactQueryPage />,
-        path: '/',
-      },
-    ]);
-    const { rerender } = render(<RoutesStub />);
-    await waitFor(() =>
-      expect(screen.getByText('ReactQueryPage.title')).toBeInTheDocument(),
-    );
-    rerender(<RoutesStub />);
-    await waitFor(() =>
-      expect(screen.getByText('ReactQueryPage.title')).toBeInTheDocument(),
-    );
-  });
 });

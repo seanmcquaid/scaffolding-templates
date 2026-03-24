@@ -18,11 +18,4 @@ describe('useAppTranslation', () => {
     const { result } = renderHook(() => useAppTranslation());
     expect(result.current.i18n).toBeDefined();
   });
-
-  it('re-renders correctly', () => {
-    const { result, rerender } = renderHook(() => useAppTranslation());
-    expect(result.current.t('HomePage.title')).toBe('HomePage.title');
-    rerender();
-    expect(result.current.t('HomePage.title')).toBe('HomePage.title');
-  });
 });

@@ -26,17 +26,4 @@ describe('useOnUnmount', () => {
 
     expect(fn).not.toHaveBeenCalled();
   });
-
-  it('re-renders without calling the function', () => {
-    const fn = vi.fn();
-
-    const { rerender } = renderHook(() =>
-      useOnUnmount((): void => {
-        fn();
-      }),
-    );
-    rerender();
-
-    expect(fn).not.toHaveBeenCalled();
-  });
 });

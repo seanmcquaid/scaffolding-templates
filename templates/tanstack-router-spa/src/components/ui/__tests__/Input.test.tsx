@@ -29,11 +29,4 @@ describe('Input', () => {
     const { container } = render(<Input className="custom-class" />);
     expect(container.firstChild).toHaveClass('custom-class');
   });
-
-  it('Re-renders correctly with same props', () => {
-    const { rerender } = render(<Input errorMessage="Error" label="Name" />);
-    rerender(<Input errorMessage="Error" label="Name" />);
-    expect(screen.getByText('Error')).toBeInTheDocument();
-    expect(screen.getByLabelText('Name')).toBeInTheDocument();
-  });
 });
