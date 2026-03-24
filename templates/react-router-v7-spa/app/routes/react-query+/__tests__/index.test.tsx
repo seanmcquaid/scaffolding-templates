@@ -54,4 +54,43 @@ describe('ReactQueryPage', () => {
       expect(screen.getByText('PageError.title')).toBeInTheDocument(),
     );
   });
+  it('Renders post list with view links after data loads', async () => {
+    const RoutesStub = createRoutesStub([
+      {
+        Component: ReactQueryPage,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    const viewButtons = await screen.findAllByText('ReactQueryPage.view');
+    expect(viewButtons.length).toBeGreaterThan(0);
+  });
+  it('Disables delete buttons while a deletion is pending', async () => {
+    const user = userEvent.setup();
+    let resolveDelete: (value: Response) => void;
+    server.use(
+      http.delete('https://jsonplaceholder.typicode.com/posts/:id', () => {
+        return new Promise(resolve => {
+          resolveDelete = resolve;
+        });
+      }),
+    );
+    const RoutesStub = createRoutesStub([
+      {
+        Component: ReactQueryPage,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    const deleteButtons = await screen.findAllByText('ReactQueryPage.delete');
+    await user.click(deleteButtons[0]);
+    await waitFor(() => expect(deleteButtons[0]).toBeDisabled());
+    resolveDelete!(HttpResponse.json({}));
+    await waitFor(() => {
+      const freshButtons = screen.queryAllByText('ReactQueryPage.delete');
+      expect(freshButtons.every(btn => !btn.closest('button')?.disabled)).toBe(
+        true,
+      );
+    });
+  });
 });

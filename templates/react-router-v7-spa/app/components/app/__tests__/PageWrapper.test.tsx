@@ -37,4 +37,27 @@ describe('PageWrapper', () => {
     render(<RoutesStub />);
     expect(screen.getByText('Children')).toBeInTheDocument();
   });
+
+  it('Displays PageError with default title when isError is true but no error text is provided', () => {
+    const RoutesStub = createRoutesStub([
+      {
+        Component: () => <PageWrapper isError />,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    expect(screen.getByText('PageError.title')).toBeInTheDocument();
+  });
+
+  it('Does not display loading spinner when isLoading is false', () => {
+    const RoutesStub = createRoutesStub([
+      {
+        // eslint-disable-next-line i18next/no-literal-string
+        Component: () => <PageWrapper>Content</PageWrapper>,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    expect(screen.queryByTestId('loadingSpinner')).not.toBeInTheDocument();
+  });
 });
