@@ -32,4 +32,16 @@ describe('HomePage', () => {
       expect(screen.getByText('HomePage.kitchenSink')).toBeInTheDocument();
     });
   });
+
+  it('re-renders correctly', async () => {
+    const RoutesStub = createRoutesStub([{ component: HomePage, path: '/' }]);
+    const { rerender } = render(<RoutesStub />);
+    await waitFor(() =>
+      expect(screen.getByText('HomePage.title')).toBeInTheDocument(),
+    );
+    rerender(<RoutesStub />);
+    await waitFor(() =>
+      expect(screen.getByText('HomePage.title')).toBeInTheDocument(),
+    );
+  });
 });

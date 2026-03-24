@@ -14,4 +14,29 @@ describe('useOnUnmount', () => {
 
     expect(fn).toHaveBeenCalledWith();
   });
+
+  it('does not call the function before unmounting', () => {
+    const fn = vi.fn();
+
+    renderHook(() =>
+      useOnUnmount((): void => {
+        fn();
+      }),
+    );
+
+    expect(fn).not.toHaveBeenCalled();
+  });
+
+  it('re-renders without calling the function', () => {
+    const fn = vi.fn();
+
+    const { rerender } = renderHook(() =>
+      useOnUnmount((): void => {
+        fn();
+      }),
+    );
+    rerender();
+
+    expect(fn).not.toHaveBeenCalled();
+  });
 });

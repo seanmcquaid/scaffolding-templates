@@ -47,4 +47,15 @@ describe('PageWrapper', () => {
       expect(screen.getByText('Children')).toBeInTheDocument(),
     );
   });
+  it('Re-renders correctly with same props', () => {
+    const { rerender } = render(
+      // eslint-disable-next-line i18next/no-literal-string
+      <PageWrapper>Content</PageWrapper>,
+    );
+    rerender(
+      // eslint-disable-next-line i18next/no-literal-string
+      <PageWrapper>Content</PageWrapper>,
+    );
+    expect(screen.getByText('Content')).toBeInTheDocument();
+  });
 });

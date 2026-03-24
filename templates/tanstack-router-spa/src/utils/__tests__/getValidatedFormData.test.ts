@@ -125,5 +125,17 @@ describe('getValidatedFormData', () => {
         defaultValues: { name: 'John Doe' },
       });
     });
+    it('returns empty string for missing form data keys', () => {
+      const formData = new FormData();
+      // 'name' is NOT appended, so formData.get('name') returns null
+
+      const result = getValidatedFormData({
+        formData,
+        schema: z.object({ name: z.string().min(3) }),
+      });
+
+      expect(result.defaultValues).toEqual({ name: '' });
+      expect(result.errors).toBeDefined();
+    });
   });
 });
