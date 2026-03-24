@@ -63,9 +63,7 @@ describe('Button', () => {
   it('applies the ghost variant class', () => {
     // eslint-disable-next-line i18next/no-literal-string
     render(<Button variant="ghost">Ghost</Button>);
-    expect(screen.getByRole('button').className).toContain(
-      'hover:bg-accent',
-    );
+    expect(screen.getByRole('button').className).toContain('hover:bg-accent');
   });
 
   it('applies the link variant class', () => {

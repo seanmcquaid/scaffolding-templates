@@ -24,14 +24,18 @@ describe('Input', () => {
 
   it('renders with a custom className applied to the wrapper div', () => {
     render(<Input className="custom-class" />);
-    expect(
-      screen.getByRole('textbox').closest('div'),
-    ).toHaveClass('custom-class');
+    expect(screen.getByRole('textbox').closest('div')).toHaveClass(
+      'custom-class',
+    );
   });
 
   it('renders with both label and errorMessage', () => {
     render(
-      <Input id="username" label="Username" errorMessage="This field is required" />,
+      <Input
+        id="username"
+        label="Username"
+        errorMessage="This field is required"
+      />,
     );
     expect(screen.getByLabelText('Username')).toBeInTheDocument();
     expect(screen.getByText('This field is required')).toBeInTheDocument();

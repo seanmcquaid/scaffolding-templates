@@ -235,6 +235,8 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           <KitchenSinkPage loaderData={loaderData} />
         ),
         path: '/',
@@ -258,9 +260,9 @@ describe('KitchenSinkPage', () => {
   it('Renders with empty loaderData showing zero posts count', () => {
     const RoutesStub = createRoutesStub([
       {
-        Component: () => (
-          <KitchenSinkPage loaderData={[]} />
-        ),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        Component: () => <KitchenSinkPage loaderData={[]} />,
         path: '/',
       },
     ]);
@@ -271,6 +273,8 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           <KitchenSinkPage
             loaderData={loaderData}
             actionData={{

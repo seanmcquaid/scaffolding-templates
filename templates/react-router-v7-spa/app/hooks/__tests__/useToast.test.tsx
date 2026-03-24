@@ -125,9 +125,11 @@ describe('useToast', () => {
     });
 
     it('removes listener when hook unmounts', () => {
-      const { unmount } = renderHook(() => useToast());
+      const { unmount, result } = renderHook(() => useToast());
       // Explicitly unmount to trigger the useEffect cleanup function
       unmount();
+      // Verify no errors are thrown after unmount
+      expect(result.current.toasts).toBeDefined();
     });
 
     it('provides dismiss and toast functions', () => {
