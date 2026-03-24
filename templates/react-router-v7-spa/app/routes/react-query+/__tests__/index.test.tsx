@@ -84,9 +84,13 @@ describe('ReactQueryPage', () => {
     render(<RoutesStub />);
     const deleteButtons = await screen.findAllByText('ReactQueryPage.delete');
     await user.click(deleteButtons[0]);
-    await waitFor(() =>
-      expect(deleteButtons[0]).toBeDisabled(),
-    );
-    resolveDelete!(HttpResponse.json([]));
+    await waitFor(() => expect(deleteButtons[0]).toBeDisabled());
+    resolveDelete!(HttpResponse.json({}));
+    await waitFor(() => {
+      const freshButtons = screen.queryAllByText('ReactQueryPage.delete');
+      expect(freshButtons.every(btn => !btn.closest('button')?.disabled)).toBe(
+        true,
+      );
+    });
   });
 });

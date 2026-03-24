@@ -235,8 +235,6 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           <KitchenSinkPage loaderData={loaderData} />
         ),
         path: '/',
@@ -261,8 +259,6 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           <KitchenSinkPage loaderData={[]} />
         ),
         path: '/',
@@ -275,8 +271,6 @@ describe('KitchenSinkPage', () => {
     const RoutesStub = createRoutesStub([
       {
         Component: () => (
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
           <KitchenSinkPage
             loaderData={loaderData}
             actionData={{
