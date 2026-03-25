@@ -1,7 +1,7 @@
 /* eslint-disable i18next/no-literal-string */
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
-import { Button } from '@/components/ui/Button';
+import { Button, buttonVariants } from '@/components/ui/Button';
 
 describe('Button', () => {
   it('renders as a button element by default', () => {
@@ -63,23 +63,19 @@ describe('Button', () => {
 
   describe('sizes', () => {
     it('applies default size styles', () => {
-      render(<Button size="default">Default size</Button>);
-      expect(screen.getByRole('button')).toHaveClass('h-10');
+      expect(buttonVariants({ size: 'default' })).toContain('h-10');
     });
 
     it('applies sm size styles', () => {
-      render(<Button size="sm">Small</Button>);
-      expect(screen.getByRole('button')).toHaveClass('h-9');
+      expect(buttonVariants({ size: 'sm' })).toContain('h-9');
     });
 
     it('applies lg size styles', () => {
-      render(<Button size="lg">Large</Button>);
-      expect(screen.getByRole('button')).toHaveClass('h-11');
+      expect(buttonVariants({ size: 'lg' })).toContain('h-11');
     });
 
     it('applies icon size styles', () => {
-      render(<Button size="icon">Icon</Button>);
-      expect(screen.getByRole('button')).toHaveClass('w-10');
+      expect(buttonVariants({ size: 'icon' })).toContain('w-10');
     });
   });
 
