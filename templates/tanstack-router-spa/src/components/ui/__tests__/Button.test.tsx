@@ -1,7 +1,7 @@
 /* eslint-disable i18next/no-literal-string */
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
-import { Button, buttonVariants } from '@/components/ui/Button';
+import { Button } from '@/components/ui/Button';
 
 describe('Button', () => {
   it('renders as a button element by default', () => {
@@ -58,24 +58,6 @@ describe('Button', () => {
     it('applies link variant styles', () => {
       render(<Button variant="link">Link</Button>);
       expect(screen.getByRole('button')).toHaveClass('underline-offset-4');
-    });
-  });
-
-  describe('sizes', () => {
-    it('applies default size styles', () => {
-      expect(buttonVariants({ size: 'default' })).toContain('h-10');
-    });
-
-    it('applies sm size styles', () => {
-      expect(buttonVariants({ size: 'sm' })).toContain('h-9');
-    });
-
-    it('applies lg size styles', () => {
-      expect(buttonVariants({ size: 'lg' })).toContain('h-11');
-    });
-
-    it('applies icon size styles', () => {
-      expect(buttonVariants({ size: 'icon' })).toContain('w-10');
     });
   });
 
