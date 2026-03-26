@@ -19,12 +19,14 @@ type DotNestedKeys<T> = (
 
 type LocaleKeys = DotNestedKeys<typeof enUSLocale>;
 
+type AppTOptions = Omit<TOptions, 'context'> & { context?: string };
+
 const useAppTranslation = () => {
   const { t, i18n } = useTranslation();
 
   return {
     i18n,
-    t: (key: LocaleKeys, options?: TOptions) => t(key, options ?? {}),
+    t: (key: LocaleKeys, options?: AppTOptions) => t(key, options),
   };
 };
 

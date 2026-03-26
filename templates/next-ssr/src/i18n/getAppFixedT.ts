@@ -5,6 +5,8 @@ import getLanguageFromReferer from './getLanguageFromReferer';
 import i18nConfig from './i18nConfig';
 import type LocaleKeys from '@/types/LocaleKeys';
 
+type AppTOptions = Omit<TOptions, 'context'> & { context?: string };
+
 const initI18next = async () => {
   const i18nInstance = createInstance();
   await i18nInstance.use(I18NextHttpBackend).init({
@@ -21,7 +23,7 @@ const getAppFixedT = async () => {
 
   return {
     i18n,
-    t: (key: LocaleKeys, options?: TOptions) => t(key, options ?? {}),
+    t: (key: LocaleKeys, options?: AppTOptions) => t(key, options),
   };
 };
 
