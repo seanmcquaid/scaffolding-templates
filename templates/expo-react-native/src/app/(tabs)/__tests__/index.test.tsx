@@ -6,11 +6,6 @@ jest.mock('expo-router', () => ({
 }));
 
 describe('HomeScreen', () => {
-  it('renders without crashing', () => {
-    render(<HomeScreen />);
-    expect(screen.toJSON()).toBeTruthy();
-  });
-
   it('renders the home page title', () => {
     render(<HomeScreen />);
     expect(screen.getByText('HomePage.title')).toBeTruthy();
