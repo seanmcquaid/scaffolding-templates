@@ -129,4 +129,73 @@ describe('useToast hook', () => {
     });
     expect(result.current.toasts[0].open).toBe(false);
   });
+
+  it('dismisses a toast via the dismiss function returned by toast()', async () => {
+    const { result } = renderHook(() => useToast());
+    let toastDismiss: () => void;
+    act(() => {
+      const { dismiss } = toast({ title: 'Toast with dismiss' });
+      toastDismiss = dismiss;
+    });
+    act(() => {
+      toastDismiss();
+    });
+    expect(result.current.toasts[0].open).toBe(false);
+  });
+
+  it('updates a toast via the update function returned by toast()', async () => {
+    const { result } = renderHook(() => useToast());
+    let toastUpdate: (props: { id: string; title: string }) => void;
+    let toastId: string;
+    act(() => {
+      const { update, id } = toast({ title: 'Original title' });
+      toastUpdate = update;
+      toastId = id;
+    });
+    act(() => {
+      toastUpdate({ id: toastId, title: 'Updated title' });
+    });
+    expect(result.current.toasts[0].title).toBe('Updated title');
+  });
+
+  it('dismisses via onOpenChange callback when open is false', async () => {
+    const { result } = renderHook(() => useToast());
+    act(() => {
+      toast({ title: 'Toast for onOpenChange' });
+    });
+    const toastData = result.current.toasts[0];
+    act(() => {
+      toastData.onOpenChange?.(false);
+    });
+    expect(result.current.toasts[0].open).toBe(false);
+  });
+
+  it('does not dismiss via onOpenChange when open is true', async () => {
+    const { result } = renderHook(() => useToast());
+    act(() => {
+      toast({ title: 'Open toast' });
+    });
+    const toastData = result.current.toasts[0];
+    act(() => {
+      toastData.onOpenChange?.(true);
+    });
+    // Toast should still be open
+    expect(result.current.toasts[0].open).toBe(true);
+  });
+
+  it('handles dismissing the same toast twice without error', async () => {
+    const { result } = renderHook(() => useToast());
+    let toastId: string;
+    act(() => {
+      const { id } = toast({ title: 'Double dismiss toast' });
+      toastId = id;
+    });
+    act(() => {
+      result.current.dismiss(toastId);
+    });
+    act(() => {
+      result.current.dismiss(toastId); // Second dismiss - covers addToRemoveQueue early return
+    });
+    expect(result.current.toasts[0].open).toBe(false);
+  });
 });

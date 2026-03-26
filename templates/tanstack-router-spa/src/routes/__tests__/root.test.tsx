@@ -1,11 +1,48 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  createMemoryHistory,
+  createRoute,
+  createRouter,
+  RouterProvider,
+  type AnyRouter,
+} from '@tanstack/react-router';
 import userEvent from '@testing-library/user-event';
-import { NotFoundPage } from '@/routes/__root';
+import { NotFoundPage, Route as rootRoute } from '@/routes/__root';
 import createRoutesStub from '@/utils/testing/createRoutesStub';
 import {
   render,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
+
+describe('Root', () => {
+  it('renders outlet content', async () => {
+    const queryClient = new QueryClient();
+    const childRoute = createRoute({
+      // eslint-disable-next-line i18next/no-literal-string
+      component: () => <div>Outlet Content</div>,
+      getParentRoute: () => rootRoute,
+      path: '/',
+    });
+    const routeTree = rootRoute.addChildren([childRoute]);
+    const history = createMemoryHistory({ initialEntries: ['/'] });
+    const router = createRouter({
+      context: { queryClient },
+      history,
+      routeTree,
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router as unknown as AnyRouter} />
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('Outlet Content')).toBeInTheDocument();
+    });
+  });
+});
 
 describe('NotFoundPage', () => {
   it('renders the not found heading', async () => {
