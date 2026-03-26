@@ -3,14 +3,13 @@ import 'cross-fetch/polyfill';
 import server from '@/mocks/server';
 import queryClient from '@/services/queries/queryClient';
 
-const mockT = (i18nKey: string) => i18nKey;
-const mockI18n = { changeLanguage: () => Promise.resolve() };
-
 vi.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
-      i18n: mockI18n,
-      t: mockT,
+      i18n: {
+        changeLanguage: () => Promise.resolve(),
+      },
+      t: (i18nKey: string) => i18nKey,
     };
   },
 }));

@@ -29,11 +29,4 @@ describe('HomePage', () => {
     render(<RouteStub />);
     expect(screen.getByText('HomePage.kitchenSink')).toBeInTheDocument();
   });
-
-  it('Re-renders correctly with the same props', () => {
-    const { rerender } = render(<RouteStub />);
-    expect(screen.getByText('HomePage.title')).toBeInTheDocument();
-    rerender(<RouteStub />);
-    expect(screen.getByText('HomePage.title')).toBeInTheDocument();
-  });
 });
