@@ -26,6 +26,16 @@ describe('PageWrapper', () => {
     expect(screen.getByText('Error')).toBeInTheDocument();
     expect(screen.getByText('Error title')).toBeInTheDocument();
   });
+  it('Displays default error when isError is true without custom text', () => {
+    const RoutesStub = createRoutesStub([
+      {
+        Component: () => <PageWrapper isError />,
+        path: '/',
+      },
+    ]);
+    render(<RoutesStub />);
+    expect(screen.getByText('PageError.title')).toBeInTheDocument();
+  });
   it('Displays children when isLoading and isError are false', () => {
     const RoutesStub = createRoutesStub([
       {
