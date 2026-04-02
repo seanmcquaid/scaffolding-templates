@@ -1175,8 +1175,8 @@ importers:
         specifier: ^9.39.2
         version: 9.39.4
       '@tanstack/intent':
-        specifier: ^0.0.23
-        version: 0.0.23
+        specifier: ^0.0.27
+        version: 0.0.27
       '@vitest/coverage-istanbul':
         specifier: ^4.1.1
         version: 4.1.2(vitest@4.1.2(@opentelemetry/api@1.9.1)(@types/node@25.5.0)(happy-dom@20.8.9)(jsdom@20.0.3)(msw@2.12.14(@types/node@25.5.0)(typescript@6.0.2))(vite@8.0.3(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@25.5.0)(esbuild@0.27.7)(jiti@2.6.1)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3)))
@@ -3836,8 +3836,8 @@ packages:
     resolution: {integrity: sha512-NaOGLRrddszbQj9upGat6HG/4TKvXLvu+osAIgfxPYA+eIvYKv8GKDJOrY2D3/U9MRnKfMWD7bU4jeD4xmqyIg==}
     engines: {node: '>=20.19'}
 
-  '@tanstack/intent@0.0.23':
-    resolution: {integrity: sha512-q5e0sh5e+xBOR5Z7eoZTBcXtakgTwucm2m0bNUkj7h4UagSgIDmPRYbtC7B81AF4FB5rW2OP1zgl7Jd9EH4qEw==}
+  '@tanstack/intent@0.0.27':
+    resolution: {integrity: sha512-R8U4uadLrp9uosW5G1J5s4RQtT7F0S2oqIfWX6OD7uObuM6vJLO0jZzw+Et7H3PFMnue3snjdzJYX5BmNV1RXA==}
     hasBin: true
 
   '@tanstack/query-core@5.96.1':
@@ -12495,7 +12495,7 @@ snapshots:
 
   '@tanstack/history@1.161.6': {}
 
-  '@tanstack/intent@0.0.23':
+  '@tanstack/intent@0.0.27':
     dependencies:
       cac: 6.7.14
       yaml: 2.8.3
