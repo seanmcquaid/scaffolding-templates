@@ -16,6 +16,16 @@
           "name": "monorepo-navigator",
           "repo": "borghei/claude-skills",
           "reason": "Cross-workspace dependency management and navigation"
+        },
+        {
+          "name": "find-skills",
+          "repo": "vercel-labs/skills",
+          "reason": "Discover and install new skills from the ecosystem"
+        },
+        {
+          "name": "skill-creator",
+          "repo": "anthropics/skills",
+          "reason": "Author and maintain custom skills for agent workflows"
         }
       ]
     },
@@ -43,6 +53,16 @@
             "name": "jest-react-testing",
             "repo": "manutej/luxor-claude-marketplace",
             "reason": "Jest and React Testing Library for mobile app testing"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ]
       },
@@ -64,6 +84,16 @@
             "name": "epic-react-patterns",
             "repo": "epicweb-dev/epic-stack",
             "reason": "Advanced React patterns applicable to Next.js"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ]
       },
@@ -81,6 +111,16 @@
             "name": "jest-react-testing",
             "repo": "manutej/luxor-claude-marketplace",
             "reason": "Component testing with Vitest and React Testing Library"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ]
       },
@@ -97,6 +137,16 @@
             "name": "epic-react-patterns",
             "repo": "epicweb-dev/epic-stack",
             "reason": "Advanced React patterns with SSR"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ]
       },
@@ -113,6 +163,16 @@
             "name": "jest-react-testing",
             "repo": "manutej/luxor-claude-marketplace",
             "reason": "Component testing with Vitest and React Testing Library"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ]
       },
@@ -129,6 +189,16 @@
             "name": "npm-library-setup",
             "repo": "huozhi/npm-skills",
             "reason": "NPM package setup with dual ESM/CJS exports"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
           }
         ],
         "note": "No React, no Expo, no routing frameworks - pure TypeScript library tooling"
@@ -167,7 +237,9 @@
         "commands": [
           "cd /Users/seanmcquaid/Documents/Development/scaffolding-templates",
           "npx -y skills add giuseppe-trisciuoglio/developer-kit --skill turborepo-monorepo --agent claude-code cursor",
-          "npx -y skills add borghei/claude-skills --skill monorepo-navigator --agent claude-code cursor"
+          "npx -y skills add borghei/claude-skills --skill monorepo-navigator --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]
       },
       "expo-react-native": {
@@ -177,7 +249,9 @@
           "npx -y skills add jezweb/claude-skills --skill react-native-expo --agent claude-code cursor",
           "npx -y skills add mindrally/skills --skill expo-react-native-typescript --agent claude-code cursor",
           "npx -y skills add pproenca/dot-skills --skill expo-react-native-performance --agent claude-code cursor",
-          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor"
+          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]
       },
       "next-ssr": {
@@ -186,7 +260,9 @@
           "cd templates/next-ssr",
           "npx -y skills add claude-dev-suite/claude-dev-suite --skill nextjs-app-router --agent claude-code cursor",
           "npx -y skills add ashchupliak/dream-team --skill nextjs-patterns --agent claude-code cursor",
-          "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor"
+          "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]
       },
       "react-router-v7-spa": {
@@ -195,6 +271,8 @@
           "cd templates/react-router-v7-spa",
           "npx -y skills add code-visionary/react-router-skills --skill testing-helper --agent claude-code cursor",
           "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor",
           "EXCLUDE: trpc-type-safety (tRPC is not a dependency)"
         ]
       },
@@ -203,7 +281,9 @@
         "commands": [
           "cd templates/react-router-v7-ssr",
           "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor",
-          "npx -y skills add code-visionary/react-router-skills --skill typescript-patterns --agent claude-code cursor"
+          "npx -y skills add code-visionary/react-router-skills --skill typescript-patterns --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]
       },
       "tanstack-router-spa": {
@@ -212,6 +292,8 @@
           "cd templates/tanstack-router-spa",
           "npx -y skills add deckardger/tanstack-agent-skills --skill tanstack-router-best-practices --agent claude-code cursor",
           "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor",
           "EXCLUDE: Vue/Nuxt skills (React-only template)"
         ]
       },
@@ -221,6 +303,8 @@
           "cd templates/typescript-library",
           "npx -y skills add hairyf/skills --skill arch-tsdown --agent claude-code cursor",
           "npx -y skills add huozhi/npm-skills --skill npm-library-setup --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor",
           "EXCLUDE: React, Expo, routing, or frontend skills (backend-only library)"
         ]
       }
