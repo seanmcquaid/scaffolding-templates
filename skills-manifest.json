@@ -1,0 +1,233 @@
+{
+  "manifest": {
+    "version": "1.0.0",
+    "description": "Comprehensive skills mapping based on actual tooling dependencies in each template",
+    "lastUpdated": "2026-04-02",
+    "root": {
+      "description": "Monorepo root - Turborepo orchestration and cross-template concerns",
+      "tooling": ["turborepo", "pnpm workspaces"],
+      "skills": [
+        {
+          "name": "turborepo-monorepo",
+          "repo": "giuseppe-trisciuoglio/developer-kit",
+          "reason": "Turborepo monorepo orchestration and task management"
+        },
+        {
+          "name": "monorepo-navigator",
+          "repo": "borghei/claude-skills",
+          "reason": "Cross-workspace dependency management and navigation"
+        }
+      ]
+    },
+    "templates": {
+      "expo-react-native": {
+        "description": "Expo-based React Native mobile application with TypeScript",
+        "tooling": ["expo", "react-native", "jest", "react-navigation", "react-hook-form", "zod", "tanstack-query"],
+        "skills": [
+          {
+            "name": "react-native-expo",
+            "repo": "jezweb/claude-skills",
+            "reason": "Expo and React Native development patterns"
+          },
+          {
+            "name": "expo-react-native-typescript",
+            "repo": "mindrally/skills",
+            "reason": "TypeScript best practices in React Native"
+          },
+          {
+            "name": "expo-react-native-performance",
+            "repo": "pproenca/dot-skills",
+            "reason": "Performance optimization for React Native apps"
+          },
+          {
+            "name": "jest-react-testing",
+            "repo": "manutej/luxor-claude-marketplace",
+            "reason": "Jest and React Testing Library for mobile app testing"
+          }
+        ]
+      },
+      "next-ssr": {
+        "description": "Next.js 16 with Server Components and App Router",
+        "tooling": ["next.js", "react", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query"],
+        "skills": [
+          {
+            "name": "nextjs-app-router",
+            "repo": "claude-dev-suite/claude-dev-suite",
+            "reason": "Next.js 14+ App Router with Server Components"
+          },
+          {
+            "name": "nextjs-patterns",
+            "repo": "ashchupliak/dream-team",
+            "reason": "Next.js-specific patterns and best practices"
+          },
+          {
+            "name": "epic-react-patterns",
+            "repo": "epicweb-dev/epic-stack",
+            "reason": "Advanced React patterns applicable to Next.js"
+          }
+        ]
+      },
+      "react-router-v7-spa": {
+        "description": "React Router v7 client-side SPA with Vite",
+        "tooling": ["react-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query"],
+        "skills": [
+          {
+            "name": "react-router-patterns",
+            "repo": "code-visionary/react-router-skills",
+            "reason": "React Router v7 SPA patterns and best practices",
+            "note": "Target should be a generic router skill, not framework-specific (no tRPC, no SolidJS)"
+          },
+          {
+            "name": "jest-react-testing",
+            "repo": "manutej/luxor-claude-marketplace",
+            "reason": "Component testing with Vitest and React Testing Library"
+          }
+        ]
+      },
+      "react-router-v7-ssr": {
+        "description": "React Router v7 with server-side rendering",
+        "tooling": ["react-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query", "node-ssr"],
+        "skills": [
+          {
+            "name": "react-router-patterns",
+            "repo": "code-visionary/react-router-skills",
+            "reason": "React Router v7 patterns including SSR loaders/actions"
+          },
+          {
+            "name": "epic-react-patterns",
+            "repo": "epicweb-dev/epic-stack",
+            "reason": "Advanced React patterns with SSR"
+          }
+        ]
+      },
+      "tanstack-router-spa": {
+        "description": "TanStack Router type-safe SPA with Vite",
+        "tooling": ["tanstack-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query"],
+        "skills": [
+          {
+            "name": "tanstack-router-best-practices",
+            "repo": "deckardger/tanstack-agent-skills",
+            "reason": "TanStack Router type-safe routing and best practices"
+          },
+          {
+            "name": "jest-react-testing",
+            "repo": "manutej/luxor-claude-marketplace",
+            "reason": "Component testing with Vitest and React Testing Library"
+          }
+        ]
+      },
+      "typescript-library": {
+        "description": "Pure TypeScript library with tsdown, ESM/CJS exports, and Changesets",
+        "tooling": ["tsdown", "typescript", "vitest", "changesets", "npm-publishing", "esm-cjs"],
+        "skills": [
+          {
+            "name": "arch-tsdown",
+            "repo": "hairyf/skills",
+            "reason": "tsdown-based TypeScript library architecture"
+          },
+          {
+            "name": "npm-library-setup",
+            "repo": "huozhi/npm-skills",
+            "reason": "NPM package setup with dual ESM/CJS exports"
+          }
+        ],
+        "note": "No React, no Expo, no routing frameworks - pure TypeScript library tooling"
+      }
+    },
+    "excluded": {
+      "trpc-type-safety": {
+        "reason": "tRPC is not used in any template",
+        "attempted_install": "react-router-v7-spa via bobmatnyc/claude-mpm-skills",
+        "correction": "React Router v7 SPA should not include tRPC skills"
+      },
+      "nextjs-server-components": {
+        "reason": "Use nextjs-app-router instead - more comprehensive"
+      },
+      "solidjs-solidstart-expert": {
+        "reason": "SolidJS is not used - react-router-v7-ssr is React-only"
+      },
+      "vue-and-tanstack-skills": {
+        "reason": "Vue.js is not used - tanstack-router-spa is React-only"
+      },
+      "nuxt-skills": {
+        "reason": "Nuxt/Vue not used - typescript-library is framework-agnostic TypeScript"
+      },
+      "remix-skills": {
+        "reason": "Remix is not the framework - using React Router or TanStack Router"
+      }
+    },
+    "installation_notes": {
+      "agents": ["claude-code", "cursor"],
+      "rationale": "These agents have broader language support and are available across our target tools",
+      "reasoning": "GitHub Copilot Chat skills are installed via Microsoft's ecosystem; Copilot CLI has different support. Claude Code and Cursor support broader skill repositories."
+    },
+    "installation_commands": {
+      "root": {
+        "instructions": "turbo & pnpm workspace skills",
+        "commands": [
+          "cd /Users/seanmcquaid/Documents/Development/scaffolding-templates",
+          "npx -y skills add giuseppe-trisciuoglio/developer-kit --skill turborepo-monorepo --agent claude-code cursor",
+          "npx -y skills add borghei/claude-skills --skill monorepo-navigator --agent claude-code cursor"
+        ]
+      },
+      "expo-react-native": {
+        "instructions": "Mobile app development with React Native & Expo",
+        "commands": [
+          "cd templates/expo-react-native",
+          "npx -y skills add jezweb/claude-skills --skill react-native-expo --agent claude-code cursor",
+          "npx -y skills add mindrally/skills --skill expo-react-native-typescript --agent claude-code cursor",
+          "npx -y skills add pproenca/dot-skills --skill expo-react-native-performance --agent claude-code cursor",
+          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor"
+        ]
+      },
+      "next-ssr": {
+        "instructions": "Next.js with App Router and Server Components",
+        "commands": [
+          "cd templates/next-ssr",
+          "npx -y skills add claude-dev-suite/claude-dev-suite --skill nextjs-app-router --agent claude-code cursor",
+          "npx -y skills add ashchupliak/dream-team --skill nextjs-patterns --agent claude-code cursor",
+          "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor"
+        ]
+      },
+      "react-router-v7-spa": {
+        "instructions": "React Router v7 client-side SPA with Vite",
+        "commands": [
+          "cd templates/react-router-v7-spa",
+          "npx -y skills add code-visionary/react-router-skills --skill testing-helper --agent claude-code cursor",
+          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "EXCLUDE: trpc-type-safety (tRPC is not a dependency)"
+        ]
+      },
+      "react-router-v7-ssr": {
+        "instructions": "React Router v7 with server-side rendering",
+        "commands": [
+          "cd templates/react-router-v7-ssr",
+          "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor",
+          "npx -y skills add code-visionary/react-router-skills --skill typescript-patterns --agent claude-code cursor"
+        ]
+      },
+      "tanstack-router-spa": {
+        "instructions": "TanStack Router with type-safe routing",
+        "commands": [
+          "cd templates/tanstack-router-spa",
+          "npx -y skills add deckardger/tanstack-agent-skills --skill tanstack-router-best-practices --agent claude-code cursor",
+          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "EXCLUDE: Vue/Nuxt skills (React-only template)"
+        ]
+      },
+      "typescript-library": {
+        "instructions": "Pure TypeScript library with tsdown and dual ESM/CJS exports",
+        "commands": [
+          "cd templates/typescript-library",
+          "npx -y skills add hairyf/skills --skill arch-tsdown --agent claude-code cursor",
+          "npx -y skills add huozhi/npm-skills --skill npm-library-setup --agent claude-code cursor",
+          "EXCLUDE: React, Expo, routing, or frontend skills (backend-only library)"
+        ]
+      }
+    },
+    "verification": {
+      "root_skills_should_not_include": ["react-specific", "expo", "nextjs", "react-router", "tanstack-router", "typescript-library-specific"],
+      "template_isolation": "Each template should only have skills relevant to its specific tooling; all templates should NOT have identical skill sets"
+    }
+  }
+}
