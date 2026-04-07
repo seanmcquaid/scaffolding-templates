@@ -1,4 +1,4 @@
-import ky from 'ky';
+import ky, { type HTTPError } from 'ky';
 
 const createApiClient = (baseUrl: string) => {
   return ky.create({
@@ -29,7 +29,13 @@ const createApiClient = (baseUrl: string) => {
         },
       ],
       beforeError: [
-        async ({error}) => error,
+        async ({error}) => {
+          const httpError = error as HTTPError;
+          if (httpError.response) {
+            httpError.responseData = httpError.data;
+          }
+          return error;
+        },
       ],
     },
     prefix: baseUrl,
