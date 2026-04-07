@@ -4,7 +4,7 @@ const createApiClient = (baseUrl: string) => {
   return ky.create({
     hooks: {
       afterResponse: [
-        async (_, options, response) => {
+        async ({options, response}) => {
           if (!response.ok || !options.validationSchema) {
             return response;
           }
@@ -29,18 +29,10 @@ const createApiClient = (baseUrl: string) => {
         },
       ],
       beforeError: [
-        async error => {
-          try {
-            const response = await error.response.json();
-            error.responseData = response;
-            return error;
-          } catch {
-            return error;
-          }
-        },
+        async ({error}) => error,
       ],
     },
-    prefixUrl: baseUrl,
+    prefix: baseUrl,
     retry: {
       limit: 2,
       methods: [
