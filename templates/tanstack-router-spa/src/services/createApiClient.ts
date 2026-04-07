@@ -4,7 +4,7 @@ const createApiClient = (baseUrl: string) => {
   return ky.create({
     hooks: {
       afterResponse: [
-        async ({options, response}) => {
+        async ({ options, response }) => {
           if (!response.ok || !options.validationSchema) {
             return response;
           }
@@ -29,7 +29,7 @@ const createApiClient = (baseUrl: string) => {
         },
       ],
       beforeError: [
-        async ({error}) => {
+        async ({ error }) => {
           const httpError = error as HTTPError;
           if (httpError.response) {
             httpError.responseData = httpError.data;
