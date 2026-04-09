@@ -253,8 +253,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       lucide-react:
-        specifier: ^1.7.0
-        version: 1.7.0(react@19.2.4)
+        specifier: ^1.8.0
+        version: 1.8.0(react@19.2.4)
       next:
         specifier: 16.2.3
         version: 16.2.3(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -482,8 +482,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       lucide-react:
-        specifier: ^1.7.0
-        version: 1.7.0(react@19.2.4)
+        specifier: ^1.8.0
+        version: 1.8.0(react@19.2.4)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -729,8 +729,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       lucide-react:
-        specifier: ^1.7.0
-        version: 1.7.0(react@19.2.4)
+        specifier: ^1.8.0
+        version: 1.8.0(react@19.2.4)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -967,8 +967,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       lucide-react:
-        specifier: ^1.7.0
-        version: 1.7.0(react@19.2.4)
+        specifier: ^1.8.0
+        version: 1.8.0(react@19.2.4)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -7042,8 +7042,8 @@ packages:
     resolution: {integrity: sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==}
     engines: {node: '>=12'}
 
-  lucide-react@1.7.0:
-    resolution: {integrity: sha512-yI7BeItCLZJTXikmK4KNUGCKoGzSvbKlfCvw44bU4fXAL6v3gYS4uHD1jzsLkfwODYwI6Drw5Tu9Z5ulDe0TSg==}
+  lucide-react@1.8.0:
+    resolution: {integrity: sha512-WuvlsjngSk7TnTBJ1hsCy3ql9V9VOdcPkd3PKcSmM34vJD8KG6molxz7m7zbYFgICwsanQWmJ13JlYs4Zp7Arw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -12026,9 +12026,7 @@ snapshots:
       metro-runtime: 0.83.5
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 
@@ -16370,7 +16368,7 @@ snapshots:
 
   lru-cache@7.18.3: {}
 
-  lucide-react@1.7.0(react@19.2.4):
+  lucide-react@1.8.0(react@19.2.4):
     dependencies:
       react: 19.2.4
 
