@@ -476,8 +476,8 @@ importers:
         specifier: ^8.2.1
         version: 8.2.1
       isbot:
-        specifier: ^5.1.37
-        version: 5.1.37
+        specifier: ^5.1.38
+        version: 5.1.38
       ky:
         specifier: ^2.0.1
         version: 2.0.1
@@ -723,8 +723,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.4
       isbot:
-        specifier: ^5.1.37
-        version: 5.1.37
+        specifier: ^5.1.38
+        version: 5.1.38
       ky:
         specifier: ^2.0.1
         version: 2.0.1
@@ -6507,10 +6507,6 @@ packages:
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
 
-  isbot@5.1.37:
-    resolution: {integrity: sha512-5bcicX81xf6NlTEV8rWdg7Pk01LFizDetuYGHx6d/f6y3lR2/oo8IfxjzJqn1UdDEyCcwT9e7NRloj8DwCYujQ==}
-    engines: {node: '>=18'}
-
   isbot@5.1.38:
     resolution: {integrity: sha512-Cus2702JamTNMEY4zTP+TShgq/3qzjvGcBC4XMOV45BLaxD4iUFENkqu7ZhFeSzwNsCSZLjnGlihDQznnpnEEA==}
     engines: {node: '>=18'}
@@ -12106,7 +12102,7 @@ snapshots:
       dedent: 1.7.2
       es-module-lexer: 1.7.0
       exit-hook: 2.2.1
-      isbot: 5.1.37
+      isbot: 5.1.38
       jsesc: 3.0.2
       lodash: 4.18.1
       p-map: 7.0.4
@@ -15622,8 +15618,6 @@ snapshots:
       is-docker: 2.2.1
 
   isarray@2.0.5: {}
-
-  isbot@5.1.37: {}
 
   isbot@5.1.38: {}
 
