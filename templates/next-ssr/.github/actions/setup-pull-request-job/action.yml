@@ -7,6 +7,8 @@ runs:
       uses: actions/checkout@v6
     - name: Setup PNPM
       uses: pnpm/action-setup@v6
+      with:
+        run_install: false
     - name: Setup Node
       uses: actions/setup-node@v6
       with:
