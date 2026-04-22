@@ -247,8 +247,8 @@ importers:
         specifier: ^8.2.1
         version: 8.2.1
       i18next-http-backend:
-        specifier: ^3.0.2
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       ky:
         specifier: ^2.0.1
         version: 2.0.1
@@ -720,8 +720,8 @@ importers:
         specifier: ^2.6.4
         version: 2.6.4
       i18next-http-backend:
-        specifier: ^3.0.2
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       isbot:
         specifier: ^5.1.38
         version: 5.1.38
@@ -961,8 +961,8 @@ importers:
         specifier: ^8.2.1
         version: 8.2.1
       i18next-http-backend:
-        specifier: ^3.0.2
-        version: 3.0.4
+        specifier: ^3.0.5
+        version: 3.0.5
       ky:
         specifier: ^2.0.1
         version: 2.0.1
@@ -6257,8 +6257,8 @@ packages:
   i18next-fs-backend@2.6.4:
     resolution: {integrity: sha512-lzbUnowXYd5RFO8flpQhd9khYWNgrzwtxHw1kktJCiTRBaAEiLB2t9EPSXRj8qlC7WcEgFDIsmBUixyludcznw==}
 
-  i18next-http-backend@3.0.4:
-    resolution: {integrity: sha512-udwrBIE6cNpqn1gRAqRULq3+7MzIIuaiKRWrz++dVz5SqWW2VwXmPJtAgkI0JtMLFaADC9qNmnZAxWAhsxXx2g==}
+  i18next-http-backend@3.0.5:
+    resolution: {integrity: sha512-QaWHnsxieEDcqKe+vo/RFqpiIFRi/KBqlOSPcUlvinBaISCeiTRCbtrazHAjtHtsLC66oDsROAH8frWkQzfMMQ==}
 
   i18next@26.0.5:
     resolution: {integrity: sha512-9uHb4T27TdV36phJXcbpnRPt5yzAfqHXVrdASvmHZyPuZJtrLythd+GyXhiaHV5LlpuuskbAqhwPjmfTbKbi8w==}
@@ -12060,7 +12060,9 @@ snapshots:
       metro-runtime: 0.83.6
     transitivePeerDependencies:
       - '@babel/core'
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 
@@ -15376,7 +15378,7 @@ snapshots:
 
   i18next-fs-backend@2.6.4: {}
 
-  i18next-http-backend@3.0.4:
+  i18next-http-backend@3.0.5:
     dependencies:
       cross-fetch: 4.1.0
     transitivePeerDependencies:
