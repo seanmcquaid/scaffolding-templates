@@ -1,4 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -52,12 +53,10 @@ const ReactQueryDevtoolsLazy =
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html className="h-screen min-h-screen w-full overflow-auto">
+    <html className="h-screen min-h-screen w-full overflow-auto" lang="en">
       <head>
-        <meta charSet="UTF-8" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <link href={appCss} rel="stylesheet" />
         <HeadContent />
+        <link href={appCss} rel="stylesheet" />
       </head>
       <body className="flex h-screen min-h-screen w-full flex-col overflow-auto">
         <main className="flex-1">{children}</main>
@@ -68,14 +67,21 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 }
 
 const Root = () => {
+  const { queryClient } = Route.useRouteContext();
+
   return (
     <RootDocument>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Outlet />
-        <TanStackRouterDevtoolsLazy position="bottom-right" />
-        <ReactQueryDevtoolsLazy buttonPosition="top-right" initialIsOpen={false} />
-        <Toaster />
-      </Suspense>
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Outlet />
+          <TanStackRouterDevtoolsLazy position="bottom-right" />
+          <ReactQueryDevtoolsLazy
+            buttonPosition="top-right"
+            initialIsOpen={false}
+          />
+          <Toaster />
+        </Suspense>
+      </QueryClientProvider>
     </RootDocument>
   );
 };

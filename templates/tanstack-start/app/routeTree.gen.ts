@@ -8,17 +8,12 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as ReactQueryIndexRouteImport } from './routes/react-query/index'
+import { Route as ReactHookFormZodIndexRouteImport } from './routes/react-hook-form-zod/index'
 import { Route as KitchenSinkIndexRouteImport } from './routes/kitchen-sink/index'
-
-const IndexRouteImport = createFileRoute('/')()
-const ReactQueryIndexRouteImport = createFileRoute('/react-query/')()
-const ReactHookFormZodIndexRouteImport = createFileRoute(
-  '/react-hook-form-zod/',
-)()
-const ReactQueryIdIndexRouteImport = createFileRoute('/react-query/$id/')()
+import { Route as ReactQueryIdIndexRouteImport } from './routes/react-query/$id/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -150,3 +145,4 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+

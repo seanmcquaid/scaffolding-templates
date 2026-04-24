@@ -19,9 +19,8 @@
     "strict": true,
     "target": "ES2022",
     "types": [
-      "vinxi/types/client",
+      "vite/client",
       "vitest/globals",
-      "vite-plugin-svgr/client",
       "vitest/config"
     ]
   },

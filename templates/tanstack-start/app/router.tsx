@@ -1,9 +1,8 @@
 import { QueryClient } from '@tanstack/react-query';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
-import { routerWithQueryClient } from '@tanstack/router-with-query';
 import { routeTree } from './routeTree.gen';
 
-export function createRouter() {
+export function getRouter() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -12,19 +11,17 @@ export function createRouter() {
     },
   });
 
-  const router = createTanStackRouter({
+  return createTanStackRouter({
     context: { queryClient },
     defaultPreload: 'intent',
     defaultPreloadStaleTime: 0,
     routeTree,
     scrollRestoration: true,
   });
-
-  return routerWithQueryClient(router, queryClient);
 }
 
 declare module '@tanstack/react-router' {
   interface Register {
-    router: ReturnType<typeof createRouter>;
+    router: ReturnType<typeof getRouter>;
   }
 }

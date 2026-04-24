@@ -1,4 +1,4 @@
-import { createServerFn } from '@tanstack/start/server';
+import { createServerFn } from '@tanstack/react-start/server';
 import { z } from 'zod';
 import { postSchema } from '@/types/Post';
 
