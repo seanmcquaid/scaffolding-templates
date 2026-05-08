@@ -29,8 +29,8 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+beforeAll(() => server.listen());
 beforeEach(() => {
-  server.listen();
   queryClient.clear();
   queryClient.setDefaultOptions({ queries: { retry: false } });
 });
