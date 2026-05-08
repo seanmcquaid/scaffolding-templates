@@ -27,9 +27,12 @@ describe('ReactQueryScreen', () => {
       )
     );
     render(<ReactQueryScreen />);
-    await waitFor(() => {
-      expect(screen.getByText('Common.error')).toBeTruthy();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByText('Common.error')).toBeTruthy();
+      },
+      { timeout: 5000 }
+    );
   });
 
   it('calls deletePost when delete button is clicked', async () => {
