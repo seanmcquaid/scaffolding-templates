@@ -25,3 +25,10 @@ declare module '@tanstack/react-router' {
     router: ReturnType<typeof getRouter>;
   }
 }
+
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
+  }
+}
