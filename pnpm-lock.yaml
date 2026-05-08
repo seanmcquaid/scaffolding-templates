@@ -1163,7 +1163,7 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.4.3)
 
-  templates/tanstack-start:
+  templates/tanstack-start-ssr:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.2.2
@@ -16186,7 +16186,7 @@ snapshots:
   eslint-plugin-react-compiler@19.0.0-beta-714736e-20250131(eslint@9.39.4(jiti@2.7.0)):
     dependencies:
       '@babel/core': 7.29.0
-      '@babel/parser': 7.29.2
+      '@babel/parser': 7.29.3
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.29.0)
       eslint: 9.39.4(jiti@2.7.0)
       hermes-parser: 0.25.1
