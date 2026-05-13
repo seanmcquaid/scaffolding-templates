@@ -1,2 +1,7 @@
 packages:
   - 'templates/*'
+
+allowBuilds:
+  esbuild: false
+  msw: false
+  sharp: false
