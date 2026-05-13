@@ -6,6 +6,7 @@
   "scripts": {
     "build": "turbo build",
     "bundlesize": "turbo bundlesize",
+    "clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
