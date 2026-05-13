@@ -23,7 +23,7 @@ export default [
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   i18next.configs['flat/recommended'],
-  reactPlugin.configs.off,
+  reactPlugin.configs['recommended-typescript'],
   {
     ...vitest.configs.recommended,
     files: ['app/**'],
@@ -58,6 +58,8 @@ export default [
       curly: ['warn', 'all'],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      '@eslint-react/static-components': 'off',
+      '@eslint-react/no-nested-component-definitions': 'off',
       'import/no-anonymous-default-export': 'off',
       'import/order': 'warn',
       'jsx-a11y/no-redundant-roles': 'off',
