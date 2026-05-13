@@ -10,22 +10,34 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactPlugin from '@eslint-react/eslint-plugin';
 import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 
-export default [
-  js.configs.recommended,
+export default defineConfig(
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactPlugin.configs['recommended-typescript'],
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   ...pluginQuery.configs['flat/recommended'],
-  ...tseslint.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   i18next.configs['flat/recommended'],
-  reactPlugin.configs['recommended-typescript'],
   {
     plugins: {
       import: fixupPluginRules(importPlugin),
       'no-relative-import-paths': noRelativeImportPaths,
     },
-    rules: {},
   },
   {
     languageOptions: {
@@ -69,4 +81,4 @@ export default [
       '*.d.ts',
     ],
   },
-];
+);

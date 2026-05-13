@@ -14,16 +14,29 @@ import globals from 'globals';
 import nextPlugin from '@next/eslint-plugin-next';
 import reactPlugin from '@eslint-react/eslint-plugin';
 import reactCompiler from 'eslint-plugin-react-compiler';
+import { defineConfig } from 'eslint/config';
 
-export default [
-  js.configs.recommended,
+export default defineConfig(
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactPlugin.configs['recommended-typescript'],
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   ...pluginQuery.configs['flat/recommended'],
-  ...tseslint.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   i18next.configs['flat/recommended'],
-  reactPlugin.configs['recommended-typescript'],
   {
     ...vitest.configs.recommended,
     files: ['src/**'],
@@ -79,4 +92,4 @@ export default [
       'react-compiler/react-compiler': 'error',
     },
   },
-];
+);
