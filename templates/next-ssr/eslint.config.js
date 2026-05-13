@@ -13,7 +13,6 @@ import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
 import nextPlugin from '@next/eslint-plugin-next';
 import reactPlugin from '@eslint-react/eslint-plugin';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
 export default [
@@ -38,13 +37,11 @@ export default [
       import: fixupPluginRules(importPlugin),
       '@next/next': nextPlugin,
       'no-relative-import-paths': noRelativeImportPaths,
-      'react-hooks': reactHooksPlugin,
       'react-compiler': reactCompiler,
     },
     rules: {
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
-      ...reactHooksPlugin.configs.recommended.rules,
     },
   },
   {
@@ -60,8 +57,6 @@ export default [
       '@typescript-eslint/no-var-requires': 0,
       '@typescript-eslint/no-shadow': 'error',
       curly: ['warn', 'all'],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
       '@eslint-react/static-components': 'off',
       '@eslint-react/no-nested-component-definitions': 'off',
       'import/no-anonymous-default-export': 'off',

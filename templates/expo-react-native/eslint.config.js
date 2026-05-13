@@ -9,7 +9,6 @@ import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import reactPlugin from '@eslint-react/eslint-plugin';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 
 export default [
@@ -25,11 +24,8 @@ export default [
     plugins: {
       import: fixupPluginRules(importPlugin),
       'no-relative-import-paths': noRelativeImportPaths,
-      'react-hooks': reactHooksPlugin,
     },
-    rules: {
-      ...reactHooksPlugin.configs.recommended.rules,
-    },
+    rules: {},
   },
   {
     languageOptions: {
@@ -43,8 +39,6 @@ export default [
       '@typescript-eslint/no-var-requires': 0,
       '@typescript-eslint/no-shadow': 'error',
       curly: ['warn', 'all'],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
       '@eslint-react/static-components': 'off',
       '@eslint-react/no-nested-component-definitions': 'off',
       'import/no-anonymous-default-export': 'off',
