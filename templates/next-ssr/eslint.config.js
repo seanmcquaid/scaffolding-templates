@@ -12,7 +12,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
 import nextPlugin from '@next/eslint-plugin-next';
-import reactPlugin from 'eslint-plugin-react';
+import reactPlugin from '@eslint-react/eslint-plugin';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactCompiler from 'eslint-plugin-react-compiler';
 
@@ -24,7 +24,7 @@ export default [
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   i18next.configs['flat/recommended'],
-  reactPlugin.configs.flat['jsx-runtime'],
+  reactPlugin.configs.off,
   {
     ...vitest.configs.recommended,
     files: ['src/**'],
@@ -62,17 +62,12 @@ export default [
       curly: ['warn', 'all'],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-      'react/prop-types': 'off',
       'import/no-anonymous-default-export': 'off',
       'import/order': 'warn',
       'jsx-a11y/no-redundant-roles': 'off',
       'prefer-const': 'warn',
       'prettier/prettier': 'warn',
-      'react/jsx-uses-react': 'off',
-      'react/jsx-key': 'warn',
-      'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-namespace': 'off',
-      'react/no-unescaped-entities': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error'],
       '@typescript-eslint/consistent-type-imports': 'error',
       'vitest/no-conditional-expect': 'off',
