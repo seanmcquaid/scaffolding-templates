@@ -83,8 +83,7 @@ This comprehensive approach provides:
 ### Plugins Used
 
 - **@typescript-eslint**: TypeScript-specific linting rules
-- **eslint-plugin-react**: React best practices
-- **eslint-plugin-react-hooks**: React Hooks rules
+- **@eslint-react/eslint-plugin**: React best practices
 - **eslint-plugin-react-compiler**: React Compiler optimization rules
 - **eslint-plugin-jsx-a11y**: Accessibility rules
 - **eslint-plugin-import**: Import/export validation

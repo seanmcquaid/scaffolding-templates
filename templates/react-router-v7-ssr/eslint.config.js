@@ -9,21 +9,33 @@ import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import playwright from 'eslint-plugin-playwright';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactPlugin from '@eslint-react/eslint-plugin';
 import vitest from '@vitest/eslint-plugin';
 import globals from 'globals';
 import reactCompiler from 'eslint-plugin-react-compiler';
+import { defineConfig } from 'eslint/config';
 
-export default [
-  js.configs.recommended,
+export default defineConfig(
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactPlugin.configs['recommended-typescript'],
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   ...pluginQuery.configs['flat/recommended'],
-  ...tseslint.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   eslintPluginPrettierRecommended,
   i18next.configs['flat/recommended'],
-  reactPlugin.configs.flat['jsx-runtime'],
   {
     ...vitest.configs.recommended,
     files: ['app/**'],
@@ -36,11 +48,7 @@ export default [
     plugins: {
       import: fixupPluginRules(importPlugin),
       'no-relative-import-paths': noRelativeImportPaths,
-      'react-hooks': reactHooksPlugin,
       'react-compiler': reactCompiler,
-    },
-    rules: {
-      ...reactHooksPlugin.configs.recommended.rules,
     },
   },
   {
@@ -56,19 +64,14 @@ export default [
       '@typescript-eslint/no-var-requires': 0,
       '@typescript-eslint/no-shadow': 'error',
       curly: ['warn', 'all'],
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-      'react/prop-types': 'off',
+      '@eslint-react/static-components': 'off',
+      '@eslint-react/no-nested-component-definitions': 'off',
       'import/no-anonymous-default-export': 'off',
       'import/order': 'warn',
       'jsx-a11y/no-redundant-roles': 'off',
       'prefer-const': 'warn',
       'prettier/prettier': 'warn',
-      'react/jsx-uses-react': 'off',
-      'react/jsx-key': 'warn',
-      'react/react-in-jsx-scope': 'off',
       '@typescript-eslint/no-namespace': 'off',
-      'react/no-unescaped-entities': 'off',
       'playwright/missing-playwright-await': 'off',
       '@typescript-eslint/consistent-type-definitions': ['error'],
       '@typescript-eslint/consistent-type-imports': 'error',
@@ -84,4 +87,4 @@ export default [
       'react-compiler/react-compiler': 'error',
     },
   },
-];
+);

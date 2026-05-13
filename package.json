@@ -2,10 +2,15 @@
   "name": "scaffolding-templates",
   "license": "ISC",
   "author": "Sean McQuaid",
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.1.1",
+  "engines": {
+    "node": ">=24.0.0",
+    "pnpm": ">=11.0.0"
+  },
   "scripts": {
     "build": "turbo build",
     "bundlesize": "turbo bundlesize",
+    "clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
