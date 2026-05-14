@@ -5,12 +5,13 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [
-    tanstackStart({
-      srcDirectory: './app',
-      router: {
-        routeFileIgnorePattern: '.*\\.test\\.tsx',
-      },
-    }),
+    !process.env.VITEST &&
+      tanstackStart({
+        srcDirectory: './app',
+        router: {
+          routeFileIgnorePattern: '.*\\.test\\.tsx',
+        },
+      }),
     react(),
     tailwindcss(),
   ],
