@@ -89,7 +89,7 @@ This comprehensive approach provides:
 - **eslint-plugin-import**: Import/export validation
 - **eslint-plugin-prettier**: Prettier integration
 - **eslint-plugin-i18next**: Enforce translation usage
-- **eslint-plugin-no-relative-import-paths**: Enforce absolute imports
+- **eslint-plugin-import (import/no-relative-parent-imports rule)**: Enforce absolute imports
 - **@tanstack/eslint-plugin-query**: TanStack Query best practices
 - **@vitest/eslint-plugin**: Vitest test rules
 - **eslint-plugin-playwright**: Playwright test rules
