@@ -9,8 +9,19 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["vite/client", "vitest/globals"]
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ],
+    "noImplicitAny": true
   },
-  "exclude": ["node_modules", "dist"],
-  "include": ["src"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage"
+  ],
+  "include": [
+    "src"
+  ]
 }

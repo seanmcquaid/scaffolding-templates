@@ -13,7 +13,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
-    "paths": {
+    "noImplicitAny": true,    "paths": {
       "@/*": [
         "./src/*"
       ],
