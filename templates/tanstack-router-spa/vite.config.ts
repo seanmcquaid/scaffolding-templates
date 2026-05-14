@@ -14,11 +14,6 @@ const viteConfig = defineViteConfig({
       external: id => id.includes('worker'),
     },
   },
-  resolve: {
-    alias: {
-      // tsconfig paths are automatically resolved by Vite
-    },
-  },
   plugins: [
     tailwindcss(),
     TanStackRouterVite({

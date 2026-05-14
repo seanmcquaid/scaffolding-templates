@@ -3,11 +3,6 @@ import { defineConfig } from 'vitest/config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      // tsconfig paths are automatically resolved by Vite
-    },
-  },
   plugins: [react()],
   test: {
     pool: 'threads',

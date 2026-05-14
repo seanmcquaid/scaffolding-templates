@@ -2,11 +2,6 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      // tsconfig paths are automatically resolved by Vite
-    },
-  },
   plugins: [react()],
   test: {
     pool: 'threads',

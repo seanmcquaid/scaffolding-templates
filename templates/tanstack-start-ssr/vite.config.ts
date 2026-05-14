@@ -14,11 +14,6 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  resolve: {
-    alias: {
-      // tsconfig paths are automatically resolved by Vite
-    },
-  },
   server: {
     port: 3000,
   },

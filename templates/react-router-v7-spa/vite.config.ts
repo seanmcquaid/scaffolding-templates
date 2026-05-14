@@ -7,11 +7,6 @@ import svgr from 'vite-plugin-svgr';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const viteConfig = defineViteConfig({
-  resolve: {
-    alias: {
-      // tsconfig paths are automatically resolved by Vite
-    },
-  },
   plugins: [
     tailwindcss(),
     !process.env.VITEST && reactRouter(),
