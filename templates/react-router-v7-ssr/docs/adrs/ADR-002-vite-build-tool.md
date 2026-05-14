@@ -40,6 +40,7 @@ Vite provides:
 ## Consequences
 
 ### Positive Consequences
+
 - Near-instant dev server startup
 - Fast hot module replacement (HMR)
 - Optimized production bundles
@@ -49,11 +50,13 @@ Vite provides:
 - Modern development experience
 
 ### Negative Consequences / Trade-offs
+
 - Different behavior between dev (esbuild) and prod (Rollup)
 - Some legacy packages may have compatibility issues
 - Less mature than Webpack for complex edge cases
 
 ### Risks and Mitigations
+
 - **Risk**: Dev/prod parity issues due to different bundlers
   - **Mitigation**: Test production builds regularly, use similar configs
 - **Risk**: Plugin compatibility issues
@@ -62,36 +65,39 @@ Vite provides:
 ## Alternatives Considered
 
 ### Alternative 1: Webpack
+
 - **Description**: Traditional bundler with extensive ecosystem
-- **Pros**: 
+- **Pros**:
   - Very mature and battle-tested
   - Huge plugin ecosystem
   - Well-documented edge cases
-- **Cons**: 
+- **Cons**:
   - Slower development server
   - More complex configuration
   - Slower HMR
 - **Reason for rejection**: Vite provides significantly better DX
 
 ### Alternative 2: Parcel
+
 - **Description**: Zero-config bundler
-- **Pros**: 
+- **Pros**:
   - Zero configuration
   - Good performance
   - Simple to use
-- **Cons**: 
+- **Cons**:
   - Less flexible than Vite
   - Smaller ecosystem
   - Less control over build process
 - **Reason for rejection**: Vite offers better balance of simplicity and control
 
 ### Alternative 3: esbuild
+
 - **Description**: Extremely fast bundler written in Go
-- **Pros**: 
+- **Pros**:
   - Fastest bundler available
   - Simple API
   - Good for development
-- **Cons**: 
+- **Cons**:
   - Limited plugin ecosystem
   - Less suitable for complex production builds
   - Missing some features needed for production
@@ -106,7 +112,7 @@ import { reactRouter } from '@react-router/dev/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [reactRouter()],
+  plugins: [!process.env.VITEST && reactRouter()],
 });
 ```
 

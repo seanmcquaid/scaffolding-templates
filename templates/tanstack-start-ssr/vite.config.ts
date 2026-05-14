@@ -2,7 +2,6 @@ import tailwindcss from '@tailwindcss/vite';
 import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [
@@ -14,12 +13,36 @@ export default defineConfig({
     }),
     react(),
     tailwindcss(),
-    tsconfigPaths(),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     port: 3000,
   },
   preview: {
     port: 3000,
+  },
+  test: {
+    pool: 'threads',
+    coverage: {
+      exclude: [
+        'app/utils/testing',
+        'app/i18n',
+        'app/env.ts',
+        'app/types',
+        'app/styles',
+        'app/client.tsx',
+        'app/router.tsx',
+        'app/routeTree.gen.ts',
+      ],
+      include: ['app/**/*.ts', 'app/**/*.tsx'],
+      provider: 'istanbul',
+      reporter: ['lcov', 'json-summary'],
+    },
+    environment: 'happy-dom',
+    exclude: ['playwright', 'node_modules'],
+    globals: true,
+    setupFiles: ['./app/utils/testing/setupTests.ts'],
   },
 });

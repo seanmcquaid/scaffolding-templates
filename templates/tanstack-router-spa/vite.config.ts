@@ -1,23 +1,14 @@
 import tailwindcss from '@tailwindcss/vite';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
-import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
+import { defineConfig } from 'vite';
 import babel from 'vite-plugin-babel';
 import checker from 'vite-plugin-checker';
 import svgr from 'vite-plugin-svgr';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig as defineVitestConfig } from 'vitest/config';
 
-const viteConfig = defineViteConfig({
-  build: {
-    rollupOptions: {
-      // This is to remove the MSW from ever being included in the production build
-      external: id => id.includes('worker'),
-    },
-  },
+export default defineConfig({
   plugins: [
     tailwindcss(),
-    tsconfigPaths(),
     TanStackRouterVite({
       routeFileIgnorePattern: '.*\\.test\\.tsx',
     }),
@@ -32,29 +23,31 @@ const viteConfig = defineViteConfig({
     svgr(),
     checker({ typescript: true }),
   ],
-  preview: {
-    open: true,
-    port: 3000,
+  resolve: {
+    tsconfigPaths: true,
   },
   server: {
     open: true,
     port: 3000,
   },
-});
-
-const vitestConfig = defineVitestConfig({
+  preview: {
+    open: true,
+    port: 3000,
+  },
   test: {
     pool: 'threads',
     coverage: {
       exclude: [
         'src/utils/testing',
+        'src/entry.client.tsx',
+        'src/entry.server.tsx',
+        'src/routes.ts',
         'src/i18n',
+        'src/root.tsx',
         'src/env.ts',
         'src/types',
-        'src/assets',
+        'src/icons',
         'src/styles',
-        'src/main.tsx',
-        'src/routeTree.gen.ts',
       ],
       include: ['src/**/*.ts', 'src/**/*.tsx'],
       provider: 'istanbul',
@@ -66,5 +59,3 @@ const vitestConfig = defineVitestConfig({
     setupFiles: ['./src/utils/testing/setupTests.ts'],
   },
 });
-
-export default mergeConfig(viteConfig, vitestConfig);
