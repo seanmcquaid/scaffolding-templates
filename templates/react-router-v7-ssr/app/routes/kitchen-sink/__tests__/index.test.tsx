@@ -6,7 +6,6 @@ import KitchenSinkPage, {
   loader,
   clientLoader,
 } from '..';
-// eslint-disable-next-line no-relative-import-paths/no-relative-import-paths
 import type { Route } from '../+types';
 import {
   render,
