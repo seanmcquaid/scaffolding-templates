@@ -1,7 +1,11 @@
-import { render, screen, waitFor } from '@/utils/testing/reactTestingLibraryUtils';
+/* eslint-disable i18next/no-literal-string */
+import {
+  render,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 import { Toaster } from '@/components/ui/Toaster';
 import { useToast } from '@/hooks/useToast';
-import type { ComponentProps } from 'react';
 
 /**
  * Test component to trigger toast notifications
