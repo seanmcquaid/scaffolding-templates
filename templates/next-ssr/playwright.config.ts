@@ -1,10 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
+ * Note: For environment-specific Playwright configuration,
+ * use environment variables or pass config via --config flag.
+ * https://playwright.dev/docs/test-configuration
  */
-// require('dotenv').config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -30,7 +30,13 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'] },
     },
 
-    /* Test against mobile viewports. */
+    /**
+     * Mobile testing is disabled by default.
+     * Rationale: Templates focus on desktop web development. Mobile testing
+     * requires additional setup (device emulation, performance considerations).
+     * To enable mobile testing, uncomment the configurations below.
+     * See: https://playwright.dev/docs/emulation
+     */
     // {
     //   name: 'Mobile Chrome',
     //   use: { ...devices['Pixel 5'] },
@@ -40,21 +46,28 @@ export default defineConfig({
     //   use: { ...devices['iPhone 12'] },
     // },
 
-    /* Test against branded browsers. */
+    /**
+     * Branded browser testing is disabled by default.
+     * Rationale: Chromium, Firefox, and WebKit provide comprehensive coverage
+     * for testing modern web applications. Branded browsers (Edge, Chrome)
+     * require additional browser channels to be installed.
+     * To enable branded browser testing, uncomment below and install channels.
+     * See: https://playwright.dev/docs/browsers
+     */
     // {
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
     // },
     // {
     //   name: 'Google Chrome',
-    //   use: { ..devices['Desktop Chrome'], channel: 'chrome' },
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
   ],
   /* Retry on CI only */
   reporter: 'html',
-  /* Opt out of parallel tests on CI. */
-  // workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  /* Run with single worker on CI for stability */
+  workers: process.env.CI ? 1 : undefined,
+  /* Retry failed tests on CI */
   retries: process.env.CI ? 2 : 0,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   testDir: './playwright',
