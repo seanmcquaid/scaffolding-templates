@@ -13,8 +13,8 @@
     "lint:fix": "eslint src --fix",
     "prepare": "is-ci || husky",
     "start": "expo start",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test": "jest --runInBand --forceExit",
+    "test:coverage": "jest --coverage --runInBand --forceExit",
     "test:watch": "jest --watch",
     "web": "expo start --web"
   },

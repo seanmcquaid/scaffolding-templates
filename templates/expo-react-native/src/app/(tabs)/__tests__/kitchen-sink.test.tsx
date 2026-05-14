@@ -3,7 +3,19 @@ import { fireEvent } from '@testing-library/react-native';
 import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import KitchenSinkScreen from '@/app/(tabs)/kitchen-sink';
 
+jest.mock('usehooks-ts', () => {
+  const actual = jest.requireActual('usehooks-ts');
+  return {
+    ...actual,
+    useCopyToClipboard: () => ['', jest.fn()],
+  };
+});
+
 describe('KitchenSinkScreen', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('shows advanced settings when the toggle button is clicked', async () => {
     render(<KitchenSinkScreen />);
     expect(screen.queryByText(/KitchenSinkPage\.enableAutoSave/)).toBeNull();

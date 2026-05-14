@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react-native';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
+jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
+
 describe('IconSymbol', () => {
   it('calls a function color with the expected arguments', () => {
     const colorFn = jest.fn().mockReturnValue('#FF0000');
