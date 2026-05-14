@@ -4,13 +4,16 @@ import { defineConfig as defineViteConfig, mergeConfig } from 'vite';
 import babel from 'vite-plugin-babel';
 import checker from 'vite-plugin-checker';
 import svgr from 'vite-plugin-svgr';
-import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig as defineVitestConfig } from 'vitest/config';
 
 const viteConfig = defineViteConfig({
+  resolve: {
+    alias: {
+      // tsconfig paths are automatically resolved by Vite
+    },
+  },
   plugins: [
     tailwindcss(),
-    tsconfigPaths(),
     !process.env.VITEST && reactRouter(),
     babel({
       babelConfig: {
