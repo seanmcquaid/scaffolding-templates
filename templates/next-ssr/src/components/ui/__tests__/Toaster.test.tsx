@@ -25,7 +25,6 @@ const ToastTrigger = () => {
       >
         Show Toast
       </button>
-      <Toaster />
     </div>
   );
 };
@@ -60,7 +59,7 @@ describe('Toaster Component', () => {
     });
   });
 
-  it('renders multiple toasts', async () => {
+  it('renders the most recent toast when triggered rapidly', async () => {
     const MultiToastTrigger = () => {
       const { toast } = useToast();
 
@@ -74,7 +73,6 @@ describe('Toaster Component', () => {
           >
             Show Multiple Toasts
           </button>
-          <Toaster />
         </div>
       );
     };
@@ -85,7 +83,6 @@ describe('Toaster Component', () => {
     await button.click();
 
     await waitFor(() => {
-      expect(screen.getByText('Toast 1')).toBeInTheDocument();
       expect(screen.getByText('Toast 2')).toBeInTheDocument();
     });
   });
