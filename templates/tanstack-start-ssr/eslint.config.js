@@ -3,7 +3,6 @@ import importPlugin from 'eslint-plugin-import';
 import js from '@eslint/js';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 import tseslint from 'typescript-eslint';
-import noRelativeImportPaths from 'eslint-plugin-no-relative-import-paths';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import i18next from 'eslint-plugin-i18next';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -47,7 +46,6 @@ export default defineConfig(
   {
     plugins: {
       import: fixupPluginRules(importPlugin),
-      'no-relative-import-paths': noRelativeImportPaths,
       'react-compiler': reactCompiler,
     },
   },
@@ -76,14 +74,7 @@ export default defineConfig(
       '@typescript-eslint/consistent-type-definitions': ['error'],
       '@typescript-eslint/consistent-type-imports': 'error',
       'vitest/no-conditional-expect': 'off',
-      'no-relative-import-paths/no-relative-import-paths': [
-        'warn',
-        {
-          allowSameFolder: true,
-          rootDir: 'app',
-          prefix: '@',
-        },
-      ],
+      'import/no-relative-parent-imports': 'warn',
       'react-compiler/react-compiler': 'error',
     },
   },
