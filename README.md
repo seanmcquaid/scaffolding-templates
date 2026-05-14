@@ -4,6 +4,19 @@ Throughout my years of working in web development, I have found myself using the
 
 These templates are meant to be a starting point for new projects and are not meant to be a one-size-fits-all solution. I have created these templates to fit my needs and preferences, but I am always open to suggestions and improvements. If you have any suggestions or improvements, please feel free to open an issue on the repo!
 
+## Prerequisites
+
+Before getting started, ensure you have the following installed:
+
+- **Node.js** 24.0.0 or higher (download from [nodejs.org](https://nodejs.org/))
+- **pnpm** 11.0.0 or higher (install with `npm install -g pnpm` or [see alternative installation methods](https://pnpm.io/installation))
+
+Verify your installations:
+```bash
+node --version  # Should be v24.0.0 or higher
+pnpm --version  # Should be 11.0.0 or higher
+```
+
 ## 🤖 AI Agent Skills
 
 This repository includes **14 standardized agent skills** compatible with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents. These skills provide specialized expertise for:
@@ -35,24 +48,46 @@ npx skills add seanmcquaid/scaffolding-templates --all -a github-copilot
 
 **💡 Recommended Windows Setup:**
 Use Windows Subsystem for Linux 2 (WSL2) with Ubuntu:
-1. Install WSL2: https://docs.microsoft.com/en-us/windows/wsl/install
+1. Install WSL2: [Windows Subsystem for Linux Installation Guide](https://learn.microsoft.com/en-us/windows/wsl/install)
 2. Install Ubuntu from Microsoft Store
-3. Run setup scripts within the Ubuntu environment
+3. Install Node.js and pnpm within the Ubuntu environment
+4. Run setup scripts within the Ubuntu environment
 
 This approach provides the full Unix-like environment that the setup scripts require while maintaining compatibility with Windows development workflows.
 
-## Scaffolding a new project
+**Alternative:** Use [Git Bash](https://git-scm.com/download/win) or [Cygwin](https://www.cygwin.com/) for a more lightweight Unix-like shell on Windows.
+
+## Getting Started
+
+### Scaffolding a New Project
 
 ```bash
 npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/<template-name> <project-name>
 ```
 
-After scaffolding, run the setup script to automatically configure your development environment:
+### Quick Setup
+
+After scaffolding, navigate to your project and run the setup script:
 
 ```bash
 cd <project-name>
 chmod +x setup.sh
 ./setup.sh
+```
+
+The setup script automatically configures:
+- Node.js and pnpm verification
+- Development dependencies installation
+- Git hooks (Husky)
+- ESLint and Prettier configuration
+- Pre-commit validations
+
+### Manual Setup (if setup script is not available)
+
+```bash
+cd <project-name>
+pnpm install
+pnpm run dev
 ```
 
 ## Templates
@@ -83,7 +118,7 @@ Following [agentskills.io](https://agentskills.io) specification for broad platf
 - **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
 - **Location**: `/.agents/skills/` directory with `SKILL.md` files
 - **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
-- **Documentation**: [Skills README](skills/README.md)
+- **Documentation**: [Skills README](./.agents/skills/README.md)
 
 ### Custom Agents (Enhanced Format)
 Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
@@ -97,5 +132,4 @@ Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:
 
 Both systems cover the same functional areas (requirements, architecture, implementation, testing, deployment, etc.) but use different formats optimized for different use cases. Use Skills for broad compatibility or Agents for enhanced features.
 
-
-**Agents**: [Custom Agents Guide](/.agents/README.md)
+**Full Agent Reference**: [Custom Agents Guide](./.agents/README.md)

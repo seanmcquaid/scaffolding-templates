@@ -39,12 +39,6 @@ i18next
     fallbackLng: 'en-US',
     keySeparator: '.',
     load: 'currentOnly',
-    missingInterpolationHandler: (text, value) => {
-      console.warn('Missing Interpolation', text, value);
-    },
-    missingKeyHandler: (lng, ns, key, fallbackValue) => {
-      console.warn('Missing Translation Key', lng, ns, key, fallbackValue);
-    },
     resources: locales,
     saveMissing: true,
   });

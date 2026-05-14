@@ -48,6 +48,12 @@ export default defineConfig({
       include: ['app/**/*.ts', 'app/**/*.tsx'],
       provider: 'istanbul',
       reporter: ['lcov', 'json-summary'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 75,
+        statements: 80,
+      },
     },
     environment: 'happy-dom',
     exclude: ['playwright', 'node_modules'],
