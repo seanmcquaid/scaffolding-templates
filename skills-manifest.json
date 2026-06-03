@@ -176,6 +176,32 @@
           }
         ]
       },
+      "tanstack-start-ssr": {
+        "description": "TanStack Start SSR with full-stack routing and server functions",
+        "tooling": ["tanstack-start", "tanstack-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query", "node-ssr"],
+        "skills": [
+          {
+            "name": "tanstack-router-best-practices",
+            "repo": "deckardger/tanstack-agent-skills",
+            "reason": "TanStack Router and Start patterns for type-safe full-stack routing"
+          },
+          {
+            "name": "epic-react-patterns",
+            "repo": "epicweb-dev/epic-stack",
+            "reason": "Advanced React composition and data flow patterns for SSR"
+          },
+          {
+            "name": "find-skills",
+            "repo": "vercel-labs/skills",
+            "reason": "Discover additional ecosystem skills for evolving template needs"
+          },
+          {
+            "name": "skill-creator",
+            "repo": "anthropics/skills",
+            "reason": "Create template-specific skills and customization workflows"
+          }
+        ]
+      },
       "typescript-library": {
         "description": "Pure TypeScript library with tsdown, ESM/CJS exports, and Changesets",
         "tooling": ["tsdown", "typescript", "vitest", "changesets", "npm-publishing", "esm-cjs"],
@@ -292,6 +318,17 @@
           "cd templates/tanstack-router-spa",
           "npx -y skills add deckardger/tanstack-agent-skills --skill tanstack-router-best-practices --agent claude-code cursor",
           "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
+          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
+          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor",
+          "EXCLUDE: Vue/Nuxt skills (React-only template)"
+        ]
+      },
+      "tanstack-start-ssr": {
+        "instructions": "TanStack Start SSR with full-stack routing",
+        "commands": [
+          "cd templates/tanstack-start-ssr",
+          "npx -y skills add deckardger/tanstack-agent-skills --skill tanstack-router-best-practices --agent claude-code cursor",
+          "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor",
           "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
           "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor",
           "EXCLUDE: Vue/Nuxt skills (React-only template)"

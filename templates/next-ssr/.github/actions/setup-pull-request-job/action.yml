@@ -1,4 +1,5 @@
 name: Pull Request
+description: Setup pull request jobs for Next.js template
 
 runs:
   using: 'composite'
@@ -16,7 +17,7 @@ runs:
       shell: bash
       run: |
         touch .env
-        echo "NEXT_APP_ENVIRONMENT=dev" >> .env
+        echo "NEXT_PUBLIC_APP_ENVIRONMENT=dev" >> .env
     - name: Install Dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
