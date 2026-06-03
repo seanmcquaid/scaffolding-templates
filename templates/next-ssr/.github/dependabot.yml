@@ -45,6 +45,7 @@ updates:
           - 'eslint'
           - 'eslint-*'
           - '@eslint/*'
+          - '@eslint-react/*'
           - 'typescript-eslint'
           - 'globals'
       styling:
@@ -70,6 +71,7 @@ updates:
           - 'vite-*'
           - '@vitejs/*'
           - 'typescript'
+          - 'dpdm'
       form-handling:
         patterns:
           - 'react-hook-form'

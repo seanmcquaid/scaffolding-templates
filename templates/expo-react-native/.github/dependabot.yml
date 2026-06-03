@@ -39,6 +39,7 @@ updates:
           - 'eslint'
           - 'eslint-*'
           - '@eslint/*'
+          - '@eslint-react/*'
           - 'typescript-eslint'
           - 'globals'
       formatting:
@@ -54,6 +55,7 @@ updates:
         patterns:
           - 'typescript'
           - '@babel/*'
+          - 'dpdm'
       form-handling:
         patterns:
           - 'react-hook-form'

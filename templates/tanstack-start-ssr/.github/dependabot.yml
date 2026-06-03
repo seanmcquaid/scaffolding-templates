@@ -39,6 +39,7 @@ updates:
           - 'eslint'
           - 'eslint-*'
           - '@eslint/*'
+          - '@eslint-react/*'
           - 'typescript-eslint'
           - 'globals'
       styling:
@@ -59,10 +60,13 @@ updates:
           - '@radix-ui/*'
       build-tools:
         patterns:
-          - 'vinxi'
+          - 'vite'
           - 'vite-*'
+          - '@vitejs/*'
           - 'typescript'
           - '@babel/*'
+          - '@rsbuild/*'
+          - 'dpdm'
       form-handling:
         patterns:
           - 'react-hook-form'
