@@ -1,11 +1,8 @@
-name: Pull Request
-description: Setup pull request jobs for Expo template
+name: Setup Node Environment
 
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
     - name: Setup PNPM
       uses: pnpm/action-setup@v6
     - name: Setup Node
@@ -17,9 +14,7 @@ runs:
       shell: bash
       run: |
         touch .env
-        echo "EXPO_PUBLIC_API_URL=https://jsonplaceholder.typicode.com" >> .env
-        echo "EXPO_PUBLIC_APP_NAME=Expo React Native Template" >> .env
-        echo "EXPO_PUBLIC_APP_VERSION=0.0.0" >> .env
+        echo "VITE_APP_ENVIRONMENT=dev" >> .env
     - name: Install Dependencies
       shell: bash
       run: pnpm install --frozen-lockfile

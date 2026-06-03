@@ -1,10 +1,8 @@
-name: Pull Request
+name: Setup Node Environment
 
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repo
-      uses: actions/checkout@v6
     - name: Setup PNPM
       uses: pnpm/action-setup@v6
     - name: Setup Node

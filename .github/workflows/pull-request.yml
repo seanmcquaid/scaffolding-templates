@@ -14,21 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     name: Linting
     steps:
-      - uses: ./.github/actions/setup-pull-request-job
+      - name: Checkout latest
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-environment
       - name: Lint
         run: pnpm lint
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
     steps:
-      - uses: ./.github/actions/setup-pull-request-job
+      - name: Checkout latest
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-environment
       - name: Run Unit Tests
         run: pnpm test:coverage
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
     steps:
-      - uses: ./.github/actions/setup-pull-request-job
+      - name: Checkout latest
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-environment
       - name: Bundlesize Check
         run: pnpm bundlesize
         env:
@@ -46,7 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     name: TypeScript Library Type Check
     steps:
-      - uses: ./.github/actions/setup-pull-request-job
+      - name: Checkout latest
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-environment
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
       - name: Check Types
@@ -55,7 +63,9 @@ jobs:
     runs-on: ubuntu-latest
     name: TypeScript Library Tree Shaking
     steps:
-      - uses: ./.github/actions/setup-pull-request-job
+      - name: Checkout latest
+        uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-node-environment
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
       - name: Check Tree Shaking

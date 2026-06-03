@@ -1,0 +1,23 @@
+name: Setup Node Environment
+description: Setup node environment for Expo template
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup PNPM
+      uses: pnpm/action-setup@v6
+    - name: Setup Node
+      uses: actions/setup-node@v6
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'
+    - name: Set env to dev
+      shell: bash
+      run: |
+        touch .env
+        echo "EXPO_PUBLIC_API_URL=https://jsonplaceholder.typicode.com" >> .env
+        echo "EXPO_PUBLIC_APP_NAME=Expo React Native Template" >> .env
+        echo "EXPO_PUBLIC_APP_VERSION=0.0.0" >> .env
+    - name: Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile

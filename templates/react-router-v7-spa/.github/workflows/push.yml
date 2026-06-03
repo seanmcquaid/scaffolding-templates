@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout latest
         uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-pull-request-job
+      - uses: ./.github/actions/setup-node-environment
       - name: Install Playwright Browsers
         run: pnpm playwright install --with-deps
       - name: Run Playwright tests

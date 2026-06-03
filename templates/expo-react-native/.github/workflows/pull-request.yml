@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout latest
         uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-pull-request-job
+      - uses: ./.github/actions/setup-node-environment
       - name: Run Unit Tests
         run: pnpm test:coverage
       - uses: VeryGoodOpenSource/very_good_coverage@v3
@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout latest
         uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-pull-request-job
+      - uses: ./.github/actions/setup-node-environment
       - name: Lint
         run: pnpm lint
   bundle-size:
@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: Checkout latest
         uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-pull-request-job
+      - uses: ./.github/actions/setup-node-environment
       - name: Build the app
         run: pnpm build
       - name: Bundlesize Check
