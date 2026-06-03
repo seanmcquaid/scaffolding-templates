@@ -128,7 +128,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: github-actions
-    directory: "/templates/next-ssr/.github/actions/setup-pull-request-job"
+    directory: "/templates/next-ssr/.github/actions/setup-node-environment"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20
@@ -146,7 +146,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: github-actions
-    directory: "/templates/react-router-v7-spa/.github/actions/setup-pull-request-job"
+    directory: "/templates/react-router-v7-spa/.github/actions/setup-node-environment"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20
@@ -164,7 +164,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: github-actions
-    directory: "/templates/react-router-v7-ssr/.github/actions/setup-pull-request-job"
+    directory: "/templates/react-router-v7-ssr/.github/actions/setup-node-environment"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20
@@ -182,7 +182,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: github-actions
-    directory: "/templates/tanstack-router-spa/.github/actions/setup-pull-request-job"
+    directory: "/templates/tanstack-router-spa/.github/actions/setup-node-environment"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20
