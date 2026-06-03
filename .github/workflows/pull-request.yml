@@ -5,56 +5,30 @@ on:
     branches:
       - "**"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   linting:
     runs-on: ubuntu-latest
     name: Linting
     steps:
-      - name: Checkout latest
-        uses: actions/checkout@v6
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-pull-request-job
       - name: Lint
         run: pnpm lint
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
     steps:
-      - name: Checkout latest
-        uses: actions/checkout@v6
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-pull-request-job
       - name: Run Unit Tests
         run: pnpm test:coverage
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
     steps:
-      - name: Checkout latest
-        uses: actions/checkout@v6
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-pull-request-job
       - name: Bundlesize Check
         run: pnpm bundlesize
         env:
@@ -72,17 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     name: TypeScript Library Type Check
     steps:
-      - name: Checkout latest
-        uses: actions/checkout@v6
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-pull-request-job
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
       - name: Check Types
@@ -91,17 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     name: TypeScript Library Tree Shaking
     steps:
-      - name: Checkout latest
-        uses: actions/checkout@v6
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v6
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - uses: ./.github/actions/setup-pull-request-job
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
       - name: Check Tree Shaking
