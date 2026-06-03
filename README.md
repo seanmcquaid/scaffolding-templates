@@ -9,7 +9,7 @@ These templates are meant to be a starting point for new projects and are not me
 This repository includes **14 standardized agent skills** compatible with GitHub Copilot, Claude Code, Cursor, and 20+ other AI coding agents. These skills provide specialized expertise for:
 
 - **8 SDLC Phase Skills**: Requirements analysis, architecture, implementation, UI/UX, testing, deployment, maintenance, and production support
-- **6 Template-Specific Skills**: TypeScript libraries, Next.js SSR, React Router (SPA & SSR), TanStack Router, and Expo React Native
+- **7 Template-Specific Skills**: TypeScript libraries, Next.js SSR, React Router (SPA & SSR), TanStack Router, TanStack Start SSR, and Expo React Native
 
 **Quick Install:**
 ```bash

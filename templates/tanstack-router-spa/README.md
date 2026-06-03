@@ -91,7 +91,7 @@ pnpm dev
 | ------------ | ------------------------ |
 | `pnpm dev`   | Start development server |
 | `pnpm build` | Build for production     |
-| `pnpm serve` | Preview production build |
+| `pnpm start` | Preview production build |
 
 ### Testing & Quality
 
@@ -231,7 +231,7 @@ src/routes/
 pnpm build
 
 # Preview the build locally
-pnpm serve
+pnpm start
 ```
 
 The build is optimized for:

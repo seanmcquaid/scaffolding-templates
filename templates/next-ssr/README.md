@@ -1,10 +1,10 @@
 # Next SSR Template
 
-A modern, production-ready template for building server-side rendered applications with Next.js 15, featuring React 19, React Compiler, type-safe i18n, comprehensive testing, and excellent developer experience.
+A modern, production-ready template for building server-side rendered applications with Next.js 16, featuring React 19, React Compiler, type-safe i18n, comprehensive testing, and excellent developer experience.
 
 ## ✨ Features
 
-- **🚀 Next.js 15** - Latest Next.js with App Router, Server Components, and RSC patterns
+- **🚀 Next.js 16** - Latest Next.js with App Router, Server Components, and RSC patterns
 - **⚛️ React 19** - Latest React with React Compiler for automatic optimizations
 - **⚡ Turbopack** - Ultra-fast bundler for lightning-quick development
 - **🌍 Internationalization** - Type-safe i18n with `useAppTranslation` hook and mandatory translations
