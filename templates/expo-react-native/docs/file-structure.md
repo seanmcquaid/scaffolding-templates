@@ -23,7 +23,8 @@ expo-react-native/
 ├── index.js                # Entry point
 ├── metro.config.js         # Metro bundler configuration
 ├── package.json            # Dependencies and scripts
-├── setup.sh                # Automated setup script
+├── scripts/
+│   └── setup.sh           # Automated setup script
 └── tsconfig.json           # TypeScript configuration
 ```
 

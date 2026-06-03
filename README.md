@@ -51,8 +51,8 @@ After scaffolding, run the setup script to automatically configure your developm
 
 ```bash
 cd <project-name>
-chmod +x setup.sh
-./setup.sh
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
 ## Templates
@@ -83,7 +83,7 @@ Following [agentskills.io](https://agentskills.io) specification for broad platf
 - **14 Skills**: 8 SDLC phase skills + 6 template specialist skills
 - **Location**: `/.agents/skills/` directory with `SKILL.md` files
 - **Support**: Works with GitHub Copilot, Cursor, and 20+ other AI tools
-- **Documentation**: [Skills README](skills/README.md)
+- **Documentation**: [Skills README](./.agents/skills/README.md)
 
 ### Custom Agents (Enhanced Format)
 Optimized for GitHub Copilot, Claude, and Cursor with detailed guidance:

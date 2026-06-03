@@ -10,7 +10,7 @@ set -e  # Exit on any error
 
 # Configuration
 readonly TEMPLATE_NAME="React Router v7 SSR Template"
-readonly REQUIRED_NODE_VERSION="22.12.0"
+readonly REQUIRED_NODE_VERSION="24.0.0"
 readonly NVM_VERSION="v0.39.7"
 
 echo "🚀 Setting up $TEMPLATE_NAME..."
@@ -149,8 +149,8 @@ setup_nodejs() {
     node_version=$(node --version)
     node_major=$(echo "$node_version" | cut -d 'v' -f 2 | cut -d '.' -f 1)
 
-    if [ "$node_major" -lt "22" ]; then
-        exit_with_error "Node.js version 22.12.0 or higher is required. Current version: $node_version. Please update Node.js and run this script again."
+    if [ "$node_major" -lt "24" ]; then
+        exit_with_error "Node.js version 24.0.0 or higher is required. Current version: $node_version. Please update Node.js and run this script again."
     fi
 
     echo "✅ Node.js version: $node_version"

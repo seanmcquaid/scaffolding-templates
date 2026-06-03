@@ -22,7 +22,7 @@ Run the setup script to automatically configure everything:
 
 ```bash
 # Make the setup script executable and run it
-chmod +x setup.sh && ./setup.sh
+chmod +x scripts/setup.sh && ./scripts/setup.sh
 ```
 
 This script will:
@@ -39,7 +39,7 @@ This script will:
 
 - **git** (version control)
 - **nvm** (Node Version Manager)
-- **Node.js** >=22.12.0
+- **Node.js** >=24.0.0
 - **pnpm** (recommended package manager)
 - **Expo Go** app on your mobile device (for testing)
 
@@ -293,7 +293,7 @@ npx expo start --clear
 **2. Check Node Version:**
 
 ```bash
-node --version  # Should be >=22.12.0
+node --version  # Should be >=24.0.0
 ```
 
 If needed, use nvm to switch:

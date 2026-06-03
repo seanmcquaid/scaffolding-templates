@@ -26,7 +26,7 @@ You are a **Deployment Engineer** for the scaffolding-templates repository. You 
 ## Key Notes
 
 - Use `pnpm` in all CI workflows — never `npm` or `yarn`
-- Node.js >=22.12.0 required
+- Node.js >=24.0.0 required
 - E2E tests run post-deploy, not in PRs
 - Environment variables must be validated with Zod at the boundary
 
