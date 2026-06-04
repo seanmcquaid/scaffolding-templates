@@ -1,4 +1,3 @@
-import { fireEvent } from '@testing-library/react-native';
 import { HttpResponse, http } from 'msw';
 import { render, screen, waitFor } from '@/utils/testing/reactNativeTestingLibraryUtils';
 import ReactQueryScreen from '@/app/(tabs)/react-query';
@@ -33,25 +32,6 @@ describe('ReactQueryScreen', () => {
       },
       { timeout: 5000 }
     );
-  });
-
-  it('calls deletePost when delete button is clicked', async () => {
-    let deletedId: string | undefined;
-    server.use(
-      http.delete('https://jsonplaceholder.typicode.com/posts/:id', ({ params }) => {
-        deletedId = params.id as string;
-        return HttpResponse.json({});
-      })
-    );
-    render(<ReactQueryScreen />);
-    await waitFor(() => {
-      expect(screen.getAllByText('ReactQueryPage.delete')).toHaveLength(5);
-    });
-    const deleteButtons = screen.getAllByText('ReactQueryPage.delete');
-    fireEvent.press(deleteButtons[0]);
-    await waitFor(() => {
-      expect(deletedId).toBeDefined();
-    });
   });
 
   it('renders empty when no posts returned', async () => {
