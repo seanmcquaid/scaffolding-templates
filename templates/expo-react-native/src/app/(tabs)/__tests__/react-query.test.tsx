@@ -6,12 +6,12 @@ import server from '@/mocks/server';
 describe('ReactQueryScreen', () => {
   it('renders loading state initially', async () => {
     server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => new Promise(() => {})));
-    render(<ReactQueryScreen />);
+    await render(<ReactQueryScreen />);
     expect(screen.queryByText('ReactQueryPage.title')).toBeNull();
   });
 
   it('renders posts after loading', async () => {
-    render(<ReactQueryScreen />);
+    await render(<ReactQueryScreen />);
     await waitFor(() => {
       expect(screen.getByText('ReactQueryPage.title')).toBeTruthy();
     });
@@ -25,7 +25,7 @@ describe('ReactQueryScreen', () => {
         HttpResponse.json({ error: 'Server error' }, { status: 500 })
       )
     );
-    render(<ReactQueryScreen />);
+    await render(<ReactQueryScreen />);
     await waitFor(
       () => {
         expect(screen.getByText('Common.error')).toBeTruthy();
@@ -36,7 +36,7 @@ describe('ReactQueryScreen', () => {
 
   it('renders empty when no posts returned', async () => {
     server.use(http.get('https://jsonplaceholder.typicode.com/posts', () => HttpResponse.json([])));
-    render(<ReactQueryScreen />);
+    await render(<ReactQueryScreen />);
     await waitFor(() => {
       expect(screen.getByText('ReactQueryPage.title')).toBeTruthy();
     });

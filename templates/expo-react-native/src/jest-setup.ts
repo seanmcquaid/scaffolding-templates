@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
 import { notifyManager } from '@tanstack/react-query';
-import { act } from '@testing-library/react-native';
 import server from '@/mocks/server';
 
 jest.mock('@/i18n/i18next.client', () => ({ default: {} }));
@@ -16,10 +15,9 @@ jest.mock('react-i18next', () => ({
   },
 }));
 
-// Make React Query notifications run inside React Testing Library act()
-// and avoid queued timer-based notifications in Jest workers.
+// Make React Query notifications run synchronously in tests.
 notifyManager.setNotifyFunction((callback) => {
-  act(callback);
+  callback();
 });
 notifyManager.setScheduler((callback) => {
   callback();
