@@ -24,7 +24,6 @@ module.exports = {
     '^.+\\.mjs$': 'babel-jest',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|until-async|ky|zocker|@faker-js|msw|rettime|@open-draft))',
+    'node_modules/(?!(.pnpm|react-native|@react-native|@react-native-community|expo|@expo|@expo-google-fonts|react-navigation|@react-navigation|@sentry/react-native|native-base|until-async|ky|zocker|@faker-js|msw|rettime|@open-draft|standard-navigation))',
   ],
 };
-
