@@ -6,18 +6,18 @@ jest.mock('expo-router', () => ({
 }));
 
 describe('HomeScreen', () => {
-  it('renders the home page title', () => {
-    render(<HomeScreen />);
+  it('renders the home page title', async () => {
+    await render(<HomeScreen />);
     expect(screen.getByText('HomePage.title')).toBeTruthy();
   });
 
-  it('renders the home page subtitle', () => {
-    render(<HomeScreen />);
+  it('renders the home page subtitle', async () => {
+    await render(<HomeScreen />);
     expect(screen.getByText('HomePage.subtitle')).toBeTruthy();
   });
 
-  it('renders navigation link buttons', () => {
-    render(<HomeScreen />);
+  it('renders navigation link buttons', async () => {
+    await render(<HomeScreen />);
     expect(screen.getByText('HomePage.reactQuery')).toBeTruthy();
     expect(screen.getByText('HomePage.reactHookFormZod')).toBeTruthy();
     expect(screen.getByText('HomePage.kitchenSink')).toBeTruthy();

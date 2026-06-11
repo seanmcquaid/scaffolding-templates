@@ -4,15 +4,15 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 jest.mock('@expo/vector-icons/MaterialIcons', () => 'MaterialIcons');
 
 describe('IconSymbol', () => {
-  it('calls a function color with the expected arguments', () => {
+  it('calls a function color with the expected arguments', async () => {
     const colorFn = jest.fn().mockReturnValue('#FF0000');
-    render(<IconSymbol name="house.fill" color={colorFn} />);
+    await render(<IconSymbol name="house.fill" color={colorFn} />);
     expect(colorFn).toHaveBeenCalledWith({ focused: false, color: '#000' });
   });
 
-  it('uses a string color directly without invoking it as a function', () => {
+  it('uses a string color directly without invoking it as a function', async () => {
     const colorFn = jest.fn();
-    render(<IconSymbol name="house.fill" color="#FF0000" />);
+    await render(<IconSymbol name="house.fill" color="#FF0000" />);
     expect(colorFn).not.toHaveBeenCalled();
   });
 });
