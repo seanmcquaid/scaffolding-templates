@@ -29,6 +29,7 @@ updates:
           - '@vitest/*'
           - '@testing-library/*'
           - 'jsdom'
+          - 'happy-dom'
           - 'zocker'
           - 'cross-fetch'
       browser-testing:
@@ -52,6 +53,9 @@ updates:
         patterns:
           - 'tailwindcss'
           - '@tailwindcss/*'
+          - 'class-variance-authority'
+          - 'clsx'
+          - 'tailwind-merge'
       formatting:
         patterns:
           - 'prettier'
@@ -61,7 +65,6 @@ updates:
           - 'i18next'
           - 'i18next-*'
           - 'react-i18next'
-          - 'remix-i18next'
       radix:
         patterns:
           - '@radix-ui/*'
@@ -71,12 +74,23 @@ updates:
           - 'vite-*'
           - '@vitejs/*'
           - 'typescript'
+          - '@types/node'
           - '@babel/*'
           - 'dpdm'
       form-handling:
         patterns:
           - 'react-hook-form'
           - '@hookform/*'
+          - 'zod'
+      react-utilities:
+        patterns:
+          - 'lucide-react'
+          - 'usehooks-ts'
+      runtime-utilities:
+        patterns:
+          - 'ky'
+          - 'isbot'
+          - 'http-server'
       dev-tools:
         patterns:
           - 'husky'

@@ -23,6 +23,7 @@ updates:
           - '@vitest/*'
           - '@testing-library/*'
           - 'jsdom'
+          - 'happy-dom'
           - 'zocker'
           - 'cross-fetch'
       browser-testing:
@@ -46,6 +47,9 @@ updates:
         patterns:
           - 'tailwindcss'
           - '@tailwindcss/*'
+          - 'class-variance-authority'
+          - 'clsx'
+          - 'tailwind-merge'
       formatting:
         patterns:
           - 'prettier'
@@ -64,6 +68,7 @@ updates:
           - 'vite-*'
           - '@vitejs/*'
           - 'typescript'
+          - '@types/node'
           - '@babel/*'
           - '@rsbuild/*'
           - 'dpdm'
@@ -71,12 +76,21 @@ updates:
         patterns:
           - 'react-hook-form'
           - '@hookform/*'
+          - 'zod'
+      react-utilities:
+        patterns:
+          - 'lucide-react'
+          - 'usehooks-ts'
+      runtime-utilities:
+        patterns:
+          - 'ky'
       dev-tools:
         patterns:
           - 'husky'
           - 'lint-staged'
           - 'is-ci'
           - 'bundlesize2'
+          - 'cross-env'
   - package-ecosystem: github-actions
     directory: '/'
     schedule:

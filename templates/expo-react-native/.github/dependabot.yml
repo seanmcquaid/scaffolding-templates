@@ -14,6 +14,7 @@ updates:
           - 'react-dom'
           - '@types/react'
           - '@types/react-dom'
+          - 'react-test-renderer'
       react-native:
         patterns:
           - 'expo'
@@ -33,7 +34,10 @@ updates:
           - '@testing-library/*'
           - '@types/jest'
           - 'babel-jest'
+          - 'cross-fetch'
           - 'jest'
+          - 'msw'
+          - 'zocker'
       eslint:
         patterns:
           - 'eslint'
@@ -46,6 +50,10 @@ updates:
         patterns:
           - 'prettier'
           - 'prettier-plugin-*'
+      styling:
+        patterns:
+          - 'class-variance-authority'
+          - 'clsx'
       i18n:
         patterns:
           - 'i18next'
@@ -60,6 +68,13 @@ updates:
         patterns:
           - 'react-hook-form'
           - '@hookform/*'
+          - 'zod'
+      react-utilities:
+        patterns:
+          - 'usehooks-ts'
+      runtime-utilities:
+        patterns:
+          - 'ky'
       dev-tools:
         patterns:
           - 'husky'

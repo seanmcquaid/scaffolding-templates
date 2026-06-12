@@ -33,7 +33,11 @@ updates:
           - "vitest"
           - "@vitest/*"
           - "@testing-library/*"
+          - "@types/jest"
+          - "babel-jest"
+          - "jest"
           - "jsdom"
+          - "happy-dom"
           - "zocker"
           - "cross-fetch"
       browser-testing:
@@ -58,6 +62,9 @@ updates:
           - "tailwindcss"
           - "@tailwindcss/*"
           - "postcss"
+          - "class-variance-authority"
+          - "clsx"
+          - "tailwind-merge"
       formatting:
         patterns:
           - "prettier"
@@ -67,7 +74,6 @@ updates:
           - "i18next"
           - "i18next-*"
           - "react-i18next"
-          - "remix-i18next"
       radix:
         patterns:
           - "@radix-ui/*"
@@ -77,6 +83,7 @@ updates:
           - "vite-*"
           - "@vitejs/*"
           - "typescript"
+          - "@types/node"
           - "@babel/*"
           - "dpdm"
           - "turbo"
@@ -88,6 +95,7 @@ updates:
         patterns:
           - "react-hook-form"
           - "@hookform/*"
+          - "zod"
       publishing:
         patterns:
           - "@changesets/*"
@@ -109,6 +117,16 @@ updates:
           - "is-ci"
           - "bundlesize2"
           - "cross-env"
+      react-utilities:
+        patterns:
+          - "lucide-react"
+          - "usehooks-ts"
+      runtime-utilities:
+        patterns:
+          - "ky"
+          - "dotenv"
+          - "isbot"
+          - "http-server"
   - package-ecosystem: github-actions
     directory: "/.github/workflows"
     schedule:
@@ -192,6 +210,33 @@ updates:
           - "*"
   - package-ecosystem: github-actions
     directory: "/templates/expo-react-native/.github/workflows"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: "/templates/expo-react-native/.github/actions/setup-node-environment"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-start-ssr/.github/workflows"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 20
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: "/templates/tanstack-start-ssr/.github/actions/setup-node-environment"
     schedule:
       interval: weekly
     open-pull-requests-limit: 20

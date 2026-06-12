@@ -8,11 +8,15 @@ updates:
       day: tuesday
     open-pull-requests-limit: 20
     groups:
+      tanstack:
+        patterns:
+          - '@tanstack/*'
       unit-testing:
         patterns:
           - 'vitest'
           - '@vitest/*'
           - 'jsdom'
+          - 'happy-dom'
       eslint:
         patterns:
           - 'eslint'
