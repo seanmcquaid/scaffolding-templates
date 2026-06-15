@@ -1362,8 +1362,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.4.1(jiti@2.7.0))
       '@tanstack/intent':
-        specifier: ^0.0.42
-        version: 0.0.42
+        specifier: ^0.1.0
+        version: 0.1.0
       '@vitest/coverage-istanbul':
         specifier: ^4.1.8
         version: 4.1.8(vitest@4.1.8)
@@ -4361,8 +4361,8 @@ packages:
     resolution: {integrity: sha512-79pf/RkhteYZTRgcR4F9kbk84P2N8rugQJswxfIqovlbRiT3yI7eBE+5QorIrZaOKktsgzRlXh1l/du/xpl4iA==}
     engines: {node: '>=20.19'}
 
-  '@tanstack/intent@0.0.42':
-    resolution: {integrity: sha512-jRjArJ8wcMmi49tByK6KCrJxPp8EqFuFH+ltDG6HTPizTrBCAXkJB3dTtTXurLJh67YsPLzU0wLPdOtWYDuGSw==}
+  '@tanstack/intent@0.1.0':
+    resolution: {integrity: sha512-CsF2djavFeSwiD8ZSzpKUpgrhuewsFvEjEnleCAxS7r35XVw+klasSBLQMvW80L7PtUgNzub4iNdHVSA9L8Y3A==}
     hasBin: true
 
   '@tanstack/query-core@5.101.0':
@@ -10018,7 +10018,7 @@ snapshots:
       cjs-module-lexer: 1.4.3
       fflate: 0.8.3
       lru-cache: 11.5.1
-      semver: 7.8.4
+      semver: 7.8.1
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
 
@@ -10748,7 +10748,7 @@ snapshots:
       outdent: 0.5.0
       prettier: 2.8.8
       resolve-from: 5.0.0
-      semver: 7.8.4
+      semver: 7.8.0
 
   '@changesets/assemble-release-plan@6.0.10':
     dependencies:
@@ -10757,7 +10757,7 @@ snapshots:
       '@changesets/should-skip-package': 0.1.2
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
-      semver: 7.8.4
+      semver: 7.8.0
 
   '@changesets/changelog-git@0.2.1':
     dependencies:
@@ -10814,7 +10814,7 @@ snapshots:
       '@changesets/types': 6.1.0
       '@manypkg/get-packages': 1.1.3
       picocolors: 1.1.1
-      semver: 7.8.4
+      semver: 7.8.0
 
   '@changesets/get-release-plan@4.0.16':
     dependencies:
@@ -12714,9 +12714,7 @@ snapshots:
       metro-runtime: 0.84.4
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 
@@ -13344,7 +13342,7 @@ snapshots:
 
   '@tanstack/history@1.162.0': {}
 
-  '@tanstack/intent@0.0.42':
+  '@tanstack/intent@0.1.0':
     dependencies:
       cac: 6.7.14
       jsonc-parser: 3.3.1
