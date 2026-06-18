@@ -15,7 +15,7 @@ jobs:
     name: Linting
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Lint
         run: pnpm lint
@@ -24,7 +24,7 @@ jobs:
     name: Unit Tests
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Run Unit Tests
         run: pnpm test:coverage
@@ -33,7 +33,7 @@ jobs:
     name: Bundle Size
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Bundlesize Check
         run: pnpm bundlesize
@@ -53,7 +53,7 @@ jobs:
     name: TypeScript Library Type Check
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
@@ -64,7 +64,7 @@ jobs:
     name: TypeScript Library Tree Shaking
     steps:
       - name: Checkout latest
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Build TypeScript Library
         run: pnpm --filter typescript-library build
