@@ -242,7 +242,7 @@ importers:
         version: 5.101.2(react@19.2.7)
       '@tanstack/react-query-next-experimental':
         specifier: ^5.101.2
-        version: 5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
+        version: 5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -266,7 +266,7 @@ importers:
         version: 1.21.0(react@19.2.7)
       next:
         specifier: 16.2.9
-        version: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react:
         specifier: 19.2.7
         version: 19.2.7
@@ -290,8 +290,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.11.3
-        version: 4.11.3(playwright-core@1.61.0)
+        specifier: ^4.12.1
+        version: 4.12.1(playwright-core@1.61.1)
       '@eslint-react/eslint-plugin':
         specifier: ^5.9.0
         version: 5.9.0(eslint@10.5.0(jiti@2.7.0))(typescript@6.0.3)
@@ -308,8 +308,8 @@ importers:
         specifier: ^16.2.9
         version: 16.2.9
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@tailwindcss/postcss':
         specifier: ^4.3.1
         version: 4.3.1
@@ -408,10 +408,10 @@ importers:
         version: 2.14.6(@types/node@25.9.3)(typescript@6.0.3)
       next-router-mock:
         specifier: ^1.0.5
-        version: 1.0.5(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
+        version: 1.0.5(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0)
+        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1)
       postcss:
         specifier: ^8.5.15
         version: 8.5.15
@@ -510,8 +510,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.11.3
-        version: 4.11.3(playwright-core@1.61.0)
+        specifier: ^4.12.1
+        version: 4.12.1(playwright-core@1.61.1)
       '@babel/preset-typescript':
         specifier: ^8.0.1
         version: 8.0.1(@babel/core@7.29.7)
@@ -528,8 +528,8 @@ importers:
         specifier: ^0.6.7
         version: 0.6.7(msw@2.14.6(@types/node@25.9.3)(typescript@6.0.3))
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@react-router/dev':
         specifier: ^8.0.1
         version: 8.0.1(@react-router/serve@8.0.1(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@6.0.3))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@6.0.3)(vite@8.0.16(@types/node@25.9.3)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -634,7 +634,7 @@ importers:
         version: 2.14.6(@types/node@25.9.3)(typescript@6.0.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0)
+        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1)
       prettier:
         specifier: ^3.8.4
         version: 3.8.4
@@ -751,8 +751,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.11.3
-        version: 4.11.3(playwright-core@1.61.0)
+        specifier: ^4.12.1
+        version: 4.12.1(playwright-core@1.61.1)
       '@babel/preset-typescript':
         specifier: ^8.0.1
         version: 8.0.1(@babel/core@7.29.7)
@@ -769,8 +769,8 @@ importers:
         specifier: ^0.6.7
         version: 0.6.7(msw@2.14.6(@types/node@25.9.3)(typescript@6.0.3))
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@react-router/dev':
         specifier: ^8.0.1
         version: 8.0.1(@react-router/serve@8.0.1(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@6.0.3))(react-router@8.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@6.0.3)(vite@8.0.16(@types/node@25.9.3)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -875,7 +875,7 @@ importers:
         version: 2.14.6(@types/node@25.9.3)(typescript@6.0.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0)
+        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1)
       prettier:
         specifier: ^3.8.4
         version: 3.8.4
@@ -974,8 +974,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.11.3
-        version: 4.11.3(playwright-core@1.61.0)
+        specifier: ^4.12.1
+        version: 4.12.1(playwright-core@1.61.1)
       '@babel/preset-typescript':
         specifier: ^8.0.1
         version: 8.0.1(@babel/core@7.29.7)
@@ -992,8 +992,8 @@ importers:
         specifier: ^0.6.7
         version: 0.6.7(msw@2.14.6(@types/node@25.9.3)(typescript@6.0.3))
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@tailwindcss/vite':
         specifier: ^4.3.1
         version: 4.3.1(vite@8.0.16(@types/node@25.9.3)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
@@ -1101,7 +1101,7 @@ importers:
         version: 2.14.6(@types/node@25.9.3)(typescript@6.0.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0)
+        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1)
       prettier:
         specifier: ^3.8.4
         version: 3.8.4
@@ -1200,8 +1200,8 @@ importers:
         version: 4.4.3
     devDependencies:
       '@axe-core/playwright':
-        specifier: ^4.11.1
-        version: 4.11.3(playwright-core@1.61.0)
+        specifier: ^4.12.1
+        version: 4.12.1(playwright-core@1.61.1)
       '@babel/preset-typescript':
         specifier: ^8.0.1
         version: 8.0.1(@babel/core@7.29.7)
@@ -1218,8 +1218,8 @@ importers:
         specifier: ^0.6.6
         version: 0.6.7(msw@2.14.6(@types/node@25.9.3)(typescript@6.0.3))
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@rsbuild/core':
         specifier: ^2.0.15
         version: 2.0.15
@@ -1324,7 +1324,7 @@ importers:
         version: 2.14.6(@types/node@25.9.3)(typescript@6.0.3)
       playwright-lighthouse:
         specifier: ^4.0.0
-        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0)
+        version: 4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1)
       prettier:
         specifier: ^3.8.4
         version: 3.8.4
@@ -1443,8 +1443,8 @@ packages:
     resolution: {integrity: sha512-sWBB/tdIktaT5xMq0Dz6CJyqcf6oMNdmiKiuPU1lWoJLTL6gjRSsksBuSgqot21hylkklBQY1wiSu+PkZhW7sw==}
     engines: {node: '>=20'}
 
-  '@axe-core/playwright@4.11.3':
-    resolution: {integrity: sha512-h/kfksv4F0cVIDlKpT4700OehdRgpvuVskuQ2nb7/JmtWUXpe9ftHAPtwyXGvVSsa6SJ64A9ER7Zrzc/sIvC4w==}
+  '@axe-core/playwright@4.12.1':
+    resolution: {integrity: sha512-rMd7xriptqKpP+w5265i4Hdkv2X5kbu6uiBi/B2I7uf3hieRBM3qDCfaKPtxfiYb2mKXfF+yLODJwIx+Jv1GDw==}
     peerDependencies:
       playwright-core: '>= 1.0.0'
 
@@ -3173,8 +3173,8 @@ packages:
     resolution: {integrity: sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  '@playwright/test@1.61.0':
-    resolution: {integrity: sha512-cKA5B6lpFEMyMGjxF54QihfYpB4FkEGH+qZhtArDEG+wezQAJY8Pq6C7T1SjWz+FFzt3TbyoXBQYk/0292TdJA==}
+  '@playwright/test@1.61.1':
+    resolution: {integrity: sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8056,8 +8056,8 @@ packages:
   pkg-types@2.3.1:
     resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
 
-  playwright-core@1.61.0:
-    resolution: {integrity: sha512-caX7TrY3Ml6egyDX0WUcTHDxodl/b51y5wJOdCEA36QviK/s2g081hvmGs8eaE3DWb6NYZQ6BjO/QkNRPenoPA==}
+  playwright-core@1.61.1:
+    resolution: {integrity: sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -8071,8 +8071,8 @@ packages:
       playwright-core:
         optional: true
 
-  playwright@1.61.0:
-    resolution: {integrity: sha512-Z+7BeeqQPRRzklHsVFP4KTGIyMxKUmfeRA4WisM6G3/XW6nwGeX6fX9qYaDa+CiUqpOkb2f6X3nar05R3kSuJQ==}
+  playwright@1.61.1:
+    resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -9882,10 +9882,10 @@ snapshots:
       typescript: 5.6.1-rc
       validate-npm-package-name: 5.0.1
 
-  '@axe-core/playwright@4.11.3(playwright-core@1.61.0)':
+  '@axe-core/playwright@4.12.1(playwright-core@1.61.1)':
     dependencies:
-      axe-core: 4.11.4
-      playwright-core: 1.61.0
+      axe-core: 4.12.1
+      playwright-core: 1.61.1
 
   '@babel/code-frame@7.27.1':
     dependencies:
@@ -12201,9 +12201,9 @@ snapshots:
 
   '@pkgr/core@0.3.6': {}
 
-  '@playwright/test@1.61.0':
+  '@playwright/test@1.61.1':
     dependencies:
-      playwright: 1.61.0
+      playwright: 1.61.1
 
   '@prisma/instrumentation@6.11.1(@opentelemetry/api@1.9.1)':
     dependencies:
@@ -13241,10 +13241,10 @@ snapshots:
       '@tanstack/react-query': 5.101.2(react@19.2.7)
       react: 19.2.7
 
-  '@tanstack/react-query-next-experimental@5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)':
+  '@tanstack/react-query-next-experimental@5.101.2(@tanstack/react-query@5.101.2(react@19.2.7))(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7)':
     dependencies:
       '@tanstack/react-query': 5.101.2(react@19.2.7)
-      next: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
 
   '@tanstack/react-query@5.101.2(react@19.2.7)':
@@ -17640,12 +17640,12 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-router-mock@1.0.5(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7):
+  next-router-mock@1.0.5(next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react@19.2.7):
     dependencies:
-      next: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      next: 16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react: 19.2.7
 
-  next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.0)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  next@16.2.9(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(babel-plugin-react-compiler@19.0.0-beta-714736e-20250131)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
     dependencies:
       '@next/env': 16.2.9
       '@swc/helpers': 0.5.15
@@ -17665,7 +17665,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 16.2.9
       '@next/swc-win32-x64-msvc': 16.2.9
       '@opentelemetry/api': 1.9.1
-      '@playwright/test': 1.61.0
+      '@playwright/test': 1.61.1
       babel-plugin-react-compiler: 19.0.0-beta-714736e-20250131
       sharp: 0.34.5
     transitivePeerDependencies:
@@ -17977,19 +17977,19 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  playwright-core@1.61.0: {}
+  playwright-core@1.61.1: {}
 
-  playwright-lighthouse@4.0.0(lighthouse@13.4.0)(playwright-core@1.61.0):
+  playwright-lighthouse@4.0.0(lighthouse@13.4.0)(playwright-core@1.61.1):
     dependencies:
       chalk: 4.1.2
       lighthouse: 13.4.0
       ua-parser-js: 1.0.41
     optionalDependencies:
-      playwright-core: 1.61.0
+      playwright-core: 1.61.1
 
-  playwright@1.61.0:
+  playwright@1.61.1:
     dependencies:
-      playwright-core: 1.61.0
+      playwright-core: 1.61.1
     optionalDependencies:
       fsevents: 2.3.2
 
