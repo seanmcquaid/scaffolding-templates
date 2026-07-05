@@ -12,7 +12,9 @@ describe('Button', () => {
   it('renders as the child element when render prop is provided', () => {
     render(
       // eslint-disable-next-line i18next/no-literal-string
-      <Button render={<a href="/test" />}>Link button</Button>,
+      <Button render={<a aria-label="Link button" href="/test" />}>
+        Link button
+      </Button>,
     );
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByRole('link').tagName).toBe('A');

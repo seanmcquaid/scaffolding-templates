@@ -108,14 +108,14 @@ export const Layout = ({ children }: PropsWithChildren) => {
       <body className="flex h-screen min-h-screen w-full flex-col overflow-auto">
         <main className="flex-1">
           <QueryClientProvider client={queryClient}>
-              <LoadingOverlay isLoading={isLoadingPage} />
-              {children}
-              <ReactQueryDevtools
-                buttonPosition="top-right"
-                initialIsOpen={false}
-              />
-              <Toaster />
-            </QueryClientProvider>
+            <LoadingOverlay isLoading={isLoadingPage} />
+            {children}
+            <ReactQueryDevtools
+              buttonPosition="top-right"
+              initialIsOpen={false}
+            />
+            <Toaster />
+          </QueryClientProvider>
         </main>
         <Scripts />
         <ScrollRestoration />

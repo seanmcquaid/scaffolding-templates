@@ -1,10 +1,11 @@
+import { useMemo } from 'react';
 import { toast as sonnerToast } from 'sonner';
 
-type ToastInput = {
+interface ToastInput {
   title?: string;
   description?: string;
   variant?: 'default' | 'destructive';
-};
+}
 
 export const toast = (input: ToastInput) => {
   const { title = '', description, variant } = input;
@@ -14,7 +15,11 @@ export const toast = (input: ToastInput) => {
   return sonnerToast(title, { description });
 };
 
-export const useToast = () => ({
-  dismiss: sonnerToast.dismiss,
-  toast,
-});
+export const useToast = () =>
+  useMemo(
+    () => ({
+      dismiss: sonnerToast.dismiss,
+      toast,
+    }),
+    [],
+  );

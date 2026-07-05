@@ -72,16 +72,16 @@ const Root = () => {
   return (
     <RootDocument>
       <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<LoadingSpinner />}>
-            <Outlet />
-            <TanStackRouterDevtoolsLazy position="bottom-right" />
-            <ReactQueryDevtoolsLazy
-              buttonPosition="top-right"
-              initialIsOpen={false}
-            />
-            <Toaster />
-          </Suspense>
-        </QueryClientProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <Outlet />
+          <TanStackRouterDevtoolsLazy position="bottom-right" />
+          <ReactQueryDevtoolsLazy
+            buttonPosition="top-right"
+            initialIsOpen={false}
+          />
+          <Toaster />
+        </Suspense>
+      </QueryClientProvider>
     </RootDocument>
   );
 };

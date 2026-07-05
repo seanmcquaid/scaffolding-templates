@@ -1,7 +1,5 @@
 import { toast, useToast } from '@/hooks/useToast';
-import {
-  renderHook,
-} from '@/utils/testing/reactTestingLibraryUtils';
+import { renderHook } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('useToast hook', () => {
   it('provides dismiss and toast functions', () => {
