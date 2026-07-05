@@ -16,7 +16,9 @@ import { useChangeLanguage } from 'remix-i18next/react';
 import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
+import { ToastProvider } from './components/ui/Toast';
 import { Toaster } from './components/ui/Toaster';
+import { toastManager } from './hooks/useToast';
 import clientEnv from './env.client';
 import serverEnv from './env.server';
 import useAppTranslation from './hooks/useAppTranslation';
@@ -107,15 +109,17 @@ export const Layout = ({ children }: PropsWithChildren) => {
       </head>
       <body className="flex h-screen min-h-screen w-full flex-col overflow-auto">
         <main className="flex-1">
-          <QueryClientProvider client={queryClient}>
-            <LoadingOverlay isLoading={isLoadingPage} />
-            {children}
-            <ReactQueryDevtools
-              buttonPosition="top-right"
-              initialIsOpen={false}
-            />
-            <Toaster />
-          </QueryClientProvider>
+          <ToastProvider toastManager={toastManager}>
+            <QueryClientProvider client={queryClient}>
+              <LoadingOverlay isLoading={isLoadingPage} />
+              {children}
+              <ReactQueryDevtools
+                buttonPosition="top-right"
+                initialIsOpen={false}
+              />
+              <Toaster />
+            </QueryClientProvider>
+          </ToastProvider>
         </main>
         <Scripts />
         <ScrollRestoration />

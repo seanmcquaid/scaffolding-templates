@@ -6,7 +6,9 @@ import {
 } from '@testing-library/react';
 import type { PropsWithChildren, ReactElement } from 'react';
 import { useState } from 'react';
+import { ToastProvider } from '@/components/ui/Toast';
 import { Toaster } from '@/components/ui/Toaster';
+import { toastManager } from '@/hooks/useToast';
 
 const createTestQueryClient = () =>
   new QueryClient({
@@ -20,10 +22,12 @@ const createTestQueryClient = () =>
 const Wrapper = ({ children }: PropsWithChildren) => {
   const [queryClient] = useState(createTestQueryClient);
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <Toaster />
-    </QueryClientProvider>
+    <ToastProvider toastManager={toastManager}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster />
+      </QueryClientProvider>
+    </ToastProvider>
   );
 };
 

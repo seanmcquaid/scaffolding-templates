@@ -1,89 +1,69 @@
-/* eslint-disable i18next/no-literal-string */
+import { act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { toast, useToast } from '@/hooks/useToast';
 import {
   render,
+  renderHook,
   screen,
   waitFor,
 } from '@/utils/testing/reactTestingLibraryUtils';
-import { Toaster } from '@/components/ui/Toaster';
-import { useToast } from '@/hooks/useToast';
 
-/**
- * Test component to trigger toast notifications
- */
-const ToastTrigger = () => {
-  const { toast } = useToast();
-
-  return (
-    <div>
-      <button
-        onClick={() =>
-          toast({
-            title: 'Success',
-            description: 'This is a success toast',
-          })
-        }
-      >
-        Show Toast
-      </button>
-    </div>
-  );
-};
-
-describe('Toaster Component', () => {
-  it('renders without errors', () => {
-    render(<Toaster />);
-    // Should not throw
-    expect(true).toBe(true);
-  });
-
-  it('displays a toast notification when triggered', async () => {
-    render(<ToastTrigger />);
-
-    const button = screen.getByText('Show Toast');
-    await button.click();
-
-    // Wait for the toast to appear
+describe('Toaster', () => {
+  it('renders a toast with title and description', async () => {
+    // The wrapper already includes Toaster, so we just need to trigger a toast
+    render(<></>);
+    act(() => {
+      toast({ title: 'Toast title', description: 'Toast description' });
+    });
     await waitFor(() => {
-      expect(screen.getByText('Success')).toBeInTheDocument();
+      expect(screen.getByText('Toast description')).toBeInTheDocument();
     });
   });
-
-  it('displays toast description when provided', async () => {
-    render(<ToastTrigger />);
-
-    const button = screen.getByText('Show Toast');
-    await button.click();
-
+  it('renders a toast with only a title', async () => {
+    render(<></>);
+    act(() => {
+      toast({ title: 'Only title' });
+    });
     await waitFor(() => {
-      expect(screen.getByText('This is a success toast')).toBeInTheDocument();
+      expect(screen.getByText('Only title')).toBeInTheDocument();
     });
   });
-
-  it('renders the most recent toast when triggered rapidly', async () => {
-    const MultiToastTrigger = () => {
-      const { toast } = useToast();
-
-      return (
-        <div>
-          <button
-            onClick={() => {
-              toast({ title: 'Toast 1' });
-              toast({ title: 'Toast 2' });
-            }}
-          >
-            Show Multiple Toasts
-          </button>
-        </div>
-      );
-    };
-
-    render(<MultiToastTrigger />);
-
-    const button = screen.getByText('Show Multiple Toasts');
-    await button.click();
-
+  it('renders a toast with only a description (no title)', async () => {
+    render(<></>);
+    act(() => {
+      toast({ description: 'Only description' });
+    });
     await waitFor(() => {
-      expect(screen.getByText('Toast 2')).toBeInTheDocument();
+      expect(screen.getByText('Only description')).toBeInTheDocument();
+    });
+  });
+  it('renders with empty toasts when no toast has been triggered', () => {
+    const { result } = renderHook(() => useToast());
+    // Dismiss any existing toasts from previous tests
+    act(() => {
+      result.current.dismiss();
+    });
+    render(<></>);
+    // With no toasts, the map callback should not execute
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+  it('closes a toast when the close button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<></>);
+    act(() => {
+      toast({ title: 'Closeable toast' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Closeable toast')).toBeInTheDocument();
+    });
+    // Base UI sets aria-hidden on the close button when unfocused; query via DOM
+    const closeButton = document.querySelector(
+      'button[aria-label="Close"]',
+    ) as HTMLElement;
+    expect(closeButton).toBeInTheDocument();
+    await user.click(closeButton);
+    await waitFor(() => {
+      expect(screen.queryByText('Closeable toast')).not.toBeInTheDocument();
     });
   });
 });

@@ -9,12 +9,10 @@ describe('Button', () => {
     expect(screen.getByRole('button').tagName).toBe('BUTTON');
   });
 
-  it('renders as the child element when asChild is true', () => {
+  it('renders as the child element when render prop is provided', () => {
     render(
-      <Button asChild>
-        {/* eslint-disable-next-line i18next/no-literal-string */}
-        <a href="/test">Link button</a>
-      </Button>,
+      // eslint-disable-next-line i18next/no-literal-string
+      <Button render={<a href="/test" />}>Link button</Button>,
     );
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByRole('link').tagName).toBe('A');

@@ -5,14 +5,18 @@ import {
   renderHook as rtlRenderHook,
 } from '@testing-library/react';
 import type { PropsWithChildren, ReactElement } from 'react';
+import { ToastProvider } from '@/components/ui/Toast';
 import { Toaster } from '@/components/ui/Toaster';
+import { toastManager } from '@/hooks/useToast';
 import queryClient from '@/services/queries/queryClient';
 
 const Wrapper = ({ children }: PropsWithChildren) => (
-  <QueryClientProvider client={queryClient}>
-    {children}
-    <Toaster />
-  </QueryClientProvider>
+  <ToastProvider toastManager={toastManager}>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <Toaster />
+    </QueryClientProvider>
+  </ToastProvider>
 );
 
 const renderHook = <T,>(fn: () => T) => {
