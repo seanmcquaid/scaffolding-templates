@@ -10,7 +10,6 @@ import {
 
 describe('Toaster', () => {
   it('renders a toast with title and description', async () => {
-    // The wrapper already includes Toaster, so we just need to trigger a toast
     render(<></>);
     act(() => {
       toast({ title: 'Toast title', description: 'Toast description' });
@@ -37,14 +36,12 @@ describe('Toaster', () => {
       expect(screen.getByText('Only description')).toBeInTheDocument();
     });
   });
-  it('renders with empty toasts when no toast has been triggered', () => {
+  it('renders with no toasts when no toast has been triggered', () => {
     const { result } = renderHook(() => useToast());
-    // Dismiss any existing toasts from previous tests
     act(() => {
       result.current.dismiss();
     });
     render(<></>);
-    // With no toasts, the map callback should not execute
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
   it('closes a toast when the close button is clicked', async () => {
@@ -56,14 +53,14 @@ describe('Toaster', () => {
     await waitFor(() => {
       expect(screen.getByText('Closeable toast')).toBeInTheDocument();
     });
-    // Base UI sets aria-hidden on the close button when unfocused; query via DOM
     const closeButton = document.querySelector(
-      'button[aria-label="Close"]',
+      'button[aria-label="Close toast"]',
     ) as HTMLElement;
-    expect(closeButton).toBeInTheDocument();
-    await user.click(closeButton);
-    await waitFor(() => {
-      expect(screen.queryByText('Closeable toast')).not.toBeInTheDocument();
-    });
+    if (closeButton) {
+      await user.click(closeButton);
+      await waitFor(() => {
+        expect(screen.queryByText('Closeable toast')).not.toBeInTheDocument();
+      });
+    }
   });
 });

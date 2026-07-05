@@ -3,9 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import type { PropsWithChildren } from 'react';
-import { ToastProvider } from '@/components/ui/Toast';
 import { Toaster } from '@/components/ui/Toaster';
-import { toastManager } from '@/hooks/useToast';
 import useChangeLanguage from '@/hooks/useChangeLanguage';
 import queryClient from '@/services/queries/queryClient';
 import '@/i18n/i18next';
@@ -18,15 +16,13 @@ const Providers = ({ children, lang }: ProvidersProps) => {
   useChangeLanguage(lang);
 
   return (
-    <ToastProvider toastManager={toastManager}>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryStreamedHydration>
-          {children}
-          <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
-          <Toaster />
-        </ReactQueryStreamedHydration>
-      </QueryClientProvider>
-    </ToastProvider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryStreamedHydration>
+        {children}
+        <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
+        <Toaster />
+      </ReactQueryStreamedHydration>
+    </QueryClientProvider>
   );
 };
 

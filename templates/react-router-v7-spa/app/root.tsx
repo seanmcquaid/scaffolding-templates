@@ -15,9 +15,7 @@ import { useBoolean } from 'usehooks-ts';
 import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
-import { ToastProvider } from './components/ui/Toast';
 import { Toaster } from './components/ui/Toaster';
-import { toastManager } from './hooks/useToast';
 import env from './env';
 import queryClient from './services/queries/queryClient';
 import stylesheet from './styles/index.css?url';
@@ -68,8 +66,7 @@ export const Layout = ({ children }: PropsWithChildren) => {
       </head>
       <body className="flex h-screen min-h-screen w-full flex-col overflow-auto">
         <main className="flex-1">
-          <ToastProvider toastManager={toastManager}>
-            <QueryClientProvider client={queryClient}>
+          <QueryClientProvider client={queryClient}>
               <LoadingOverlay isLoading={isLoadingPage} />
               {children}
               <ReactQueryDevtools
@@ -78,7 +75,6 @@ export const Layout = ({ children }: PropsWithChildren) => {
               />
               <Toaster />
             </QueryClientProvider>
-          </ToastProvider>
         </main>
         <Scripts />
         <ScrollRestoration />

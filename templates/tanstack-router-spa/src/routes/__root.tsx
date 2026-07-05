@@ -5,9 +5,7 @@ import {
   useNavigate,
 } from '@tanstack/react-router';
 import { lazy, Suspense } from 'react';
-import { ToastProvider } from '@/components/ui/Toast';
 import { Toaster } from '@/components/ui/Toaster';
-import { toastManager } from '@/hooks/useToast';
 import '@/i18n/i18next';
 import PageWrapper from '@/components/app/PageWrapper';
 import { Button } from '@/components/ui/Button';
@@ -55,14 +53,12 @@ const ReactQueryDevtools =
 
 const Root = () => {
   return (
-    <ToastProvider toastManager={toastManager}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Outlet />
-        <TanStackRouterDevtools position="bottom-right" />
-        <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
-        <Toaster />
-      </Suspense>
-    </ToastProvider>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Outlet />
+      <TanStackRouterDevtools position="bottom-right" />
+      <ReactQueryDevtools buttonPosition="top-right" initialIsOpen={false} />
+      <Toaster />
+    </Suspense>
   );
 };
 
