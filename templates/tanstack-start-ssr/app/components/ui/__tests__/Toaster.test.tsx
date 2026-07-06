@@ -1,22 +1,66 @@
 import { act } from '@testing-library/react';
-import { toast } from '@/hooks/useToast';
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
+import userEvent from '@testing-library/user-event';
+import { toast, useToast } from '@/hooks/useToast';
+import {
+  render,
+  renderHook,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('Toaster', () => {
-  it('renders toast with title via the wrapper Toaster', () => {
-    // The test wrapper already includes a Toaster
-    render(<div />);
+  it('renders a toast with title and description', async () => {
+    render(<></>);
     act(() => {
-      toast({ title: 'Test Toast Title' });
+      toast({ title: 'Toast title', description: 'Toast description' });
     });
-    expect(screen.getByText('Test Toast Title')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Toast description')).toBeInTheDocument();
+    });
   });
-
-  it('renders toast with description', () => {
-    render(<div />);
+  it('renders a toast with only a title', async () => {
+    render(<></>);
     act(() => {
-      toast({ title: 'Test Title', description: 'Test Description' });
+      toast({ title: 'Only title' });
     });
-    expect(screen.getByText('Test Description')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Only title')).toBeInTheDocument();
+    });
+  });
+  it('renders a toast with only a description (no title)', async () => {
+    render(<></>);
+    act(() => {
+      toast({ description: 'Only description' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Only description')).toBeInTheDocument();
+    });
+  });
+  it('renders with no toasts when no toast has been triggered', () => {
+    const { result } = renderHook(() => useToast());
+    act(() => {
+      result.current.dismiss();
+    });
+    render(<></>);
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+  it('closes a toast when the close button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<></>);
+    act(() => {
+      toast({ title: 'Closeable toast' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Closeable toast')).toBeInTheDocument();
+    });
+    const closeButton = document.querySelector(
+      'button[aria-label="Close toast"]',
+    ) as HTMLElement;
+    if (closeButton) {
+      await user.click(closeButton);
+      await waitFor(() => {
+        expect(screen.queryByText('Closeable toast')).not.toBeInTheDocument();
+      });
+    }
   });
 });

@@ -1,33 +1,32 @@
 import {
-  Toast,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-} from '@/components/ui/Toast';
-import { useToast } from '@/hooks/useToast';
+  CircleCheckIcon,
+  InfoIcon,
+  Loader2Icon,
+  OctagonXIcon,
+  TriangleAlertIcon,
+} from 'lucide-react';
+import type * as React from 'react';
+import { Toaster as Sonner, type ToasterProps } from 'sonner';
 
-export const Toaster = () => {
-  const { toasts } = useToast();
+const Toaster = ({ ...props }: ToasterProps) => (
+  <Sonner
+    className="toaster group"
+    icons={{
+      error: <OctagonXIcon className="size-4" />,
+      info: <InfoIcon className="size-4" />,
+      loading: <Loader2Icon className="size-4 animate-spin" />,
+      success: <CircleCheckIcon className="size-4" />,
+      warning: <TriangleAlertIcon className="size-4" />,
+    }}
+    style={
+      {
+        '--normal-bg': 'var(--popover)',
+        '--normal-border': 'var(--border)',
+        '--normal-text': 'var(--popover-foreground)',
+      } as React.CSSProperties
+    }
+    {...props}
+  />
+);
 
-  return (
-    <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
-        return (
-          <Toast key={id} {...props}>
-            <div className="grid gap-1">
-              {title && <ToastTitle>{title}</ToastTitle>}
-              {description && (
-                <ToastDescription>{description}</ToastDescription>
-              )}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
-        );
-      })}
-      <ToastViewport />
-    </ToastProvider>
-  );
-};
+export { Toaster };

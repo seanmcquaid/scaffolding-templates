@@ -5,18 +5,27 @@ import {
   renderHook as rtlRenderHook,
 } from '@testing-library/react';
 import type { PropsWithChildren, ReactElement } from 'react';
+import { useState } from 'react';
 import { Toaster } from '@/components/ui/Toaster';
 
-const queryClient = new QueryClient();
+const createTestQueryClient = () =>
+  new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
 
-export const getTestQueryClient = () => queryClient;
-
-const Wrapper = ({ children }: PropsWithChildren) => (
-  <QueryClientProvider client={queryClient}>
-    {children}
-    <Toaster />
-  </QueryClientProvider>
-);
+const Wrapper = ({ children }: PropsWithChildren) => {
+  const [queryClient] = useState(createTestQueryClient);
+  return (
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <Toaster />
+    </QueryClientProvider>
+  );
+};
 
 const renderHook = <T,>(fn: () => T) => {
   return rtlRenderHook(fn, { wrapper: Wrapper });

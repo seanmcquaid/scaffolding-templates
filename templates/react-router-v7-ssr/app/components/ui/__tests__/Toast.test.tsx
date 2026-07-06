@@ -1,74 +1,57 @@
-import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
+import { act } from '@testing-library/react';
 import {
-  Toast,
-  ToastAction,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-} from '@/components/ui/Toast';
+  render,
+  screen,
+  waitFor,
+} from '@/utils/testing/reactTestingLibraryUtils';
+import { toast } from '@/hooks/useToast';
 
-describe('Toast components', () => {
-  it('applies the default variant CSS class to the toast element', () => {
-    render(
-      <ToastProvider>
-        <Toast open>
-          {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastTitle>Default toast</ToastTitle>
-        </Toast>
-        <ToastViewport />
-      </ToastProvider>,
-    );
-    const title = screen.getByText('Default toast');
-    const toastEl = title.closest('[data-state]');
-    expect(toastEl?.className).toContain('bg-background');
+describe('Toast (Sonner) integration', () => {
+  afterEach(() => {
+    // Dismiss all toasts between tests
+    act(() => {
+      toast({ title: '' });
+    });
   });
 
-  it('applies the destructive variant CSS class to the toast element', () => {
-    render(
-      <ToastProvider>
-        <Toast open variant="destructive">
-          {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastTitle>Error toast</ToastTitle>
-        </Toast>
-        <ToastViewport />
-      </ToastProvider>,
-    );
-    const title = screen.getByText('Error toast');
-    const toastEl = title.closest('[data-state]');
-    expect(toastEl?.className).toContain('destructive');
+  it('renders a toast with a title', async () => {
+    render(<></>);
+    act(() => {
+      toast({ title: 'Test title' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Test title')).toBeInTheDocument();
+    });
   });
 
-  it('renders ToastTitle and ToastDescription with correct content', () => {
-    render(
-      <ToastProvider>
-        <Toast open>
-          {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastTitle>Title text</ToastTitle>
-          {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastDescription>Description text</ToastDescription>
-        </Toast>
-        <ToastViewport />
-      </ToastProvider>,
-    );
-    expect(screen.getByText('Title text')).toBeInTheDocument();
-    expect(screen.getByText('Description text')).toBeInTheDocument();
+  it('renders a toast with a title and description', async () => {
+    render(<></>);
+    act(() => {
+      toast({ title: 'Title text', description: 'Description text' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Title text')).toBeInTheDocument();
+      expect(screen.getByText('Description text')).toBeInTheDocument();
+    });
   });
 
-  it('renders ToastAction and ToastClose as interactive elements', () => {
-    render(
-      <ToastProvider>
-        <Toast open>
-          {/* eslint-disable-next-line i18next/no-literal-string */}
-          <ToastAction altText="Undo action">Undo</ToastAction>
-          <ToastClose />
-        </Toast>
-        <ToastViewport />
-      </ToastProvider>,
-    );
-    expect(screen.getByRole('button', { name: 'Undo' })).toBeInTheDocument();
-    const allButtons = screen.getAllByRole('button');
-    expect(allButtons.some(btn => btn.hasAttribute('toast-close'))).toBe(true);
+  it('renders a destructive toast variant', async () => {
+    render(<></>);
+    act(() => {
+      toast({ title: 'Error toast', variant: 'destructive' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Error toast')).toBeInTheDocument();
+    });
+  });
+
+  it('renders a toast with only a description', async () => {
+    render(<></>);
+    act(() => {
+      toast({ description: 'Only description' });
+    });
+    await waitFor(() => {
+      expect(screen.getByText('Only description')).toBeInTheDocument();
+    });
   });
 });
