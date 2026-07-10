@@ -1,18 +1,15 @@
 import { PassThrough } from 'stream';
 import { createReadableStreamFromReadable } from '@react-router/node';
-import { createInstance } from 'i18next';
-import Backend from 'i18next-fs-backend/cjs';
 import { isbot } from 'isbot';
 import type { RenderToPipeableStreamOptions } from 'react-dom/server';
 import { renderToPipeableStream } from 'react-dom/server';
-import { I18nextProvider, initReactI18next } from 'react-i18next';
-import type { EntryContext } from 'react-router';
+import { I18nextProvider } from 'react-i18next';
+import type { EntryContext, RouterContextProvider } from 'react-router';
 import { ServerRouter } from 'react-router';
 import server from '../mocks/server';
-import i18n from './i18n/i18nConfig';
-import i18next from './i18n/i18next.server';
-import 'dotenv/config';
 import serverEnv from './env.server';
+import { getInstance } from './i18n/i18next.server';
+import 'dotenv/config';
 
 if (serverEnv.VITE_APP_MSW_ENABLED && serverEnv.NODE_ENV === 'development') {
   server.listen({
@@ -26,20 +23,9 @@ export default async function handleRequest(
   responseStatusCode: number,
   responseHeaders: Headers,
   routerContext: EntryContext,
+  loadContext: RouterContextProvider,
 ) {
-  const instance = createInstance();
-  const lng = await i18next.getLocale(request);
-  const ns = i18next.getRouteNamespaces(routerContext);
-
-  await instance
-    .use(initReactI18next)
-    .use(Backend)
-    .init({
-      ...i18n,
-      backend: { loadPath: './locales/{{lng}}.ts' },
-      lng,
-      ns,
-    });
+  const instance = getInstance(loadContext);
 
   return new Promise((resolve, reject) => {
     let shellRendered = false;
