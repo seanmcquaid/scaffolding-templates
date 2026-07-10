@@ -12,7 +12,6 @@ import {
   useNavigation,
   useRouteError,
 } from 'react-router';
-import { useChangeLanguage } from 'remix-i18next/react';
 import type { Route } from './+types/root';
 import PageError from './components/app/PageError';
 import LoadingOverlay from './components/ui/LoadingOverlay';
@@ -20,8 +19,7 @@ import { Toaster } from './components/ui/Toaster';
 import clientEnv from './env.client';
 import serverEnv from './env.server';
 import useAppTranslation from './hooks/useAppTranslation';
-import i18next from './i18n/i18next.server';
-import setAcceptLanguageHeaders from './i18n/setAcceptLanguageHeaders.server';
+import { getLocale, i18nextMiddleware } from './i18n/i18next.server';
 import queryClient from './services/queries/queryClient';
 import stylesheet from './styles/index.css?url';
 
@@ -68,11 +66,10 @@ const serverLoggerMiddleware: Route.MiddlewareFunction = async (
   return res;
 };
 
-export const middleware = [serverLoggerMiddleware];
+export const middleware = [serverLoggerMiddleware, i18nextMiddleware];
 
-export async function loader({ request }: Route.LoaderArgs) {
-  setAcceptLanguageHeaders(request);
-  const locale = await i18next.getLocale(request);
+export async function loader({ context }: Route.LoaderArgs) {
+  const locale = getLocale(context);
   return { locale };
 }
 
@@ -82,7 +79,11 @@ export const Layout = ({ children }: PropsWithChildren) => {
   const navigation = useNavigation();
   const isLoadingPage = navigation.state === 'loading';
 
-  useChangeLanguage(locale);
+  useEffect(() => {
+    if (i18n.language !== locale) {
+      i18n.changeLanguage(locale);
+    }
+  }, [locale, i18n]);
 
   return (
     <html
