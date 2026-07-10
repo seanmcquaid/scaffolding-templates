@@ -1,7 +1,7 @@
 import type { TOptions } from 'i18next';
 import type { RouterContextProvider } from 'react-router';
-import type LocaleKeys from '@/types/LocaleKeys';
 import { getInstance } from './i18next.server';
+import type LocaleKeys from '@/types/LocaleKeys';
 
 type AppTOptions = Omit<TOptions, 'context'> & { context?: string };
 
