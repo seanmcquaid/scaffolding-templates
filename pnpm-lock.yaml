@@ -472,7 +472,7 @@ importers:
         specifier: ^8.2.1
         version: 8.2.1
       isbot:
-        specifier: ^5.2.0
+        specifier: ^5.2.1
         version: 5.2.1
       ky:
         specifier: ^2.0.2
@@ -710,7 +710,7 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       isbot:
-        specifier: ^5.2.0
+        specifier: ^5.2.1
         version: 5.2.1
       ky:
         specifier: ^2.0.2
@@ -6872,10 +6872,6 @@ packages:
   isarray@2.0.5:
     resolution: {integrity: sha512-xHjhDr3cNBK0BzdUJSPXZntQUx/mwMS5Rw4A7lPJ90XGAO6ISP/ePDNuo0vhqOZU+UD5JoodwCAAoZQd3FeAKw==}
 
-  isbot@5.1.43:
-    resolution: {integrity: sha512-drJhFmibra4LO6Wd7D3Oi6UICRK9244vSZkmxzhlZP0TTdwCA2ueK4PEkUkzPYeuqug9+cqqdWPgihjk5+83Cg==}
-    engines: {node: '>=18'}
-
   isbot@5.2.1:
     resolution: {integrity: sha512-dJ+LpKyClQZ7NG+j3OensC/mAZkGpukE9YUrgPYvAZj2doVL0edfDgywTUh5CXa0o+nW9a1V9e5+CJTX8+SxRw==}
     engines: {node: '>=18'}
@@ -12604,7 +12600,7 @@ snapshots:
       dedent: 1.7.2
       es-module-lexer: 2.1.0
       exit-hook: 5.1.0
-      isbot: 5.1.43
+      isbot: 5.2.1
       jsesc: 3.1.0
       lodash: 4.18.1
       p-map: 7.0.4
@@ -13087,7 +13083,7 @@ snapshots:
       '@tanstack/history': 1.162.0
       '@tanstack/react-store': 0.9.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@tanstack/router-core': 1.171.15
-      isbot: 5.1.43
+      isbot: 5.2.1
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
@@ -16253,8 +16249,6 @@ snapshots:
       is-docker: 2.2.1
 
   isarray@2.0.5: {}
-
-  isbot@5.1.43: {}
 
   isbot@5.2.1: {}
 
