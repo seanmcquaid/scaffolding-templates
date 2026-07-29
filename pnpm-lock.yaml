@@ -413,7 +413,7 @@ importers:
         version: 4.0.0(lighthouse@13.4.1(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1)))(playwright-core@1.61.1)
       postcss:
         specifier: ^8.5.22
-        version: 8.5.22
+        version: 8.5.24
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
@@ -7929,8 +7929,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.22:
-    resolution: {integrity: sha512-KBDEIpLrvpv16pp3K0Fw+UCoZfopFjjgeB+0tA/aaThfEE74kKDLrgg603YvOWJyg3+WYtyq3xYsQWsIyZlPqQ==}
+  postcss@8.5.24:
+    resolution: {integrity: sha512-8RyVklq0owXUTa4xlpzu4l9AaVKIdQvAcOHZWaMh98HgySsUtxRVf/chRe3dsSLqb6i40BzGRzEUddRaI+9TSw==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -11157,7 +11157,7 @@ snapshots:
       jsc-safe-url: 0.2.4
       lightningcss: 1.32.0
       picomatch: 4.0.4
-      postcss: 8.5.22
+      postcss: 8.5.24
       resolve-from: 5.0.0
     optionalDependencies:
       expo: 57.0.6(@babel/core@7.29.7)(@expo/dom-webview@55.0.6)(@expo/metro-runtime@57.0.5)(expo-router@57.0.6)(react-dom@19.2.8(react@19.2.8))(react-native-web@0.21.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react-native-worklets@0.11.0(@babel/core@7.29.7)(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.2.8))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.2.8))(react@19.2.8))(react-native@0.86.0(@babel/core@7.29.7)(@react-native/jest-preset@0.86.0(@babel/core@7.29.7)(react@19.2.8))(@react-native/metro-config@0.86.0(@babel/core@7.29.7))(@types/react@19.2.17)(react@19.2.8))(react@19.2.8)(typescript@6.0.3)
@@ -12308,7 +12308,7 @@ snapshots:
 
   '@react-navigation/routers@7.6.0':
     dependencies:
-      nanoid: 3.3.16
+      nanoid: 3.3.12
 
   '@react-router/dev@8.3.0(@react-router/serve@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@6.0.3)(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))':
     dependencies:
@@ -12730,7 +12730,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.3.3
       '@tailwindcss/oxide': 4.3.3
-      postcss: 8.5.22
+      postcss: 8.5.24
       tailwindcss: 4.3.3
 
   '@tailwindcss/vite@4.3.3(vite@8.1.4(@types/node@26.1.1)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))':
@@ -17549,7 +17549,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.22:
+  postcss@8.5.24:
     dependencies:
       nanoid: 3.3.16
       picocolors: 1.1.1
@@ -18979,7 +18979,7 @@ snapshots:
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.5
-      postcss: 8.5.22
+      postcss: 8.5.24
       rolldown: 1.1.5
       tinyglobby: 0.2.17
     optionalDependencies:
