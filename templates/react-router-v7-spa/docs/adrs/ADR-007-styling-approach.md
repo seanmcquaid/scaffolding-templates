@@ -24,7 +24,7 @@ The styling approach fundamentally impacts development speed and application mai
 
 ## Decision
 
-We will use **Tailwind CSS 4** for styling with **shadcn/ui** as the component library, built on **Radix UI** primitives.
+We will use **Tailwind CSS 4** for styling with **shadcn/ui** as the component library, built on **React Aria** primitives.
 
 Additional utilities:
 - `clsx` and `tailwind-merge` for conditional classes
@@ -37,7 +37,7 @@ This approach provides:
 1. **Rapid Development**: Utility-first CSS enables fast prototyping
 2. **Consistency**: Tailwind's design system ensures consistent spacing, colors, typography
 3. **Performance**: Purges unused CSS, resulting in small production bundles
-4. **Accessibility**: shadcn/ui components built on Radix UI with a11y built-in
+4. **Accessibility**: shadcn/ui components built on React Aria with a11y built-in
 5. **Customization**: Easy to customize and extend the design system
 6. **Type Safety**: CVA provides type-safe component variants
 7. **Developer Experience**: Excellent VS Code IntelliSense support

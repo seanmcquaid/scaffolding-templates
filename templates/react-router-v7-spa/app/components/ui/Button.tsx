@@ -1,4 +1,5 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
+import type { ButtonHTMLAttributes, ElementType, ReactElement } from 'react';
+import { Button as ButtonPrimitive } from 'react-aria-components';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/utils/styles';
@@ -32,18 +33,64 @@ const buttonVariants = cva(
   },
 );
 
+type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> &
+  VariantProps<typeof buttonVariants> & {
+    className?: string;
+    render?: ReactElement;
+  };
+
 function Button({
+  children,
   className,
-  variant = 'default',
+  disabled,
+  render,
   size = 'default',
+  type = 'button',
+  variant = 'default',
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
+  const buttonClassName = cn(buttonVariants({ variant, size, className }));
+
+  if (render) {
+    const renderedProps =
+      render.props as ButtonHTMLAttributes<HTMLAnchorElement> & {
+        ['aria-disabled']?: boolean;
+        ['data-disabled']?: string;
+      };
+    const RenderComponent = render.type as ElementType;
+
+    return (
+      <RenderComponent
+        {...props}
+        {...renderedProps}
+        aria-disabled={
+          disabled || renderedProps['aria-disabled'] ? true : undefined
+        }
+        className={cn(buttonClassName, renderedProps.className)}
+        data-disabled={disabled ? '' : renderedProps['data-disabled']}
+        data-slot="button"
+        onClick={
+          disabled ? undefined : (props.onClick ?? renderedProps.onClick)
+        }
+      >
+        {children}
+      </RenderComponent>
+    );
+  }
+
+  const Primitive = ButtonPrimitive as unknown as ElementType;
+
   return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+    <Primitive
       {...props}
-    />
+      className={buttonClassName}
+      data-slot="button"
+      disabled={disabled}
+      isDisabled={disabled}
+      type={type}
+    >
+      {children}
+    </Primitive>
   );
 }
 
