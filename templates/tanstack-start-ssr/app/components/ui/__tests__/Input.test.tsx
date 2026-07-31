@@ -26,7 +26,7 @@ describe('Input', () => {
   });
 
   it('Applies custom className', () => {
-    const { container } = render(<Input className="custom-class" />);
+    const { container } = render(<Input wrapperClassName="custom-class" />);
     expect(container.firstChild).toHaveClass('custom-class');
   });
 });

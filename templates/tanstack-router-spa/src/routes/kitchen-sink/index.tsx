@@ -88,7 +88,7 @@ export const KitchenSinkPage = () => {
         </h2>
         <form onSubmit={handleOnSubmit}>
           <Input
-            className="m-4"
+            wrapperClassName="m-4"
             errorMessage={errors?.name?.message}
             label={t('KitchenSinkPage.name')}
             {...register('name')}

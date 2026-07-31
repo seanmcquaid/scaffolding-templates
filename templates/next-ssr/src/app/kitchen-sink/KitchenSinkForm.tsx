@@ -53,7 +53,7 @@ const KitchenSinkForm = () => {
         </h2>
         <form action={formAction}>
           <Input
-            className="m-4"
+            wrapperClassName="m-4"
             errorMessage={errors?.name?.message || formState?.name}
             label={t('KitchenSinkPage.name')}
             {...register('name')}

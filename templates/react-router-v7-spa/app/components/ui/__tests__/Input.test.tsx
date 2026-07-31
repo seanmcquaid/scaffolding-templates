@@ -23,7 +23,7 @@ describe('Input', () => {
   });
 
   it('renders with a custom className applied to the wrapper div', () => {
-    render(<Input className="custom-class" />);
+    render(<Input wrapperClassName="custom-class" />);
     expect(screen.getByRole('textbox').closest('div')).toHaveClass(
       'custom-class',
     );

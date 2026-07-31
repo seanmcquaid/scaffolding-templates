@@ -109,7 +109,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
         </h2>
         <Form method="POST">
           <Input
-            className="m-4"
+            wrapperClassName="m-4"
             defaultValue={actionData?.defaultValues?.name}
             errorMessage={errors?.name?.message || actionData?.errors?.name}
             label={t('KitchenSinkPage.name')}
