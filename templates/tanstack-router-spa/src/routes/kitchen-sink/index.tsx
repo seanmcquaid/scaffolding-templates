@@ -14,7 +14,7 @@ import {
 import { useRef } from 'react';
 import { z } from 'zod';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 import LinkButton from '@/components/ui/LinkButton';
 import { useToast } from '@/hooks/useToast';
 import useAppTranslation from '@/hooks/useAppTranslation';
@@ -87,7 +87,7 @@ export const KitchenSinkPage = () => {
           {t('KitchenSinkPage.reactHookFormZodTanstack')}
         </h2>
         <form onSubmit={handleOnSubmit}>
-          <Input
+          <InputField
             wrapperClassName="m-4"
             errorMessage={errors?.name?.message}
             label={t('KitchenSinkPage.name')}
@@ -177,7 +177,7 @@ export const KitchenSinkPage = () => {
           <h3 className="mb-2 font-medium">
             {t('KitchenSinkPage.useDebounceValue')}
           </h3>
-          <Input
+          <InputField
             label={t('KitchenSinkPage.filterPosts')}
             value={filterText}
             onChange={e => setFilterText((e.target as HTMLInputElement).value)}

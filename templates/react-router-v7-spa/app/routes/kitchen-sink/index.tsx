@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { z } from 'zod';
 import type { Route } from './+types';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 import LinkButton from '@/components/ui/LinkButton';
 import { toast } from '@/hooks/useToast';
 import useAppTranslation from '@/hooks/useAppTranslation';
@@ -108,7 +108,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
           {t('KitchenSinkPage.reactHookFormZod')}
         </h2>
         <Form method="POST">
-          <Input
+          <InputField
             wrapperClassName="m-4"
             defaultValue={actionData?.defaultValues?.name}
             errorMessage={errors?.name?.message || actionData?.errors?.name}
@@ -192,7 +192,7 @@ const KitchenSinkPage = ({ loaderData, actionData }: Route.ComponentProps) => {
           <h3 className="mb-2 font-medium">
             {t('KitchenSinkPage.useDebounceValue')}
           </h3>
-          <Input
+          <InputField
             label={t('KitchenSinkPage.searchPosts')}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}

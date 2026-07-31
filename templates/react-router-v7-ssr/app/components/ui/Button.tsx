@@ -1,5 +1,8 @@
+'use client';
+
+import type { VariantProps } from 'class-variance-authority';
 import type * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
 import {
   Button as ButtonPrimitive,
   Link as LinkPrimitive,
@@ -61,9 +64,7 @@ function Button({
       data-variant={variant}
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    >
-      {props.children}
-    </ButtonPrimitive>
+    />
   );
 }
 

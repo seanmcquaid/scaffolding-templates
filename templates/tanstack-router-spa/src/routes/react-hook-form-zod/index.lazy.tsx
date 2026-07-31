@@ -3,7 +3,7 @@ import { createLazyFileRoute } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
-import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 
 const formDataSchema = z
   .object({
@@ -34,14 +34,14 @@ export const ReactHookFormZodPage = () => {
   return (
     <PageWrapper>
       <form>
-        <Input
+        <InputField
           autoComplete="username"
           wrapperClassName="m-4"
           errorMessage={errors?.username?.message}
           label="Username"
           {...register('username')}
         />
-        <Input
+        <InputField
           autoComplete="new-password"
           wrapperClassName="m-4"
           errorMessage={errors?.password?.message}
@@ -49,7 +49,7 @@ export const ReactHookFormZodPage = () => {
           type="password"
           {...register('password')}
         />
-        <Input
+        <InputField
           autoComplete="new-password"
           wrapperClassName="m-4"
           errorMessage={errors?.confirmPassword?.message}

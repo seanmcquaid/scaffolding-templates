@@ -13,7 +13,7 @@ import type { z } from 'zod';
 import { submitName } from './actions';
 import formDataSchema from './formDataSchema';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 import useAppTranslation from '@/hooks/useAppTranslation';
 
 const KitchenSinkForm = () => {
@@ -52,7 +52,7 @@ const KitchenSinkForm = () => {
           {t('KitchenSinkPage.reactHookFormZodServerActions')}
         </h2>
         <form action={formAction}>
-          <Input
+          <InputField
             wrapperClassName="m-4"
             errorMessage={errors?.name?.message || formState?.name}
             label={t('KitchenSinkPage.name')}
