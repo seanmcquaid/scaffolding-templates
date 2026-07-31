@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import PageWrapper from '@/components/app/PageWrapper';
-import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 
 const formDataSchema = z
   .object({
@@ -34,24 +34,24 @@ const ReactHookFormZodPage = () => {
   return (
     <PageWrapper>
       <form>
-        <Input
+        <InputField
           autoComplete="username"
-          className="m-4"
+          wrapperClassName="m-4"
           errorMessage={errors?.username?.message}
           label="Username"
           {...register('username')}
         />
-        <Input
+        <InputField
           autoComplete="new-password"
-          className="m-4"
+          wrapperClassName="m-4"
           errorMessage={errors?.password?.message}
           label="Password"
           type="password"
           {...register('password')}
         />
-        <Input
+        <InputField
           autoComplete="new-password"
-          className="m-4"
+          wrapperClassName="m-4"
           errorMessage={errors?.confirmPassword?.message}
           label="Confirm Password"
           type="password"

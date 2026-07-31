@@ -32,7 +32,7 @@ const ReactQueryPage = () => {
             {post.title.substring(0, 5)}
             <Button
               className="ml-4"
-              disabled={deletePostLoading}
+              isDisabled={deletePostLoading}
               onClick={() => deletePost(post.id.toString())}
             >
               {t('ReactQueryPage.delete')}

@@ -1,23 +1,14 @@
 import { Input } from '@/components/ui/Input';
+import { InputField } from '@/components/ui/InputField';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
 
 describe('Input', () => {
-  it('Displays error message if provided', () => {
-    render(<Input errorMessage="This is an error" />);
-    expect(screen.getByText('This is an error')).toBeInTheDocument();
+  it('renders a textbox by default', () => {
+    render(<Input />);
+    expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
 
-  it('Does not display error message when not provided', () => {
-    render(<Input placeholder="Enter value" />);
-    expect(screen.queryByText('This is an error')).not.toBeInTheDocument();
-  });
-
-  it('Renders label when provided', () => {
-    render(<Input id="test-input" label="My Label" />);
-    expect(screen.getByLabelText('My Label')).toBeInTheDocument();
-  });
-
-  it('Renders with specified type', () => {
+  it('renders with the correct type attribute', () => {
     const { container } = render(<Input type="password" />);
     expect(container.querySelector('input')).toHaveAttribute(
       'type',
@@ -25,8 +16,30 @@ describe('Input', () => {
     );
   });
 
-  it('Applies custom className', () => {
-    const { container } = render(<Input className="custom-class" />);
+  it('passes through HTML input attributes', () => {
+    render(<Input placeholder="Enter text" />);
+    expect(screen.getByRole('textbox')).toHaveAttribute(
+      'placeholder',
+      'Enter text',
+    );
+  });
+});
+
+describe('InputField', () => {
+  it('displays an error message when provided', () => {
+    render(<InputField errorMessage="This is an error" />);
+    expect(screen.getByText('This is an error')).toBeInTheDocument();
+  });
+
+  it('renders with a label when label is provided', () => {
+    render(<InputField id="test-input" label="My Label" />);
+    expect(screen.getByLabelText('My Label')).toBeInTheDocument();
+  });
+
+  it('applies wrapperClassName to the wrapper div', () => {
+    const { container } = render(
+      <InputField wrapperClassName="custom-class" />,
+    );
     expect(container.firstChild).toHaveClass('custom-class');
   });
 });

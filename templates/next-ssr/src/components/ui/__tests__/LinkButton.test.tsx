@@ -19,10 +19,15 @@ describe('LinkButton', () => {
   it('renders with destructive variant', () => {
     render(
       // eslint-disable-next-line i18next/no-literal-string
-      <LinkButton href="/" variant="destructive">
+      <LinkButton href="/" size="sm" variant="destructive">
         Delete
       </LinkButton>,
     );
-    expect(screen.getByRole('link')).toBeInTheDocument();
+    expect(screen.getByRole('link')).toHaveAttribute('data-size', 'sm');
+    expect(screen.getByRole('link')).toHaveAttribute('data-slot', 'button');
+    expect(screen.getByRole('link')).toHaveAttribute(
+      'data-variant',
+      'destructive',
+    );
   });
 });
