@@ -9,17 +9,6 @@ describe('Button', () => {
     expect(screen.getByRole('button').tagName).toBe('BUTTON');
   });
 
-  it('renders as the child element when render prop is provided', () => {
-    render(
-      // eslint-disable-next-line i18next/no-literal-string
-      <Button render={<a aria-label="Link button" href="/test" />}>
-        Link button
-      </Button>,
-    );
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
-    expect(screen.getByRole('link').tagName).toBe('A');
-  });
-
   it('calls onClick handler when clicked', async () => {
     const handleClick = vi.fn();
     const user = userEvent.setup();
@@ -34,7 +23,7 @@ describe('Button', () => {
     const user = userEvent.setup();
     render(
       // eslint-disable-next-line i18next/no-literal-string
-      <Button disabled onClick={handleClick}>
+      <Button isDisabled onClick={handleClick}>
         Disabled
       </Button>,
     );
@@ -60,10 +49,15 @@ describe('Button', () => {
   it('renders LinkButton as an anchor element', () => {
     render(
       // eslint-disable-next-line i18next/no-literal-string
-      <LinkButton href="/test">Link button</LinkButton>,
+      <LinkButton href="/test" size="sm" variant="outline">
+        Link button
+      </LinkButton>,
     );
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.getByRole('link').tagName).toBe('A');
+    expect(screen.getByRole('link')).toHaveAttribute('data-size', 'sm');
+    expect(screen.getByRole('link')).toHaveAttribute('data-slot', 'button');
+    expect(screen.getByRole('link')).toHaveAttribute('data-variant', 'outline');
   });
 
   it('applies the destructive variant class', () => {

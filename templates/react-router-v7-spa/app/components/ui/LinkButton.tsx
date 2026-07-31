@@ -11,18 +11,21 @@ type LinkButtonProps = LinkProps &
     className?: string;
   };
 
-const LinkButton = (props: LinkButtonProps) => (
+const LinkButton = ({
+  children,
+  className,
+  size = 'default',
+  variant = 'default',
+  ...props
+}: LinkButtonProps) => (
   <Link
     {...props}
-    className={cn(
-      buttonVariants({
-        className: props.className,
-        size: props.size,
-        variant: props.variant,
-      }),
-    )}
+    className={cn(buttonVariants({ className, size, variant }))}
+    data-size={size}
+    data-slot="button"
+    data-variant={variant}
   >
-    {props.children}
+    {children}
   </Link>
 );
 

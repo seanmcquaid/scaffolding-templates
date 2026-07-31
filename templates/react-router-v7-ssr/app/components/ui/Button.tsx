@@ -42,107 +42,45 @@ type ButtonStyleProps = VariantProps<typeof buttonVariants> & {
   className?: string;
 };
 
-type ButtonProps = Omit<ButtonPrimitiveProps, 'className' | 'isDisabled'> &
+type ButtonProps = Omit<ButtonPrimitiveProps, 'className'> &
   React.RefAttributes<HTMLButtonElement> &
-  ButtonStyleProps & {
-    disabled?: boolean;
-    render?: React.ReactElement;
-  };
+  ButtonStyleProps;
 
-type LinkButtonProps = Omit<LinkPrimitiveProps, 'className' | 'isDisabled'> &
-  ButtonStyleProps & {
-    disabled?: boolean;
-  };
+type LinkButtonProps = Omit<LinkPrimitiveProps, 'className'> & ButtonStyleProps;
+
+function Button({
+  className,
+  size = 'default',
+  variant = 'default',
+  ...props
+}: ButtonProps) {
+  return (
+    <ButtonPrimitive
+      data-size={size}
+      data-slot="button"
+      data-variant={variant}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    >
+      {props.children}
+    </ButtonPrimitive>
+  );
+}
 
 function LinkButton({
   className,
-  disabled,
   size = 'default',
   variant = 'default',
   ...props
 }: LinkButtonProps) {
   return (
     <LinkPrimitive
-      {...props}
-      aria-disabled={disabled || props['aria-disabled'] ? true : undefined}
-      className={cn(buttonVariants({ variant, size, className }))}
-      data-disabled={disabled ? '' : props['data-disabled']}
       data-size={size}
       data-slot="button"
       data-variant={variant}
-      isDisabled={disabled}
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
     />
-  );
-}
-
-function Button({
-  children,
-  className,
-  disabled,
-  render,
-  size = 'default',
-  variant = 'default',
-  ...props
-}: ButtonProps) {
-  if (render) {
-    const renderedProps = render.props as React.HTMLAttributes<HTMLElement> & {
-      ['aria-disabled']?: boolean;
-      ['data-disabled']?: string;
-      onClick?: React.MouseEventHandler<HTMLElement>;
-    };
-
-    if (render.type === 'a') {
-      return (
-        <LinkButton
-          {...renderedProps}
-          {...props}
-          className={cn(renderedProps.className, className)}
-          disabled={disabled}
-          size={size}
-          variant={variant}
-        >
-          {children}
-        </LinkButton>
-      );
-    }
-
-    const RenderComponent = render.type as React.ElementType;
-
-    return (
-      <RenderComponent
-        {...props}
-        {...renderedProps}
-        aria-disabled={
-          disabled || renderedProps['aria-disabled'] ? true : undefined
-        }
-        className={cn(
-          buttonVariants({ variant, size, className }),
-          renderedProps.className,
-        )}
-        data-disabled={disabled ? '' : renderedProps['data-disabled']}
-        data-size={size}
-        data-slot="button"
-        data-variant={variant}
-        onClick={
-          disabled ? undefined : (props.onClick ?? renderedProps.onClick)
-        }
-      >
-        {children}
-      </RenderComponent>
-    );
-  }
-
-  return (
-    <ButtonPrimitive
-      {...props}
-      className={cn(buttonVariants({ variant, size, className }))}
-      data-size={size}
-      data-slot="button"
-      data-variant={variant}
-      isDisabled={disabled}
-    >
-      {children}
-    </ButtonPrimitive>
   );
 }
 
