@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@/utils/testing/reactTestingLibraryUtils';
-import { Button } from '@/components/ui/Button';
+import { Button, LinkButton } from '@/components/ui/Button';
 
 describe('Button', () => {
   it('renders as a native button element by default', () => {
@@ -40,6 +40,30 @@ describe('Button', () => {
     );
     await user.click(screen.getByRole('button'));
     expect(handleClick).not.toHaveBeenCalled();
+  });
+
+  it('applies shadcn data attributes for variant and size', () => {
+    const label = 'Outline';
+
+    render(
+      <Button size="sm" variant="outline">
+        {label}
+      </Button>,
+    );
+    expect(screen.getByRole('button')).toHaveAttribute('data-size', 'sm');
+    expect(screen.getByRole('button')).toHaveAttribute(
+      'data-variant',
+      'outline',
+    );
+  });
+
+  it('renders LinkButton as an anchor element', () => {
+    render(
+      // eslint-disable-next-line i18next/no-literal-string
+      <LinkButton href="/test">Link button</LinkButton>,
+    );
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByRole('link').tagName).toBe('A');
   });
 
   it('applies the destructive variant class', () => {
