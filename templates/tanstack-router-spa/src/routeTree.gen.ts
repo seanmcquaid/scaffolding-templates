@@ -14,10 +14,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as KitchenSinkIndexRouteImport } from './routes/kitchen-sink/index'
 
 const IndexLazyRouteImport = createFileRoute('/')()
-const ReactQueryIndexLazyRouteImport = createFileRoute('/react-query/')()
 const ReactHookFormZodIndexLazyRouteImport = createFileRoute(
   '/react-hook-form-zod/',
 )()
+const ReactQueryIndexLazyRouteImport = createFileRoute('/react-query/')()
 const ReactQueryIdIndexLazyRouteImport = createFileRoute('/react-query/$id/')()
 
 const IndexLazyRoute = IndexLazyRouteImport.update({
@@ -25,13 +25,11 @@ const IndexLazyRoute = IndexLazyRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-const ReactQueryIndexLazyRoute = ReactQueryIndexLazyRouteImport.update({
-  id: '/react-query/',
-  path: '/react-query/',
+const KitchenSinkIndexRoute = KitchenSinkIndexRouteImport.update({
+  id: '/kitchen-sink/',
+  path: '/kitchen-sink/',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() =>
-  import('./routes/react-query/index.lazy').then((d) => d.Route),
-)
+} as any)
 const ReactHookFormZodIndexLazyRoute =
   ReactHookFormZodIndexLazyRouteImport.update({
     id: '/react-hook-form-zod/',
@@ -40,11 +38,13 @@ const ReactHookFormZodIndexLazyRoute =
   } as any).lazy(() =>
     import('./routes/react-hook-form-zod/index.lazy').then((d) => d.Route),
   )
-const KitchenSinkIndexRoute = KitchenSinkIndexRouteImport.update({
-  id: '/kitchen-sink/',
-  path: '/kitchen-sink/',
+const ReactQueryIndexLazyRoute = ReactQueryIndexLazyRouteImport.update({
+  id: '/react-query/',
+  path: '/react-query/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/react-query/index.lazy').then((d) => d.Route),
+)
 const ReactQueryIdIndexLazyRoute = ReactQueryIdIndexLazyRouteImport.update({
   id: '/react-query/$id/',
   path: '/react-query/$id/',
@@ -116,11 +116,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/react-query/': {
-      id: '/react-query/'
-      path: '/react-query'
-      fullPath: '/react-query/'
-      preLoaderRoute: typeof ReactQueryIndexLazyRouteImport
+    '/kitchen-sink/': {
+      id: '/kitchen-sink/'
+      path: '/kitchen-sink'
+      fullPath: '/kitchen-sink/'
+      preLoaderRoute: typeof KitchenSinkIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/react-hook-form-zod/': {
@@ -130,11 +130,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReactHookFormZodIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/kitchen-sink/': {
-      id: '/kitchen-sink/'
-      path: '/kitchen-sink'
-      fullPath: '/kitchen-sink/'
-      preLoaderRoute: typeof KitchenSinkIndexRouteImport
+    '/react-query/': {
+      id: '/react-query/'
+      path: '/react-query'
+      fullPath: '/react-query/'
+      preLoaderRoute: typeof ReactQueryIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/react-query/$id/': {

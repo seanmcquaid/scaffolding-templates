@@ -15,9 +15,9 @@
     "playwright:ui": "playwright test --ui",
     "prepare": "is-ci || husky",
     "start": "http-server -p 3000 build/client/",
-    "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test": "react-router typegen && vitest run",
+    "test:coverage": "react-router typegen && vitest run --coverage",
+    "test:watch": "react-router typegen && vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
