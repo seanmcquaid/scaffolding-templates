@@ -43,10 +43,6 @@ jobs:
           VITE_APP_MSW_ENABLED: false
           # Next.js SSR
           NEXT_PUBLIC_APP_ENVIRONMENT: dev
-          # Expo React Native
-          EXPO_PUBLIC_API_URL: https://jsonplaceholder.typicode.com
-          EXPO_PUBLIC_APP_NAME: Expo React Native Template
-          EXPO_PUBLIC_APP_VERSION: 0.0.0
 
   typescript-library-type-check:
     runs-on: ubuntu-latest

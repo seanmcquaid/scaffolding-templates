@@ -30,42 +30,6 @@
       ]
     },
     "templates": {
-      "expo-react-native": {
-        "description": "Expo-based React Native mobile application with TypeScript",
-        "tooling": ["expo", "react-native", "jest", "react-navigation", "react-hook-form", "zod", "tanstack-query"],
-        "skills": [
-          {
-            "name": "react-native-expo",
-            "repo": "jezweb/claude-skills",
-            "reason": "Expo and React Native development patterns"
-          },
-          {
-            "name": "expo-react-native-typescript",
-            "repo": "mindrally/skills",
-            "reason": "TypeScript best practices in React Native"
-          },
-          {
-            "name": "expo-react-native-performance",
-            "repo": "pproenca/dot-skills",
-            "reason": "Performance optimization for React Native apps"
-          },
-          {
-            "name": "jest-react-testing",
-            "repo": "manutej/luxor-claude-marketplace",
-            "reason": "Jest and React Testing Library for mobile app testing"
-          },
-          {
-            "name": "find-skills",
-            "repo": "vercel-labs/skills",
-            "reason": "Discover additional ecosystem skills for evolving template needs"
-          },
-          {
-            "name": "skill-creator",
-            "repo": "anthropics/skills",
-            "reason": "Create template-specific skills and customization workflows"
-          }
-        ]
-      },
       "next-ssr": {
         "description": "Next.js 16 with Server Components and App Router",
         "tooling": ["next.js", "react", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query"],
@@ -264,18 +228,6 @@
           "cd /Users/seanmcquaid/Documents/Development/scaffolding-templates",
           "npx -y skills add giuseppe-trisciuoglio/developer-kit --skill turborepo-monorepo --agent claude-code cursor",
           "npx -y skills add borghei/claude-skills --skill monorepo-navigator --agent claude-code cursor",
-          "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
-          "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
-        ]
-      },
-      "expo-react-native": {
-        "instructions": "Mobile app development with React Native & Expo",
-        "commands": [
-          "cd templates/expo-react-native",
-          "npx -y skills add jezweb/claude-skills --skill react-native-expo --agent claude-code cursor",
-          "npx -y skills add mindrally/skills --skill expo-react-native-typescript --agent claude-code cursor",
-          "npx -y skills add pproenca/dot-skills --skill expo-react-native-performance --agent claude-code cursor",
-          "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
           "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
           "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]

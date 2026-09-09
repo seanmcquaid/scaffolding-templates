@@ -215,7 +215,7 @@ For general development tasks:
 7. **@maintenance-engineer** - Bug fixes and maintenance
 8. **@production-support-engineer** - Production issues
 
-#### Template Specialists (6)
+#### Template Specialists (5)
 
 For framework-specific guidance:
 
@@ -224,14 +224,13 @@ For framework-specific guidance:
 3. **@react-router-ssr-specialist** - React Router v7 SSR
 4. **@tanstack-router-spa-specialist** - TanStack Router
 5. **@typescript-library-specialist** - TypeScript libraries
-6. **@expo-react-native-specialist** - React Native/Expo
 
 ### Agent Context
 
 Agents understand your context automatically:
 
 **Root directory:**
-- All 14 agents available
+- All 13 agents available
 - Use for cross-template work
 
 **Template directory:**
@@ -437,7 +436,7 @@ Traditional AI assistants are generalists. Custom sub-agents provide:
 
 ```
 scaffolding-templates/
-├── agents/                           # Root-level agents (14 total)
+├── agents/                           # Root-level agents (13 total)
 │   ├── README.md                     # Agent overview
 │   ├── requirements-analyst.agent.md
 │   ├── software-architect.agent.md
@@ -452,7 +451,6 @@ scaffolding-templates/
 │   ├── react-router-ssr-specialist.agent.md
 │   ├── tanstack-router-spa-specialist.agent.md
 │   ├── typescript-library-specialist.agent.md
-│   └── expo-react-native-specialist.agent.md
 │
 ├── templates/
 │   ├── next-ssr/
@@ -498,7 +496,7 @@ General-purpose agents covering the complete software development lifecycle:
 | **Maintenance Engineer** | `maintenance-engineer.agent.md` | Bug fixes, refactoring, dependency updates, technical debt, code improvements |
 | **Production Support Engineer** | `production-support-engineer.agent.md` | Incident response, monitoring, log analysis, production debugging, reliability |
 
-#### 2. Template Specialist Agents (6 Agents)
+#### 2. Template Specialist Agents (5 Agents)
 
 Framework-specific experts with deep knowledge of their respective templates:
 
@@ -509,7 +507,6 @@ Framework-specific experts with deep knowledge of their respective templates:
 | **React Router v7 SPA Specialist** | `react-router-v7-spa` | Client routing, TanStack Query, URL state, code splitting, progressive enhancement |
 | **React Router v7 SSR Specialist** | `react-router-v7-ssr` | SSR loaders, server actions, hydration, SEO optimization, streaming |
 | **TanStack Router SPA Specialist** | `tanstack-router-spa` | Type-safe routing, search params, route generation, TanStack Query integration |
-| **Expo React Native Specialist** | `expo-react-native` | Expo Router, native modules, platform-specific code, EAS Build, mobile performance |
 
 ### Agent File Structure
 
@@ -1053,7 +1050,6 @@ Use template specialist:
 - react-router-ssr-specialist
 - tanstack-router-spa-specialist
 - typescript-library-specialist
-- expo-react-native-specialist
 ```
 
 ### Resources

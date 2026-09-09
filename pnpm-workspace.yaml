@@ -7,8 +7,3 @@ allowBuilds:
   msw: false
   sharp: false
   unrs-resolver: false
-
-packageExtensions:
-  react-native-worklets@0.10.0:
-    dependencies:
-      '@babel/generator': 7.29.7
