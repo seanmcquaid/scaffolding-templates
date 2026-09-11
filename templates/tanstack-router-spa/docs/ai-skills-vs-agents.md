@@ -45,13 +45,12 @@ Instructions and guidelines...
 7. maintenance-engineering
 8. production-support
 
-**6 Template Specialist Skills:**
+**5 Template Specialist Skills:**
 1. nextjs-ssr
 2. react-router-spa
 3. react-router-ssr
 4. tanstack-router-spa
 5. typescript-library
-6. expo-react-native
 
 ## What are Agents?
 
@@ -78,7 +77,7 @@ Detailed instructions, examples, checklists...
 - ✅ **File Location**: `/.agents/[agent-name].agent.md`
 - ✅ **Naming**: Use `.agent.md` extension
 
-### Available Agents (14 total)
+### Available Agents (13 total)
 
 **8 SDLC Phase Agents:**
 1. requirements-analyst
@@ -90,13 +89,12 @@ Detailed instructions, examples, checklists...
 7. maintenance-engineer
 8. production-support-engineer
 
-**6 Template Specialist Agents:**
+**5 Template Specialist Agents:**
 1. nextjs-ssr-specialist
 2. react-router-spa-specialist
 3. react-router-ssr-specialist
 4. tanstack-router-spa-specialist
 5. typescript-library-specialist
-6. expo-react-native-specialist
 
 ## Key Differences
 
@@ -168,7 +166,6 @@ Skills and Agents cover the same functional areas but use slightly different nam
 | react-router-ssr | react-router-ssr-specialist | React Router SSR |
 | tanstack-router-spa | tanstack-router-spa-specialist | TanStack Router |
 | typescript-library | typescript-library-specialist | TypeScript libraries |
-| expo-react-native | expo-react-native-specialist | React Native/Expo |
 
 ## When to Use Which
 

@@ -9,7 +9,7 @@ All agents are duplicated in two locations for maximum flexibility:
 ### 1. Root Agents (This Directory)
 **Location**: `/.agents/`
 
-All 14 agents (8 SDLC + 6 template specialists) available for repository-wide access.
+All 13 agents (8 SDLC + 5 template specialists) available for repository-wide access.
 
 ### 2. Template Agents (Self-Contained)
 **Location**: `/templates/[template-name]/.agents/`
@@ -151,9 +151,6 @@ Each template has its own specialized agent located in `/templates/[template-nam
 5. **TanStack Router SPA Specialist** (`/templates/tanstack-router-spa/.agents/`)
    - Type-safe routing, search parameter validation
 
-6. **Expo React Native Specialist** (`/templates/expo-react-native/.agents/`)
-   - Cross-platform mobile, Expo SDK, native modules
-
 To use a template-specific agent, navigate to the template directory or select it when the agent dropdown shows available agents for your workspace.
 - TanStack Query integration
 - URL state management
@@ -183,18 +180,6 @@ Expert in TanStack Router with type-safe routing.
 - Route code generation
 - TanStack Query integration
 - Type-safe navigation
-
-### Expo React Native Specialist
-**File**: `expo-react-native-specialist.agent.md`
-
-Expert in Expo and React Native for cross-platform mobile development.
-
-**Use for:**
-- Expo Router navigation
-- Native module integration
-- Platform-specific code
-- Mobile performance optimization
-- EAS Build and deployment
 
 ## How to Use Custom Agents
 
