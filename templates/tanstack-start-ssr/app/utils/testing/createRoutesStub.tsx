@@ -1,5 +1,5 @@
 import {
-  createBrowserHistory,
+  createMemoryHistory,
   createRootRoute,
   createRoute,
   createRouter,
@@ -21,8 +21,9 @@ const createRoutesStub = (
   },
 ) => {
   const rootRoute = createRootRoute();
-  const history = createBrowserHistory();
-  history.push(args?.initialPath ?? '/');
+  const history = createMemoryHistory({
+    initialEntries: [args?.initialPath ?? '/'],
+  });
 
   const routes = routeStubs.map(({ path, component, loader }) =>
     createRoute({
