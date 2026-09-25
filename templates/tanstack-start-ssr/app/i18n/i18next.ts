@@ -7,10 +7,16 @@ const languageDetector = new I18nextBrowserLanguageDetector();
 
 languageDetector.addDetector({
   cacheUserLanguage(lng) {
-    localStorage.setItem('i18nextLng', lng);
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('i18nextLng', lng);
+    }
   },
 
   lookup() {
+    if (typeof window === 'undefined') {
+      return undefined;
+    }
+
     const host = window.location.host;
     if (host.includes('.ca')) {
       return 'en-CA';

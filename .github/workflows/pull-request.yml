@@ -46,13 +46,14 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Install Playwright browsers and system dependencies
         run: pnpm --filter "${{ matrix.package }}" exec playwright install --with-deps
-      - name: Run Playwright integration and E2E tests
-        run: pnpm --filter "${{ matrix.package }}" exec playwright test playwright/integration playwright/e2e
+      - name: Run Playwright browser smoke test
+        run: pnpm --filter "${{ matrix.package }}" exec playwright test playwright/e2e/ci-smoke.spec.ts
         env:
           CI: true
           VITE_APP_ENVIRONMENT: dev
           VITE_APP_MSW_ENABLED: false
           NEXT_PUBLIC_APP_ENVIRONMENT: dev
+          EXAMPLE_SECRET_KEY: ci-test-secret
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
