@@ -4,7 +4,7 @@ A comprehensive, production-ready template for building and publishing TypeScrip
 
 ## ✨ Features
 
-- **📦 Dual Package Support** - ESM and CommonJS builds with proper `package.json` exports
+- **📦 ESM Package** - ESM output with explicit `package.json` exports and TypeScript declarations
 - **🔍 Type Safety** - Strict TypeScript configuration with comprehensive type checking
 - **🧪 Testing Suite** - Vitest with coverage reporting and circular dependency detection
 - **📋 Code Quality** - ESLint + Prettier with pre-commit hooks via Husky
@@ -129,7 +129,7 @@ pnpm test:coverage
 
 Before publishing, the template validates:
 
-- **Type Safety**: `pnpm check-types` - Validates exports with @arethetypeswrong/cli
+- **Type Safety**: `pnpm check-types` - Validates the ESM package exports with @arethetypeswrong/cli. CommonJS consumers are not supported.
 - **Tree Shaking**: `pnpm check-treeshaking` - Ensures bundle is tree-shakeable
 - **Bundle Size**: `pnpm bundlesize` - Monitors package size
 - **Circular Dependencies**: Detected automatically in tests

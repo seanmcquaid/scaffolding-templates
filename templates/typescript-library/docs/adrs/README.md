@@ -34,11 +34,12 @@ Each ADR follows a consistent structure:
 
 - [ADR-000: Template](./ADR-000-template.md) - Template for new ADRs
 - [ADR-001: Use tsdown for Library Builds](./ADR-001-tsdown-build-tool.md)
-- [ADR-002: Dual Package Support (ESM + CJS)](./ADR-002-dual-package-support.md)
+- [ADR-002: Dual Package Support (ESM + CJS)](./ADR-002-dual-package-support.md) - Superseded by ADR-007
 - [ADR-003: Testing Strategy with Vitest](./ADR-003-testing-strategy.md)
 - [ADR-004: Publishing with Changesets](./ADR-004-changesets-publishing.md)
 - [ADR-005: Code Quality Tooling](./ADR-005-code-quality.md)
 - [ADR-006: Bundle Size Monitoring](./ADR-006-bundle-monitoring.md)
+- [ADR-007: ESM-Only Package Output](./ADR-007-esm-only-package.md)
 
 ## Resources
 

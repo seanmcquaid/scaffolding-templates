@@ -1,6 +1,6 @@
 # ADR-002: Dual Package Support (ESM + CJS)
 
-**Status**: Accepted
+**Status**: Superseded by [ADR-007: ESM-Only Package Output](./ADR-007-esm-only-package.md)
 
 **Date**: 2024-12-11
 

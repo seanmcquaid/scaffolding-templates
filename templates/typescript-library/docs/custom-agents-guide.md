@@ -502,7 +502,7 @@ Framework-specific experts with deep knowledge of their respective templates:
 
 | Agent | Template | Expertise |
 |-------|----------|-----------|
-| **TypeScript Library Specialist** | `typescript-library` | Library APIs, dual ESM/CJS exports, NPM publishing, package configuration |
+| **TypeScript Library Specialist** | `typescript-library` | Library APIs, ESM exports, NPM publishing, package configuration |
 | **Next.js SSR Specialist** | `next-ssr` | App Router, Server Components, Server Actions, metadata, streaming, caching |
 | **React Router SPA Specialist** | `react-router/spa` | Client routing, TanStack Query, URL state, code splitting, progressive enhancement |
 | **React Router SSR Specialist** | `react-router/ssr` | SSR loaders, server actions, hydration, SEO optimization, streaming |
