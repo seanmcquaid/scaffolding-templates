@@ -9,8 +9,8 @@ import {
   type LinkProps as LinkPrimitiveProps,
 } from 'react-aria-components';
 
-import { cn } from '@/utils/styles';
 import buttonVariants from './buttonVariants';
+import { cn } from '@/utils/styles';
 
 type ButtonStyleProps = VariantProps<typeof buttonVariants> & {
   className?: string;
