@@ -19,6 +19,8 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Lint
         run: pnpm lint
+      - name: Check setup script sync
+        run: pnpm check:setup-scripts
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
