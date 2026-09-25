@@ -28,6 +28,19 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Run Unit Tests
         run: pnpm test:coverage
+  type-checks:
+    runs-on: ubuntu-latest
+    name: Type Checks
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node-environment
+      - name: Check types
+        run: pnpm exec turbo check-types --concurrency=1
+        env:
+          VITE_APP_ENVIRONMENT: dev
+          VITE_APP_MSW_ENABLED: false
+          NEXT_PUBLIC_APP_ENVIRONMENT: dev
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
@@ -44,17 +57,6 @@ jobs:
           # Next.js SSR
           NEXT_PUBLIC_APP_ENVIRONMENT: dev
 
-  typescript-library-type-check:
-    runs-on: ubuntu-latest
-    name: TypeScript Library Type Check
-    steps:
-      - name: Checkout latest
-        uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-node-environment
-      - name: Build TypeScript Library
-        run: pnpm --filter typescript-library build
-      - name: Check Types
-        run: pnpm --filter typescript-library check-types
   typescript-library-tree-shaking:
     runs-on: ubuntu-latest
     name: TypeScript Library Tree Shaking
