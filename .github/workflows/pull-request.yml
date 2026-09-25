@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Install Playwright browsers and system dependencies
-        run: pnpm exec playwright install --with-deps
+        run: npx --yes playwright install --with-deps
       - name: Run browser smoke tests
         run: pnpm playwright:run-e2e -- --grep "renders the starter home page"
         env:
