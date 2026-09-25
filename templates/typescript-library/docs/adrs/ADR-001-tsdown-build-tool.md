@@ -14,7 +14,7 @@
 
 TypeScript libraries need a build tool that can:
 
-- Generate both ESM and CommonJS outputs
+- Generate both ESM and CommonJS output
 - Produce TypeScript declaration files (.d.ts)
 - Handle modern TypeScript features
 - Be fast and reliable
@@ -32,7 +32,7 @@ We will use **tsdown** (based on esbuild) for building this TypeScript library.
 tsdown provides:
 
 1. **Speed**: Extremely fast builds powered by esbuild
-2. **Dual Output**: Easy ESM + CJS generation with proper configuration
+2. **Dual Output**: Generates both ESM and CommonJS modules
 3. **Type Generation**: Built-in TypeScript declaration file generation
 4. **Modern**: Supports latest TypeScript and JavaScript features
 5. **Simple Config**: Minimal configuration required
@@ -43,7 +43,7 @@ tsdown provides:
 
 ### Positive Consequences
 - Very fast build times
-- Clean, optimized output for both ESM and CJS
+- Clean, optimized ESM output
 - Automatic declaration file generation
 - Small configuration surface
 - Good DX with watch mode
@@ -73,9 +73,9 @@ tsdown provides:
 - **Cons**: 
   - Slower than esbuild-based tools
   - No bundling (just transpilation)
-  - Need separate tool for dual package
+  - Need separate tooling for some advanced packaging scenarios
   - More configuration needed
-- **Reason for rejection**: Too slow, need separate tools for dual package
+- **Reason for rejection**: Too slow and requires more configuration for this template's dual-format output
 
 ### Alternative 2: tsup
 - **Description**: Another esbuild-based bundler for TypeScript
@@ -120,7 +120,7 @@ tsdown provides:
 // package.json
 {
   "scripts": {
-    "build": "tsdown src/index.ts --dts --format esm,cjs"
+    "build": "tsdown"
   }
 }
 ```
@@ -130,9 +130,14 @@ tsdown provides:
 {
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   }
 }

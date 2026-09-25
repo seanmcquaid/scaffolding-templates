@@ -102,16 +102,16 @@ Dual package support provides:
 {
   "type": "module",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
         "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
     }
@@ -125,19 +125,20 @@ Dual package support provides:
 ### Build Output
 ```
 dist/
-  index.mjs        # ESM output
+  index.js         # ESM output
   index.cjs        # CommonJS output
-  index.d.ts       # TypeScript declarations
+  index.d.ts       # ESM TypeScript declarations
+  index.d.cts      # CommonJS TypeScript declarations
 ```
 
 ### Testing Both Formats
 Test imports work correctly:
 ```bash
 # Test ESM
-node --input-type=module -e "import pkg from './dist/index.mjs'"
+node --input-type=module -e "import { useFunPackage } from './dist/index.js'; useFunPackage({ num: 1 })"
 
 # Test CJS
-node -e "const pkg = require('./dist/index.cjs')"
+node -e "const { useFunPackage } = require('./dist/index.cjs'); useFunPackage({ num: 1 })"
 ```
 
 ## Related Decisions
