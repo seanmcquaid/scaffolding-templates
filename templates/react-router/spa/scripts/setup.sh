@@ -247,9 +247,7 @@ setup_playwright() {
     if npx playwright install --with-deps; then
         echo "✅ Playwright browsers installed"
     else
-        echo "❌ Failed to install Playwright browsers. This may affect end-to-end testing."
-        echo "You can try running 'npx playwright install --with-deps' manually later."
-        echo "Continuing with setup..."
+        exit_with_error "Failed to install Playwright browsers. Setup is incomplete. Run 'npx playwright install --with-deps' to install them, then rerun this setup script."
     fi
 }
 
