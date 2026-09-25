@@ -479,8 +479,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       dotenv:
-        specifier: ^17.4.2
-        version: 17.4.2
+        specifier: ^18.0.3
+        version: 18.0.3
       i18next:
         specifier: ^26.4.2
         version: 26.4.2(typescript@6.0.3)
@@ -3958,9 +3958,10 @@ packages:
     resolution: {integrity: sha512-1gxPBJpI/pcjQhKgIU91II6Wkay+dLcN3M6rf2uwP8hRur3HtQXjVrdAK3sjC0piaEuxzMwjXChcETiJl47lAQ==}
     engines: {node: '>=18'}
 
-  dotenv@17.4.2:
-    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+  dotenv@18.0.3:
+    resolution: {integrity: sha512-/8CJTyL817qPnfbQrJgOEcrU3fDrJkRIoXBE566wHuvIXKOCHUZhPqGPbCPi9SogjdGnreF0TlvnTgK6J/8zpA==}
     engines: {node: '>=12'}
+    hasBin: true
 
   dpdm@4.3.0:
     resolution: {integrity: sha512-2ZrP5B3MHHo7mXWgNxntU5DhJIvXNP4hcMBdCJsuxEWenKMdf4h6XouuKMf3Sj2SAUNBy/ajcWAVIyiOZly6rw==}
@@ -9588,7 +9589,7 @@ snapshots:
     dependencies:
       type-fest: 4.41.0
 
-  dotenv@17.4.2: {}
+  dotenv@18.0.3: {}
 
   dpdm@4.3.0:
     dependencies:
