@@ -1,0 +1,38 @@
+name: Standalone Templates
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - "**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standalone-template:
+    runs-on: ubuntu-latest
+    name: Standalone / ${{ matrix.template }}
+    strategy:
+      fail-fast: false
+      matrix:
+        template:
+          - next-ssr
+          - react-router/spa
+          - react-router/ssr
+          - tanstack-router-spa
+          - tanstack-start-ssr
+          - typescript-library
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Setup Node and pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11.1.1
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+      - name: Install and validate template outside the workspace
+        run: bash .github/scripts/check-standalone-template.sh "${{ matrix.template }}"
