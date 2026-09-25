@@ -35,8 +35,8 @@ jobs:
       - name: Checkout latest
         uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
-      - name: Install Chromium and system dependencies
-        run: pnpm --filter react-router-spa exec playwright install --with-deps chromium
+      - name: Install Playwright browsers and system dependencies
+        run: pnpm --filter react-router-spa exec playwright install --with-deps
       - name: Run browser smoke tests through Turbo
         run: >-
           pnpm exec turbo playwright:ci-smoke
