@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "next build",
+    "check-types": "tsc --noEmit",
     "bundlesize": "bundlesize",
     "dev": "next dev --turbopack",
     "lint": "eslint src playwright --max-warnings=0",

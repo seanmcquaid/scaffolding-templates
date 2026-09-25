@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
+    "check-types": "tsc --noEmit",
     "bundlesize": "bundlesize",
     "dev": "vite",
     "lint": "eslint src playwright --max-warnings=0",

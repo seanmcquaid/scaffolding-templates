@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router typegen && cross-env NODE_ENV=production react-router build",
+    "check-types": "react-router typegen && tsc --noEmit",
     "bundlesize": "bundlesize",
     "dev": "react-router dev",
     "lint": "eslint app playwright --max-warnings=0",
