@@ -28,6 +28,31 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Run Unit Tests
         run: pnpm test:coverage
+  browser-tests:
+    runs-on: ubuntu-latest
+    name: Browser Tests (${{ matrix.package }})
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - react-router-spa
+          - react-router-ssr
+          - tanstack-start-ssr
+          - tanstack-router-spa
+          - next-ssr
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node-environment
+      - name: Install Playwright browsers and system dependencies
+        run: pnpm --filter "${{ matrix.package }}" exec playwright install --with-deps
+      - name: Run Playwright integration and E2E tests
+        run: pnpm --filter "${{ matrix.package }}" exec playwright test playwright/integration playwright/e2e
+        env:
+          CI: true
+          VITE_APP_ENVIRONMENT: dev
+          VITE_APP_MSW_ENABLED: false
+          NEXT_PUBLIC_APP_ENVIRONMENT: dev
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
