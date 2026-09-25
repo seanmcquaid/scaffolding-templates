@@ -37,15 +37,8 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Install Playwright browsers and system dependencies
         run: pnpm --filter react-router-spa exec playwright install --with-deps
-      - name: Run browser smoke tests through Turbo
-        run: >-
-          pnpm exec turbo playwright:ci-smoke
-          --filter=next-ssr
-          --filter=react-router-spa
-          --filter=react-router-ssr
-          --filter=tanstack-router-spa
-          --filter=tanstack-start-ssr
-          --concurrency=2
+      - name: Run browser smoke tests
+        run: pnpm playwright:run-e2e -- --grep "renders the starter home page"
         env:
           CI: true
           VITE_APP_ENVIRONMENT: dev

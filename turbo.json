@@ -50,9 +50,6 @@
     },
     "playwright:run-e2e": {
       "dependsOn": ["build"],
-      "outputs": ["playwright-report/**", "test-results/**"]
-    },
-    "playwright:ci-smoke": {
       "env": [
         "CI",
         "VITE_APP_ENVIRONMENT",
