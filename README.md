@@ -43,9 +43,25 @@ This approach provides the full Unix-like environment that the setup scripts req
 
 ## Scaffolding a new project
 
+Choose a framework starter, then select a profile when one is available:
+
+| Starter | Profiles | Template path(s) |
+| --- | --- | --- |
+| React Router | SPA, SSR | `templates/react-router/spa`, `templates/react-router/ssr` |
+| TanStack Start | SSR | `templates/tanstack-start-ssr` |
+| TanStack Router | SPA | `templates/tanstack-router-spa` |
+| Next.js | SSR | `templates/next-ssr` |
+| TypeScript library | — | `templates/typescript-library` |
+
+React Router is one framework family with two deliberately separate profiles. They share the router ecosystem but have different runtime, environment, and deployment requirements.
+
+For example, to scaffold a React Router SPA:
+
 ```bash
-npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/<template-name> <project-name>
+npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/react-router/spa <project-name>
 ```
+
+For SSR, use `templates/react-router/ssr` instead. The other template paths are listed above.
 
 After scaffolding, run the setup script to automatically configure your development environment:
 
@@ -57,12 +73,11 @@ chmod +x scripts/setup.sh
 
 ## Templates
 
-1. **TypeScript Libraries** - Modern TypeScript library with build tools, testing, and publishing setup
-2. **React Router V7 SPA** - Single-page application using React Router v7
-3. **React Router V7 SSR** - Server-side rendered application using React Router v7  
-4. **Next SSR** - Next.js server-side rendered application with modern React patterns
-5. **TanStack Router SPA** - Single-page application using TanStack Router
-6. **TanStack Start SSR** - Server-side rendered application with TanStack
+1. **React Router** - SPA and SSR profiles
+2. **TanStack Start** - Full-stack server-rendered React application
+3. **TanStack Router** - Client-rendered single-page application
+4. **Next.js** - Server-rendered application with modern React patterns
+5. **TypeScript library** - Library build, testing, and publishing setup
 
 Each template includes:
 - ✅ Automated setup script for quick start

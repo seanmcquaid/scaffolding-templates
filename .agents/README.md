@@ -142,10 +142,10 @@ Each template has its own specialized agent located in `/templates/[template-nam
 2. **Next.js SSR Specialist** (`/templates/next-ssr/.agents/`)
    - App Router, Server Components, Server Actions, SEO
 
-3. **React Router v7 SPA Specialist** (`/templates/react-router-v7-spa/.agents/`)
+3. **React Router SPA Specialist** (`/templates/react-router/spa/.agents/`)
    - Client-side routing, TanStack Query, URL state management
 
-4. **React Router v7 SSR Specialist** (`/templates/react-router-v7-ssr/.agents/`)
+4. **React Router SSR Specialist** (`/templates/react-router/ssr/.agents/`)
    - SSR loaders, server actions, hydration strategies
 
 5. **TanStack Router SPA Specialist** (`/templates/tanstack-router-spa/.agents/`)
@@ -157,10 +157,10 @@ To use a template-specific agent, navigate to the template directory or select i
 - Code splitting strategies
 - Progressive enhancement
 
-### React Router v7 SSR Specialist
+### React Router SSR Specialist
 **File**: `react-router-ssr-specialist.agent.md`
 
-Expert in React Router v7 with server-side rendering.
+Expert in React Router with server-side rendering.
 
 **Use for:**
 - Server-side rendering

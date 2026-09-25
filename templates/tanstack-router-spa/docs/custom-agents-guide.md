@@ -69,7 +69,7 @@ Custom agents are specialized AI assistants for different development tasks. Thi
 ```
 @implementation-engineer
 
-Add a login form to /templates/react-router-v7-ssr/app/routes/login.tsx
+Add a login form to /templates/react-router/ssr/app/routes/login.tsx
 following the template patterns.
 ```
 
@@ -145,7 +145,7 @@ Based on the requirements above, design:
 @implementation-engineer
 
 Implement the dashboard customization following the architecture.
-Template: React Router v7 SSR
+Template: React Router SSR
 ```
 
 **Step 4: Test**
@@ -185,7 +185,7 @@ Please investigate and fix.
 @react-router-ssr-specialist
 
 How do I implement server-side data loading with error boundaries
-in React Router v7?
+in React Router?
 ```
 
 #### 4. Code Review
@@ -193,7 +193,7 @@ in React Router v7?
 ```
 @quality-analyst
 
-Review the changes in /templates/react-router-v7-ssr/app/routes/dashboard.tsx
+Review the changes in /templates/react-router/ssr/app/routes/dashboard.tsx
 and provide feedback on:
 - Code quality
 - Test coverage
@@ -220,8 +220,8 @@ For general development tasks:
 For framework-specific guidance:
 
 1. **@nextjs-ssr-specialist** - Next.js App Router
-2. **@react-router-spa-specialist** - React Router v7 SPA
-3. **@react-router-ssr-specialist** - React Router v7 SSR
+2. **@react-router-spa-specialist** - React Router SPA
+3. **@react-router-ssr-specialist** - React Router SSR
 4. **@tanstack-router-spa-specialist** - TanStack Router
 5. **@typescript-library-specialist** - TypeScript libraries
 
@@ -251,7 +251,7 @@ Add authentication
 ```
 @implementation-engineer
 
-Task: Add JWT authentication to React Router v7 SSR template
+Task: Add JWT authentication to React Router SSR template
 Requirements:
 - HTTP-only cookies
 - Login and signup pages
@@ -311,7 +311,7 @@ Be explicit:
 IMPORTANT: Follow these patterns:
 1. Use translation keys (see /AGENTS.md)
 2. Use React Hook Form for forms
-3. Reference: /templates/react-router-v7-ssr/app/routes/login.tsx
+3. Reference: /templates/react-router/ssr/app/routes/login.tsx
 
 Implement...
 ```
@@ -343,7 +343,7 @@ Analyze: User needs to export their data to CSV
 Design the export feature based on requirements above
 
 @implementation-engineer
-Implement CSV export in React Router v7 SSR template:
+Implement CSV export in React Router SSR template:
 - Export button in user dashboard
 - Backend API endpoint
 - Type-safe with Zod validation
@@ -467,7 +467,7 @@ scaffolding-templates/
 │   │   │   └── nextjs-ssr-specialist.agent.md  # Template-specific
 │   │   └── ...
 │   │
-│   ├── react-router-v7-spa/
+│   ├── react-router/spa/
 │   │   ├── agents/
 │   │   │   └── react-router-spa-specialist.agent.md
 │   │   └── ...
@@ -504,8 +504,8 @@ Framework-specific experts with deep knowledge of their respective templates:
 |-------|----------|-----------|
 | **TypeScript Library Specialist** | `typescript-library` | Library APIs, dual ESM/CJS exports, NPM publishing, package configuration |
 | **Next.js SSR Specialist** | `next-ssr` | App Router, Server Components, Server Actions, metadata, streaming, caching |
-| **React Router v7 SPA Specialist** | `react-router-v7-spa` | Client routing, TanStack Query, URL state, code splitting, progressive enhancement |
-| **React Router v7 SSR Specialist** | `react-router-v7-ssr` | SSR loaders, server actions, hydration, SEO optimization, streaming |
+| **React Router SPA Specialist** | `react-router/spa` | Client routing, TanStack Query, URL state, code splitting, progressive enhancement |
+| **React Router SSR Specialist** | `react-router/ssr` | SSR loaders, server actions, hydration, SEO optimization, streaming |
 | **TanStack Router SPA Specialist** | `tanstack-router-spa` | Type-safe routing, search params, route generation, TanStack Query integration |
 
 ### Agent File Structure

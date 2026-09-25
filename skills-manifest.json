@@ -61,14 +61,14 @@
           }
         ]
       },
-      "react-router-v7-spa": {
-        "description": "React Router v7 client-side SPA with Vite",
+      "react-router/spa": {
+        "description": "React Router client-side SPA with Vite",
         "tooling": ["react-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query"],
         "skills": [
           {
             "name": "react-router-patterns",
             "repo": "code-visionary/react-router-skills",
-            "reason": "React Router v7 SPA patterns and best practices",
+            "reason": "React Router SPA patterns and best practices",
             "note": "Target should be a generic router skill, not framework-specific (no tRPC, no SolidJS)"
           },
           {
@@ -88,14 +88,14 @@
           }
         ]
       },
-      "react-router-v7-ssr": {
-        "description": "React Router v7 with server-side rendering",
+      "react-router/ssr": {
+        "description": "React Router with server-side rendering",
         "tooling": ["react-router", "vite", "vitest", "playwright", "typescript", "tailwind-css", "react-hook-form", "zod", "tanstack-query", "node-ssr"],
         "skills": [
           {
             "name": "react-router-patterns",
             "repo": "code-visionary/react-router-skills",
-            "reason": "React Router v7 patterns including SSR loaders/actions"
+            "reason": "React Router patterns including SSR loaders/actions"
           },
           {
             "name": "epic-react-patterns",
@@ -197,14 +197,14 @@
     "excluded": {
       "trpc-type-safety": {
         "reason": "tRPC is not used in any template",
-        "attempted_install": "react-router-v7-spa via bobmatnyc/claude-mpm-skills",
-        "correction": "React Router v7 SPA should not include tRPC skills"
+        "attempted_install": "react-router/spa via bobmatnyc/claude-mpm-skills",
+        "correction": "React Router SPA should not include tRPC skills"
       },
       "nextjs-server-components": {
         "reason": "Use nextjs-app-router instead - more comprehensive"
       },
       "solidjs-solidstart-expert": {
-        "reason": "SolidJS is not used - react-router-v7-ssr is React-only"
+        "reason": "SolidJS is not used - react-router/ssr is React-only"
       },
       "vue-and-tanstack-skills": {
         "reason": "Vue.js is not used - tanstack-router-spa is React-only"
@@ -243,10 +243,10 @@
           "npx -y skills add anthropics/skills --skill skill-creator --agent claude-code cursor"
         ]
       },
-      "react-router-v7-spa": {
-        "instructions": "React Router v7 client-side SPA with Vite",
+      "react-router/spa": {
+        "instructions": "React Router client-side SPA with Vite",
         "commands": [
-          "cd templates/react-router-v7-spa",
+          "cd templates/react-router/spa",
           "npx -y skills add code-visionary/react-router-skills --skill testing-helper --agent claude-code cursor",
           "npx -y skills add manutej/luxor-claude-marketplace --skill jest-react-testing --agent claude-code cursor",
           "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
@@ -254,10 +254,10 @@
           "EXCLUDE: trpc-type-safety (tRPC is not a dependency)"
         ]
       },
-      "react-router-v7-ssr": {
-        "instructions": "React Router v7 with server-side rendering",
+      "react-router/ssr": {
+        "instructions": "React Router with server-side rendering",
         "commands": [
-          "cd templates/react-router-v7-ssr",
+          "cd templates/react-router/ssr",
           "npx -y skills add epicweb-dev/epic-stack --skill epic-react-patterns --agent claude-code cursor",
           "npx -y skills add code-visionary/react-router-skills --skill typescript-patterns --agent claude-code cursor",
           "npx -y skills add vercel-labs/skills --skill find-skills --agent claude-code cursor",
