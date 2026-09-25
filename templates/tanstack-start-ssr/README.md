@@ -19,7 +19,7 @@ chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
 
-The script checks or installs Git, NVM, Node.js, and pnpm as needed; creates `.env` from `.env.example` if it does not exist; installs dependencies and Playwright browsers; initializes Git hooks when run inside a Git repository; and initializes the MSW service worker in `public/`. It may need `sudo` to install system packages on Linux. If Playwright browser installation fails, the script continues; install browsers later with `pnpm exec playwright install`.
+The script checks or installs Git, NVM, Node.js, and pnpm as needed; creates `.env` from `.env.example` if it does not exist; installs dependencies and Playwright browsers; initializes Git hooks when run inside a Git repository; and initializes the MSW service worker in `public/`. It may need `sudo` to install system packages on Linux. If browser installation needs to be repeated, run `pnpm exec playwright install`.
 
 Then start the development server:
 
