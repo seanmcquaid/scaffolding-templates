@@ -10,6 +10,7 @@
     "lint": "eslint app playwright --max-warnings=0",
     "lint:fix": "eslint app playwright --fix",
     "playwright:codegen": "playwright codegen",
+    "playwright:ci-smoke": "playwright test playwright/e2e/ci-smoke.spec.ts",
     "playwright:debug": "playwright test --debug",
     "playwright:run-e2e": "playwright test playwright/e2e",
     "playwright:run-integration": "playwright test playwright/integration",

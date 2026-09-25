@@ -30,24 +30,22 @@ jobs:
         run: pnpm test:coverage
   browser-tests:
     runs-on: ubuntu-latest
-    name: Browser Tests (${{ matrix.package }})
-    strategy:
-      fail-fast: false
-      matrix:
-        package:
-          - react-router-spa
-          - react-router-ssr
-          - tanstack-start-ssr
-          - tanstack-router-spa
-          - next-ssr
+    name: Browser Smoke Tests
     steps:
       - name: Checkout latest
         uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
-      - name: Install Playwright browsers and system dependencies
-        run: pnpm --filter "${{ matrix.package }}" exec playwright install --with-deps
-      - name: Run Playwright browser smoke test
-        run: pnpm --filter "${{ matrix.package }}" exec playwright test playwright/e2e/ci-smoke.spec.ts
+      - name: Install Chromium and system dependencies
+        run: pnpm --filter react-router-spa exec playwright install --with-deps chromium
+      - name: Run browser smoke tests through Turbo
+        run: >-
+          pnpm exec turbo playwright:ci-smoke
+          --filter=next-ssr
+          --filter=react-router-spa
+          --filter=react-router-ssr
+          --filter=tanstack-router-spa
+          --filter=tanstack-start-ssr
+          --concurrency=2
         env:
           CI: true
           VITE_APP_ENVIRONMENT: dev
