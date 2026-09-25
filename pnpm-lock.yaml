@@ -226,7 +226,7 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.6.5)
 
-  templates/react-router-v7-spa:
+  templates/react-router/spa:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.9.1
@@ -458,7 +458,7 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0(zod@4.6.5)
 
-  templates/react-router-v7-ssr:
+  templates/react-router/ssr:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.9.1

@@ -38,7 +38,7 @@ jobs:
       - name: Bundlesize Check
         run: pnpm exec turbo bundlesize --concurrency=1
         env:
-          # React Router v7 SPA/SSR and TanStack Router SPA
+          # React Router SPA/SSR and TanStack Router SPA
           VITE_APP_ENVIRONMENT: dev
           VITE_APP_MSW_ENABLED: false
           # Next.js SSR

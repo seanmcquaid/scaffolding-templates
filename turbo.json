@@ -3,6 +3,11 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+      "env": [
+        "VITE_APP_ENVIRONMENT",
+        "VITE_APP_MSW_ENABLED",
+        "NEXT_PUBLIC_APP_ENVIRONMENT"
+      ],
       "outputs": [
         "dist/**",
         ".next/**",
