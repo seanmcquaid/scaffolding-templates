@@ -47,6 +47,10 @@ Automated monitoring prevents accidental bundle bloat and ensures the library st
     {
       "path": "./dist/**/*.js",
       "maxSize": "10 kB"
+    },
+    {
+      "path": "./dist/**/*.cjs",
+      "maxSize": "10 kB"
     }
   ]
 }
@@ -54,7 +58,7 @@ Automated monitoring prevents accidental bundle bloat and ensures the library st
 
 ## Related Decisions
 
-- [ADR-007: ESM-Only Package Output](./ADR-007-esm-only-package.md)
+- [ADR-002: Dual Package Support (ESM + CJS)](./ADR-002-dual-package-support.md)
 
 ## References
 

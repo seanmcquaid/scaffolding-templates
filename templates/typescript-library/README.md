@@ -129,7 +129,7 @@ pnpm test:coverage
 
 Before publishing, the template validates:
 
-- **Type Safety**: `pnpm check-types` - Validates the ESM package exports with @arethetypeswrong/cli. CommonJS consumers are not supported.
+- **Type Safety**: `pnpm check-types` - Validates the ESM and CommonJS package type exports with @arethetypeswrong/cli.
 - **Tree Shaking**: `pnpm check-treeshaking` - Ensures bundle is tree-shakeable
 - **Bundle Size**: `pnpm bundlesize` - Monitors package size
 - **Circular Dependencies**: Detected automatically in tests

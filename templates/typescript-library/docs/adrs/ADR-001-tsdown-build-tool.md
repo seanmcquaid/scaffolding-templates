@@ -14,7 +14,7 @@
 
 TypeScript libraries need a build tool that can:
 
-- Generate ESM output
+- Generate both ESM and CommonJS output
 - Produce TypeScript declaration files (.d.ts)
 - Handle modern TypeScript features
 - Be fast and reliable
@@ -32,7 +32,7 @@ We will use **tsdown** (based on esbuild) for building this TypeScript library.
 tsdown provides:
 
 1. **Speed**: Extremely fast builds powered by esbuild
-2. **ESM Output**: Straightforward generation of modern JavaScript modules
+2. **Dual Output**: Generates both ESM and CommonJS modules
 3. **Type Generation**: Built-in TypeScript declaration file generation
 4. **Modern**: Supports latest TypeScript and JavaScript features
 5. **Simple Config**: Minimal configuration required
@@ -75,7 +75,7 @@ tsdown provides:
   - No bundling (just transpilation)
   - Need separate tooling for some advanced packaging scenarios
   - More configuration needed
-- **Reason for rejection**: Too slow and requires more configuration for this template's ESM-only output
+- **Reason for rejection**: Too slow and requires more configuration for this template's dual-format output
 
 ### Alternative 2: tsup
 - **Description**: Another esbuild-based bundler for TypeScript
@@ -130,8 +130,14 @@ tsdown provides:
 {
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   }
 }
@@ -139,7 +145,7 @@ tsdown provides:
 
 ## Related Decisions
 
-- [ADR-007: ESM-Only Package Output](./ADR-007-esm-only-package.md)
+- [ADR-002: Dual Package Support (ESM + CJS)](./ADR-002-dual-package-support.md)
 - [ADR-003: Testing Strategy with Vitest](./ADR-003-testing-strategy.md)
 
 ## References
