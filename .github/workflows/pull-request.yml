@@ -38,7 +38,7 @@ jobs:
       - name: Install Playwright browsers and system dependencies
         run: npx --yes playwright install --with-deps
       - name: Run browser smoke tests
-        run: pnpm exec turbo run playwright:run-e2e --concurrency=1 -- --grep "renders the starter home page"
+        run: pnpm playwright:run-e2e -- --grep "renders the starter home page"
         env:
           CI: true
           VITE_APP_ENVIRONMENT: dev
