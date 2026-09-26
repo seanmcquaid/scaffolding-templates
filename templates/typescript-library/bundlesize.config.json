@@ -3,6 +3,10 @@
     {
       "maxSize": "10 kB",
       "path": "./dist/**/*.js"
+    },
+    {
+      "maxSize": "10 kB",
+      "path": "./dist/**/*.cjs"
     }
   ]
 }

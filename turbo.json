@@ -50,6 +50,13 @@
     },
     "playwright:run-e2e": {
       "dependsOn": ["build"],
+      "env": [
+        "CI",
+        "VITE_APP_ENVIRONMENT",
+        "VITE_APP_MSW_ENABLED",
+        "NEXT_PUBLIC_APP_ENVIRONMENT",
+        "EXAMPLE_SECRET_KEY"
+      ],
       "outputs": ["playwright-report/**", "test-results/**"]
     }
   }

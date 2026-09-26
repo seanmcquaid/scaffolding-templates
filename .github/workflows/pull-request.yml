@@ -19,6 +19,8 @@ jobs:
       - uses: ./.github/actions/setup-node-environment
       - name: Lint
         run: pnpm lint
+      - name: Check setup script sync
+        run: pnpm check:setup-scripts
   unit-tests-coverage:
     runs-on: ubuntu-latest
     name: Unit Tests
@@ -41,6 +43,24 @@ jobs:
           VITE_APP_ENVIRONMENT: dev
           VITE_APP_MSW_ENABLED: false
           NEXT_PUBLIC_APP_ENVIRONMENT: dev
+
+  browser-tests:
+    runs-on: ubuntu-latest
+    name: Browser E2E Tests
+    steps:
+      - name: Checkout latest
+        uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node-environment
+      - name: Install Playwright browsers and system dependencies
+        run: npx --yes playwright install --with-deps
+      - name: Run E2E tests
+        run: pnpm playwright:run-e2e
+        env:
+          CI: true
+          VITE_APP_ENVIRONMENT: dev
+          VITE_APP_MSW_ENABLED: false
+          NEXT_PUBLIC_APP_ENVIRONMENT: dev
+          EXAMPLE_SECRET_KEY: ci-test-secret
   bundle-size:
     runs-on: ubuntu-latest
     name: Bundle Size
