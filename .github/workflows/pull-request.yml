@@ -38,7 +38,7 @@ jobs:
         uses: actions/checkout@v7
       - uses: ./.github/actions/setup-node-environment
       - name: Check types
-        run: pnpm exec turbo check-types --concurrency=1
+        run: turbo check-types --concurrency=1
         env:
           VITE_APP_ENVIRONMENT: dev
           VITE_APP_MSW_ENABLED: false
