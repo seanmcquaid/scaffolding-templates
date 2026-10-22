@@ -13,7 +13,7 @@ import 'dotenv/config';
 
 if (serverEnv.VITE_APP_MSW_ENABLED && serverEnv.NODE_ENV === 'development') {
   server.listen({
-    onUnhandledRequest: 'bypass',
+    onUnhandledFrame: 'bypass',
   });
 }
 export const streamTimeout = 5_000;
