@@ -48,7 +48,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['lcov', 'json-summary'],
     },
-    environment: 'happy-dom',
+    environment: 'jsdom',
     exclude: ['playwright', 'node_modules'],
     globals: true,
     setupFiles: ['./app/utils/testing/setupTests.ts'],
