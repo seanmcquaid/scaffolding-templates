@@ -1,6 +1,9 @@
 import '@testing-library/jest-dom/vitest';
+import { configure } from '@testing-library/react';
 import 'cross-fetch/polyfill';
 import server from '@/mocks/server';
+
+configure({ asyncUtilTimeout: 5000 });
 
 vi.mock('@/i18n/i18next', () => ({ default: {} }));
 
