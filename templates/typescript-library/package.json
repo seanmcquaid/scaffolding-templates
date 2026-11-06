@@ -45,6 +45,7 @@
     "@changesets/cli": "^3.0.2",
     "@eslint/js": "^10.0.1",
     "@tanstack/intent": "^0.5.6",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "@vitest/eslint-plugin": "^1.6.28",
     "@vitest/coverage-istanbul": "^5.0.5",
     "agadoo": "^3.0.0",
@@ -60,7 +61,7 @@
     "dpdm": "^4.3.0",
     "prettier": "^3.9.10",
     "tsdown": "^0.23.4",
-    "typescript": "^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.5",
     "vitest": "^5.0.5"

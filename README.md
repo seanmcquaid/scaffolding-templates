@@ -63,6 +63,10 @@ npx degit https://github.com/seanmcquaid/scaffolding-templates/templates/react-r
 
 For SSR, use `templates/react-router/ssr` instead. The other template paths are listed above.
 
+### TypeScript tooling
+
+The templates install TypeScript side by side: `@typescript/native` aliases the TypeScript 7 compiler (`tsc`), while `typescript` aliases `@typescript/typescript6` for tools that require the TypeScript 6 compiler API, including `typescript-eslint`. Keep both aliases when updating dependencies so linting remains compatible without removing the native compiler.
+
 After scaffolding, run the setup script to automatically configure your development environment:
 
 ```bash
