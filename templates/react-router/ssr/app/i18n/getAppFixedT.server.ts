@@ -9,7 +9,8 @@ const getAppFixedT = (context: RouterContextProvider) => {
   const i18n = getInstance(context);
 
   return {
-    t: (key: LocaleKeys, options?: AppTOptions) => i18n.t(key, options),
+    t: (key: LocaleKeys, options?: AppTOptions) =>
+      options === undefined ? i18n.t(key) : i18n.t(key, options),
   };
 };
 
