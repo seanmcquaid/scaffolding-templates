@@ -9,7 +9,8 @@ const useAppTranslation = () => {
 
   return {
     i18n,
-    t: (key: LocaleKeys, options?: AppTOptions) => t(key, options),
+    t: (key: LocaleKeys, options?: AppTOptions) =>
+      options === undefined ? t(key) : t(key, options),
   };
 };
 
